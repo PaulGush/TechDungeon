@@ -1,0 +1,546 @@
+fileFormatVersion: 2
+guid: a6c1607221987c46a89133af3bb8ed9d
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -3433207099381301396
+    second: Chara_Astronaut10_FullBody_Roll_4Dir_4x4_0
+  - first:
+      213: -6685014384940227384
+    second: Chara_Astronaut10_FullBody_Roll_4Dir_4x4_1
+  - first:
+      213: -842359365717315802
+    second: Chara_Astronaut10_FullBody_Roll_4Dir_4x4_2
+  - first:
+      213: 241480528070850246
+    second: Chara_Astronaut10_FullBody_Roll_4Dir_4x4_3
+  - first:
+      213: -397400639144960053
+    second: Chara_Astronaut10_FullBody_Roll_4Dir_4x4_4
+  - first:
+      213: 5901146552885997892
+    second: Chara_Astronaut10_FullBody_Roll_4Dir_4x4_5
+  - first:
+      213: 4602827346263323209
+    second: Chara_Astronaut10_FullBody_Roll_4Dir_4x4_6
+  - first:
+      213: 8606507635040511106
+    second: Chara_Astronaut10_FullBody_Roll_4Dir_4x4_7
+  - first:
+      213: 3786842235383294164
+    second: Chara_Astronaut10_FullBody_Roll_4Dir_4x4_8
+  - first:
+      213: 8838504134008231334
+    second: Chara_Astronaut10_FullBody_Roll_4Dir_4x4_9
+  - first:
+      213: 396696857703582457
+    second: Chara_Astronaut10_FullBody_Roll_4Dir_4x4_10
+  - first:
+      213: 2235166899054157309
+    second: Chara_Astronaut10_FullBody_Roll_4Dir_4x4_11
+  - first:
+      213: 8457823015310785802
+    second: Chara_Astronaut10_FullBody_Roll_4Dir_4x4_12
+  - first:
+      213: -724884291065341010
+    second: Chara_Astronaut10_FullBody_Roll_4Dir_4x4_13
+  - first:
+      213: -3864021845005920166
+    second: Chara_Astronaut10_FullBody_Roll_4Dir_4x4_14
+  - first:
+      213: 2196405527856968689
+    second: Chara_Astronaut10_FullBody_Roll_4Dir_4x4_15
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Chara_Astronaut10_FullBody_Roll_4Dir_4x4_0
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 135
+        width: 14
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c6f3701455cca50d0800000000000000
+      internalID: -3433207099381301396
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut10_FullBody_Roll_4Dir_4x4_1
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 135
+        width: 14
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8c4e24be5de0a33a0800000000000000
+      internalID: -6685014384940227384
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut10_FullBody_Roll_4Dir_4x4_2
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 135
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 62f2231be965f44f0800000000000000
+      internalID: -842359365717315802
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut10_FullBody_Roll_4Dir_4x4_3
+      rect:
+        serializedVersion: 2
+        x: 140
+        y: 135
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6c636d7c249e95300800000000000000
+      internalID: 241480528070850246
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut10_FullBody_Roll_4Dir_4x4_4
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 93
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bcf504669362c7af0800000000000000
+      internalID: -397400639144960053
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut10_FullBody_Roll_4Dir_4x4_5
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 93
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4417a44368515e150800000000000000
+      internalID: 5901146552885997892
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut10_FullBody_Roll_4Dir_4x4_6
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 93
+        width: 14
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 942ba78a51780ef30800000000000000
+      internalID: 4602827346263323209
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut10_FullBody_Roll_4Dir_4x4_7
+      rect:
+        serializedVersion: 2
+        x: 140
+        y: 93
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 284e6474815707770800000000000000
+      internalID: 8606507635040511106
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut10_FullBody_Roll_4Dir_4x4_8
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 51
+        width: 14
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4d8a77413f09d8430800000000000000
+      internalID: 3786842235383294164
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut10_FullBody_Roll_4Dir_4x4_9
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 51
+        width: 14
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6a5d1657eaca8aa70800000000000000
+      internalID: 8838504134008231334
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut10_FullBody_Roll_4Dir_4x4_10
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 51
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9fa8fe6b0b9518500800000000000000
+      internalID: 396696857703582457
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut10_FullBody_Roll_4Dir_4x4_11
+      rect:
+        serializedVersion: 2
+        x: 140
+        y: 51
+        width: 14
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dfd95d7c378e40f10800000000000000
+      internalID: 2235166899054157309
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut10_FullBody_Roll_4Dir_4x4_12
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 9
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a0df8b09839306570800000000000000
+      internalID: 8457823015310785802
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut10_FullBody_Roll_4Dir_4x4_13
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 9
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eab1acfe391b0f5f0800000000000000
+      internalID: -724884291065341010
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut10_FullBody_Roll_4Dir_4x4_14
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 9
+        width: 14
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a58921cba9c306ac0800000000000000
+      internalID: -3864021845005920166
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut10_FullBody_Roll_4Dir_4x4_15
+      rect:
+        serializedVersion: 2
+        x: 139
+        y: 9
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1f37e96c0333b7e10800000000000000
+      internalID: 2196405527856968689
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Chara_Astronaut10_FullBody_Roll_4Dir_4x4_0: -3433207099381301396
+      Chara_Astronaut10_FullBody_Roll_4Dir_4x4_1: -6685014384940227384
+      Chara_Astronaut10_FullBody_Roll_4Dir_4x4_10: 396696857703582457
+      Chara_Astronaut10_FullBody_Roll_4Dir_4x4_11: 2235166899054157309
+      Chara_Astronaut10_FullBody_Roll_4Dir_4x4_12: 8457823015310785802
+      Chara_Astronaut10_FullBody_Roll_4Dir_4x4_13: -724884291065341010
+      Chara_Astronaut10_FullBody_Roll_4Dir_4x4_14: -3864021845005920166
+      Chara_Astronaut10_FullBody_Roll_4Dir_4x4_15: 2196405527856968689
+      Chara_Astronaut10_FullBody_Roll_4Dir_4x4_2: -842359365717315802
+      Chara_Astronaut10_FullBody_Roll_4Dir_4x4_3: 241480528070850246
+      Chara_Astronaut10_FullBody_Roll_4Dir_4x4_4: -397400639144960053
+      Chara_Astronaut10_FullBody_Roll_4Dir_4x4_5: 5901146552885997892
+      Chara_Astronaut10_FullBody_Roll_4Dir_4x4_6: 4602827346263323209
+      Chara_Astronaut10_FullBody_Roll_4Dir_4x4_7: 8606507635040511106
+      Chara_Astronaut10_FullBody_Roll_4Dir_4x4_8: 3786842235383294164
+      Chara_Astronaut10_FullBody_Roll_4Dir_4x4_9: 8838504134008231334
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,546 @@
+fileFormatVersion: 2
+guid: 481f3a5529132dc788f2c0447fa71921
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -7622809987901684107
+    second: Chara_Astronaut06_DeadBody_Roll_4Dir_4x4_0
+  - first:
+      213: -7767789319526094203
+    second: Chara_Astronaut06_DeadBody_Roll_4Dir_4x4_1
+  - first:
+      213: -1515393401486608116
+    second: Chara_Astronaut06_DeadBody_Roll_4Dir_4x4_2
+  - first:
+      213: -7469407776030319336
+    second: Chara_Astronaut06_DeadBody_Roll_4Dir_4x4_3
+  - first:
+      213: 2964413139749392187
+    second: Chara_Astronaut06_DeadBody_Roll_4Dir_4x4_4
+  - first:
+      213: 4118670203535211249
+    second: Chara_Astronaut06_DeadBody_Roll_4Dir_4x4_5
+  - first:
+      213: -8803282916517065015
+    second: Chara_Astronaut06_DeadBody_Roll_4Dir_4x4_6
+  - first:
+      213: 7905816660826053122
+    second: Chara_Astronaut06_DeadBody_Roll_4Dir_4x4_7
+  - first:
+      213: 7294194329531488515
+    second: Chara_Astronaut06_DeadBody_Roll_4Dir_4x4_8
+  - first:
+      213: 3120281764009418595
+    second: Chara_Astronaut06_DeadBody_Roll_4Dir_4x4_9
+  - first:
+      213: 7489481951100782446
+    second: Chara_Astronaut06_DeadBody_Roll_4Dir_4x4_10
+  - first:
+      213: 3690944715944154095
+    second: Chara_Astronaut06_DeadBody_Roll_4Dir_4x4_11
+  - first:
+      213: 7340886339754447060
+    second: Chara_Astronaut06_DeadBody_Roll_4Dir_4x4_12
+  - first:
+      213: -768570087366011101
+    second: Chara_Astronaut06_DeadBody_Roll_4Dir_4x4_13
+  - first:
+      213: 2979698650094969050
+    second: Chara_Astronaut06_DeadBody_Roll_4Dir_4x4_14
+  - first:
+      213: 2532539837445914484
+    second: Chara_Astronaut06_DeadBody_Roll_4Dir_4x4_15
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Chara_Astronaut06_DeadBody_Roll_4Dir_4x4_0
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 135
+        width: 14
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 57602d014b6563690800000000000000
+      internalID: -7622809987901684107
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut06_DeadBody_Roll_4Dir_4x4_1
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 135
+        width: 14
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 58ae297f4c4433490800000000000000
+      internalID: -7767789319526094203
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut06_DeadBody_Roll_4Dir_4x4_2
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 135
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c097b61fabd38fae0800000000000000
+      internalID: -1515393401486608116
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut06_DeadBody_Roll_4Dir_4x4_3
+      rect:
+        serializedVersion: 2
+        x: 140
+        y: 135
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 81d1c2bc335575890800000000000000
+      internalID: -7469407776030319336
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut06_DeadBody_Roll_4Dir_4x4_4
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 93
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b3f43426b06b32920800000000000000
+      internalID: 2964413139749392187
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut06_DeadBody_Roll_4Dir_4x4_5
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 93
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1fab3bc7ab4782930800000000000000
+      internalID: 4118670203535211249
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut06_DeadBody_Roll_4Dir_4x4_6
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 93
+        width: 14
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9ce4cb744d474d580800000000000000
+      internalID: -8803282916517065015
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut06_DeadBody_Roll_4Dir_4x4_7
+      rect:
+        serializedVersion: 2
+        x: 140
+        y: 93
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 20ad6efbd5a17bd60800000000000000
+      internalID: 7905816660826053122
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut06_DeadBody_Roll_4Dir_4x4_8
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 51
+        width: 14
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 309946ea81f2a3560800000000000000
+      internalID: 7294194329531488515
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut06_DeadBody_Roll_4Dir_4x4_9
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 51
+        width: 14
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 36f19ee7bb77d4b20800000000000000
+      internalID: 3120281764009418595
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut06_DeadBody_Roll_4Dir_4x4_10
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 51
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e67cf0f472cffe760800000000000000
+      internalID: 7489481951100782446
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut06_DeadBody_Roll_4Dir_4x4_11
+      rect:
+        serializedVersion: 2
+        x: 140
+        y: 51
+        width: 14
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fe3d477e9aed83330800000000000000
+      internalID: 3690944715944154095
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut06_DeadBody_Roll_4Dir_4x4_12
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 9
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4d0d4997b3110e560800000000000000
+      internalID: 7340886339754447060
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut06_DeadBody_Roll_4Dir_4x4_13
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 9
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 327de8dd39d7555f0800000000000000
+      internalID: -768570087366011101
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut06_DeadBody_Roll_4Dir_4x4_14
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 9
+        width: 14
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ad02f9892240a5920800000000000000
+      internalID: 2979698650094969050
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut06_DeadBody_Roll_4Dir_4x4_15
+      rect:
+        serializedVersion: 2
+        x: 139
+        y: 9
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 47f3d7e6093652320800000000000000
+      internalID: 2532539837445914484
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Chara_Astronaut06_DeadBody_Roll_4Dir_4x4_0: -7622809987901684107
+      Chara_Astronaut06_DeadBody_Roll_4Dir_4x4_1: -7767789319526094203
+      Chara_Astronaut06_DeadBody_Roll_4Dir_4x4_10: 7489481951100782446
+      Chara_Astronaut06_DeadBody_Roll_4Dir_4x4_11: 3690944715944154095
+      Chara_Astronaut06_DeadBody_Roll_4Dir_4x4_12: 7340886339754447060
+      Chara_Astronaut06_DeadBody_Roll_4Dir_4x4_13: -768570087366011101
+      Chara_Astronaut06_DeadBody_Roll_4Dir_4x4_14: 2979698650094969050
+      Chara_Astronaut06_DeadBody_Roll_4Dir_4x4_15: 2532539837445914484
+      Chara_Astronaut06_DeadBody_Roll_4Dir_4x4_2: -1515393401486608116
+      Chara_Astronaut06_DeadBody_Roll_4Dir_4x4_3: -7469407776030319336
+      Chara_Astronaut06_DeadBody_Roll_4Dir_4x4_4: 2964413139749392187
+      Chara_Astronaut06_DeadBody_Roll_4Dir_4x4_5: 4118670203535211249
+      Chara_Astronaut06_DeadBody_Roll_4Dir_4x4_6: -8803282916517065015
+      Chara_Astronaut06_DeadBody_Roll_4Dir_4x4_7: 7905816660826053122
+      Chara_Astronaut06_DeadBody_Roll_4Dir_4x4_8: 7294194329531488515
+      Chara_Astronaut06_DeadBody_Roll_4Dir_4x4_9: 3120281764009418595
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,550 @@
+fileFormatVersion: 2
+guid: b1a4a7754aea78ebea99111f76e26616
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -9151912715434335904
+    second: Chara_Astronaut00_DeadBody_Dive_4Dir_4x4_0
+  - first:
+      213: -8852853822259900757
+    second: Chara_Astronaut00_DeadBody_Dive_4Dir_4x4_1
+  - first:
+      213: 1959139396283438641
+    second: Chara_Astronaut00_DeadBody_Dive_4Dir_4x4_2
+  - first:
+      213: 4169193144995569188
+    second: Chara_Astronaut00_DeadBody_Dive_4Dir_4x4_3
+  - first:
+      213: -7722147626972892484
+    second: Chara_Astronaut00_DeadBody_Dive_4Dir_4x4_4
+  - first:
+      213: 546620586613841769
+    second: Chara_Astronaut00_DeadBody_Dive_4Dir_4x4_5
+  - first:
+      213: -6138466953689308153
+    second: Chara_Astronaut00_DeadBody_Dive_4Dir_4x4_6
+  - first:
+      213: -5593560903194112594
+    second: Chara_Astronaut00_DeadBody_Dive_4Dir_4x4_7
+  - first:
+      213: 2079415050856418561
+    second: Chara_Astronaut00_DeadBody_Dive_4Dir_4x4_8
+  - first:
+      213: -867254359425379122
+    second: Chara_Astronaut00_DeadBody_Dive_4Dir_4x4_9
+  - first:
+      213: -4900756417293312330
+    second: Chara_Astronaut00_DeadBody_Dive_4Dir_4x4_10
+  - first:
+      213: 633032910334819776
+    second: Chara_Astronaut00_DeadBody_Dive_4Dir_4x4_11
+  - first:
+      213: 3426083923331060314
+    second: Chara_Astronaut00_DeadBody_Dive_4Dir_4x4_12
+  - first:
+      213: 2674520790903928657
+    second: Chara_Astronaut00_DeadBody_Dive_4Dir_4x4_13
+  - first:
+      213: 6942417230162005033
+    second: Chara_Astronaut00_DeadBody_Dive_4Dir_4x4_14
+  - first:
+      213: 8322151136713460766
+    second: Chara_Astronaut00_DeadBody_Dive_4Dir_4x4_15
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Chara_Astronaut00_DeadBody_Dive_4Dir_4x4_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 126
+        width: 42
+        height: 42
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 061e72dcfdfddf080800000000000000
+      internalID: -9151912715434335904
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut00_DeadBody_Dive_4Dir_4x4_1
+      rect:
+        serializedVersion: 2
+        x: 42
+        y: 126
+        width: 42
+        height: 42
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bae4db36a58542580800000000000000
+      internalID: -8852853822259900757
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut00_DeadBody_Dive_4Dir_4x4_2
+      rect:
+        serializedVersion: 2
+        x: 84
+        y: 126
+        width: 42
+        height: 42
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 13692f4a6e2403b10800000000000000
+      internalID: 1959139396283438641
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut00_DeadBody_Dive_4Dir_4x4_3
+      rect:
+        serializedVersion: 2
+        x: 126
+        y: 126
+        width: 42
+        height: 42
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 42e54777313fbd930800000000000000
+      internalID: 4169193144995569188
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut00_DeadBody_Dive_4Dir_4x4_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 84
+        width: 42
+        height: 42
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cb2b72f95ab65d490800000000000000
+      internalID: -7722147626972892484
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut00_DeadBody_Dive_4Dir_4x4_5
+      rect:
+        serializedVersion: 2
+        x: 42
+        y: 84
+        width: 42
+        height: 42
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 96f9804078cf59700800000000000000
+      internalID: 546620586613841769
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut00_DeadBody_Dive_4Dir_4x4_6
+      rect:
+        serializedVersion: 2
+        x: 84
+        y: 84
+        width: 42
+        height: 42
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 704efdf14d8cfcaa0800000000000000
+      internalID: -6138466953689308153
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut00_DeadBody_Dive_4Dir_4x4_7
+      rect:
+        serializedVersion: 2
+        x: 126
+        y: 84
+        width: 42
+        height: 42
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ead0a979efdaf52b0800000000000000
+      internalID: -5593560903194112594
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut00_DeadBody_Dive_4Dir_4x4_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 42
+        width: 42
+        height: 42
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 10dc5e6b8f09bdc10800000000000000
+      internalID: 2079415050856418561
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut00_DeadBody_Dive_4Dir_4x4_9
+      rect:
+        serializedVersion: 2
+        x: 42
+        y: 42
+        width: 42
+        height: 42
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ec49a8841c4e6f3f0800000000000000
+      internalID: -867254359425379122
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut00_DeadBody_Dive_4Dir_4x4_10
+      rect:
+        serializedVersion: 2
+        x: 84
+        y: 42
+        width: 42
+        height: 42
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6be1488f0040dfbb0800000000000000
+      internalID: -4900756417293312330
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut00_DeadBody_Dive_4Dir_4x4_11
+      rect:
+        serializedVersion: 2
+        x: 126
+        y: 42
+        width: 42
+        height: 42
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0cd73a7f31cf8c800800000000000000
+      internalID: 633032910334819776
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut00_DeadBody_Dive_4Dir_4x4_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 42
+        height: 42
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a5213d41d25eb8f20800000000000000
+      internalID: 3426083923331060314
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut00_DeadBody_Dive_4Dir_4x4_13
+      rect:
+        serializedVersion: 2
+        x: 42
+        y: 0
+        width: 42
+        height: 42
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 157b9363d7ecd1520800000000000000
+      internalID: 2674520790903928657
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut00_DeadBody_Dive_4Dir_4x4_14
+      rect:
+        serializedVersion: 2
+        x: 84
+        y: 0
+        width: 42
+        height: 42
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 92c8b5630bb685060800000000000000
+      internalID: 6942417230162005033
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut00_DeadBody_Dive_4Dir_4x4_15
+      rect:
+        serializedVersion: 2
+        x: 126
+        y: 0
+        width: 42
+        height: 42
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e1c4beebd583e7370800000000000000
+      internalID: 8322151136713460766
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: b2a5af88d35e7892c921d7af5f0903cc
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceOnImport
+        value: True
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":true,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":42.0,"y":42.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      Chara_Astronaut00_DeadBody_Dive_4Dir_4x4_0: -9151912715434335904
+      Chara_Astronaut00_DeadBody_Dive_4Dir_4x4_1: -8852853822259900757
+      Chara_Astronaut00_DeadBody_Dive_4Dir_4x4_10: -4900756417293312330
+      Chara_Astronaut00_DeadBody_Dive_4Dir_4x4_11: 633032910334819776
+      Chara_Astronaut00_DeadBody_Dive_4Dir_4x4_12: 3426083923331060314
+      Chara_Astronaut00_DeadBody_Dive_4Dir_4x4_13: 2674520790903928657
+      Chara_Astronaut00_DeadBody_Dive_4Dir_4x4_14: 6942417230162005033
+      Chara_Astronaut00_DeadBody_Dive_4Dir_4x4_15: 8322151136713460766
+      Chara_Astronaut00_DeadBody_Dive_4Dir_4x4_2: 1959139396283438641
+      Chara_Astronaut00_DeadBody_Dive_4Dir_4x4_3: 4169193144995569188
+      Chara_Astronaut00_DeadBody_Dive_4Dir_4x4_4: -7722147626972892484
+      Chara_Astronaut00_DeadBody_Dive_4Dir_4x4_5: 546620586613841769
+      Chara_Astronaut00_DeadBody_Dive_4Dir_4x4_6: -6138466953689308153
+      Chara_Astronaut00_DeadBody_Dive_4Dir_4x4_7: -5593560903194112594
+      Chara_Astronaut00_DeadBody_Dive_4Dir_4x4_8: 2079415050856418561
+      Chara_Astronaut00_DeadBody_Dive_4Dir_4x4_9: -867254359425379122
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

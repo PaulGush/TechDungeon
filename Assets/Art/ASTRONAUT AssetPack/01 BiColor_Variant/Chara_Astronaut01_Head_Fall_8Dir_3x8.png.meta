@@ -1,0 +1,754 @@
+fileFormatVersion: 2
+guid: 48bbea5290855799f9345fc3e02a8c96
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -1028522777651496425
+    second: Chara_Astronaut01_Head_Fall_8Dir_3x8_0
+  - first:
+      213: -633796118584075545
+    second: Chara_Astronaut01_Head_Fall_8Dir_3x8_1
+  - first:
+      213: -6704182659923803114
+    second: Chara_Astronaut01_Head_Fall_8Dir_3x8_2
+  - first:
+      213: -6189230250754731277
+    second: Chara_Astronaut01_Head_Fall_8Dir_3x8_3
+  - first:
+      213: 4553638864114767961
+    second: Chara_Astronaut01_Head_Fall_8Dir_3x8_4
+  - first:
+      213: -5592094570161640810
+    second: Chara_Astronaut01_Head_Fall_8Dir_3x8_5
+  - first:
+      213: 3555212882514748974
+    second: Chara_Astronaut01_Head_Fall_8Dir_3x8_6
+  - first:
+      213: 4980026837286074844
+    second: Chara_Astronaut01_Head_Fall_8Dir_3x8_7
+  - first:
+      213: -8686595160399153886
+    second: Chara_Astronaut01_Head_Fall_8Dir_3x8_8
+  - first:
+      213: -1163866146496699975
+    second: Chara_Astronaut01_Head_Fall_8Dir_3x8_9
+  - first:
+      213: 5358631899202738006
+    second: Chara_Astronaut01_Head_Fall_8Dir_3x8_10
+  - first:
+      213: -4768851458509192791
+    second: Chara_Astronaut01_Head_Fall_8Dir_3x8_11
+  - first:
+      213: -8825712611053393167
+    second: Chara_Astronaut01_Head_Fall_8Dir_3x8_12
+  - first:
+      213: -7660702145923265955
+    second: Chara_Astronaut01_Head_Fall_8Dir_3x8_13
+  - first:
+      213: 8310086335416280035
+    second: Chara_Astronaut01_Head_Fall_8Dir_3x8_14
+  - first:
+      213: 7703476655948846461
+    second: Chara_Astronaut01_Head_Fall_8Dir_3x8_15
+  - first:
+      213: -5302793681049111479
+    second: Chara_Astronaut01_Head_Fall_8Dir_3x8_16
+  - first:
+      213: 7034638086886537165
+    second: Chara_Astronaut01_Head_Fall_8Dir_3x8_17
+  - first:
+      213: -7062447749669781814
+    second: Chara_Astronaut01_Head_Fall_8Dir_3x8_18
+  - first:
+      213: -8092046856788903069
+    second: Chara_Astronaut01_Head_Fall_8Dir_3x8_19
+  - first:
+      213: -5278608614609920160
+    second: Chara_Astronaut01_Head_Fall_8Dir_3x8_20
+  - first:
+      213: -5371255191912016131
+    second: Chara_Astronaut01_Head_Fall_8Dir_3x8_21
+  - first:
+      213: -3624903677509425978
+    second: Chara_Astronaut01_Head_Fall_8Dir_3x8_22
+  - first:
+      213: 3380913072712015940
+    second: Chara_Astronaut01_Head_Fall_8Dir_3x8_23
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Chara_Astronaut01_Head_Fall_8Dir_3x8_0
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 309
+        width: 14
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 71a3faaabf3f9b1f0800000000000000
+      internalID: -1028522777651496425
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut01_Head_Fall_8Dir_3x8_1
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 308
+        width: 14
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7ea56c3c9cd4437f0800000000000000
+      internalID: -633796118584075545
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut01_Head_Fall_8Dir_3x8_2
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 305
+        width: 14
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 61488ed1465f5f2a0800000000000000
+      internalID: -6704182659923803114
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut01_Head_Fall_8Dir_3x8_3
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 267
+        width: 14
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3f299aef0ef6b1aa0800000000000000
+      internalID: -6189230250754731277
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut01_Head_Fall_8Dir_3x8_4
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 266
+        width: 14
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 95859f2bb66c13f30800000000000000
+      internalID: 4553638864114767961
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut01_Head_Fall_8Dir_3x8_5
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 263
+        width: 14
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 69aef1bdd93e462b0800000000000000
+      internalID: -5592094570161640810
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut01_Head_Fall_8Dir_3x8_6
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 225
+        width: 14
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e262f23c747a65130800000000000000
+      internalID: 3555212882514748974
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut01_Head_Fall_8Dir_3x8_7
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 224
+        width: 14
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cd93950f50c9c1540800000000000000
+      internalID: 4980026837286074844
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut01_Head_Fall_8Dir_3x8_8
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 221
+        width: 14
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 225f7c4a9b3037780800000000000000
+      internalID: -8686595160399153886
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut01_Head_Fall_8Dir_3x8_9
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 183
+        width: 14
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9b126fbf7ed19dfe0800000000000000
+      internalID: -1163866146496699975
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut01_Head_Fall_8Dir_3x8_10
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 182
+        width: 14
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6575e02325fad5a40800000000000000
+      internalID: 5358631899202738006
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut01_Head_Fall_8Dir_3x8_11
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 179
+        width: 14
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9a1c4fc6dd2a1ddb0800000000000000
+      internalID: -4768851458509192791
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut01_Head_Fall_8Dir_3x8_12
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 141
+        width: 14
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1fa2a701425c48580800000000000000
+      internalID: -8825712611053393167
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut01_Head_Fall_8Dir_3x8_13
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 140
+        width: 14
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d5acb268cf7bfa590800000000000000
+      internalID: -7660702145923265955
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut01_Head_Fall_8Dir_3x8_14
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 137
+        width: 14
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3e3a05b4e7b535370800000000000000
+      internalID: 8310086335416280035
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut01_Head_Fall_8Dir_3x8_15
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 99
+        width: 14
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d75585d243f38ea60800000000000000
+      internalID: 7703476655948846461
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut01_Head_Fall_8Dir_3x8_16
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 98
+        width: 14
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 944b1e31e31b866b0800000000000000
+      internalID: -5302793681049111479
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut01_Head_Fall_8Dir_3x8_17
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 95
+        width: 14
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dc73e44a11e00a160800000000000000
+      internalID: 7034638086886537165
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut01_Head_Fall_8Dir_3x8_18
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 57
+        width: 14
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: acefc2ca0352dfd90800000000000000
+      internalID: -7062447749669781814
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut01_Head_Fall_8Dir_3x8_19
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 56
+        width: 14
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 36bf74bd14643bf80800000000000000
+      internalID: -8092046856788903069
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut01_Head_Fall_8Dir_3x8_20
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 53
+        width: 14
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 06fdbd9ae6d9eb6b0800000000000000
+      internalID: -5278608614609920160
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut01_Head_Fall_8Dir_3x8_21
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 15
+        width: 14
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: df69c107cd77575b0800000000000000
+      internalID: -5371255191912016131
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut01_Head_Fall_8Dir_3x8_22
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 14
+        width: 14
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6c42b059f41c1bdc0800000000000000
+      internalID: -3624903677509425978
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut01_Head_Fall_8Dir_3x8_23
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 11
+        width: 14
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 440697bd68a6bee20800000000000000
+      internalID: 3380913072712015940
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Chara_Astronaut01_Head_Fall_8Dir_3x8_0: -1028522777651496425
+      Chara_Astronaut01_Head_Fall_8Dir_3x8_1: -633796118584075545
+      Chara_Astronaut01_Head_Fall_8Dir_3x8_10: 5358631899202738006
+      Chara_Astronaut01_Head_Fall_8Dir_3x8_11: -4768851458509192791
+      Chara_Astronaut01_Head_Fall_8Dir_3x8_12: -8825712611053393167
+      Chara_Astronaut01_Head_Fall_8Dir_3x8_13: -7660702145923265955
+      Chara_Astronaut01_Head_Fall_8Dir_3x8_14: 8310086335416280035
+      Chara_Astronaut01_Head_Fall_8Dir_3x8_15: 7703476655948846461
+      Chara_Astronaut01_Head_Fall_8Dir_3x8_16: -5302793681049111479
+      Chara_Astronaut01_Head_Fall_8Dir_3x8_17: 7034638086886537165
+      Chara_Astronaut01_Head_Fall_8Dir_3x8_18: -7062447749669781814
+      Chara_Astronaut01_Head_Fall_8Dir_3x8_19: -8092046856788903069
+      Chara_Astronaut01_Head_Fall_8Dir_3x8_2: -6704182659923803114
+      Chara_Astronaut01_Head_Fall_8Dir_3x8_20: -5278608614609920160
+      Chara_Astronaut01_Head_Fall_8Dir_3x8_21: -5371255191912016131
+      Chara_Astronaut01_Head_Fall_8Dir_3x8_22: -3624903677509425978
+      Chara_Astronaut01_Head_Fall_8Dir_3x8_23: 3380913072712015940
+      Chara_Astronaut01_Head_Fall_8Dir_3x8_3: -6189230250754731277
+      Chara_Astronaut01_Head_Fall_8Dir_3x8_4: 4553638864114767961
+      Chara_Astronaut01_Head_Fall_8Dir_3x8_5: -5592094570161640810
+      Chara_Astronaut01_Head_Fall_8Dir_3x8_6: 3555212882514748974
+      Chara_Astronaut01_Head_Fall_8Dir_3x8_7: 4980026837286074844
+      Chara_Astronaut01_Head_Fall_8Dir_3x8_8: -8686595160399153886
+      Chara_Astronaut01_Head_Fall_8Dir_3x8_9: -1163866146496699975
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

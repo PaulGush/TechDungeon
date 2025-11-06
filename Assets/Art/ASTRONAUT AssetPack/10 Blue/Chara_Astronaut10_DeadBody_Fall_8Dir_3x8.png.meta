@@ -1,0 +1,754 @@
+fileFormatVersion: 2
+guid: 0c0734a9c2d190e5c9d208efe64509ad
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 2960373414537804040
+    second: Chara_Astronaut10_DeadBody_Fall_8Dir_3x8_0
+  - first:
+      213: -4450538614469914125
+    second: Chara_Astronaut10_DeadBody_Fall_8Dir_3x8_1
+  - first:
+      213: -404255690013259456
+    second: Chara_Astronaut10_DeadBody_Fall_8Dir_3x8_2
+  - first:
+      213: -4375489518157735177
+    second: Chara_Astronaut10_DeadBody_Fall_8Dir_3x8_3
+  - first:
+      213: 6299844284573403936
+    second: Chara_Astronaut10_DeadBody_Fall_8Dir_3x8_4
+  - first:
+      213: 4046498218533607524
+    second: Chara_Astronaut10_DeadBody_Fall_8Dir_3x8_5
+  - first:
+      213: -1853433323952133912
+    second: Chara_Astronaut10_DeadBody_Fall_8Dir_3x8_6
+  - first:
+      213: 1073260350143992199
+    second: Chara_Astronaut10_DeadBody_Fall_8Dir_3x8_7
+  - first:
+      213: 5788987495228529373
+    second: Chara_Astronaut10_DeadBody_Fall_8Dir_3x8_8
+  - first:
+      213: -4605754540312588168
+    second: Chara_Astronaut10_DeadBody_Fall_8Dir_3x8_9
+  - first:
+      213: -8077362042520465702
+    second: Chara_Astronaut10_DeadBody_Fall_8Dir_3x8_10
+  - first:
+      213: 2857025563501473668
+    second: Chara_Astronaut10_DeadBody_Fall_8Dir_3x8_11
+  - first:
+      213: 1413358329672757151
+    second: Chara_Astronaut10_DeadBody_Fall_8Dir_3x8_12
+  - first:
+      213: -6957383962465169745
+    second: Chara_Astronaut10_DeadBody_Fall_8Dir_3x8_13
+  - first:
+      213: 467788522892214237
+    second: Chara_Astronaut10_DeadBody_Fall_8Dir_3x8_14
+  - first:
+      213: 4400793584966318923
+    second: Chara_Astronaut10_DeadBody_Fall_8Dir_3x8_15
+  - first:
+      213: 7248087961650899221
+    second: Chara_Astronaut10_DeadBody_Fall_8Dir_3x8_16
+  - first:
+      213: 6362717019681267503
+    second: Chara_Astronaut10_DeadBody_Fall_8Dir_3x8_17
+  - first:
+      213: 4554756325021240087
+    second: Chara_Astronaut10_DeadBody_Fall_8Dir_3x8_18
+  - first:
+      213: 589422709439512776
+    second: Chara_Astronaut10_DeadBody_Fall_8Dir_3x8_19
+  - first:
+      213: 3830258484342411322
+    second: Chara_Astronaut10_DeadBody_Fall_8Dir_3x8_20
+  - first:
+      213: -7388027692030446913
+    second: Chara_Astronaut10_DeadBody_Fall_8Dir_3x8_21
+  - first:
+      213: -5041965139095446813
+    second: Chara_Astronaut10_DeadBody_Fall_8Dir_3x8_22
+  - first:
+      213: 5200121467712215070
+    second: Chara_Astronaut10_DeadBody_Fall_8Dir_3x8_23
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Chara_Astronaut10_DeadBody_Fall_8Dir_3x8_0
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 306
+        width: 12
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 80939009feb551920800000000000000
+      internalID: 2960373414537804040
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut10_DeadBody_Fall_8Dir_3x8_1
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 305
+        width: 12
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3f19c59c5b28c32c0800000000000000
+      internalID: -4450538614469914125
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut10_DeadBody_Fall_8Dir_3x8_2
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 305
+        width: 12
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 049445e779bc36af0800000000000000
+      internalID: -404255690013259456
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut10_DeadBody_Fall_8Dir_3x8_3
+      rect:
+        serializedVersion: 2
+        x: 12
+        y: 265
+        width: 14
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7fa53cf27732743c0800000000000000
+      internalID: -4375489518157735177
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut10_DeadBody_Fall_8Dir_3x8_4
+      rect:
+        serializedVersion: 2
+        x: 54
+        y: 264
+        width: 14
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 02bc542bffa8d6750800000000000000
+      internalID: 6299844284573403936
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut10_DeadBody_Fall_8Dir_3x8_5
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 263
+        width: 14
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 46852f3c0bc082830800000000000000
+      internalID: 4046498218533607524
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut10_DeadBody_Fall_8Dir_3x8_6
+      rect:
+        serializedVersion: 2
+        x: 12
+        y: 223
+        width: 14
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8e826f636384746e0800000000000000
+      internalID: -1853433323952133912
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut10_DeadBody_Fall_8Dir_3x8_7
+      rect:
+        serializedVersion: 2
+        x: 54
+        y: 222
+        width: 14
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 78118d12a9cf4ee00800000000000000
+      internalID: 1073260350143992199
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut10_DeadBody_Fall_8Dir_3x8_8
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 221
+        width: 14
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dda564e947d965050800000000000000
+      internalID: 5788987495228529373
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut10_DeadBody_Fall_8Dir_3x8_9
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 181
+        width: 12
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 870960ed5a21510c0800000000000000
+      internalID: -4605754540312588168
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut10_DeadBody_Fall_8Dir_3x8_10
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 180
+        width: 12
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ade085d940277ef80800000000000000
+      internalID: -8077362042520465702
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut10_DeadBody_Fall_8Dir_3x8_11
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 179
+        width: 12
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 48f27b2ec9136a720800000000000000
+      internalID: 2857025563501473668
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut10_DeadBody_Fall_8Dir_3x8_12
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 138
+        width: 10
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f9feb7c99e14d9310800000000000000
+      internalID: 1413358329672757151
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut10_DeadBody_Fall_8Dir_3x8_13
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 137
+        width: 10
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fae834fd528627f90800000000000000
+      internalID: -6957383962465169745
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut10_DeadBody_Fall_8Dir_3x8_14
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 137
+        width: 12
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ddfbef0ee2bed7600800000000000000
+      internalID: 467788522892214237
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut10_DeadBody_Fall_8Dir_3x8_15
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 97
+        width: 12
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b4b3cb9f272c21d30800000000000000
+      internalID: 4400793584966318923
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut10_DeadBody_Fall_8Dir_3x8_16
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 96
+        width: 12
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 519acfe5991669460800000000000000
+      internalID: 7248087961650899221
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut10_DeadBody_Fall_8Dir_3x8_17
+      rect:
+        serializedVersion: 2
+        x: 100
+        y: 95
+        width: 12
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f2f1f641b69ec4850800000000000000
+      internalID: 6362717019681267503
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut10_DeadBody_Fall_8Dir_3x8_18
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 55
+        width: 14
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 71bca57debeb53f30800000000000000
+      internalID: 4554756325021240087
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut10_DeadBody_Fall_8Dir_3x8_19
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 54
+        width: 14
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8c0c0b2d4dc0e2800800000000000000
+      internalID: 589422709439512776
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut10_DeadBody_Fall_8Dir_3x8_20
+      rect:
+        serializedVersion: 2
+        x: 100
+        y: 53
+        width: 14
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a30d7254ccfc72530800000000000000
+      internalID: 3830258484342411322
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut10_DeadBody_Fall_8Dir_3x8_21
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 13
+        width: 14
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fb2b6c125f3787990800000000000000
+      internalID: -7388027692030446913
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut10_DeadBody_Fall_8Dir_3x8_22
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 12
+        width: 14
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3ea10526b67570ab0800000000000000
+      internalID: -5041965139095446813
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut10_DeadBody_Fall_8Dir_3x8_23
+      rect:
+        serializedVersion: 2
+        x: 100
+        y: 11
+        width: 14
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e189ed76cea8a2840800000000000000
+      internalID: 5200121467712215070
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Chara_Astronaut10_DeadBody_Fall_8Dir_3x8_0: 2960373414537804040
+      Chara_Astronaut10_DeadBody_Fall_8Dir_3x8_1: -4450538614469914125
+      Chara_Astronaut10_DeadBody_Fall_8Dir_3x8_10: -8077362042520465702
+      Chara_Astronaut10_DeadBody_Fall_8Dir_3x8_11: 2857025563501473668
+      Chara_Astronaut10_DeadBody_Fall_8Dir_3x8_12: 1413358329672757151
+      Chara_Astronaut10_DeadBody_Fall_8Dir_3x8_13: -6957383962465169745
+      Chara_Astronaut10_DeadBody_Fall_8Dir_3x8_14: 467788522892214237
+      Chara_Astronaut10_DeadBody_Fall_8Dir_3x8_15: 4400793584966318923
+      Chara_Astronaut10_DeadBody_Fall_8Dir_3x8_16: 7248087961650899221
+      Chara_Astronaut10_DeadBody_Fall_8Dir_3x8_17: 6362717019681267503
+      Chara_Astronaut10_DeadBody_Fall_8Dir_3x8_18: 4554756325021240087
+      Chara_Astronaut10_DeadBody_Fall_8Dir_3x8_19: 589422709439512776
+      Chara_Astronaut10_DeadBody_Fall_8Dir_3x8_2: -404255690013259456
+      Chara_Astronaut10_DeadBody_Fall_8Dir_3x8_20: 3830258484342411322
+      Chara_Astronaut10_DeadBody_Fall_8Dir_3x8_21: -7388027692030446913
+      Chara_Astronaut10_DeadBody_Fall_8Dir_3x8_22: -5041965139095446813
+      Chara_Astronaut10_DeadBody_Fall_8Dir_3x8_23: 5200121467712215070
+      Chara_Astronaut10_DeadBody_Fall_8Dir_3x8_3: -4375489518157735177
+      Chara_Astronaut10_DeadBody_Fall_8Dir_3x8_4: 6299844284573403936
+      Chara_Astronaut10_DeadBody_Fall_8Dir_3x8_5: 4046498218533607524
+      Chara_Astronaut10_DeadBody_Fall_8Dir_3x8_6: -1853433323952133912
+      Chara_Astronaut10_DeadBody_Fall_8Dir_3x8_7: 1073260350143992199
+      Chara_Astronaut10_DeadBody_Fall_8Dir_3x8_8: 5788987495228529373
+      Chara_Astronaut10_DeadBody_Fall_8Dir_3x8_9: -4605754540312588168
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

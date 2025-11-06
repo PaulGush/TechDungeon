@@ -1,0 +1,962 @@
+fileFormatVersion: 2
+guid: 8e2d0ce609f2f5bbf8553ea993cd6669
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -810622178500533862
+    second: Chara_Astronaut03_FullBody_Jump_8Dir_4x8_0
+  - first:
+      213: 7925366407606309032
+    second: Chara_Astronaut03_FullBody_Jump_8Dir_4x8_1
+  - first:
+      213: -3588773977201164673
+    second: Chara_Astronaut03_FullBody_Jump_8Dir_4x8_2
+  - first:
+      213: 6652720478540324379
+    second: Chara_Astronaut03_FullBody_Jump_8Dir_4x8_3
+  - first:
+      213: 3323482226795668151
+    second: Chara_Astronaut03_FullBody_Jump_8Dir_4x8_4
+  - first:
+      213: 8610487505795365927
+    second: Chara_Astronaut03_FullBody_Jump_8Dir_4x8_5
+  - first:
+      213: 6129740779987464688
+    second: Chara_Astronaut03_FullBody_Jump_8Dir_4x8_6
+  - first:
+      213: -5510933832124206694
+    second: Chara_Astronaut03_FullBody_Jump_8Dir_4x8_7
+  - first:
+      213: 1326621163870349904
+    second: Chara_Astronaut03_FullBody_Jump_8Dir_4x8_8
+  - first:
+      213: 2585380973943412770
+    second: Chara_Astronaut03_FullBody_Jump_8Dir_4x8_9
+  - first:
+      213: 1650098813902506008
+    second: Chara_Astronaut03_FullBody_Jump_8Dir_4x8_10
+  - first:
+      213: 2871989786283144812
+    second: Chara_Astronaut03_FullBody_Jump_8Dir_4x8_11
+  - first:
+      213: -4849805003979243761
+    second: Chara_Astronaut03_FullBody_Jump_8Dir_4x8_12
+  - first:
+      213: -7739571125684117476
+    second: Chara_Astronaut03_FullBody_Jump_8Dir_4x8_13
+  - first:
+      213: -8424632528659619201
+    second: Chara_Astronaut03_FullBody_Jump_8Dir_4x8_14
+  - first:
+      213: -8940432726811915117
+    second: Chara_Astronaut03_FullBody_Jump_8Dir_4x8_15
+  - first:
+      213: -2325509905991648629
+    second: Chara_Astronaut03_FullBody_Jump_8Dir_4x8_16
+  - first:
+      213: -4672833345134213383
+    second: Chara_Astronaut03_FullBody_Jump_8Dir_4x8_17
+  - first:
+      213: 8682639324050411405
+    second: Chara_Astronaut03_FullBody_Jump_8Dir_4x8_18
+  - first:
+      213: -2117632075686162425
+    second: Chara_Astronaut03_FullBody_Jump_8Dir_4x8_19
+  - first:
+      213: 8560280692557733093
+    second: Chara_Astronaut03_FullBody_Jump_8Dir_4x8_20
+  - first:
+      213: 1329068528466631304
+    second: Chara_Astronaut03_FullBody_Jump_8Dir_4x8_21
+  - first:
+      213: 3173417035709941084
+    second: Chara_Astronaut03_FullBody_Jump_8Dir_4x8_22
+  - first:
+      213: -6696211265812048813
+    second: Chara_Astronaut03_FullBody_Jump_8Dir_4x8_23
+  - first:
+      213: -2361259250409632209
+    second: Chara_Astronaut03_FullBody_Jump_8Dir_4x8_24
+  - first:
+      213: -4430446875439734843
+    second: Chara_Astronaut03_FullBody_Jump_8Dir_4x8_25
+  - first:
+      213: -8100587522422387807
+    second: Chara_Astronaut03_FullBody_Jump_8Dir_4x8_26
+  - first:
+      213: -7044765445040283470
+    second: Chara_Astronaut03_FullBody_Jump_8Dir_4x8_27
+  - first:
+      213: 799244777889155696
+    second: Chara_Astronaut03_FullBody_Jump_8Dir_4x8_28
+  - first:
+      213: -3133462303499105756
+    second: Chara_Astronaut03_FullBody_Jump_8Dir_4x8_29
+  - first:
+      213: -1127712181363605780
+    second: Chara_Astronaut03_FullBody_Jump_8Dir_4x8_30
+  - first:
+      213: 5749440180703650530
+    second: Chara_Astronaut03_FullBody_Jump_8Dir_4x8_31
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Chara_Astronaut03_FullBody_Jump_8Dir_4x8_0
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 303
+        width: 14
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a912c6b6c6710c4f0800000000000000
+      internalID: -810622178500533862
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut03_FullBody_Jump_8Dir_4x8_1
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 303
+        width: 14
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8a01030e1ce8cfd60800000000000000
+      internalID: 7925366407606309032
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut03_FullBody_Jump_8Dir_4x8_2
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 305
+        width: 14
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f7e32c5f41d123ec0800000000000000
+      internalID: -3588773977201164673
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut03_FullBody_Jump_8Dir_4x8_3
+      rect:
+        serializedVersion: 2
+        x: 140
+        y: 306
+        width: 14
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b1edc511706335c50800000000000000
+      internalID: 6652720478540324379
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut03_FullBody_Jump_8Dir_4x8_4
+      rect:
+        serializedVersion: 2
+        x: 12
+        y: 261
+        width: 16
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7b2ea790a716f1e20800000000000000
+      internalID: 3323482226795668151
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut03_FullBody_Jump_8Dir_4x8_5
+      rect:
+        serializedVersion: 2
+        x: 54
+        y: 261
+        width: 16
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 72c3fd524c89e7770800000000000000
+      internalID: 8610487505795365927
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut03_FullBody_Jump_8Dir_4x8_6
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 264
+        width: 16
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0f1f06c33c6311550800000000000000
+      internalID: 6129740779987464688
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut03_FullBody_Jump_8Dir_4x8_7
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 265
+        width: 16
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a91fd8bb0ea3583b0800000000000000
+      internalID: -5510933832124206694
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut03_FullBody_Jump_8Dir_4x8_8
+      rect:
+        serializedVersion: 2
+        x: 12
+        y: 219
+        width: 16
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 05ae1087bea196210800000000000000
+      internalID: 1326621163870349904
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut03_FullBody_Jump_8Dir_4x8_9
+      rect:
+        serializedVersion: 2
+        x: 54
+        y: 219
+        width: 16
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 22853f04c4e11e320800000000000000
+      internalID: 2585380973943412770
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut03_FullBody_Jump_8Dir_4x8_10
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 222
+        width: 16
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 818c3fee02456e610800000000000000
+      internalID: 1650098813902506008
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut03_FullBody_Jump_8Dir_4x8_11
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 223
+        width: 16
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c66f4f18e7b5bd720800000000000000
+      internalID: 2871989786283144812
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut03_FullBody_Jump_8Dir_4x8_12
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 177
+        width: 14
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f0fb7e35b0802bcb0800000000000000
+      internalID: -4849805003979243761
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut03_FullBody_Jump_8Dir_4x8_13
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 177
+        width: 14
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c106ab33115879490800000000000000
+      internalID: -7739571125684117476
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut03_FullBody_Jump_8Dir_4x8_14
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 180
+        width: 14
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f72ea0ec951b51b80800000000000000
+      internalID: -8424632528659619201
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut03_FullBody_Jump_8Dir_4x8_15
+      rect:
+        serializedVersion: 2
+        x: 140
+        y: 181
+        width: 14
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 39c491cadc33de380800000000000000
+      internalID: -8940432726811915117
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut03_FullBody_Jump_8Dir_4x8_16
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 135
+        width: 14
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b8a37b3cf012abfd0800000000000000
+      internalID: -2325509905991648629
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut03_FullBody_Jump_8Dir_4x8_17
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 135
+        width: 14
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9f6cca094d2c62fb0800000000000000
+      internalID: -4672833345134213383
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut03_FullBody_Jump_8Dir_4x8_18
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 137
+        width: 14
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d8fccde667eee7870800000000000000
+      internalID: 8682639324050411405
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut03_FullBody_Jump_8Dir_4x8_19
+      rect:
+        serializedVersion: 2
+        x: 140
+        y: 138
+        width: 14
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 700d0cbc8d8ac92e0800000000000000
+      internalID: -2117632075686162425
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut03_FullBody_Jump_8Dir_4x8_20
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 93
+        width: 14
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5ecd9818fe93cc670800000000000000
+      internalID: 8560280692557733093
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut03_FullBody_Jump_8Dir_4x8_21
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 93
+        width: 14
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 88a9761f8ccc17210800000000000000
+      internalID: 1329068528466631304
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut03_FullBody_Jump_8Dir_4x8_22
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 96
+        width: 14
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c550aa10bfd3a0c20800000000000000
+      internalID: 3173417035709941084
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut03_FullBody_Jump_8Dir_4x8_23
+      rect:
+        serializedVersion: 2
+        x: 140
+        y: 97
+        width: 14
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 354dd40f4574213a0800000000000000
+      internalID: -6696211265812048813
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut03_FullBody_Jump_8Dir_4x8_24
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 51
+        width: 16
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f2e8ab4e83f1b3fd0800000000000000
+      internalID: -2361259250409632209
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut03_FullBody_Jump_8Dir_4x8_25
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 51
+        width: 16
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5cfdc215a04e382c0800000000000000
+      internalID: -4430446875439734843
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut03_FullBody_Jump_8Dir_4x8_26
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 54
+        width: 16
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1ab4d0e219ee49f80800000000000000
+      internalID: -8100587522422387807
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut03_FullBody_Jump_8Dir_4x8_27
+      rect:
+        serializedVersion: 2
+        x: 140
+        y: 55
+        width: 16
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2b06d6a0727fb3e90800000000000000
+      internalID: -7044765445040283470
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut03_FullBody_Jump_8Dir_4x8_28
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 9
+        width: 16
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 07a4ba214ec771b00800000000000000
+      internalID: 799244777889155696
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut03_FullBody_Jump_8Dir_4x8_29
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 9
+        width: 16
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 42acbd203a4b384d0800000000000000
+      internalID: -3133462303499105756
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut03_FullBody_Jump_8Dir_4x8_30
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 12
+        width: 16
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ceef0f4febf8950f0800000000000000
+      internalID: -1127712181363605780
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chara_Astronaut03_FullBody_Jump_8Dir_4x8_31
+      rect:
+        serializedVersion: 2
+        x: 140
+        y: 13
+        width: 16
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2e2e23ce16d1acf40800000000000000
+      internalID: 5749440180703650530
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Chara_Astronaut03_FullBody_Jump_8Dir_4x8_0: -810622178500533862
+      Chara_Astronaut03_FullBody_Jump_8Dir_4x8_1: 7925366407606309032
+      Chara_Astronaut03_FullBody_Jump_8Dir_4x8_10: 1650098813902506008
+      Chara_Astronaut03_FullBody_Jump_8Dir_4x8_11: 2871989786283144812
+      Chara_Astronaut03_FullBody_Jump_8Dir_4x8_12: -4849805003979243761
+      Chara_Astronaut03_FullBody_Jump_8Dir_4x8_13: -7739571125684117476
+      Chara_Astronaut03_FullBody_Jump_8Dir_4x8_14: -8424632528659619201
+      Chara_Astronaut03_FullBody_Jump_8Dir_4x8_15: -8940432726811915117
+      Chara_Astronaut03_FullBody_Jump_8Dir_4x8_16: -2325509905991648629
+      Chara_Astronaut03_FullBody_Jump_8Dir_4x8_17: -4672833345134213383
+      Chara_Astronaut03_FullBody_Jump_8Dir_4x8_18: 8682639324050411405
+      Chara_Astronaut03_FullBody_Jump_8Dir_4x8_19: -2117632075686162425
+      Chara_Astronaut03_FullBody_Jump_8Dir_4x8_2: -3588773977201164673
+      Chara_Astronaut03_FullBody_Jump_8Dir_4x8_20: 8560280692557733093
+      Chara_Astronaut03_FullBody_Jump_8Dir_4x8_21: 1329068528466631304
+      Chara_Astronaut03_FullBody_Jump_8Dir_4x8_22: 3173417035709941084
+      Chara_Astronaut03_FullBody_Jump_8Dir_4x8_23: -6696211265812048813
+      Chara_Astronaut03_FullBody_Jump_8Dir_4x8_24: -2361259250409632209
+      Chara_Astronaut03_FullBody_Jump_8Dir_4x8_25: -4430446875439734843
+      Chara_Astronaut03_FullBody_Jump_8Dir_4x8_26: -8100587522422387807
+      Chara_Astronaut03_FullBody_Jump_8Dir_4x8_27: -7044765445040283470
+      Chara_Astronaut03_FullBody_Jump_8Dir_4x8_28: 799244777889155696
+      Chara_Astronaut03_FullBody_Jump_8Dir_4x8_29: -3133462303499105756
+      Chara_Astronaut03_FullBody_Jump_8Dir_4x8_3: 6652720478540324379
+      Chara_Astronaut03_FullBody_Jump_8Dir_4x8_30: -1127712181363605780
+      Chara_Astronaut03_FullBody_Jump_8Dir_4x8_31: 5749440180703650530
+      Chara_Astronaut03_FullBody_Jump_8Dir_4x8_4: 3323482226795668151
+      Chara_Astronaut03_FullBody_Jump_8Dir_4x8_5: 8610487505795365927
+      Chara_Astronaut03_FullBody_Jump_8Dir_4x8_6: 6129740779987464688
+      Chara_Astronaut03_FullBody_Jump_8Dir_4x8_7: -5510933832124206694
+      Chara_Astronaut03_FullBody_Jump_8Dir_4x8_8: 1326621163870349904
+      Chara_Astronaut03_FullBody_Jump_8Dir_4x8_9: 2585380973943412770
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
