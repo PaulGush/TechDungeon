@@ -551,6 +551,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
   _inputReader: {fileID: 11400000, guid: c7fc619696fbc354f935b4ae0e11fc0c, type: 2}
   _speed: 2
+--- !u!1 &1008416697
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1008416698}
+  m_Layer: 0
+  m_Name: ShootPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1008416698
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1008416697}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.112, y: 0.0151, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1400318622}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1219885181
 GameObject:
   m_ObjectHideFlags: 0
@@ -608,6 +639,7 @@ GameObject:
   - component: {fileID: 1400318622}
   - component: {fileID: 1400318623}
   - component: {fileID: 1400318624}
+  - component: {fileID: 1400318625}
   m_Layer: 0
   m_Name: Weapon_Gun_WhiteOutline_0
   m_TagString: Untagged
@@ -627,7 +659,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0.65, z: 0}
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 1
-  m_Children: []
+  m_Children:
+  - {fileID: 1008416698}
   m_Father: {fileID: 1219885182}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!212 &1400318623
@@ -702,6 +735,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerObject.WeaponVisual
   _spriteRenderer: {fileID: 1400318623}
   _weaponAnchor: {fileID: 1219885183}
+--- !u!114 &1400318625
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1400318621}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8d76236bdafc2af8abe5db90681e3ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponShooting
+  _inputReader: {fileID: 11400000, guid: c7fc619696fbc354f935b4ae0e11fc0c, type: 2}
+  _shootPoint: {fileID: 1008416698}
+  _bulletPrefab: {fileID: 5187812260587514585, guid: 991df1a3ac21a8dfd8f6ff27d42b5f99, type: 3}
 --- !u!1 &1454542232
 GameObject:
   m_ObjectHideFlags: 0
@@ -745,6 +793,50 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2006065768}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1787953680
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1787953682}
+  - component: {fileID: 1787953681}
+  m_Layer: 0
+  m_Name: SimplePool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1787953681
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1787953680}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b64c482861e65be5961951a73307065, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ObjectPool.SimplePool
+--- !u!4 &1787953682
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1787953680}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2006065767
@@ -2344,3 +2436,4 @@ SceneRoots:
   - {fileID: 619394802}
   - {fileID: 833702542}
   - {fileID: 1454542234}
+  - {fileID: 1787953682}
