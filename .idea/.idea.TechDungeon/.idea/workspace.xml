@@ -7,13 +7,10 @@
     <list default="true" id="59bb30c9-7a73-48ca-941c-fdb2f3927ea8" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TechDungeon/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TechDungeon/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Art/Tech Dungeon Roguelite - Asset Pack (v7)/Projectiles/projectiles x1.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Art/Tech Dungeon Roguelite - Asset Pack (v7)/Projectiles/projectiles x1.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Art/Tech Dungeon Roguelite - Asset Pack (v7)/Projectiles/projectiles x2.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Art/Tech Dungeon Roguelite - Asset Pack (v7)/Projectiles/projectiles x2.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Art/Tech Dungeon Roguelite - Asset Pack (v7)/Projectiles/projectiles x3.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Art/Tech Dungeon Roguelite - Asset Pack (v7)/Projectiles/projectiles x3.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefab/projectiles x1_0.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefab/projectiles x1_0.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PlayerObject/WeaponAnchor.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PlayerObject/WeaponAnchor.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PlayerObject/WeaponVisual.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PlayerObject/WeaponVisual.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ObjectPool/SimplePool.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ObjectPool/SimplePool.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PlayerObject/Weapon/WeaponShooting.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PlayerObject/Weapon/WeaponShooting.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,6 +32,7 @@
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/ObjectPool/SimplePool.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/PlayerObject/PlayerAnimationController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/PlayerObject/Weapon/WeaponShooting.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Projectile/Projectile.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.universal@8a7d82525fcc/Shaders/2D/Sprite-Lit-Default.shader" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="ProjectColorInfo">{
@@ -134,6 +132,7 @@
       <workItem from="1762905376725" duration="1166000" />
       <workItem from="1762967988406" duration="1231000" />
       <workItem from="1763074718389" duration="4033000" />
+      <workItem from="1763292491322" duration="2624000" />
     </task>
     <servers />
   </component>

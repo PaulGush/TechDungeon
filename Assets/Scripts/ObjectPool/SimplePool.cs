@@ -62,6 +62,7 @@ namespace ObjectPool
         // Called when an item is returned to the pool.
         private void OnRelease(GameObject gameObject)
         {
+            gameObject.transform.position = Vector3.zero;
             gameObject.SetActive(false);
         }
 
@@ -70,8 +71,8 @@ namespace ObjectPool
         {
             Destroy(gameObject);
         }
-
-        private System.Collections.IEnumerator ReturnAfter(GameObject gameObject, float seconds)
+        
+        public System.Collections.IEnumerator ReturnAfter(GameObject gameObject, float seconds)
         {
             yield return new WaitForSeconds(seconds);
             // Give it back to the pool.

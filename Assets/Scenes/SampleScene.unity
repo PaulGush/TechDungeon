@@ -522,7 +522,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 7
 --- !u!114 &833702546
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -749,7 +749,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WeaponShooting
   _inputReader: {fileID: 11400000, guid: c7fc619696fbc354f935b4ae0e11fc0c, type: 2}
   _shootPoint: {fileID: 1008416698}
-  _bulletPrefab: {fileID: 5187812260587514585, guid: 991df1a3ac21a8dfd8f6ff27d42b5f99, type: 3}
+  _camera: {fileID: 519420031}
+  _bulletPrefab: {fileID: 6481393338737401498, guid: 991df1a3ac21a8dfd8f6ff27d42b5f99, type: 3}
 --- !u!1 &1454542232
 GameObject:
   m_ObjectHideFlags: 0
