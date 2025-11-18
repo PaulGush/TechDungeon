@@ -1,7 +1,6 @@
 using Input;
 using ObjectPool;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class WeaponShooting : MonoBehaviour
 {
@@ -29,12 +28,7 @@ public class WeaponShooting : MonoBehaviour
         if (state)
         {
             GameObject projectile = SimplePool.Instance.GetPooledObject(_bulletPrefab.gameObject);
-            projectile.transform.position = _shootPoint.position;
-            
-            Vector3 diff = _camera.ScreenToWorldPoint(InputSystem.GetDevice<Mouse>().position.ReadValue()) - transform.position;
-            diff.Normalize();  
-            float rotZ = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
-            projectile.transform.rotation =  Quaternion.Euler(0f, 0f, rotZ);
+            projectile.transform.SetPositionAndRotation(_shootPoint.position, _shootPoint.rotation);
             projectile.GetComponent<Projectile>().Move();
         }
     }

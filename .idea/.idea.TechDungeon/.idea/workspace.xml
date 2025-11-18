@@ -6,11 +6,13 @@
   <component name="ChangeListManager">
     <list default="true" id="59bb30c9-7a73-48ca-941c-fdb2f3927ea8" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TechDungeon/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TechDungeon/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Art/Tech Dungeon Roguelite - Asset Pack (v7)/Projectiles/projectiles x1.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Art/Tech Dungeon Roguelite - Asset Pack (v7)/Projectiles/projectiles x1.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Art/ASTRONAUT AssetPack/BONUS/Weapon_Gun_WhiteOutline.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Art/ASTRONAUT AssetPack/BONUS/Weapon_Gun_WhiteOutline.png.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Prefab/projectiles x1_0.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefab/projectiles x1_0.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ObjectPool/SimplePool.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ObjectPool/SimplePool.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/PlayerObject/Weapon/WeaponShooting.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PlayerObject/Weapon/WeaponShooting.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Projectile/Projectile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Projectile/Projectile.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Packages/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Packages/packages-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/packages-lock.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,7 +20,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="EmbeddingIndexingInfo">
-    <option name="cachedIndexableFilesCount" value="7" />
+    <option name="cachedIndexableFilesCount" value="9" />
     <option name="fileBasedEmbeddingIndicesEnabled" value="true" />
   </component>
   <component name="Git.Settings">
@@ -132,7 +134,10 @@
       <workItem from="1762905376725" duration="1166000" />
       <workItem from="1762967988406" duration="1231000" />
       <workItem from="1763074718389" duration="4033000" />
-      <workItem from="1763292491322" duration="2624000" />
+      <workItem from="1763292491322" duration="2849000" />
+      <workItem from="1763303969388" duration="21000" />
+      <workItem from="1763414064612" duration="1059000" />
+      <workItem from="1763496334158" duration="964000" />
     </task>
     <servers />
   </component>

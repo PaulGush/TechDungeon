@@ -1,4 +1,3 @@
-using System;
 using ObjectPool;
 using UnityEngine;
 
@@ -7,8 +6,8 @@ public class Projectile : MonoBehaviour
     [Header("References")]
     [SerializeField] private Rigidbody2D _rigidbody2D;
 
-    
-    [Header("Settings")]
+
+    [Header("Settings")] 
     [SerializeField] private float _speed = 10f;
     [SerializeField] private float _damage = 10f;
     
