@@ -10,11 +10,11 @@ public class Projectile : MonoBehaviour
 
     [Header("Settings")] 
     [SerializeField] private float _speed = 10f;
-    [SerializeField] private float _damage = 10f;
+    [SerializeField] private int _damage = 10;
     
     //TODO: Extend to scriptable object for settings
 
-    public void Move()
+    public virtual void Move()
     {
         _rigidbody2D.AddForce( transform.right * _speed);
         
@@ -28,6 +28,11 @@ public class Projectile : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
+        if (other.gameObject.TryGetComponent<EntityHealth>(out var entityHealth))
+        {
+            entityHealth.TakeDamage(_damage);
+        }
+
         SimplePool.Instance.ReturnGameobject(gameObject);
     }
 }
