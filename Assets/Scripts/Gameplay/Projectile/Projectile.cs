@@ -1,3 +1,4 @@
+using System;
 using ObjectPool;
 using UnityEngine;
 
@@ -23,5 +24,10 @@ public class Projectile : MonoBehaviour
     private void OnDisable()
     {
         _rigidbody2D.linearVelocity = Vector2.zero;
+    }
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        SimplePool.Instance.ReturnGameobject(gameObject);
     }
 }

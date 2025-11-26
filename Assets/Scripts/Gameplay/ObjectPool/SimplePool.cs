@@ -78,5 +78,10 @@ namespace ObjectPool
             // Give it back to the pool.
             _pool.Release(gameObject);
         }
+
+        public void ReturnGameobject(GameObject gameObject)
+        {
+            _pool.Release(gameObject);
+        }
     }
 }
