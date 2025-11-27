@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class EnemyAnimationController : EntityAnimationController
 {
+    private static readonly int Heal = Animator.StringToHash("Heal");
     private static readonly int Hurt = Animator.StringToHash("Hurt");
     private static readonly int Dead = Animator.StringToHash("Dead");
     
@@ -23,7 +24,7 @@ public class EnemyAnimationController : EntityAnimationController
 
     private void OnHeal()
     {
-        
+        _animator.SetTrigger(Heal);
     }
 
     private void OnTakeDamage()

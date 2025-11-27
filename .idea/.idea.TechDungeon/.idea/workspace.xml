@@ -7,12 +7,10 @@
     <list default="true" id="59bb30c9-7a73-48ca-941c-fdb2f3927ea8" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TechDungeon/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TechDungeon/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Animation/Enemies/FlyingDrone/FlyingDrone.controller" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Animation/Enemies/FlyingDrone/FlyingDrone.controller" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Animation/Enemies/FlyingDrone/death_flyingDrone.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Animation/Enemies/FlyingDrone/death_flyingDrone.anim" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Animation/Enemies/FlyingDrone/hurt_flyingDrone.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Animation/Enemies/FlyingDrone/hurt_flyingDrone.anim" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefab/projectiles x1_0.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefab/projectiles x1_0.prefab.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Gameplay/Projectile/Projectile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Gameplay/Projectile/Projectile.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Gameplay/Entity/Enemy/Enemy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Gameplay/Entity/Enemy/Enemy.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Gameplay/Entity/Enemy/EnemyAnimationController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Gameplay/Entity/Enemy/EnemyAnimationController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Gameplay/Entity/EntityHealth.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Gameplay/Entity/EntityHealth.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,7 +18,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="EmbeddingIndexingInfo">
-    <option name="cachedIndexableFilesCount" value="11" />
+    <option name="cachedIndexableFilesCount" value="12" />
     <option name="fileBasedEmbeddingIndicesEnabled" value="true" />
   </component>
   <component name="Git.Settings">
@@ -32,6 +30,9 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/bfc03a9f2a9c4b29b87be26b68d94e8f1f5c00/a2/82257474/IObjectPool`1.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Gameplay/Entity/Enemy/Enemy.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Gameplay/Entity/Enemy/EnemyAnimationController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Gameplay/Entity/Enemy/EnemyCollision.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Gameplay/Entity/Enemy/EnemyStateMachine.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Gameplay/Entity/Enemy/States/IState.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Gameplay/Entity/Entity.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Gameplay/Entity/EntityAnimationController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Gameplay/Entity/EntityHealth.cs" root0="FORCE_HIGHLIGHTING" />
@@ -143,7 +144,9 @@
       <workItem from="1763945207281" duration="70000" />
       <workItem from="1763985845059" duration="2902000" />
       <workItem from="1764076096837" duration="2463000" />
-      <workItem from="1764157289309" duration="2945000" />
+      <workItem from="1764157289309" duration="4589000" />
+      <workItem from="1764242508287" duration="2898000" />
+      <workItem from="1764252068317" duration="4886000" />
     </task>
     <servers />
   </component>
