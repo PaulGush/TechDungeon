@@ -1,4 +1,4 @@
-public class MoveState : IState
+public class SeekState : IState
 {
 
     public void Enter()

@@ -1,18 +1,25 @@
+using System;
 using UnityEngine;
 
 public class EnemyStateMachine : MonoBehaviour
 {
     private IState _currentState;
 
-    public void ChangeState(IState newState)
+    public Action<IState> OnStateChanged;
+
+    private void ChangeState(IState newState)
     {
-        _currentState.Exit();
+        _currentState?.Exit();
         _currentState = newState;
         _currentState.Enter();
+        OnStateChanged?.Invoke(_currentState);
     }
-    
-    public void Initialize(IState initialState) => ChangeState(initialState);
-    
+
+    public void Initialize(IState initialState)
+    {
+        ChangeState(initialState);
+    }
+
     private void Update()
     {
         _currentState.Tick();

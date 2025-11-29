@@ -6,20 +6,45 @@ public class EnemyAnimationController : EntityAnimationController
     private static readonly int Hurt = Animator.StringToHash("Hurt");
     private static readonly int Dead = Animator.StringToHash("Dead");
     
-    [SerializeField] private EntityHealth _health;
+    [SerializeField] private Enemy _enemy;
+
+    private EntityHealth _health;
+    private EnemyStateMachine _stateMachine;
+
+    private void Awake()
+    {
+        _health = _enemy.GetService(typeof(EntityHealth)) as EntityHealth;
+        _stateMachine = _enemy.GetService(typeof(EnemyStateMachine)) as EnemyStateMachine;
+    }
 
     private void OnEnable()
     {
-        _health.OnHeal += OnHeal;
-        _health.OnTakeDamage += OnTakeDamage;
-        _health.OnDeath += OnDeath;
+        if (_health != null)
+        {
+            _health.OnHeal += OnHeal;
+            _health.OnTakeDamage += OnTakeDamage;
+            _health.OnDeath += OnDeath;
+        }
+
+        if (_stateMachine != null)
+        {
+            _stateMachine.OnStateChanged += OnStateChanged;
+        }
     }
 
     private void OnDisable()
     {
-        _health.OnHeal -= OnHeal;
-        _health.OnTakeDamage -= OnTakeDamage;
-        _health.OnDeath -= OnDeath;
+        if (_health != null)
+        {
+            _health.OnHeal -= OnHeal;
+            _health.OnTakeDamage -= OnTakeDamage;
+            _health.OnDeath -= OnDeath;
+        }
+
+        if (_stateMachine != null)
+        {
+            _stateMachine.OnStateChanged -= OnStateChanged;
+        }
     }
 
     private void OnHeal()
@@ -35,5 +60,10 @@ public class EnemyAnimationController : EntityAnimationController
     private void OnDeath()
     {
         _animator.SetBool(Dead, true);
+    }
+    
+    private void OnStateChanged(IState newState)
+    {
+        //_animator.SetBool(newState.GetType().Name, true);
     }
 }
