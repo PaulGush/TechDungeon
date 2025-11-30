@@ -1,13 +1,23 @@
 using System;
-using UnityEngine;
 
-public class EnemyStateMachine : MonoBehaviour
+public class EnemyStateMachine
 {
+    public EnemyStateMachine(EnemyController enemyController)
+    {
+        _idleState = new IdleState(enemyController);
+        SeekState = new SeekState(enemyController);
+        AttackState = new AttackState(enemyController);
+    }
+
     private IState _currentState;
 
+    private IdleState _idleState;
+    public SeekState SeekState;
+    public AttackState AttackState;
+    
     public Action<IState> OnStateChanged;
 
-    private void ChangeState(IState newState)
+    public void ChangeState(IState newState)
     {
         _currentState?.Exit();
         _currentState = newState;
@@ -15,18 +25,13 @@ public class EnemyStateMachine : MonoBehaviour
         OnStateChanged?.Invoke(_currentState);
     }
 
-    public void Initialize(IState initialState)
+    public void Initialize()
     {
-        ChangeState(initialState);
+        ChangeState(_idleState);
     }
 
-    private void Update()
+    public void Tick()
     {
-        _currentState.Tick();
-    }
-    
-    private void OnDestroy()
-    {
-        _currentState.Exit();
+        _currentState?.Tick();
     }
 }

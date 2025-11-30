@@ -5,16 +5,17 @@ public class EnemyAnimationController : EntityAnimationController
     private static readonly int Heal = Animator.StringToHash("Heal");
     private static readonly int Hurt = Animator.StringToHash("Hurt");
     private static readonly int Dead = Animator.StringToHash("Dead");
-    
-    [SerializeField] private Enemy _enemy;
+    private static readonly int Attack = Animator.StringToHash("Attack");
+
+    [SerializeField] private EnemyController _enemyController;
 
     private EntityHealth _health;
     private EnemyStateMachine _stateMachine;
 
     private void Awake()
     {
-        _health = _enemy.GetService(typeof(EntityHealth)) as EntityHealth;
-        _stateMachine = _enemy.GetService(typeof(EnemyStateMachine)) as EnemyStateMachine;
+        _health = _enemyController.GetService(typeof(EntityHealth)) as EntityHealth;
+        _stateMachine = _enemyController.StateMachine;
     }
 
     private void OnEnable()
@@ -59,11 +60,17 @@ public class EnemyAnimationController : EntityAnimationController
 
     private void OnDeath()
     {
+        _animator.SetBool(Attack, false);
         _animator.SetBool(Dead, true);
     }
     
     private void OnStateChanged(IState newState)
     {
-        //_animator.SetBool(newState.GetType().Name, true);
+        if (newState.GetType() == typeof(AttackState))
+        {
+            _animator.SetBool(Attack, true);
+            return;
+        }
+        _animator.SetBool(Attack, false);
     }
 }

@@ -4,10 +4,10 @@ using UnityEngine;
 using UnityServiceLocator;
 using Object = UnityEngine.Object;
 
-public class Enemy : Entity
+public class EnemyController : Entity
 {
-    [Header("References")]
-    [SerializeField] private EnemyStateMachine _stateMachine;
+    private EnemyStateMachine _stateMachine;
+    public EnemyStateMachine StateMachine => _stateMachine;
 
     [Header("Registered Services")] 
     [SerializeField] private List<Object> _services;
@@ -23,7 +23,13 @@ public class Enemy : Entity
 
     private void Start()
     {
-        _stateMachine.Initialize(new IdleState());
+        _stateMachine = new EnemyStateMachine(this);
+        _stateMachine?.Initialize();
+    }
+
+    private void Update()
+    {
+        _stateMachine?.Tick();
     }
 
     public Object GetService(object serviceType)
