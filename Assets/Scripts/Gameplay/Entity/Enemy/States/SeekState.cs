@@ -13,7 +13,7 @@ public class SeekState : IState
     {
         if (_movement == null)
         {
-            _movement = _enemyController.GetService(typeof(EnemyMovement)) as EnemyMovement;
+            _movement = _enemyController.Movement;
         }
     }
 

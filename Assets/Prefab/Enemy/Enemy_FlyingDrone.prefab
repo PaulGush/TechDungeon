@@ -349,12 +349,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
   _name: Bob
-  _services:
-  - {fileID: 5779308081635976221}
-  - {fileID: 5110073187355056422}
-  - {fileID: 3582027185550081905}
-  - {fileID: 3660797839015898069}
-  - {fileID: 2805923156366516581}
+  _animationController: {fileID: 5779308081635976221}
+  _health: {fileID: 5110073187355056422}
+  _movement: {fileID: 3660797839015898069}
+  _shooting: {fileID: 2805923156366516581}
+  _targeting: {fileID: 3582027185550081905}
 --- !u!114 &3660797839015898069
 MonoBehaviour:
   m_ObjectHideFlags: 0

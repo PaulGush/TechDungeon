@@ -13,7 +13,7 @@ public class EnemyAnimationController : EntityAnimationController
 
     private void Awake()
     {
-        _health = _enemyController.GetService(typeof(EntityHealth)) as EntityHealth;
+        _health = _enemyController.Health;
     }
 
     private void OnEnable()

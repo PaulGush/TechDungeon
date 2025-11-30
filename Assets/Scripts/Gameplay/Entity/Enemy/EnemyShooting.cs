@@ -20,8 +20,8 @@ public class EnemyShooting : MonoBehaviour
 
     private void Awake()
     {
-        _animationController = _enemyController.GetService(typeof(EnemyAnimationController)) as EnemyAnimationController;
-        _targeting = _enemyController.GetService(typeof(EnemyTargeting)) as EnemyTargeting;
+        _animationController = _enemyController.AnimationController;
+        _targeting = _enemyController.Targeting;
         _shootPointStartingXPosition = _shootPoint.localPosition.x;
     }
 

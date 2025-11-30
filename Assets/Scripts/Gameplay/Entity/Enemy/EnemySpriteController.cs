@@ -9,7 +9,7 @@ public class EnemySpriteController : MonoBehaviour
 
     private void Awake()
     {
-        _targeting = _enemyController.GetService(typeof(EnemyTargeting)) as EnemyTargeting;
+        _targeting = _enemyController.Targeting;
     }
 
     private void Update()

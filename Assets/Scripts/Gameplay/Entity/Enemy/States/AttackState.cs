@@ -13,12 +13,12 @@ public class AttackState : IState
     {
         if (_movement == null)
         {
-            _movement = _enemyController.GetService(typeof(EnemyMovement)) as EnemyMovement;
+            _movement = _enemyController.Movement;
         }
 
         if (_shooting == null)
         {
-            _shooting = _enemyController.GetService(typeof(EnemyShooting)) as EnemyShooting;
+            _shooting = _enemyController.Shooting;
         }
     }
 

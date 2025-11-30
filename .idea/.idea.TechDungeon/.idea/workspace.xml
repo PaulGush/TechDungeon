@@ -5,17 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="59bb30c9-7a73-48ca-941c-fdb2f3927ea8" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.TechDungeon/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TechDungeon/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Animation/Enemies/FlyingDrone/FlyingDrone.controller" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Animation/Enemies/FlyingDrone/FlyingDrone.controller" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Animation/Enemies/FlyingDrone/shoot_flyingDrone.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Animation/Enemies/FlyingDrone/shoot_flyingDrone.anim" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefab/Enemy/Enemy_FlyingDrone.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefab/Enemy/Enemy_FlyingDrone.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefab/Projectile/projectiles x1_0.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefab/Projectile/projectiles x1_0.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/GameScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/GameScene.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Gameplay/Entity/Enemy/EnemyAnimationController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Gameplay/Entity/Enemy/EnemyAnimationController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Gameplay/Entity/Enemy/EnemyTargeting.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Gameplay/Entity/Enemy/EnemyTargeting.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Gameplay/Entity/Enemy/States/AttackState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Gameplay/Entity/Enemy/States/AttackState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Gameplay/Entity/Enemy/States/SeekState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Gameplay/Entity/Enemy/States/SeekState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Gameplay/Projectile/Projectile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Gameplay/Projectile/Projectile.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Gameplay/Entity/Enemy/EnemyController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Gameplay/Entity/Enemy/EnemyController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Gameplay/Entity/Enemy/EnemyMovement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Gameplay/Entity/Enemy/EnemyMovement.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Gameplay/Entity/Enemy/EnemyShooting.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Gameplay/Entity/Enemy/EnemyShooting.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Gameplay/Entity/Enemy/EnemySpriteController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Gameplay/Entity/Enemy/EnemySpriteController.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -160,7 +156,7 @@
       <workItem from="1764332198295" duration="3874000" />
       <workItem from="1764349176045" duration="92000" />
       <workItem from="1764414751937" duration="23260000" />
-      <workItem from="1764502280960" duration="22045000" />
+      <workItem from="1764502280960" duration="22692000" />
     </task>
     <servers />
   </component>

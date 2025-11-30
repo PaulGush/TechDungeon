@@ -13,7 +13,7 @@ public class EnemyMovement : MonoBehaviour
 
     private void Start()
     {
-        _targeting = (EnemyTargeting)_enemyController.GetService(typeof(EnemyTargeting));
+        _targeting = _enemyController.Targeting;
     }
 
     public void MoveTowardTarget()
