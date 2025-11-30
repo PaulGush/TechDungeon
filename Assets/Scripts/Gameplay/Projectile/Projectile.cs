@@ -1,4 +1,3 @@
-using System;
 using ObjectPool;
 using UnityEngine;
 
@@ -7,16 +6,13 @@ public class Projectile : MonoBehaviour
     [Header("References")]
     [SerializeField] private Rigidbody2D _rigidbody2D;
 
-
-    [Header("Settings")] 
-    [SerializeField] private float _speed = 10f;
-    [SerializeField] private int _damage = 10;
+    [SerializeField] private ProjectileSettings _settings;
     
     //TODO: Extend to scriptable object for settings
 
     public virtual void Move()
     {
-        _rigidbody2D.AddForce( transform.right * _speed);
+        _rigidbody2D.AddForce( transform.right * _settings.Speed);
         
         StartCoroutine(SimplePool.Instance.ReturnAfter(gameObject, 3f));
     }
@@ -30,7 +26,7 @@ public class Projectile : MonoBehaviour
     {
         if (other.gameObject.TryGetComponent<EntityHealth>(out var entityHealth))
         {
-            entityHealth.TakeDamage(_damage);
+            entityHealth.TakeDamage(_settings.Damage);
         }
 
         SimplePool.Instance.ReturnGameobject(gameObject);

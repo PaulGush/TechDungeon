@@ -10,12 +10,10 @@ public class EnemyAnimationController : EntityAnimationController
     [SerializeField] private EnemyController _enemyController;
 
     private EntityHealth _health;
-    private EnemyStateMachine _stateMachine;
 
     private void Awake()
     {
         _health = _enemyController.GetService(typeof(EntityHealth)) as EntityHealth;
-        _stateMachine = _enemyController.StateMachine;
     }
 
     private void OnEnable()
@@ -26,11 +24,6 @@ public class EnemyAnimationController : EntityAnimationController
             _health.OnTakeDamage += OnTakeDamage;
             _health.OnDeath += OnDeath;
         }
-
-        if (_stateMachine != null)
-        {
-            _stateMachine.OnStateChanged += OnStateChanged;
-        }
     }
 
     private void OnDisable()
@@ -40,11 +33,6 @@ public class EnemyAnimationController : EntityAnimationController
             _health.OnHeal -= OnHeal;
             _health.OnTakeDamage -= OnTakeDamage;
             _health.OnDeath -= OnDeath;
-        }
-
-        if (_stateMachine != null)
-        {
-            _stateMachine.OnStateChanged -= OnStateChanged;
         }
     }
 
@@ -60,17 +48,18 @@ public class EnemyAnimationController : EntityAnimationController
 
     private void OnDeath()
     {
-        _animator.SetBool(Attack, false);
         _animator.SetBool(Dead, true);
     }
-    
-    private void OnStateChanged(IState newState)
+
+    public void OnAttack()
     {
-        if (newState.GetType() == typeof(AttackState))
-        {
-            _animator.SetBool(Attack, true);
-            return;
-        }
-        _animator.SetBool(Attack, false);
+        if (_animator.GetBool(Dead)) return;
+        
+        _animator.SetTrigger(Attack);
+    }
+
+    public void OnDeathComplete()
+    {
+        _enemyController.gameObject.SetActive(false);
     }
 }

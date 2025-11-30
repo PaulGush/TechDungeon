@@ -830,7 +830,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 4
+  m_Constraints: 7
 --- !u!114 &833702546
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3177,22 +3177,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3660797839015898069, guid: 4bf1a82e2dc6a45168567b5f616ff4b1, type: 3}
-      propertyPath: _speed
-      value: 2.5
+    - target: {fileID: 2805923156366516581, guid: 4bf1a82e2dc6a45168567b5f616ff4b1, type: 3}
+      propertyPath: _fireRate
+      value: 0.25
       objectReference: {fileID: 0}
-    - target: {fileID: 3660797839015898069, guid: 4bf1a82e2dc6a45168567b5f616ff4b1, type: 3}
-      propertyPath: _attackRange
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5296464329978220579, guid: 4bf1a82e2dc6a45168567b5f616ff4b1, type: 3}
-      propertyPath: _services.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 5296464329978220579, guid: 4bf1a82e2dc6a45168567b5f616ff4b1, type: 3}
-      propertyPath: '_services.Array.data[3]'
-      value: 
-      objectReference: {fileID: 7493557579533004629}
     - target: {fileID: 7364831485085966955, guid: 4bf1a82e2dc6a45168567b5f616ff4b1, type: 3}
       propertyPath: m_Name
       value: Enemy_FlyingDrone
@@ -3202,17 +3190,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4bf1a82e2dc6a45168567b5f616ff4b1, type: 3}
---- !u!114 &7493557579533004629 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3660797839015898069, guid: 4bf1a82e2dc6a45168567b5f616ff4b1, type: 3}
-  m_PrefabInstance: {fileID: 7493557579533004625}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d315ddf2afbdf6f23bbf464e6d6b7135, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyMovement
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

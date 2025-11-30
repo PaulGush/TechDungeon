@@ -179,6 +179,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Projectile
   _rigidbody2D: {fileID: 2821083896256912343}
-  _startRotation: {x: 0, y: 0, z: 0}
-  _speed: 300
-  _damage: 10
+  _settings: {fileID: 11400000, guid: 6c041c566c8bddecf9f7ed266749378e, type: 2}

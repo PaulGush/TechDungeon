@@ -11,7 +11,10 @@ public class SeekState : IState
 
     public void Enter()
     {
-        _movement = _enemyController.GetService(typeof(EnemyMovement)) as EnemyMovement;
+        if (_movement == null)
+        {
+            _movement = _enemyController.GetService(typeof(EnemyMovement)) as EnemyMovement;
+        }
     }
 
     public void Tick()

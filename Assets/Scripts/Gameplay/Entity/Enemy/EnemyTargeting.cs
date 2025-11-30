@@ -15,4 +15,6 @@ public class EnemyTargeting : MonoBehaviour
         _currentTarget = other.transform;
         _enemyController.StateMachine.ChangeState(_enemyController.StateMachine.SeekState);
     }
+    
+    public bool IsTargetRightOfTransform() => _currentTarget.position.x > transform.position.x;
 }
