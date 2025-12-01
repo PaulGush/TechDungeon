@@ -28,7 +28,7 @@ public class EnemyController : Entity
         _stateMachine?.Initialize();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         _stateMachine?.Tick();
     }

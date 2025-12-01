@@ -15,6 +15,8 @@ public class SeekState : IState
         {
             _movement = _enemyController.Movement;
         }
+        
+        _movement.CanMove = true;
     }
 
     public void Tick()
@@ -23,8 +25,6 @@ public class SeekState : IState
         {
             _enemyController.StateMachine.ChangeState(_enemyController.StateMachine.AttackState);
         }
-
-        _movement.MoveTowardTarget();
     }
 
     public void Exit()

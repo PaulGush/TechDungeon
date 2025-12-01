@@ -256,71 +256,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9f34993496f936c3a25cb5c769525f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UnityServiceLocator.ServiceLocator
---- !u!1001 &333968423
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 573100378582663882, guid: 4bf1a82e2dc6a45168567b5f616ff4b1, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -5.08
-      objectReference: {fileID: 0}
-    - target: {fileID: 573100378582663882, guid: 4bf1a82e2dc6a45168567b5f616ff4b1, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -3.52
-      objectReference: {fileID: 0}
-    - target: {fileID: 573100378582663882, guid: 4bf1a82e2dc6a45168567b5f616ff4b1, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 573100378582663882, guid: 4bf1a82e2dc6a45168567b5f616ff4b1, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 573100378582663882, guid: 4bf1a82e2dc6a45168567b5f616ff4b1, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 573100378582663882, guid: 4bf1a82e2dc6a45168567b5f616ff4b1, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 573100378582663882, guid: 4bf1a82e2dc6a45168567b5f616ff4b1, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 573100378582663882, guid: 4bf1a82e2dc6a45168567b5f616ff4b1, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 573100378582663882, guid: 4bf1a82e2dc6a45168567b5f616ff4b1, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 573100378582663882, guid: 4bf1a82e2dc6a45168567b5f616ff4b1, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2805923156366516581, guid: 4bf1a82e2dc6a45168567b5f616ff4b1, type: 3}
-      propertyPath: _fireRate
-      value: 0.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 5110073187355056422, guid: 4bf1a82e2dc6a45168567b5f616ff4b1, type: 3}
-      propertyPath: _maxHealth
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 7364831485085966955, guid: 4bf1a82e2dc6a45168567b5f616ff4b1, type: 3}
-      propertyPath: m_Name
-      value: Enemy_FlyingDrone (1)
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 4bf1a82e2dc6a45168567b5f616ff4b1, type: 3}
 --- !u!1 &344578265
 GameObject:
   m_ObjectHideFlags: 0
@@ -459,6 +394,67 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 344578265}
   m_CullTransparentMesh: 1
+--- !u!1001 &486683969
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 573100378582663882, guid: 4bf1a82e2dc6a45168567b5f616ff4b1, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 5.04
+      objectReference: {fileID: 0}
+    - target: {fileID: 573100378582663882, guid: 4bf1a82e2dc6a45168567b5f616ff4b1, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -3.68
+      objectReference: {fileID: 0}
+    - target: {fileID: 573100378582663882, guid: 4bf1a82e2dc6a45168567b5f616ff4b1, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 573100378582663882, guid: 4bf1a82e2dc6a45168567b5f616ff4b1, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 573100378582663882, guid: 4bf1a82e2dc6a45168567b5f616ff4b1, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 573100378582663882, guid: 4bf1a82e2dc6a45168567b5f616ff4b1, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 573100378582663882, guid: 4bf1a82e2dc6a45168567b5f616ff4b1, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 573100378582663882, guid: 4bf1a82e2dc6a45168567b5f616ff4b1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 573100378582663882, guid: 4bf1a82e2dc6a45168567b5f616ff4b1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 573100378582663882, guid: 4bf1a82e2dc6a45168567b5f616ff4b1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5110073187355056422, guid: 4bf1a82e2dc6a45168567b5f616ff4b1, type: 3}
+      propertyPath: _maxHealth
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 7364831485085966955, guid: 4bf1a82e2dc6a45168567b5f616ff4b1, type: 3}
+      propertyPath: m_Name
+      value: Enemy_FlyingDrone (1)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4bf1a82e2dc6a45168567b5f616ff4b1, type: 3}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -895,7 +891,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 7
+  m_Constraints: 4
 --- !u!114 &833702546
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -923,6 +919,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
   _inputReader: {fileID: 11400000, guid: c7fc619696fbc354f935b4ae0e11fc0c, type: 2}
+  _rigidbody2D: {fileID: 833702545}
   _speed: 2
 --- !u!1 &900285411
 GameObject:
@@ -3242,13 +3239,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2805923156366516581, guid: 4bf1a82e2dc6a45168567b5f616ff4b1, type: 3}
-      propertyPath: _fireRate
-      value: 0.25
-      objectReference: {fileID: 0}
     - target: {fileID: 5110073187355056422, guid: 4bf1a82e2dc6a45168567b5f616ff4b1, type: 3}
       propertyPath: _maxHealth
-      value: 10
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 7364831485085966955, guid: 4bf1a82e2dc6a45168567b5f616ff4b1, type: 3}
       propertyPath: m_Name
@@ -3271,5 +3264,5 @@ SceneRoots:
   - {fileID: 900285415}
   - {fileID: 12495724}
   - {fileID: 7493557579533004625}
-  - {fileID: 333968423}
+  - {fileID: 486683969}
   - {fileID: 1336567738}

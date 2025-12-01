@@ -20,6 +20,8 @@ public class AttackState : IState
         {
             _shooting = _enemyController.Shooting;
         }
+        
+        _movement.CanMove = false;
     }
 
     public void Tick()
