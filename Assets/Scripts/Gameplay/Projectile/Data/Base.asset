@@ -14,3 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ProjectileSettings
   Damage: 5
   Speed: 200
+  Lifetime: 3
+  HitsBeforeDeath: 1

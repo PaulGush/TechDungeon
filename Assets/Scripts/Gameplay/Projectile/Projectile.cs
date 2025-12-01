@@ -5,16 +5,16 @@ public class Projectile : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private Rigidbody2D _rigidbody2D;
-
     [SerializeField] private ProjectileSettings _settings;
-    
-    //TODO: Extend to scriptable object for settings
 
-    public virtual void Move()
+    private int _hitsBeforeDeath;
+    
+    public virtual void Initialize()
     {
+        _hitsBeforeDeath = _settings.HitsBeforeDeath;
         _rigidbody2D.AddForce( transform.right * _settings.Speed);
         
-        StartCoroutine(SimplePool.Instance.ReturnAfter(gameObject, 3f));
+        StartCoroutine(SimplePool.Instance.ReturnAfter(gameObject, _settings.Lifetime));
     }
 
     private void OnDisable()
@@ -29,6 +29,9 @@ public class Projectile : MonoBehaviour
             entityHealth.TakeDamage(_settings.Damage);
         }
 
-        SimplePool.Instance.ReturnGameobject(gameObject);
+        if (_hitsBeforeDeath-- <= 0)
+        {
+            SimplePool.Instance.ReturnGameobject(gameObject);
+        }
     }
 }

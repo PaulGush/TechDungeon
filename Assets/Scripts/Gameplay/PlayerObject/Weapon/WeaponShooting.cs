@@ -29,7 +29,7 @@ public class WeaponShooting : MonoBehaviour
         {
             GameObject projectile = SimplePool.Instance.GetPooledObject(_bulletPrefab.gameObject);
             projectile.transform.SetPositionAndRotation(_shootPoint.position, _shootPoint.rotation);
-            projectile.GetComponent<Projectile>().Move();
+            projectile.GetComponent<Projectile>().Initialize();
         }
     }
 }

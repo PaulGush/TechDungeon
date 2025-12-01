@@ -32,7 +32,7 @@ public class EnemyShooting : MonoBehaviour
     {
         GameObject projectile = SimplePool.Instance.GetPooledObject(_projectilePrefab);
         projectile.transform.SetPositionAndRotation(_shootPoint.position, _shootPoint.rotation);
-        projectile.GetComponent<Projectile>().Move();
+        projectile.GetComponent<Projectile>().Initialize();
         _lastTimeFired = Time.time;
     }
 }
