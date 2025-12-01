@@ -1,56 +1,45 @@
 using UnityEngine;
 using UnityEngine.Pool;
+using UnityServiceLocator;
+using System.Collections.Generic;
 
 namespace ObjectPool
 {
     public class SimplePool : MonoBehaviour
     {
-        public static SimplePool Instance { get; private set; }
-        
-        private IObjectPool<GameObject> _pool;
-        
-        private GameObject Template;
+        private Dictionary<int, IObjectPool<GameObject>> _pools = new Dictionary<int, IObjectPool<GameObject>>();
+        private Dictionary<int, IObjectPool<GameObject>> _activeObjects = new Dictionary<int, IObjectPool<GameObject>>();
 
         void Awake()
         {
-            if (Instance == null)
-            {
-                Instance = this;
-            }
-            else
-            {
-                Destroy(gameObject);
-            }
-
-            CreatePool();
-        }
-
-        private void CreatePool(int defaultCapacity = 10, int maxSize = 50)
-        {
-            // Create a pool with the four core callbacks.
-            _pool = new ObjectPool<GameObject>(
-                createFunc: CreateItem,
-                actionOnGet: OnGet,
-                actionOnRelease: OnRelease,
-                actionOnDestroy: OnDestroyItem,
-                collectionCheck: true,   // helps catch double-release mistakes
-                defaultCapacity: defaultCapacity,
-                maxSize: maxSize
-            );
+            ServiceLocator.Global.Register(this);
         }
 
         public GameObject GetPooledObject(GameObject template)
         {
-            Template = template;
-            return _pool.Get();
-        }
+            int id = template.GetInstanceID();
+            if (!_pools.TryGetValue(id, out var pool))
+            {
+                pool = new ObjectPool<GameObject>(
+                    createFunc: () =>
+                    {
+                        GameObject newGameObject = Instantiate(template, transform, true);
+                        newGameObject.SetActive(false);
+                        return newGameObject;
+                    },
+                    actionOnGet: OnGet,
+                    actionOnRelease: OnRelease,
+                    actionOnDestroy: OnDestroyItem,
+                    collectionCheck: true,
+                    defaultCapacity: 10,
+                    maxSize: 50
+                );
+                _pools[id] = pool;
+            }
 
-        // Creates a new pooled GameObject the first time (and whenever the pool needs more).
-        private GameObject CreateItem()
-        {
-            GameObject newGameObject = Instantiate(Template, transform, true);
-            newGameObject.SetActive(false);
-            return newGameObject;
+            GameObject instance = pool.Get();
+            _activeObjects[instance.GetInstanceID()] = pool;
+            return instance;
         }
 
         // Called when an item is taken from the pool.
@@ -69,19 +58,27 @@ namespace ObjectPool
         // Called when the pool decides to destroy an item (e.g., above max size).
         private void OnDestroyItem(GameObject gameObject)
         {
+            _activeObjects.Remove(gameObject.GetInstanceID());
             Destroy(gameObject);
         }
-        
+    
         public System.Collections.IEnumerator ReturnAfter(GameObject gameObject, float seconds)
         {
             yield return new WaitForSeconds(seconds);
             // Give it back to the pool.
-            _pool.Release(gameObject);
+            ReturnGameobject(gameObject);
         }
 
         public void ReturnGameobject(GameObject gameObject)
         {
-            _pool.Release(gameObject);
+            if (_activeObjects.TryGetValue(gameObject.GetInstanceID(), out var pool))
+            {
+                pool.Release(gameObject);
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
         }
     }
 }

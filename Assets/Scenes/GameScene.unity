@@ -3285,6 +3285,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2805923156366516581, guid: 4bf1a82e2dc6a45168567b5f616ff4b1, type: 3}
+      propertyPath: _projectilePrefab
+      value: 
+      objectReference: {fileID: 5187812260587514585, guid: f9cc98d9978166916b50e3a501a2e3b5, type: 3}
     - target: {fileID: 7364831485085966955, guid: 4bf1a82e2dc6a45168567b5f616ff4b1, type: 3}
       propertyPath: m_Name
       value: Enemy_FlyingDrone

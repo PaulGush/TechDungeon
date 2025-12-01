@@ -1,5 +1,6 @@
 using ObjectPool;
 using UnityEngine;
+using UnityServiceLocator;
 
 public class EnemyShooting : MonoBehaviour
 {
@@ -13,11 +14,14 @@ public class EnemyShooting : MonoBehaviour
     [SerializeField] private float _fireRate = 0.5f;
     [SerializeField] private GameObject _projectilePrefab;
     
+    private SimplePool _pool;
     private float _lastTimeFired;
 
     private void Awake()
     {
         _animationController = _enemyController.AnimationController;
+        ServiceLocator.Global.Get(out SimplePool simplePool);
+        _pool = simplePool;
     }
 
     public void TryShoot()
@@ -30,7 +34,7 @@ public class EnemyShooting : MonoBehaviour
 
     public void Shoot()
     {
-        GameObject projectile = SimplePool.Instance.GetPooledObject(_projectilePrefab);
+        GameObject projectile = _pool.GetPooledObject(_projectilePrefab);
         projectile.transform.SetPositionAndRotation(_shootPoint.position, _shootPoint.rotation);
         projectile.GetComponent<Projectile>().Initialize();
         _lastTimeFired = Time.time;

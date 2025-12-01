@@ -1,6 +1,8 @@
+using System;
 using Input;
 using ObjectPool;
 using UnityEngine;
+using UnityServiceLocator;
 
 public class WeaponShooting : MonoBehaviour
 {
@@ -11,6 +13,14 @@ public class WeaponShooting : MonoBehaviour
     
     [Header("Prefabs")]
     [SerializeField] private Projectile _bulletPrefab;
+
+    private SimplePool _pool;
+    
+    private void Awake()
+    {
+        ServiceLocator.Global.Get(out SimplePool simplePool);
+        _pool = simplePool;
+    }
 
     private void OnEnable()
     {
@@ -27,7 +37,7 @@ public class WeaponShooting : MonoBehaviour
     {
         if (state)
         {
-            GameObject projectile = SimplePool.Instance.GetPooledObject(_bulletPrefab.gameObject);
+            GameObject projectile = _pool.GetPooledObject(_bulletPrefab.gameObject);
             projectile.transform.SetPositionAndRotation(_shootPoint.position, _shootPoint.rotation);
             projectile.GetComponent<Projectile>().Initialize();
         }

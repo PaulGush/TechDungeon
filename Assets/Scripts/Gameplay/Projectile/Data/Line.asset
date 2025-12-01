@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fc2c1530fb9257004bd4cb4c3e7d04d8, type: 3}
-  m_Name: Base
+  m_Name: Line
   m_EditorClassIdentifier: Assembly-CSharp::ProjectileSettings
   Damage: 5
-  Speed: 200
+  Speed: 0.035
   Lifetime: 3
-  HitsBeforeDeath: 1
+  HitsBeforeDeath: 0
