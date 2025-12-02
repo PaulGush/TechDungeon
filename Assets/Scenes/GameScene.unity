@@ -1299,7 +1299,7 @@ MonoBehaviour:
   _inputReader: {fileID: 11400000, guid: c7fc619696fbc354f935b4ae0e11fc0c, type: 2}
   _shootPoint: {fileID: 1008416698}
   _camera: {fileID: 519420031}
-  _bulletPrefab: {fileID: 6481393338737401498, guid: 991df1a3ac21a8dfd8f6ff27d42b5f99, type: 3}
+  _prefab: {fileID: 6481393338737401498, guid: 991df1a3ac21a8dfd8f6ff27d42b5f99, type: 3}
 --- !u!1 &1445219499
 GameObject:
   m_ObjectHideFlags: 0
@@ -3285,13 +3285,29 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2442986257129563281, guid: 4bf1a82e2dc6a45168567b5f616ff4b1, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 2805923156366516581, guid: 4bf1a82e2dc6a45168567b5f616ff4b1, type: 3}
       propertyPath: _projectilePrefab
       value: 
       objectReference: {fileID: 5187812260587514585, guid: f9cc98d9978166916b50e3a501a2e3b5, type: 3}
+    - target: {fileID: 5290733022659640539, guid: 4bf1a82e2dc6a45168567b5f616ff4b1, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 7364831485085966955, guid: 4bf1a82e2dc6a45168567b5f616ff4b1, type: 3}
       propertyPath: m_Name
       value: Enemy_FlyingDrone
+      objectReference: {fileID: 0}
+    - target: {fileID: 8097938195515696249, guid: 4bf1a82e2dc6a45168567b5f616ff4b1, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8097938195515696249, guid: 4bf1a82e2dc6a45168567b5f616ff4b1, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -12,7 +12,7 @@ public class WeaponShooting : MonoBehaviour
     [SerializeField] private Camera _camera;
     
     [Header("Prefabs")]
-    [SerializeField] private Projectile _bulletPrefab;
+    [SerializeField] private Projectile _prefab;
 
     private SimplePool _pool;
     
@@ -37,7 +37,7 @@ public class WeaponShooting : MonoBehaviour
     {
         if (state)
         {
-            GameObject projectile = _pool.GetPooledObject(_bulletPrefab.gameObject);
+            GameObject projectile = _pool.GetPooledObject(_prefab.gameObject);
             projectile.transform.SetPositionAndRotation(_shootPoint.position, _shootPoint.rotation);
             projectile.GetComponent<Projectile>().Initialize();
         }

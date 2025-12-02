@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Line
   m_EditorClassIdentifier: Assembly-CSharp::ProjectileSettings
   Damage: 5
-  Speed: 0.035
+  Speed: 300
   Lifetime: 3
   HitsBeforeDeath: 0
