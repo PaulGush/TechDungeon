@@ -5,6 +5,8 @@ namespace PlayerObject
 {
     public class WeaponAnchor : MonoBehaviour
     {
+        //TODO: Add controller support
+        
         [SerializeField] private Camera _camera;
         private void FixedUpdate()
         {

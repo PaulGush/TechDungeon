@@ -29,7 +29,7 @@ namespace PlayerObject
 
             _health.OnTakeDamage += OnHurt;
             _health.OnHeal += OnHeal;
-            _health.OnDeath += () => _animator.SetTrigger(Death);
+            _health.OnDeath += OnDeath;
         }
 
         private void OnDisable()
@@ -39,7 +39,7 @@ namespace PlayerObject
             
             _health.OnTakeDamage -= OnHurt;
             _health.OnHeal -= OnHeal;
-            _health.OnDeath -= () => _animator.SetTrigger(Death);
+            _health.OnDeath -= OnDeath; 
         }
 
         private void OnMove(Vector2 direction)
@@ -64,6 +64,12 @@ namespace PlayerObject
         private void OnHeal()
         {
             StartCoroutine(ChangeColorForSeconds(_healColor, 0.2f));
+        }
+
+        private void OnDeath()
+        {
+            _inputReader.DisablePlayerActions();
+            _animator.SetTrigger(Death);
         }
 
         private IEnumerator ChangeColorForSeconds(Color color, float seconds)
