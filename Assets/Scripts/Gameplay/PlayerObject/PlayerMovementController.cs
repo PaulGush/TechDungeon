@@ -1,3 +1,4 @@
+using System;
 using Input;
 using UnityEngine;
 
@@ -15,6 +16,11 @@ namespace PlayerObject
         private void OnEnable()
         {
             _inputReader.EnablePlayerActions();
+        }
+
+        private void OnDisable()
+        {
+            _inputReader.DisablePlayerActions();
         }
 
         private void FixedUpdate()

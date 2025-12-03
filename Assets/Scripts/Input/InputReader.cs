@@ -20,6 +20,7 @@ namespace Input
         public UnityAction Previous = delegate {  };
         public UnityAction Interact = delegate {  };
         public UnityAction Inventory = delegate {  };
+        public UnityAction Roll = delegate {  };
         
         private InputSystem_Actions m_inputActions;
         
@@ -84,6 +85,11 @@ namespace Input
         public void OnInventory(InputAction.CallbackContext context)
         {
             Inventory?.Invoke();
+        }
+
+        public void OnRoll(InputAction.CallbackContext context)
+        {
+            Roll?.Invoke();
         }
     }
 }

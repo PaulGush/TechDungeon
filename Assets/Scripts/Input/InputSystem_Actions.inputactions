@@ -1,4 +1,5 @@
 {
+    "version": 1,
     "name": "InputSystem_Actions",
     "maps": [
         {
@@ -63,6 +64,15 @@
                     "name": "Inventory",
                     "type": "Button",
                     "id": "e65954c0-8810-4ffd-a5bf-fc774eac38ad",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Roll",
+                    "type": "Button",
+                    "id": "ca6254e2-22d7-4f72-ba38-7717e2dc31a5",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -373,8 +383,30 @@
                     "path": "<Keyboard>/i",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": ";Keyboard&Mouse",
                     "action": "Inventory",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ebcc899a-7d04-4d1f-9535-383120196108",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Roll",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "feba34b4-4956-4ad9-8f21-4739fee34bb1",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "Roll",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
