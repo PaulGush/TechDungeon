@@ -168,7 +168,7 @@ MonoBehaviour:
   _inputReader: {fileID: 11400000, guid: c7fc619696fbc354f935b4ae0e11fc0c, type: 2}
   _shootPoint: {fileID: 3972275736191174999}
   _camera: {fileID: 0}
-  _prefab: {fileID: 6481393338737401498, guid: 991df1a3ac21a8dfd8f6ff27d42b5f99, type: 3}
+  _projectile: {fileID: 6481393338737401498, guid: 991df1a3ac21a8dfd8f6ff27d42b5f99, type: 3}
 --- !u!1 &4237429747698415312
 GameObject:
   m_ObjectHideFlags: 0
@@ -286,7 +286,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 100
-  m_Sprite: {fileID: 390126502, guid: 4e5eaafd58de9a9658a16c20bb5931f4, type: 3}
+  m_Sprite: {fileID: -1562152184, guid: 4e5eaafd58de9a9658a16c20bb5931f4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -332,8 +332,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerObject.PlayerAnimationController
   _animator: {fileID: 7516572756343271769}
+  _spriteRenderer: {fileID: 7227899995360861141}
   _inputReader: {fileID: 11400000, guid: c7fc619696fbc354f935b4ae0e11fc0c, type: 2}
-  _health: {fileID: 0}
+  _health: {fileID: 1996463684338401589}
+  _healColor: {r: 0, g: 1, b: 0, a: 1}
+  _damageColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!114 &8789082075809727243
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -349,6 +352,8 @@ MonoBehaviour:
   _inputReader: {fileID: 11400000, guid: c7fc619696fbc354f935b4ae0e11fc0c, type: 2}
   _rigidbody2D: {fileID: 2725138527756573333}
   _speed: 2
+  _rollForce: 5
+  _rollDuration: 0.2
 --- !u!50 &2725138527756573333
 Rigidbody2D:
   serializedVersion: 5
@@ -426,4 +431,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EntityHealth
   _currentHealth: 0
-  _maxHealth: 100
+  _maxHealth: 1000

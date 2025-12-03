@@ -654,17 +654,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2002846769995839906, guid: 085caa6957049c7f2a521973312b75d8, type: 3}
   m_PrefabInstance: {fileID: 1397277188939063879}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &833702548 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1996463684338401589, guid: 085caa6957049c7f2a521973312b75d8, type: 3}
-  m_PrefabInstance: {fileID: 1397277188939063879}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d24eb0baf57c918e99812820c711bb4a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EntityHealth
 --- !u!1 &900285411
 GameObject:
   m_ObjectHideFlags: 0
@@ -767,11 +756,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!212 &993292771 stripped
-SpriteRenderer:
-  m_CorrespondingSourceObject: {fileID: 7227899995360861141, guid: 085caa6957049c7f2a521973312b75d8, type: 3}
-  m_PrefabInstance: {fileID: 1397277188939063879}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1034529691
 GameObject:
   m_ObjectHideFlags: 0
@@ -2855,10 +2839,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1996463684338401589, guid: 085caa6957049c7f2a521973312b75d8, type: 3}
-      propertyPath: _maxHealth
-      value: 1000
-      objectReference: {fileID: 0}
     - target: {fileID: 2002846769995839906, guid: 085caa6957049c7f2a521973312b75d8, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -2907,30 +2887,10 @@ PrefabInstance:
       propertyPath: _camera
       value: 
       objectReference: {fileID: 519420031}
-    - target: {fileID: 6403834610152571429, guid: 085caa6957049c7f2a521973312b75d8, type: 3}
-      propertyPath: _projectile
-      value: 
-      objectReference: {fileID: 6481393338737401498, guid: 991df1a3ac21a8dfd8f6ff27d42b5f99, type: 3}
-    - target: {fileID: 7227899995360861141, guid: 085caa6957049c7f2a521973312b75d8, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: -1562152184, guid: 4e5eaafd58de9a9658a16c20bb5931f4, type: 3}
-    - target: {fileID: 8789082075809727243, guid: 085caa6957049c7f2a521973312b75d8, type: 3}
-      propertyPath: _rollForce
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 8827321438057550398, guid: 085caa6957049c7f2a521973312b75d8, type: 3}
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 9196786902535530084, guid: 085caa6957049c7f2a521973312b75d8, type: 3}
-      propertyPath: _health
-      value: 
-      objectReference: {fileID: 833702548}
-    - target: {fileID: 9196786902535530084, guid: 085caa6957049c7f2a521973312b75d8, type: 3}
-      propertyPath: _spriteRenderer
-      value: 
-      objectReference: {fileID: 993292771}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

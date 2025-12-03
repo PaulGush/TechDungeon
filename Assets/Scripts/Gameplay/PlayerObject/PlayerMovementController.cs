@@ -19,13 +19,11 @@ namespace PlayerObject
         private void OnEnable()
         {
             _inputReader.EnablePlayerActions();
-            _inputReader.Roll += OnRoll;
         }
 
         private void OnDisable()
         {
             _inputReader.DisablePlayerActions();
-            _inputReader.Roll -= OnRoll;
         }
 
         private void FixedUpdate()
@@ -41,7 +39,7 @@ namespace PlayerObject
             _rigidbody2D.MovePosition(newPosition);
         }
 
-        private void OnRoll()
+        public void Roll()
         {
             if (_rollTimer > 0) return;
 

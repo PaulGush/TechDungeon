@@ -6,10 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="59bb30c9-7a73-48ca-941c-fdb2f3927ea8" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TechDungeon/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TechDungeon/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animation/Player/Dive/Dive_Down.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Animation/Player/Dive/Dive_Down.anim" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Animation/Player/Player.controller" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Animation/Player/Player.controller" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/GameScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/GameScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Gameplay/PlayerObject/PlayerAnimationController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Gameplay/PlayerObject/PlayerAnimationController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Gameplay/PlayerObject/Weapon/WeaponShooting.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Gameplay/PlayerObject/Weapon/WeaponShooting.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Gameplay/PlayerObject/PlayerMovementController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Gameplay/PlayerObject/PlayerMovementController.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -157,7 +156,7 @@
       <workItem from="1764414751937" duration="23260000" />
       <workItem from="1764502280960" duration="28264000" />
       <workItem from="1764596607766" duration="8106000" />
-      <workItem from="1764760879019" duration="8355000" />
+      <workItem from="1764760879019" duration="12367000" />
     </task>
     <servers />
   </component>
