@@ -1,4 +1,3 @@
-using System;
 using Input;
 using UnityEngine;
 
@@ -12,22 +11,43 @@ namespace PlayerObject
 
         [Header("Settings")]
         [SerializeField] private float _speed = 10f;
-    
+        [SerializeField] private float _rollForce = 50f;
+        [SerializeField] private float _rollDuration = 0.2f;
+
+        private float _rollTimer;
+        
         private void OnEnable()
         {
             _inputReader.EnablePlayerActions();
+            _inputReader.Roll += OnRoll;
         }
 
         private void OnDisable()
         {
             _inputReader.DisablePlayerActions();
+            _inputReader.Roll -= OnRoll;
         }
 
         private void FixedUpdate()
         {
+            if (_rollTimer > 0)
+            {
+                _rollTimer -= Time.fixedDeltaTime;
+                return;
+            }
+            
             Vector2 direction = _inputReader.Direction;
             Vector2 newPosition = _rigidbody2D.position + direction * (_speed * Time.fixedDeltaTime);
             _rigidbody2D.MovePosition(newPosition);
+        }
+
+        private void OnRoll()
+        {
+            if (_rollTimer > 0) return;
+
+            _rollTimer = _rollDuration;
+            _rigidbody2D.linearVelocity = Vector2.zero;
+            _rigidbody2D.AddForce(_inputReader.Direction * _rollForce, ForceMode2D.Impulse);
         }
     }
 }

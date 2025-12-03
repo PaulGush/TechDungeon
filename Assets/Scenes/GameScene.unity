@@ -2902,6 +2902,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: -1562152184, guid: 4e5eaafd58de9a9658a16c20bb5931f4, type: 3}
+    - target: {fileID: 8789082075809727243, guid: 085caa6957049c7f2a521973312b75d8, type: 3}
+      propertyPath: _rollForce
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 8827321438057550398, guid: 085caa6957049c7f2a521973312b75d8, type: 3}
       propertyPath: m_Name
       value: Player
@@ -2963,29 +2967,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2442986257129563281, guid: 4bf1a82e2dc6a45168567b5f616ff4b1, type: 3}
-      propertyPath: m_TagString
-      value: Enemy
-      objectReference: {fileID: 0}
-    - target: {fileID: 2805923156366516581, guid: 4bf1a82e2dc6a45168567b5f616ff4b1, type: 3}
-      propertyPath: _projectilePrefab
-      value: 
-      objectReference: {fileID: 5187812260587514585, guid: f9cc98d9978166916b50e3a501a2e3b5, type: 3}
-    - target: {fileID: 5290733022659640539, guid: 4bf1a82e2dc6a45168567b5f616ff4b1, type: 3}
-      propertyPath: m_TagString
-      value: Enemy
-      objectReference: {fileID: 0}
     - target: {fileID: 7364831485085966955, guid: 4bf1a82e2dc6a45168567b5f616ff4b1, type: 3}
       propertyPath: m_Name
       value: Enemy_FlyingDrone
-      objectReference: {fileID: 0}
-    - target: {fileID: 8097938195515696249, guid: 4bf1a82e2dc6a45168567b5f616ff4b1, type: 3}
-      propertyPath: m_Layer
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 8097938195515696249, guid: 4bf1a82e2dc6a45168567b5f616ff4b1, type: 3}
-      propertyPath: m_TagString
-      value: Enemy
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

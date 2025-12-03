@@ -6,7 +6,7 @@ namespace PlayerObject
     public class WeaponAnchor : MonoBehaviour
     {
         [SerializeField] private Camera _camera;
-        private void Update()
+        private void FixedUpdate()
         {
             Vector3 diff = _camera.ScreenToWorldPoint(InputSystem.GetDevice<Mouse>().position.ReadValue()) - transform.position;
             diff.Normalize();  

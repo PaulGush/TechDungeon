@@ -6,28 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="59bb30c9-7a73-48ca-941c-fdb2f3927ea8" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TechDungeon/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TechDungeon/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Animation/Player/Idle/Idle_Down.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Animation/Player/Idle/Idle_Down.anim" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Animation/Player/Idle/Idle_Left.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Animation/Player/Idle/Idle_Left.anim" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Animation/Player/Idle/Idle_LowerLeft.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Animation/Player/Idle/Idle_LowerLeft.anim" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Animation/Player/Idle/Idle_LowerRight.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Animation/Player/Idle/Idle_LowerRight.anim" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Animation/Player/Idle/Idle_Right.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Animation/Player/Idle/Idle_Right.anim" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Animation/Player/Idle/Idle_Up.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Animation/Player/Idle/Idle_Up.anim" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Animation/Player/Idle/Idle_UpperLeft.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Animation/Player/Idle/Idle_UpperLeft.anim" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Animation/Player/Idle/Idle_UpperRight.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Animation/Player/Idle/Idle_UpperRight.anim" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Animation/Player/Player.controller" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Animation/Player/Player.controller" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Art/ASTRONAUT AssetPack/00 BiColor_Regular/Chara_Astronaut00_DeadBody_Dive_4Dir_4x4.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Art/ASTRONAUT AssetPack/00 BiColor_Regular/Chara_Astronaut00_DeadBody_Dive_4Dir_4x4.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Art/ASTRONAUT AssetPack/00 BiColor_Regular/Chara_Astronaut00_DeadBody_Fall_8Dir_3x8.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Art/ASTRONAUT AssetPack/00 BiColor_Regular/Chara_Astronaut00_DeadBody_Fall_8Dir_3x8.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Art/ASTRONAUT AssetPack/00 BiColor_Regular/Chara_Astronaut00_DeadBody_Idle_8Dir_1x8.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Art/ASTRONAUT AssetPack/00 BiColor_Regular/Chara_Astronaut00_DeadBody_Idle_8Dir_1x8.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Art/ASTRONAUT AssetPack/00 BiColor_Regular/Chara_Astronaut00_DeadBody_Jump_8Dir_4x8.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Art/ASTRONAUT AssetPack/00 BiColor_Regular/Chara_Astronaut00_DeadBody_Jump_8Dir_4x8.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Art/ASTRONAUT AssetPack/00 BiColor_Regular/Chara_Astronaut00_DeadBody_Land_8Dir_1x8.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Art/ASTRONAUT AssetPack/00 BiColor_Regular/Chara_Astronaut00_DeadBody_Land_8Dir_1x8.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Art/ASTRONAUT AssetPack/00 BiColor_Regular/Chara_Astronaut00_DeadBody_Roll_4Dir_4x4.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Art/ASTRONAUT AssetPack/00 BiColor_Regular/Chara_Astronaut00_DeadBody_Roll_4Dir_4x4.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Art/ASTRONAUT AssetPack/00 BiColor_Regular/Chara_Astronaut00_DeadBody_Run_4Dir_6x4.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Art/ASTRONAUT AssetPack/00 BiColor_Regular/Chara_Astronaut00_DeadBody_Run_4Dir_6x4.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefab/Enemy/Enemy_FlyingDrone.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefab/Enemy/Enemy_FlyingDrone.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/GameScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/GameScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Gameplay/PlayerObject/PlayerAnimationController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Gameplay/PlayerObject/PlayerAnimationController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Gameplay/PlayerObject/PlayerMovementController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Gameplay/PlayerObject/PlayerMovementController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Input/InputReader.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Input/InputReader.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Input/InputSystem_Actions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Input/InputSystem_Actions.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Input/InputSystem_Actions.inputactions" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Input/InputSystem_Actions.inputactions" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -175,7 +157,7 @@
       <workItem from="1764414751937" duration="23260000" />
       <workItem from="1764502280960" duration="28264000" />
       <workItem from="1764596607766" duration="8106000" />
-      <workItem from="1764760879019" duration="3505000" />
+      <workItem from="1764760879019" duration="5197000" />
     </task>
     <servers />
   </component>

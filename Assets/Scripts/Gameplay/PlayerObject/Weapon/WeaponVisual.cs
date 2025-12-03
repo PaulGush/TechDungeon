@@ -6,10 +6,9 @@ namespace PlayerObject
     {
         [Header("References")]
         [SerializeField] private SpriteRenderer _spriteRenderer;
-
         [SerializeField] private WeaponAnchor _weaponAnchor;
         
-        private void Update()
+        private void FixedUpdate()
         {
             _spriteRenderer.flipY = _weaponAnchor.transform.rotation.eulerAngles.z < 180;    
         }

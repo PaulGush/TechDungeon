@@ -89,7 +89,10 @@ namespace Input
 
         public void OnRoll(InputAction.CallbackContext context)
         {
-            Roll?.Invoke();
+            if (context.phase == InputActionPhase.Started)
+            {
+                Roll?.Invoke();
+            }
         }
     }
 }

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3633099380963209370}
   m_Layer: 0
   m_Name: WeaponAnchor
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -62,7 +62,7 @@ GameObject:
   - component: {fileID: 2805923156366516581}
   m_Layer: 0
   m_Name: Visual
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -205,7 +205,7 @@ MonoBehaviour:
   _enemyController: {fileID: 5296464329978220579}
   _shootPoint: {fileID: 6734990020364742783}
   _fireRate: 0.25
-  _projectilePrefab: {fileID: 5187812260587514585, guid: 991df1a3ac21a8dfd8f6ff27d42b5f99, type: 3}
+  _projectilePrefab: {fileID: 5187812260587514585, guid: f9cc98d9978166916b50e3a501a2e3b5, type: 3}
 --- !u!1 &6864235361929530881
 GameObject:
   m_ObjectHideFlags: 0
@@ -424,9 +424,9 @@ GameObject:
   - component: {fileID: 1501478466892950723}
   - component: {fileID: 8995049169736424774}
   - component: {fileID: 3582027185550081905}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Targeting
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
