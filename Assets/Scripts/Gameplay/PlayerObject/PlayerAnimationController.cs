@@ -1,3 +1,4 @@
+using System.Collections;
 using Input;
 using UnityEngine;
 
@@ -8,22 +9,26 @@ namespace PlayerObject
         private static readonly int Horizontal = Animator.StringToHash("Horizontal");
         private static readonly int Vertical = Animator.StringToHash("Vertical");
         private static readonly int MoveSpeed = Animator.StringToHash("MoveSpeed");
-        private static readonly int Hurt = Animator.StringToHash("Hurt");
-        private static readonly int Heal = Animator.StringToHash("Heal");
         private static readonly int Death = Animator.StringToHash("Death");
         private static readonly int Roll = Animator.StringToHash("Roll");
+        [Header("References")]
         [SerializeField] private Animator _animator;
+        [SerializeField] private SpriteRenderer _spriteRenderer;
         [SerializeField] private InputReader _inputReader;
         [SerializeField] private EntityHealth _health;
+        
+        [Header("Settings")]
+        [SerializeField] private Color _healColor = Color.green;
+        [SerializeField] private Color _damageColor = Color.red;
 
         private void OnEnable()
         {
             _inputReader.EnablePlayerActions();
             _inputReader.Move += OnMove;
             _inputReader.Roll += OnRoll;
-            
-            _health.OnTakeDamage += () => _animator.SetTrigger(Hurt);
-            _health.OnHeal += () => _animator.SetTrigger(Heal);
+
+            _health.OnTakeDamage += OnHurt;
+            _health.OnHeal += OnHeal;
             _health.OnDeath += () => _animator.SetTrigger(Death);
         }
 
@@ -32,8 +37,8 @@ namespace PlayerObject
             _inputReader.Move -= OnMove;
             _inputReader.Roll -= OnRoll;
             
-            _health.OnTakeDamage -= () => _animator.SetTrigger(Hurt);
-            _health.OnHeal -= () => _animator.SetTrigger(Heal);
+            _health.OnTakeDamage -= OnHurt;
+            _health.OnHeal -= OnHeal;
             _health.OnDeath -= () => _animator.SetTrigger(Death);
         }
 
@@ -49,6 +54,24 @@ namespace PlayerObject
         private void OnRoll()
         {
             _animator.SetTrigger(Roll);
+        }
+
+        private void OnHurt()
+        {
+            StartCoroutine(ChangeColorForSeconds(_damageColor, 0.2f));
+        }
+        
+        private void OnHeal()
+        {
+            StartCoroutine(ChangeColorForSeconds(_healColor, 0.2f));
+        }
+
+        private IEnumerator ChangeColorForSeconds(Color color, float seconds)
+        {
+            Color originalColor = _spriteRenderer.color;
+            _spriteRenderer.color = color;
+            yield return new WaitForSeconds(seconds);
+            _spriteRenderer.color = originalColor;
         }
 
         private void Update()
