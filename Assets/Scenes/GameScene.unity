@@ -2887,6 +2887,10 @@ PrefabInstance:
       propertyPath: _camera
       value: 
       objectReference: {fileID: 519420031}
+    - target: {fileID: 2681909723310364213, guid: 085caa6957049c7f2a521973312b75d8, type: 3}
+      propertyPath: _inputReader
+      value: 
+      objectReference: {fileID: 11400000, guid: c7fc619696fbc354f935b4ae0e11fc0c, type: 2}
     - target: {fileID: 6403834610152571429, guid: 085caa6957049c7f2a521973312b75d8, type: 3}
       propertyPath: _camera
       value: 

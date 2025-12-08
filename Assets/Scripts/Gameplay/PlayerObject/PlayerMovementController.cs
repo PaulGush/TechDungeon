@@ -34,7 +34,7 @@ namespace PlayerObject
                 return;
             }
             
-            Vector2 direction = _inputReader.Direction;
+            Vector2 direction = _inputReader.MoveDirection;
             Vector2 newPosition = _rigidbody2D.position + direction * (_speed * Time.fixedDeltaTime);
             _rigidbody2D.MovePosition(newPosition);
         }
@@ -45,7 +45,7 @@ namespace PlayerObject
 
             _rollTimer = _rollDuration;
             _rigidbody2D.linearVelocity = Vector2.zero;
-            _rigidbody2D.AddForce(_inputReader.Direction * _rollForce, ForceMode2D.Impulse);
+            _rigidbody2D.AddForce(_inputReader.MoveDirection * _rollForce, ForceMode2D.Impulse);
         }
     }
 }

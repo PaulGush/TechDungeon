@@ -7,7 +7,7 @@ namespace Input
 {
     public interface IInputReader
     {
-        Vector2 Direction { get; }
+        Vector2 MoveDirection { get; }
         void EnablePlayerActions();
     }
     
@@ -15,16 +15,18 @@ namespace Input
     public class InputReader : ScriptableObject, IInputReader, IPlayerActions
     {
         public UnityAction<Vector2> Move = delegate {  };
-        public UnityAction<bool> Attack = delegate {  };
+        public UnityAction Attack = delegate {  };
         public UnityAction Next = delegate {  };
         public UnityAction Previous = delegate {  };
         public UnityAction Interact = delegate {  };
         public UnityAction Inventory = delegate {  };
         public UnityAction Roll = delegate {  };
+        public UnityAction Look = delegate {  };
         
         private InputSystem_Actions m_inputActions;
         
-        public Vector2 Direction => m_inputActions.Player.Move.ReadValue<Vector2>();
+        public Vector2 MoveDirection => m_inputActions.Player.Move.ReadValue<Vector2>();
+        public Vector2 LookDirection => m_inputActions.Player.Look.ReadValue<Vector2>();
         
         public bool IsMoveInputPressed => m_inputActions.Player.Move.IsPressed();
         public void EnablePlayerActions()
@@ -49,14 +51,9 @@ namespace Input
 
         public void OnAttack(InputAction.CallbackContext context)
         {
-            switch(context.phase)
+            if (context.phase == InputActionPhase.Started)
             {
-                case InputActionPhase.Started:
-                    Attack?.Invoke(true);
-                    break;
-                case InputActionPhase.Canceled:
-                    Attack?.Invoke(false);
-                    break;
+                Attack?.Invoke();
             }
         }
         
@@ -93,6 +90,11 @@ namespace Input
             {
                 Roll?.Invoke();
             }
+        }
+
+        public void OnLook(InputAction.CallbackContext context)
+        {
+            Look?.Invoke();
         }
     }
 }

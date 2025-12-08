@@ -58,11 +58,13 @@ namespace PlayerObject
 
         private void OnHurt()
         {
+            StopAllCoroutines();
             StartCoroutine(ChangeColorForSeconds(_damageColor, 0.2f));
         }
         
         private void OnHeal()
         {
+            StopAllCoroutines();
             StartCoroutine(ChangeColorForSeconds(_healColor, 0.2f));
         }
 
@@ -74,10 +76,9 @@ namespace PlayerObject
 
         private IEnumerator ChangeColorForSeconds(Color color, float seconds)
         {
-            Color originalColor = _spriteRenderer.color;
             _spriteRenderer.color = color;
             yield return new WaitForSeconds(seconds);
-            _spriteRenderer.color = originalColor;
+            _spriteRenderer.color = Color.white;
         }
 
         private void Update()

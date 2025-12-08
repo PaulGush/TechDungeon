@@ -1,4 +1,3 @@
-using System;
 using Input;
 using ObjectPool;
 using UnityEngine;
@@ -33,13 +32,10 @@ public class WeaponShooting : MonoBehaviour
         _inputReader.Attack -= OnAttack;
     }
 
-    private void OnAttack(bool state)
+    private void OnAttack()
     {
-        if (state)
-        {
-            GameObject projectile = _pool.GetPooledObject(_projectile.gameObject);
-            projectile.transform.SetPositionAndRotation(_shootPoint.position, _shootPoint.rotation);
-            projectile.GetComponent<Projectile>().Initialize();
-        }
+        GameObject projectile = _pool.GetPooledObject(_projectile.gameObject);
+        projectile.transform.SetPositionAndRotation(_shootPoint.position, _shootPoint.rotation);
+        projectile.GetComponent<Projectile>().Initialize();
     }
 }
