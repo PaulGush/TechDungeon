@@ -1,4 +1,4 @@
-using ObjectPool;
+using Gameplay.ObjectPool;
 using UnityEngine;
 using UnityServiceLocator;
 
@@ -14,13 +14,13 @@ public class EnemyShooting : MonoBehaviour
     [SerializeField] private float _fireRate = 0.5f;
     [SerializeField] private GameObject _projectilePrefab;
     
-    private SimplePool _pool;
+    private ObjectPool _pool;
     private float _lastTimeFired;
 
     private void Awake()
     {
         _animationController = _enemyController.AnimationController;
-        ServiceLocator.Global.Get(out SimplePool simplePool);
+        ServiceLocator.Global.Get(out ObjectPool simplePool);
         _pool = simplePool;
     }
 

@@ -1,11 +1,11 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Pool;
 using UnityServiceLocator;
-using System.Collections.Generic;
 
-namespace ObjectPool
+namespace Gameplay.ObjectPool
 {
-    public class SimplePool : MonoBehaviour
+    public class ObjectPool : MonoBehaviour
     {
         private Dictionary<int, IObjectPool<GameObject>> _pools = new Dictionary<int, IObjectPool<GameObject>>();
         private Dictionary<int, IObjectPool<GameObject>> _activeObjects = new Dictionary<int, IObjectPool<GameObject>>();
@@ -66,10 +66,10 @@ namespace ObjectPool
         {
             yield return new WaitForSeconds(seconds);
             // Give it back to the pool.
-            ReturnGameobject(gameObject);
+            ReturnGameObject(gameObject);
         }
 
-        public void ReturnGameobject(GameObject gameObject)
+        public void ReturnGameObject(GameObject gameObject)
         {
             if (_activeObjects.TryGetValue(gameObject.GetInstanceID(), out var pool))
             {

@@ -1,5 +1,5 @@
+using Gameplay.ObjectPool;
 using Input;
-using ObjectPool;
 using UnityEngine;
 using UnityServiceLocator;
 
@@ -13,11 +13,11 @@ public class WeaponShooting : MonoBehaviour
     [Header("Prefabs")]
     [SerializeField] private Projectile _projectile;
 
-    private SimplePool _pool;
+    private ObjectPool _pool;
     
     private void Awake()
     {
-        ServiceLocator.Global.Get(out SimplePool simplePool);
+        ServiceLocator.Global.Get(out ObjectPool simplePool);
         _pool = simplePool;
     }
 

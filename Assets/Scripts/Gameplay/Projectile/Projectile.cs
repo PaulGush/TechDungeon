@@ -1,4 +1,4 @@
-using ObjectPool;
+using Gameplay.ObjectPool;
 using UnityEngine;
 using UnityServiceLocator;
 
@@ -8,12 +8,12 @@ public class Projectile : MonoBehaviour
     [SerializeField] private Rigidbody2D _rigidbody2D;
     [SerializeField] private ProjectileSettings _settings;
 
-    private SimplePool _pool;
+    private ObjectPool _pool;
     private int _hitsBeforeDeath;
     
     public virtual void Initialize()
     {
-        ServiceLocator.Global.Get(out SimplePool simplePool);
+        ServiceLocator.Global.Get(out ObjectPool simplePool);
         _pool = simplePool;
         
         _hitsBeforeDeath = _settings.HitsBeforeDeath;
@@ -36,7 +36,7 @@ public class Projectile : MonoBehaviour
 
         if (_hitsBeforeDeath-- <= 0)
         {
-            _pool.ReturnGameobject(gameObject);
+            _pool.ReturnGameObject(gameObject);
         }
     }
 }
