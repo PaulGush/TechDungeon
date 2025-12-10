@@ -30,9 +30,13 @@ public class EntityHealth : MonoBehaviour
         OnDeath?.Invoke();
     }
 
-    public virtual void Heal(int healAmount)
+    public virtual bool Heal(int healAmount)
     {
-        Mathf.Clamp(_currentHealth += healAmount, 0, _maxHealth);
+        if (_currentHealth + healAmount > _maxHealth)
+            return false;
+
+        _currentHealth += healAmount;
         OnHeal?.Invoke();
+        return true;
     }
 }
