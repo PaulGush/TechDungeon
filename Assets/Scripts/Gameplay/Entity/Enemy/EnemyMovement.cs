@@ -1,5 +1,7 @@
 using System;
+using PlayerObject;
 using UnityEngine;
+using UnityServiceLocator;
 
 public class EnemyMovement : MonoBehaviour
 {
@@ -28,6 +30,11 @@ public class EnemyMovement : MonoBehaviour
 
     private void MoveTowardTarget()
     {
+        if (_targeting.CurrentTarget == null)
+        {
+            _targeting.SetTarget(ServiceLocator.Global.Get<PlayerMovementController>().transform);
+        }
+
         _rigidbody2D.MovePosition(Vector2.MoveTowards(_rigidbody2D.position, _targeting.CurrentTarget.position, _speed * Time.fixedDeltaTime));
     }
     

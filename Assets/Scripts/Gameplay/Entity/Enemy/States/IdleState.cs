@@ -9,7 +9,7 @@ public class IdleState : IState
 
     public void Enter()
     {
-        
+        _enemyController.Health.OnTakeDamage += () => _enemyController.StateMachine.ChangeState(_enemyController.StateMachine.SeekState);
     }
 
     public void Tick()
@@ -19,6 +19,6 @@ public class IdleState : IState
 
     public void Exit()
     {
-        
+        _enemyController.Health.OnTakeDamage -= () => _enemyController.StateMachine.ChangeState(_enemyController.StateMachine.SeekState);
     }
 }

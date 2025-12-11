@@ -17,4 +17,9 @@ public class EnemyTargeting : MonoBehaviour
     }
     
     public bool IsTargetRightOfTransform() => _currentTarget.position.x > transform.position.x;
+
+    public void SetTarget(Transform transform)
+    {
+        _currentTarget = transform;
+    }
 }

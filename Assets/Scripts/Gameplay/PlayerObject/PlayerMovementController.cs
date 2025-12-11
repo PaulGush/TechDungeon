@@ -1,5 +1,7 @@
+using System;
 using Input;
 using UnityEngine;
+using UnityServiceLocator;
 
 namespace PlayerObject
 {
@@ -15,7 +17,12 @@ namespace PlayerObject
         [SerializeField] private float _rollDuration = 0.2f;
 
         private float _rollTimer;
-        
+
+        private void Awake()
+        {
+            ServiceLocator.Global.Register(this);
+        }
+
         private void OnEnable()
         {
             _inputReader.EnablePlayerActions();
