@@ -4,12 +4,12 @@ using UnityEngine;
 
 namespace UnityServiceLocator {
     public class ServiceManager {
-        readonly Dictionary<Type, object> services = new Dictionary<Type, object>();
-        public IEnumerable<object> RegisteredServices => services.Values;
+        readonly Dictionary<Type, object> m_services = new Dictionary<Type, object>();
+        public IEnumerable<object> RegisteredServices => m_services.Values;
         
         public bool TryGet<T>(out T service) where T : class {
             Type type = typeof(T);
-            if (services.TryGetValue(type, out object obj)) {
+            if (m_services.TryGetValue(type, out object obj)) {
                 service = obj as T;
                 return true;
             }
@@ -20,7 +20,7 @@ namespace UnityServiceLocator {
 
         public T Get<T>() where T : class {
             Type type = typeof(T);
-            if (services.TryGetValue(type, out object obj)) {
+            if (m_services.TryGetValue(type, out object obj)) {
                 return obj as T;
             }
             
@@ -30,7 +30,7 @@ namespace UnityServiceLocator {
         public ServiceManager Register<T>(T service) {
             Type type = typeof(T);
             
-            if (!services.TryAdd(type, service)) {
+            if (!m_services.TryAdd(type, service)) {
                 Debug.LogError($"ServiceManager.Register: Service of type {type.FullName} already registered");
             }
             
@@ -42,7 +42,7 @@ namespace UnityServiceLocator {
                 throw new ArgumentException("Type of service does not match type of service interface", nameof(service));
             }
             
-            if (!services.TryAdd(type, service)) {
+            if (!m_services.TryAdd(type, service)) {
                 Debug.LogError($"ServiceManager.Register: Service of type {type.FullName} already registered");
             }
             

@@ -5,12 +5,12 @@ namespace PlayerObject
     public class WeaponVisual : MonoBehaviour
     {
         [Header("References")]
-        [SerializeField] private SpriteRenderer _spriteRenderer;
-        [SerializeField] private WeaponAnchor _weaponAnchor;
+        [SerializeField] private SpriteRenderer m_spriteRenderer;
+        [SerializeField] private WeaponAnchor m_weaponAnchor;
         
         private void FixedUpdate()
         {
-            _spriteRenderer.flipY = _weaponAnchor.transform.rotation.eulerAngles.z < 180;    
+            m_spriteRenderer.flipY = m_weaponAnchor.transform.rotation.eulerAngles.z < 180;    
         }
     }
 }

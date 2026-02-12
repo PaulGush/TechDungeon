@@ -5,38 +5,38 @@ using UnityServiceLocator;
 public class EnemyShooting : MonoBehaviour
 {
     [Header("References")] 
-    [SerializeField] private EnemyController _enemyController;
-    [SerializeField] private Transform _shootPoint;
+    [SerializeField] private EnemyController m_enemyController;
+    [SerializeField] private Transform m_shootPoint;
     
-    private EnemyAnimationController _animationController;
+    private EnemyAnimationController m_animationController;
     
     [Header("Settings")]
-    [SerializeField] private float _fireRate = 0.5f;
-    [SerializeField] private GameObject _projectilePrefab;
+    [SerializeField] private float m_fireRate = 0.5f;
+    [SerializeField] private GameObject m_projectilePrefab;
     
-    private ObjectPool _pool;
-    private float _lastTimeFired;
+    private ObjectPool m_pool;
+    private float m_lastTimeFired;
 
     private void Awake()
     {
-        _animationController = _enemyController.AnimationController;
+        m_animationController = m_enemyController.AnimationController;
         ServiceLocator.Global.Get(out ObjectPool simplePool);
-        _pool = simplePool;
+        m_pool = simplePool;
     }
 
     public void TryShoot()
     {
-        if (!(_lastTimeFired + _fireRate <= Time.time))
+        if (!(m_lastTimeFired + m_fireRate <= Time.time))
             return;
 
-        _animationController.OnAttack();
+        m_animationController.OnAttack();
     }
 
     public void Shoot()
     {
-        GameObject projectile = _pool.GetPooledObject(_projectilePrefab);
-        projectile.transform.SetPositionAndRotation(_shootPoint.position, _shootPoint.rotation);
+        GameObject projectile = m_pool.GetPooledObject(m_projectilePrefab);
+        projectile.transform.SetPositionAndRotation(m_shootPoint.position, m_shootPoint.rotation);
         projectile.GetComponent<Projectile>().Initialize();
-        _lastTimeFired = Time.time;
+        m_lastTimeFired = Time.time;
     }
 }

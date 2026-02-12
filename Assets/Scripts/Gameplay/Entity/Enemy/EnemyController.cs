@@ -2,34 +2,34 @@ using UnityEngine;
 
 public class EnemyController : Entity
 {
-    private EnemyStateMachine _stateMachine;
-    public EnemyStateMachine StateMachine => _stateMachine;
+    private EnemyStateMachine m_stateMachine;
+    public EnemyStateMachine StateMachine => m_stateMachine;
 
     [Header("Dependencies")] 
-    [SerializeField] private EnemyAnimationController _animationController;
-    public EnemyAnimationController AnimationController => _animationController;
+    [SerializeField] private EnemyAnimationController m_animationController;
+    public EnemyAnimationController AnimationController => m_animationController;
     
-    [SerializeField] private EntityHealth _health;
-    public EntityHealth Health => _health;
+    [SerializeField] private EntityHealth m_health;
+    public EntityHealth Health => m_health;
     
-    [SerializeField] private EnemyMovement _movement;
-    public EnemyMovement Movement => _movement;
+    [SerializeField] private EnemyMovement m_movement;
+    public EnemyMovement Movement => m_movement;
 
-    [SerializeField] private EnemyShooting _shooting;
-    public EnemyShooting Shooting => _shooting;
+    [SerializeField] private EnemyShooting m_shooting;
+    public EnemyShooting Shooting => m_shooting;
     
-    [SerializeField] private EnemyTargeting _targeting;
-    public EnemyTargeting Targeting => _targeting;
+    [SerializeField] private EnemyTargeting m_targeting;
+    public EnemyTargeting Targeting => m_targeting;
     
 
     private void Start()
     {
-        _stateMachine = new EnemyStateMachine(this);
-        _stateMachine?.Initialize();
+        m_stateMachine = new EnemyStateMachine(this);
+        m_stateMachine?.Initialize();
     }
 
     private void FixedUpdate()
     {
-        _stateMachine?.Tick();
+        m_stateMachine?.Tick();
     }
 }

@@ -6,20 +6,20 @@ using UnityServiceLocator;
 public class EnemyMovement : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] private EnemyController _enemyController;
-    [SerializeField] private Rigidbody2D _rigidbody2D;
+    [SerializeField] private EnemyController m_enemyController;
+    [SerializeField] private Rigidbody2D m_rigidbody2D;
     
     [Header("Settings")]
-    [SerializeField] private float _speed = 10f;
-    [SerializeField] private float _attackRange = 1f;
+    [SerializeField] private float m_speed = 10f;
+    [SerializeField] private float m_attackRange = 1f;
     
-    private EnemyTargeting _targeting;
+    private EnemyTargeting m_targeting;
 
     public bool CanMove;
     
     private void Start()
     {
-        _targeting = _enemyController.Targeting;
+        m_targeting = m_enemyController.Targeting;
     }
 
     private void FixedUpdate()
@@ -30,13 +30,13 @@ public class EnemyMovement : MonoBehaviour
 
     private void MoveTowardTarget()
     {
-        if (_targeting.CurrentTarget == null)
+        if (m_targeting.CurrentTarget == null)
         {
-            _targeting.SetTarget(ServiceLocator.Global.Get<PlayerMovementController>().transform);
+            m_targeting.SetTarget(ServiceLocator.Global.Get<PlayerMovementController>().transform);
         }
 
-        _rigidbody2D.MovePosition(Vector2.MoveTowards(_rigidbody2D.position, _targeting.CurrentTarget.position, _speed * Time.fixedDeltaTime));
+        m_rigidbody2D.MovePosition(Vector2.MoveTowards(m_rigidbody2D.position, m_targeting.CurrentTarget.position, m_speed * Time.fixedDeltaTime));
     }
     
-    public bool IsTargetInRange() => Vector2.Distance(gameObject.transform.position, _targeting.CurrentTarget.position) <= _attackRange;
+    public bool IsTargetInRange() => Vector2.Distance(gameObject.transform.position, m_targeting.CurrentTarget.position) <= m_attackRange;
 }

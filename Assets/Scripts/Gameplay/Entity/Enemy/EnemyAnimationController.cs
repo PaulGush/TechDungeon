@@ -7,59 +7,59 @@ public class EnemyAnimationController : EntityAnimationController
     private static readonly int Dead = Animator.StringToHash("Dead");
     private static readonly int Attack = Animator.StringToHash("Attack");
 
-    [SerializeField] private EnemyController _enemyController;
+    [SerializeField] private EnemyController m_enemyController;
 
-    private EntityHealth _health;
+    private EntityHealth m_health;
 
     private void Awake()
     {
-        _health = _enemyController.Health;
+        m_health = m_enemyController.Health;
     }
 
     private void OnEnable()
     {
-        if (_health != null)
+        if (m_health != null)
         {
-            _health.OnHeal += OnHeal;
-            _health.OnTakeDamage += OnTakeDamage;
-            _health.OnDeath += OnDeath;
+            m_health.OnHeal += OnHeal;
+            m_health.OnTakeDamage += OnTakeDamage;
+            m_health.OnDeath += OnDeath;
         }
     }
 
     private void OnDisable()
     {
-        if (_health != null)
+        if (m_health != null)
         {
-            _health.OnHeal -= OnHeal;
-            _health.OnTakeDamage -= OnTakeDamage;
-            _health.OnDeath -= OnDeath;
+            m_health.OnHeal -= OnHeal;
+            m_health.OnTakeDamage -= OnTakeDamage;
+            m_health.OnDeath -= OnDeath;
         }
     }
 
     private void OnHeal()
     {
-        _animator.SetTrigger(Heal);
+        m_animator.SetTrigger(Heal);
     }
 
     private void OnTakeDamage()
     {
-        _animator.SetTrigger(Hurt);
+        m_animator.SetTrigger(Hurt);
     }
 
     private void OnDeath()
     {
-        _animator.SetBool(Dead, true);
+        m_animator.SetBool(Dead, true);
     }
 
     public void OnAttack()
     {
-        if (_animator.GetBool(Dead)) return;
+        if (m_animator.GetBool(Dead)) return;
         
-        _animator.SetTrigger(Attack);
+        m_animator.SetTrigger(Attack);
     }
 
     public void OnDeathComplete()
     {
-        _enemyController.gameObject.SetActive(false);
+        m_enemyController.gameObject.SetActive(false);
     }
 }

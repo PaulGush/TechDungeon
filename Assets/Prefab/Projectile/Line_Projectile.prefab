@@ -179,8 +179,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af7d9c819019ffa3da70e11b40f85933, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Projectile
-  _rigidbody2D: {fileID: 2821083896256912343}
-  _settings: {fileID: 11400000, guid: 6c041c566c8bddecf9f7ed266749378e, type: 2}
+  m_rigidbody2D: {fileID: 2821083896256912343}
+  m_settings: {fileID: 11400000, guid: 6c041c566c8bddecf9f7ed266749378e, type: 2}
 --- !u!95 &176081626738098485
 Animator:
   serializedVersion: 7

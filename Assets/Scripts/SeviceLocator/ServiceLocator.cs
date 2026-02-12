@@ -7,22 +7,22 @@ using UnityEngine.SceneManagement;
 
 namespace UnityServiceLocator {
     public class ServiceLocator : MonoBehaviour {
-        static ServiceLocator global;
-        static Dictionary<Scene, ServiceLocator> sceneContainers;
-        static List<GameObject> tmpSceneGameObjects;
+        static ServiceLocator _global;
+        static Dictionary<Scene, ServiceLocator> _sceneContainers;
+        static List<GameObject> _tmpSceneGameObjects;
         
-        readonly ServiceManager services = new ServiceManager();
+        readonly ServiceManager m_services = new ServiceManager();
         
-        const string k_globalServiceLocatorName = "ServiceLocator [Global]";
-        const string k_sceneServiceLocatorName = "ServiceLocator [Scene]";
+        const string KGlobalServiceLocatorName = "ServiceLocator [Global]";
+        const string KSceneServiceLocatorName = "ServiceLocator [Scene]";
 
         internal void ConfigureAsGlobal(bool dontDestroyOnLoad) {
-            if (global == this) {
+            if (_global == this) {
                 Debug.LogWarning("ServiceLocator.ConfigureAsGlobal: Already configured as global", this);
-            } else if (global != null) {
+            } else if (_global != null) {
                 Debug.LogError("ServiceLocator.ConfigureAsGlobal: Another ServiceLocator is already configured as global", this);
             } else {
-                global = this;
+                _global = this;
                 if (dontDestroyOnLoad) DontDestroyOnLoad(gameObject);
             }
         }
@@ -30,12 +30,12 @@ namespace UnityServiceLocator {
         internal void ConfigureForScene() {
             Scene scene = gameObject.scene;
 
-            if (sceneContainers.ContainsKey(scene)) {
+            if (_sceneContainers.ContainsKey(scene)) {
                 Debug.LogError("ServiceLocator.ConfigureForScene: Another ServiceLocator is already configured for this scene", this);
                 return;
             }
             
-            sceneContainers.Add(scene, this);
+            _sceneContainers.Add(scene, this);
         }
         
         /// <summary>
@@ -43,17 +43,17 @@ namespace UnityServiceLocator {
         /// </summary>        
         public static ServiceLocator Global {
             get {
-                if (global != null) return global;
+                if (_global != null) return _global;
 
                 if (FindFirstObjectByType<ServiceLocatorGlobal>() is { } found) {
                     found.BootstrapOnDemand();
-                    return global;
+                    return _global;
                 }
                 
-                var container = new GameObject(k_globalServiceLocatorName, typeof(ServiceLocator));
+                var container = new GameObject(KGlobalServiceLocatorName, typeof(ServiceLocator));
                 container.AddComponent<ServiceLocatorGlobal>().BootstrapOnDemand();
 
-                return global;
+                return _global;
             }
         }
         
@@ -63,14 +63,14 @@ namespace UnityServiceLocator {
         public static ServiceLocator ForSceneOf(MonoBehaviour mb) {
             Scene scene = mb.gameObject.scene;
             
-            if (sceneContainers.TryGetValue(scene, out ServiceLocator container) && container != mb) {
+            if (_sceneContainers.TryGetValue(scene, out ServiceLocator container) && container != mb) {
                 return container;
             }
             
-            tmpSceneGameObjects.Clear();
-            scene.GetRootGameObjects(tmpSceneGameObjects);
+            _tmpSceneGameObjects.Clear();
+            scene.GetRootGameObjects(_tmpSceneGameObjects);
 
-            foreach (GameObject go in tmpSceneGameObjects.Where(go => go.GetComponent<ServiceLocatorScene>() != null)) {
+            foreach (GameObject go in _tmpSceneGameObjects.Where(go => go.GetComponent<ServiceLocatorScene>() != null)) {
                 if (go.TryGetComponent(out ServiceLocatorScene bootstrapper) && bootstrapper.Container != mb) {
                     bootstrapper.BootstrapOnDemand();
                     return bootstrapper.Container;
@@ -95,7 +95,7 @@ namespace UnityServiceLocator {
         /// <typeparam name="T">Class type of the service to be registered.</typeparam>
         /// <returns>The ServiceLocator instance after registering the service.</returns>
         public ServiceLocator Register<T>(T service) {
-            services.Register(service);
+            m_services.Register(service);
             return this;
         }
         
@@ -106,7 +106,7 @@ namespace UnityServiceLocator {
         /// <param name="service">The service to register.</param>  
         /// <returns>The ServiceLocator instance after registering the service.</returns>
         public ServiceLocator Register(Type type, object service) {
-            services.Register(type, service);
+            m_services.Register(type, service);
             return this;
         }
         
@@ -162,15 +162,15 @@ namespace UnityServiceLocator {
         }        
         
         bool TryGetService<T>(out T service) where T : class {
-            return services.TryGet(out service);
+            return m_services.TryGet(out service);
         }
         
         bool TryGetService<T>(Type type, out T service) where T : class {
-            return services.TryGet(out service);
+            return m_services.TryGet(out service);
         }
         
         bool TryGetNextInHierarchy(out ServiceLocator container) {
-            if (this == global) {
+            if (this == _global) {
                 container = null;
                 return false;
             }
@@ -180,30 +180,30 @@ namespace UnityServiceLocator {
         }
         
         void OnDestroy() {
-            if (this == global) {
-                global = null;
-            } else if (sceneContainers.ContainsValue(this)) {
-                sceneContainers.Remove(gameObject.scene);
+            if (this == _global) {
+                _global = null;
+            } else if (_sceneContainers.ContainsValue(this)) {
+                _sceneContainers.Remove(gameObject.scene);
             }
         }
         
         // https://docs.unity3d.com/ScriptReference/RuntimeInitializeOnLoadMethodAttribute.html
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
         static void ResetStatics() {
-            global = null;
-            sceneContainers = new Dictionary<Scene, ServiceLocator>();
-            tmpSceneGameObjects = new List<GameObject>();
+            _global = null;
+            _sceneContainers = new Dictionary<Scene, ServiceLocator>();
+            _tmpSceneGameObjects = new List<GameObject>();
         }
 
 #if UNITY_EDITOR
         [MenuItem("GameObject/ServiceLocator/Add Global")]
         static void AddGlobal() {
-            var go = new GameObject(k_globalServiceLocatorName, typeof(ServiceLocatorGlobal));
+            var go = new GameObject(KGlobalServiceLocatorName, typeof(ServiceLocatorGlobal));
         }
 
         [MenuItem("GameObject/ServiceLocator/Add Scene")]
         static void AddScene() {
-            var go = new GameObject(k_sceneServiceLocatorName, typeof(ServiceLocatorScene));
+            var go = new GameObject(KSceneServiceLocatorName, typeof(ServiceLocatorScene));
         }
 #endif
     }

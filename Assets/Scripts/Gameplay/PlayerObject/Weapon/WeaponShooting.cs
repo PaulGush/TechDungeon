@@ -6,36 +6,35 @@ using UnityServiceLocator;
 public class WeaponShooting : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] private InputReader _inputReader;
-    [SerializeField] private Transform _shootPoint;
-    [SerializeField] private Camera _camera;
+    [SerializeField] private InputReader m_inputReader;
+    [SerializeField] private Transform m_shootPoint;
     
     [Header("Prefabs")]
-    [SerializeField] private Projectile _projectile;
-
-    private ObjectPool _pool;
+    [SerializeField] private Projectile m_projectile;
     
-    private void Awake()
+    private ObjectPool m_pool;
+    
+    private void Start()
     {
         ServiceLocator.Global.Get(out ObjectPool simplePool);
-        _pool = simplePool;
+        m_pool = simplePool;
     }
 
     private void OnEnable()
     {
-        _inputReader.EnablePlayerActions();
-        _inputReader.Attack += OnAttack;
+        m_inputReader.EnablePlayerActions();
+        m_inputReader.Attack += OnAttack;
     }
 
     private void OnDisable()
     {
-        _inputReader.Attack -= OnAttack;
+        m_inputReader.Attack -= OnAttack;
     }
 
     private void OnAttack()
     {
-        GameObject projectile = _pool.GetPooledObject(_projectile.gameObject);
-        projectile.transform.SetPositionAndRotation(_shootPoint.position, _shootPoint.rotation);
+        GameObject projectile = m_pool.GetPooledObject(m_projectile.gameObject);
+        projectile.transform.SetPositionAndRotation(m_shootPoint.position, m_shootPoint.rotation);
         projectile.GetComponent<Projectile>().Initialize();
     }
 }

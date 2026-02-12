@@ -6,11 +6,11 @@ public class HealthPickup : Pickup
 {
     [SerializeField] private int m_healAmount;
     
-    private ObjectPool _pool;
+    private ObjectPool m_pool;
     
     private void OnEnable()
     {
-        _pool = ServiceLocator.Global.Get<ObjectPool>();
+        m_pool = ServiceLocator.Global.Get<ObjectPool>();
     }
     
 
@@ -29,7 +29,7 @@ public class HealthPickup : Pickup
 
         if (health.Heal(m_healAmount))
         {
-            _pool.ReturnGameObject(gameObject);
+            m_pool.ReturnGameObject(gameObject);
         }
     }
 }

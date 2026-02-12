@@ -4,14 +4,14 @@ public class EnemyStateMachine
 {
     public EnemyStateMachine(EnemyController enemyController)
     {
-        _idleState = new IdleState(enemyController);
+        m_idleState = new IdleState(enemyController);
         SeekState = new SeekState(enemyController);
         AttackState = new AttackState(enemyController);
     }
 
-    private IState _currentState;
+    private IState m_currentState;
 
-    private IdleState _idleState;
+    private IdleState m_idleState;
     public SeekState SeekState;
     public AttackState AttackState;
     
@@ -19,19 +19,19 @@ public class EnemyStateMachine
 
     public void ChangeState(IState newState)
     {
-        _currentState?.Exit();
-        _currentState = newState;
-        _currentState.Enter();
-        OnStateChanged?.Invoke(_currentState);
+        m_currentState?.Exit();
+        m_currentState = newState;
+        m_currentState.Enter();
+        OnStateChanged?.Invoke(m_currentState);
     }
 
     public void Initialize()
     {
-        ChangeState(_idleState);
+        ChangeState(m_idleState);
     }
 
     public void Tick()
     {
-        _currentState?.Tick();
+        m_currentState?.Tick();
     }
 }

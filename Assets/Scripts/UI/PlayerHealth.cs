@@ -4,23 +4,23 @@ using UnityEngine.UI;
 public class PlayerHealth : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] private Slider _slider;
-    [SerializeField] private EntityHealth _health;
+    [SerializeField] private Slider m_slider;
+    [SerializeField] private EntityHealth m_health;
     
     private void OnEnable()
     {
-        _health.OnHealthChanged += OnHealthChanged;
+        m_health.OnHealthChanged += OnHealthChanged;
     }
 
     private void OnDisable()
     {
-        _health.OnHealthChanged -= OnHealthChanged;
+        m_health.OnHealthChanged -= OnHealthChanged;
     }
 
     private void OnHealthChanged(int currentHealth)
     {
-        _slider.maxValue = _health.MaxHealth;
-        _slider.value = currentHealth;
-        _slider.minValue = 0;
+        m_slider.maxValue = m_health.MaxHealth;
+        m_slider.value = currentHealth;
+        m_slider.minValue = 0;
     }
 }

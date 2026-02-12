@@ -2,19 +2,19 @@ using UnityEngine;
 
 public class EnemySpriteController : MonoBehaviour
 {
-    [SerializeField] private EnemyController _enemyController;
-    [SerializeField] private SpriteRenderer _spriteRenderer;
+    [SerializeField] private EnemyController m_enemyController;
+    [SerializeField] private SpriteRenderer m_spriteRenderer;
     
-    private EnemyTargeting _targeting;
+    private EnemyTargeting m_targeting;
 
     private void Awake()
     {
-        _targeting = _enemyController.Targeting;
+        m_targeting = m_enemyController.Targeting;
     }
 
     private void Update()
     {
-        if (_targeting == null || _targeting.CurrentTarget == null) return;
-        _spriteRenderer.flipX = !_targeting.IsTargetRightOfTransform();
+        if (m_targeting == null || m_targeting.CurrentTarget == null) return;
+        m_spriteRenderer.flipX = !m_targeting.IsTargetRightOfTransform();
     }
 }

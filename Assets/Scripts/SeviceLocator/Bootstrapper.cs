@@ -4,16 +4,16 @@ namespace UnityServiceLocator {
     [DisallowMultipleComponent]
     [RequireComponent(typeof(ServiceLocator))]
     public abstract class Bootstrapper : MonoBehaviour {
-        ServiceLocator container;
-        internal ServiceLocator Container => container.OrNull() ?? (container = GetComponent<ServiceLocator>());
+        ServiceLocator m_container;
+        internal ServiceLocator Container => m_container.OrNull() ?? (m_container = GetComponent<ServiceLocator>());
         
-        bool hasBeenBootstrapped;
+        bool m_hasBeenBootstrapped;
 
         void Awake() => BootstrapOnDemand();
         
         public void BootstrapOnDemand() {
-            if (hasBeenBootstrapped) return;
-            hasBeenBootstrapped = true;
+            if (m_hasBeenBootstrapped) return;
+            m_hasBeenBootstrapped = true;
             Bootstrap();
         }
         

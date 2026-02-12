@@ -2,28 +2,28 @@ public class SeekState : IState
 {
     public SeekState(EnemyController enemyController)
     {
-        _enemyController = enemyController;
+        m_enemyController = enemyController;
     }
     
-    private readonly EnemyController _enemyController;
-    private EnemyMovement _movement;
+    private readonly EnemyController m_enemyController;
+    private EnemyMovement m_movement;
     
 
     public void Enter()
     {
-        if (_movement == null)
+        if (m_movement == null)
         {
-            _movement = _enemyController.Movement;
+            m_movement = m_enemyController.Movement;
         }
         
-        _movement.CanMove = true;
+        m_movement.CanMove = true;
     }
 
     public void Tick()
     {
-        if (_movement.IsTargetInRange())
+        if (m_movement.IsTargetInRange())
         {
-            _enemyController.StateMachine.ChangeState(_enemyController.StateMachine.AttackState);
+            m_enemyController.StateMachine.ChangeState(m_enemyController.StateMachine.AttackState);
         }
     }
 

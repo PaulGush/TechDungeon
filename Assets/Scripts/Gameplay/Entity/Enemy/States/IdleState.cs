@@ -1,15 +1,15 @@
 public class IdleState : IState
 {
-    private EnemyController _enemyController;
+    private EnemyController m_enemyController;
 
     public IdleState(EnemyController enemyController)
     {
-        _enemyController = enemyController;
+        m_enemyController = enemyController;
     }
 
     public void Enter()
     {
-        _enemyController.Health.OnTakeDamage += () => _enemyController.StateMachine.ChangeState(_enemyController.StateMachine.SeekState);
+        m_enemyController.Health.OnTakeDamage += () => m_enemyController.StateMachine.ChangeState(m_enemyController.StateMachine.SeekState);
     }
 
     public void Tick()
@@ -19,6 +19,6 @@ public class IdleState : IState
 
     public void Exit()
     {
-        _enemyController.Health.OnTakeDamage -= () => _enemyController.StateMachine.ChangeState(_enemyController.StateMachine.SeekState);
+        m_enemyController.Health.OnTakeDamage -= () => m_enemyController.StateMachine.ChangeState(m_enemyController.StateMachine.SeekState);
     }
 }

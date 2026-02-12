@@ -7,8 +7,8 @@ namespace Gameplay.ObjectPool
 {
     public class ObjectPool : MonoBehaviour
     {
-        private Dictionary<int, IObjectPool<GameObject>> _pools = new Dictionary<int, IObjectPool<GameObject>>();
-        private Dictionary<int, IObjectPool<GameObject>> _activeObjects = new Dictionary<int, IObjectPool<GameObject>>();
+        private Dictionary<int, IObjectPool<GameObject>> m_pools = new Dictionary<int, IObjectPool<GameObject>>();
+        private Dictionary<int, IObjectPool<GameObject>> m_activeObjects = new Dictionary<int, IObjectPool<GameObject>>();
 
         void Awake()
         {
@@ -18,7 +18,7 @@ namespace Gameplay.ObjectPool
         public GameObject GetPooledObject(GameObject template)
         {
             int id = template.GetInstanceID();
-            if (!_pools.TryGetValue(id, out var pool))
+            if (!m_pools.TryGetValue(id, out var pool))
             {
                 pool = new ObjectPool<GameObject>(
                     createFunc: () =>
@@ -34,11 +34,11 @@ namespace Gameplay.ObjectPool
                     defaultCapacity: 10,
                     maxSize: 50
                 );
-                _pools[id] = pool;
+                m_pools[id] = pool;
             }
 
             GameObject instance = pool.Get();
-            _activeObjects[instance.GetInstanceID()] = pool;
+            m_activeObjects[instance.GetInstanceID()] = pool;
             return instance;
         }
 
@@ -58,7 +58,7 @@ namespace Gameplay.ObjectPool
         // Called when the pool decides to destroy an item (e.g., above max size).
         private void OnDestroyItem(GameObject gameObject)
         {
-            _activeObjects.Remove(gameObject.GetInstanceID());
+            m_activeObjects.Remove(gameObject.GetInstanceID());
             Destroy(gameObject);
         }
     
@@ -71,7 +71,7 @@ namespace Gameplay.ObjectPool
 
         public void ReturnGameObject(GameObject gameObject)
         {
-            if (_activeObjects.TryGetValue(gameObject.GetInstanceID(), out var pool))
+            if (m_activeObjects.TryGetValue(gameObject.GetInstanceID(), out var pool))
             {
                 pool.Release(gameObject);
             }

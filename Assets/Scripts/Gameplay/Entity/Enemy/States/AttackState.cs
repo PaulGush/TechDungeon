@@ -2,37 +2,37 @@ public class AttackState : IState
 {
     public AttackState(EnemyController enemyController)
     {
-        _enemyController = enemyController;
+        m_enemyController = enemyController;
     }
     
-    private readonly EnemyController _enemyController;
-    private EnemyMovement _movement;
-    private EnemyShooting _shooting;
+    private readonly EnemyController m_enemyController;
+    private EnemyMovement m_movement;
+    private EnemyShooting m_shooting;
     
     public void Enter()
     {
-        if (_movement == null)
+        if (m_movement == null)
         {
-            _movement = _enemyController.Movement;
+            m_movement = m_enemyController.Movement;
         }
 
-        if (_shooting == null)
+        if (m_shooting == null)
         {
-            _shooting = _enemyController.Shooting;
+            m_shooting = m_enemyController.Shooting;
         }
         
-        _movement.CanMove = false;
+        m_movement.CanMove = false;
     }
 
     public void Tick()
     {
-        if (!_movement.IsTargetInRange())
+        if (!m_movement.IsTargetInRange())
         {
-            _enemyController.StateMachine.ChangeState(_enemyController.StateMachine.SeekState);
+            m_enemyController.StateMachine.ChangeState(m_enemyController.StateMachine.SeekState);
         }
         else
         {
-            _shooting.TryShoot();
+            m_shooting.TryShoot();
         }
     }
 

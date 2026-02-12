@@ -3,10 +3,10 @@ using UnityEngine;
 namespace UnityServiceLocator {
     [AddComponentMenu("ServiceLocator/ServiceLocator Global")]
     public class ServiceLocatorGlobal : Bootstrapper {
-        [SerializeField] bool dontDestroyOnLoad = true;
+        [SerializeField] bool m_dontDestroyOnLoad = true;
         
         protected override void Bootstrap() {
-            Container.ConfigureAsGlobal(dontDestroyOnLoad);
+            Container.ConfigureAsGlobal(m_dontDestroyOnLoad);
         }
     }
 }

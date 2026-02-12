@@ -3,23 +3,23 @@ using UnityEngine;
 public class EnemyTargeting : MonoBehaviour
 {
     [Header("References")] 
-    [SerializeField] private EnemyController _enemyController;
-    [SerializeField] private Transform _currentTarget;
-    public Transform CurrentTarget => _currentTarget;
+    [SerializeField] private EnemyController m_enemyController;
+    [SerializeField] private Transform m_currentTarget;
+    public Transform CurrentTarget => m_currentTarget;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (!other.gameObject.CompareTag("Player"))
             return;
 
-        _currentTarget = other.transform;
-        _enemyController.StateMachine.ChangeState(_enemyController.StateMachine.SeekState);
+        m_currentTarget = other.transform;
+        m_enemyController.StateMachine.ChangeState(m_enemyController.StateMachine.SeekState);
     }
     
-    public bool IsTargetRightOfTransform() => _currentTarget.position.x > transform.position.x;
+    public bool IsTargetRightOfTransform() => m_currentTarget.position.x > transform.position.x;
 
-    public void SetTarget(Transform transform)
+    public void SetTarget(Transform newTarget)
     {
-        _currentTarget = transform;
+        m_currentTarget = newTarget;
     }
 }

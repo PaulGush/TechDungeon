@@ -3,11 +3,11 @@ using UnityEngine;
 
 public class EntityHealth : MonoBehaviour
 {
-    [SerializeField] protected int _currentHealth;
-    public int CurrentHealth => _currentHealth;
-    [SerializeField] protected int _maxHealth;
-    public int MaxHealth => _maxHealth;
-    public bool IsDead => _currentHealth <= 0;
+    [SerializeField] protected int m_currentHealth;
+    public int CurrentHealth => m_currentHealth;
+    [SerializeField] protected int m_maxHealth;
+    public int MaxHealth => m_maxHealth;
+    public bool IsDead => m_currentHealth <= 0;
     
     public Action OnHeal;
     public Action OnTakeDamage;
@@ -16,32 +16,32 @@ public class EntityHealth : MonoBehaviour
 
     protected virtual void Start()
     {
-        _currentHealth = _maxHealth;
-        OnHealthChanged?.Invoke(_currentHealth);
+        m_currentHealth = m_maxHealth;
+        OnHealthChanged?.Invoke(m_currentHealth);
     }
 
     public virtual void TakeDamage(int damage)
     {
-        _currentHealth -= damage;
+        m_currentHealth -= damage;
         OnTakeDamage?.Invoke();
-        OnHealthChanged?.Invoke(_currentHealth);
+        OnHealthChanged?.Invoke(m_currentHealth);
         
-        if (_currentHealth > 0)
+        if (m_currentHealth > 0)
             return;
 
-        _currentHealth = 0;
-        OnHealthChanged?.Invoke(_currentHealth);
+        m_currentHealth = 0;
+        OnHealthChanged?.Invoke(m_currentHealth);
         OnDeath?.Invoke();
     }
 
     public virtual bool Heal(int healAmount)
     {
-        if (_currentHealth + healAmount > _maxHealth)
+        if (m_currentHealth + healAmount > m_maxHealth)
             return false;
 
-        _currentHealth += healAmount;
+        m_currentHealth += healAmount;
         OnHeal?.Invoke();
-        OnHealthChanged?.Invoke(_currentHealth);
+        OnHealthChanged?.Invoke(m_currentHealth);
         return true;
     }
 }
