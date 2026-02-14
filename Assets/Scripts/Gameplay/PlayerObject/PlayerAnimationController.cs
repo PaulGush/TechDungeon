@@ -23,7 +23,6 @@ namespace PlayerObject
 
         private void OnEnable()
         {
-            m_inputReader.EnablePlayerActions();
             m_inputReader.Move += OnMove;
             m_inputReader.Roll += OnRoll;
 

@@ -3,7 +3,7 @@ using Input;
 using UnityEngine;
 using UnityServiceLocator;
 
-public class WeaponShooting : MonoBehaviour
+public class WeaponShooting : MonoBehaviour, IWeapon
 {
     [Header("References")]
     [SerializeField] private InputReader m_inputReader;
@@ -20,13 +20,12 @@ public class WeaponShooting : MonoBehaviour
         m_pool = simplePool;
     }
 
-    private void OnEnable()
+    public void Equip()
     {
-        m_inputReader.EnablePlayerActions();
         m_inputReader.Attack += OnAttack;
     }
 
-    private void OnDisable()
+    public void Unequip()
     {
         m_inputReader.Attack -= OnAttack;
     }

@@ -10,16 +10,6 @@ public class Chest : MonoBehaviour, IInteractable
     [SerializeField] private InputReader m_inputReader;
     
     private bool m_isOpen;
-    
-    private void OnEnable()
-    {
-        m_inputReader.Interact += Interact;
-    }
-
-    private void OnDisable()
-    {
-        m_inputReader.Interact -= Interact;
-    }
 
     public void Interact()
     {
@@ -32,13 +22,15 @@ public class Chest : MonoBehaviour, IInteractable
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (m_isOpen) return;
+        if (m_isOpen || other.gameObject.layer != LayerMask.NameToLayer("Player")) return;
         m_interactText.enabled = true;
+        m_inputReader.Interact += Interact;
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (m_isOpen) return;
+        if (m_isOpen|| other.gameObject.layer != LayerMask.NameToLayer("Player")) return;
         m_interactText.enabled = false;
+        m_inputReader.Interact -= Interact;
     }
 }
