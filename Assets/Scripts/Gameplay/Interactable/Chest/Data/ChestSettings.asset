@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c74eeddb96e6c98e0ae7fe898cee7cb4, type: 3}
+  m_Name: ChestSettings
+  m_EditorClassIdentifier: Assembly-CSharp::ChestSettings
+  Items:
+  - {fileID: 5529171428126671770, guid: 35fbba86b257b83ee89086b5a2acea6c, type: 3}
+  - {fileID: 2536621532265573277, guid: c6a35086649851c14b1e1585a631ce77, type: 3}
+  - {fileID: 8126904253170198285, guid: 909abce754aac0e69be4f832eb2b5604, type: 3}
+  ItemDropCount: 3
+  CommonDropChance: 50
+  UncommonDropChance: 30
+  RareDropChance: 15
+  EpicDropChance: 5

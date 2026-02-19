@@ -78,7 +78,7 @@ namespace PlayerObject
         {
             if (other.gameObject.layer != LayerMask.NameToLayer("Weapon")) return;
 
-            other.TryGetComponent(out WeaponVisual weaponVisual);
+            other.TryGetComponent(out Weapon weaponVisual);
 
             m_weaponCandidate = other.gameObject;
             

@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5408659412538086706
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9037529158113671357}
+  m_Layer: 0
+  m_Name: ItemSpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9037529158113671357
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5408659412538086706}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.015, y: -0.056, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 344338347674365080}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6844856169148298511
 GameObject:
   m_ObjectHideFlags: 0
@@ -35,10 +66,12 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3764055171067051473}
+  - {fileID: 9037529158113671357}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &3450348364186173616
 SpriteRenderer:
+  serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -84,6 +117,7 @@ SpriteRenderer:
   m_SortingLayerID: -1342329951
   m_SortingLayer: 1
   m_SortingOrder: 1
+  m_MaskInteraction: 0
   m_Sprite: {fileID: -4969893957098187959, guid: 75d5e29acaeb4866fbf27ab43e9b07e1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -93,7 +127,6 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!61 &5259302693029815876
 BoxCollider2D:
@@ -178,6 +211,8 @@ MonoBehaviour:
   m_animator: {fileID: 1107155064047438257}
   m_interactText: {fileID: 1970634623344082416}
   m_inputReader: {fileID: 11400000, guid: c7fc619696fbc354f935b4ae0e11fc0c, type: 2}
+  m_settings: {fileID: 11400000, guid: e66763254a8a685bca170b6d2c6ba5df, type: 2}
+  m_itemSpawnPoint: {fileID: 9037529158113671357}
 --- !u!61 &3779850417233469907
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -308,6 +343,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 100
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &1970634623344082416
 MonoBehaviour:
@@ -367,6 +403,7 @@ MonoBehaviour:
   m_VerticalAlignment: 4096
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0

@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace PlayerObject
 {
-    public class WeaponVisual : MonoBehaviour, IWeapon
+    public class Weapon : Lootable, IWeapon
     {
         [Header("References")]
         [SerializeField] private SpriteRenderer m_spriteRenderer;

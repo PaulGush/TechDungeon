@@ -1,8 +1,7 @@
 fileFormatVersion: 2
-guid: 30f42e8a12eb842acbe9a63057fb00e4
-timeCreated: 1469329295
-licenseType: Store
+guid: 9916d880e6244fff8682682ec7ad1149
 MonoImporter:
+  externalObjects: {}
   serializedVersion: 2
   defaultReferences: []
   executionOrder: 0
@@ -15,5 +14,5 @@ AssetOrigin:
   productId: 11889
   packageName: Editor Console Pro
   packageVersion: 3.980
-  assetPath: Assets/Plugins/ConsolePro/ConsoleProDebug.cs
+  assetPath: Assets/ConsolePro/Editor/ConsoleProDLLLoader.cs
   uploadId: 846946
