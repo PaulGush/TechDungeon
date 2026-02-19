@@ -23,6 +23,7 @@ namespace PlayerObject
             transform.localEulerAngles = new Vector3(0, 0, m_zRotationOffset);
 
             m_isEquipped = true;
+            m_bounceEnabled = false;
         }
 
         public void Unequip()
@@ -36,6 +37,8 @@ namespace PlayerObject
             transform.SetPositionAndRotation(transform.position, unequipRotation);
             
             m_isEquipped = false;
+            m_bounceEnabled = true;
+            SetBounceTargets();
         }
 
         private void FixedUpdate()

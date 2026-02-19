@@ -12,6 +12,18 @@ public class Lootable : MonoBehaviour
     private Vector3 m_aboveChestTargetPosition;
     private Vector3 m_targetPosition;
 
+    public Action OnSpawnComplete;
+
+    private void OnEnable()
+    {
+        OnSpawnComplete += SetBounceTargets;
+    }
+
+    private void OnDisable()
+    {
+        OnSpawnComplete -= SetBounceTargets;
+    }
+
     public void StartSpawnSequence(float totalSpawnTime, float spawnTimeInterval, float delay)
     {
         transform.localScale = Vector3.zero;
@@ -56,8 +68,44 @@ public class Lootable : MonoBehaviour
         }
         transform.localScale = Vector3.one;
         transform.position = m_targetPosition;
+        OnSpawnComplete?.Invoke();
     }
 
+    private void Update()
+    {
+        if (!m_bounceEnabled) return;
+
+        if (m_bounceLowerTarget != Vector3.zero && m_bounceUpperTarget != Vector3.zero)
+        {
+            Bounce();
+        }
+    }
+
+    [Header("Bounce Settings")]
+    private Vector3 m_bounceUpperTarget;
+    private Vector3 m_bounceLowerTarget;
+    [SerializeField] private float m_bounceSpeed = 0.25f;
+    [SerializeField] private float m_bounceVerticalDistance = 0.1f;
+    private bool m_isMovingToUpper = true;
+    protected bool m_bounceEnabled = true;
+
+    protected void SetBounceTargets()
+    {
+        m_bounceLowerTarget = new Vector3(transform.position.x, transform.position.y - m_bounceVerticalDistance, transform.position.z);
+        m_bounceUpperTarget = new Vector3(transform.position.x, transform.position.y + m_bounceVerticalDistance, transform.position.z);
+    }
+
+    private void Bounce()
+    {
+        Vector3 target = m_isMovingToUpper ? m_bounceUpperTarget : m_bounceLowerTarget;
+        transform.position = Vector3.MoveTowards(transform.position, target, Time.deltaTime * m_bounceSpeed);
+
+        if (Vector3.Distance(transform.position, target) < 0.001f)
+        {
+            m_isMovingToUpper = !m_isMovingToUpper;
+        }
+    }
+    
     protected LootableRarity.Rarity m_rarity
     {
         get => _rarity;

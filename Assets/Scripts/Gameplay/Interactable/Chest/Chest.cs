@@ -41,7 +41,7 @@ public class Chest : MonoBehaviour, IInteractable
             lootableComp.ChangeRarity(LootableRarity.DetermineRarity(lootableItem, m_settings.EpicDropChance, m_settings.RareDropChance, m_settings.UncommonDropChance));
             lootableComp.SetTargetPosition(targetPosition);
             lootableComp.SetAboveChestTargetPosition(aboveChestTargetPosition);
-            lootableComp.StartSpawnSequence(m_settings.TotalSpawnTime, m_settings.SpawnTimeInterval, i);
+            lootableComp.StartSpawnSequence(m_settings.TotalSpawnTime, m_settings.SpawnTimeInterval, 0);
             
             i++;
         }

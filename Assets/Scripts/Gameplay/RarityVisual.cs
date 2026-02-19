@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class RarityVisual : MonoBehaviour
@@ -16,11 +15,13 @@ public class RarityVisual : MonoBehaviour
     private void OnEnable()
     {
         m_lootable.OnRarityChanged += ChangeRarity;
+        m_lootable.OnSpawnComplete += SpawnComplete;
     }
 
     private void OnDisable()
     {
         m_lootable.OnRarityChanged -= ChangeRarity;
+        m_lootable.OnSpawnComplete -= SpawnComplete;
     }
 
     private void ChangeRarity(LootableRarity.Rarity newValue)
@@ -41,9 +42,14 @@ public class RarityVisual : MonoBehaviour
         m_renderer.material.SetFloat(OutlineThickness, newValue);
     }
 
-    public void SetTrailColor(Color newColor)
+    private void SetTrailColor(Color newColor)
     {
         m_trail.startColor = newColor;
         m_trail.endColor = newColor;
+    }
+
+    private void SpawnComplete()
+    {
+        m_trail.emitting = false;
     }
 }

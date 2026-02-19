@@ -83,8 +83,8 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1342329951
+  m_SortingLayer: 1
   m_SortingOrder: 99
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: 1f07a32b8d0c9083692c8836e99875be, type: 3}
@@ -111,6 +111,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerObject.WeaponVisual
   _rarity: 0
   _lastRarity: 0
+  m_bounceSpeed: 0.25
   m_spriteRenderer: {fileID: 3238553378049438022}
   m_weaponHolder: {fileID: 0}
   m_distanceFromPlayer: 0.65
@@ -299,9 +300,9 @@ TrailRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 99
+  m_SortingLayerID: -1342329951
+  m_SortingLayer: 1
+  m_SortingOrder: 98
   m_MaskInteraction: 0
   m_Time: 0.5
   m_PreviewTimeScale: 1
