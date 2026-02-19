@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LootableRarity
+public static class LootableRarity
 {
     public enum Rarity
     {
@@ -18,4 +18,21 @@ public class LootableRarity
         { Rarity.Rare, Color.blue },
         { Rarity.Epic, Color.orange }
     };
+
+    public static Rarity DetermineRarity(Lootable lootable, float epicDropChance, float rareDropChance, float uncommonDropChance)
+    {
+        int roll = Random.Range(0, 100);
+            
+        Debug.Log($"Roll: {roll}");
+
+        Rarity selectedRarity = roll switch
+        {
+            _ when roll >= epicDropChance => Rarity.Epic,
+            _ when roll >= rareDropChance => Rarity.Rare,
+            _ when roll >= uncommonDropChance => Rarity.Uncommon,
+            _ => Rarity.Common
+        };
+
+        return selectedRarity;
+    }
 }

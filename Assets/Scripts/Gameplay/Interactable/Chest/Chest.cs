@@ -31,13 +31,17 @@ public class Chest : MonoBehaviour, IInteractable
         float i = 0;
         foreach (Lootable lootableItem in m_settings.GetRandomItems())
         {
+            Vector3 aboveChestTargetPosition = new Vector3(transform.position.x, transform.position.y + 1, transform.position.z);
             Vector3 targetPosition = new Vector3((m_itemSpawnPoint.position.x + i) - m_horizontalSpawnOffset, m_itemSpawnPoint.position.y - m_verticalSpawnDistance, m_itemSpawnPoint.position.z);
             GameObject item = Instantiate(lootableItem.gameObject, m_itemSpawnPoint.position, Quaternion.identity);
+            item.name = item.GetComponent<SpriteRenderer>().sprite.name;
 
             Lootable lootableComp = item.GetComponent<Lootable>();
             
+            lootableComp.ChangeRarity(LootableRarity.DetermineRarity(lootableItem, m_settings.EpicDropChance, m_settings.RareDropChance, m_settings.UncommonDropChance));
             lootableComp.SetTargetPosition(targetPosition);
-            lootableComp.StartSpawnSequence(m_settings.TotalSpawnTime, m_settings.SpawnTimeInterval);
+            lootableComp.SetAboveChestTargetPosition(aboveChestTargetPosition);
+            lootableComp.StartSpawnSequence(m_settings.TotalSpawnTime, m_settings.SpawnTimeInterval, i);
             
             i++;
         }
@@ -59,9 +63,14 @@ public class Chest : MonoBehaviour, IInteractable
 
     private void OnDrawGizmosSelected()
     {
+        Gizmos.color = Color.yellow;
+        
         for(int i = 0; i < m_settings.ItemDropCount; i++)
         {
             Gizmos.DrawWireSphere(new Vector3(transform.position.x + i - m_horizontalSpawnOffset, transform.position.y - m_verticalSpawnDistance, transform.position.z), 0.1f);
         }
+        
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(new Vector3(transform.position.x, transform.position.y + 1, transform.position.z), 0.1f);
     }
 }

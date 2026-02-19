@@ -13,13 +13,10 @@ MonoBehaviour:
   m_Name: ChestSettings
   m_EditorClassIdentifier: Assembly-CSharp::ChestSettings
   Items:
-  - {fileID: 5529171428126671770, guid: 35fbba86b257b83ee89086b5a2acea6c, type: 3}
   - {fileID: 2536621532265573277, guid: c6a35086649851c14b1e1585a631ce77, type: 3}
-  - {fileID: 8126904253170198285, guid: 909abce754aac0e69be4f832eb2b5604, type: 3}
   ItemDropCount: 3
-  CommonDropChance: 50
-  UncommonDropChance: 30
-  RareDropChance: 15
-  EpicDropChance: 5
-  TotalSpawnTime: 1
+  UncommonDropChance: 50
+  RareDropChance: 75
+  EpicDropChance: 90
+  TotalSpawnTime: 2
   SpawnTimeInterval: 0.01

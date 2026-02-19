@@ -9,12 +9,13 @@ public class Lootable : MonoBehaviour
     [SerializeField] private LootableRarity.Rarity _rarity;
     [SerializeField, HideInInspector] private LootableRarity.Rarity _lastRarity;
 
+    private Vector3 m_aboveChestTargetPosition;
     private Vector3 m_targetPosition;
-    
-    public void StartSpawnSequence(float totalSpawnTime, float spawnTimeInterval)
+
+    public void StartSpawnSequence(float totalSpawnTime, float spawnTimeInterval, float delay)
     {
         transform.localScale = Vector3.zero;
-        StartCoroutine(SpawnCoroutine(totalSpawnTime, spawnTimeInterval));
+        StartCoroutine(SpawnCoroutine(totalSpawnTime, spawnTimeInterval, delay));
     }
 
     public void SetTargetPosition(Vector3 newValue)
@@ -22,17 +23,35 @@ public class Lootable : MonoBehaviour
         m_targetPosition = newValue;
     }
 
-    private IEnumerator SpawnCoroutine(float totalSpawnTime, float spawnTimeInterval)
+    public void SetAboveChestTargetPosition(Vector3 newValue)
     {
+        m_aboveChestTargetPosition = newValue;
+    }
+
+    private IEnumerator SpawnCoroutine(float totalSpawnTime, float spawnTimeInterval, float delay)
+    {
+        if (delay > 0f)
+        {
+            yield return new WaitForSeconds(delay);
+        }
+        
         float elapsedTime = 0f;
         WaitForSeconds tick = new WaitForSeconds(spawnTimeInterval); 
+        bool reachedAboveChestPosition = false;
         
         while (elapsedTime < totalSpawnTime)
         {
             elapsedTime += spawnTimeInterval;
             float t = Mathf.Clamp01(elapsedTime / totalSpawnTime);
-            transform.localScale = Vector3.Slerp(Vector3.zero, Vector3.one, t);
-            transform.position = Vector3.Slerp(transform.position, m_targetPosition, t);
+            transform.localScale = Vector3.Slerp(Vector3.zero, Vector3.one, t * 2);
+
+            if (transform.position == m_aboveChestTargetPosition)
+            {
+                reachedAboveChestPosition = true;
+            }
+            
+            transform.position = Vector3.Slerp(transform.position, !reachedAboveChestPosition ? m_aboveChestTargetPosition : m_targetPosition, t);
+            
             yield return tick;
         }
         transform.localScale = Vector3.one;
