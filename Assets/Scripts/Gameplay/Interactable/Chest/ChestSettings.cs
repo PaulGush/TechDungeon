@@ -11,6 +11,9 @@ public class ChestSettings : ScriptableObject
     public float RareDropChance = 15;
     public float EpicDropChance = 5;
     
+    public float TotalSpawnTime = 0.5f;
+    public float SpawnTimeInterval = 0.05f;
+    
     public Lootable[] GetRandomItems()
     {
         Lootable[] droppedItems = new Lootable[ItemDropCount];
@@ -20,10 +23,8 @@ public class ChestSettings : ScriptableObject
             droppedItems[i] = Items[Random.Range(0, Items.Count)];
 
             int roll = Random.Range(0, 100);
-            
-            LootableRarity.Rarity selectedRarity = LootableRarity.Rarity.Common;
 
-            selectedRarity = roll switch
+            LootableRarity.Rarity selectedRarity = roll switch
             {
                 _ when roll < EpicDropChance => LootableRarity.Rarity.Epic,
                 _ when roll < EpicDropChance + RareDropChance => LootableRarity.Rarity.Rare,

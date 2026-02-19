@@ -109,6 +109,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 825a2f44364e658309cbce2bff3d00d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerObject.WeaponVisual
+  _rarity: 0
+  _lastRarity: 0
   m_spriteRenderer: {fileID: 3238553378049438022}
   m_weaponHolder: {fileID: 0}
   m_distanceFromPlayer: 0.65
