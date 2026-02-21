@@ -1,4 +1,3 @@
-using System;
 using Input;
 using TMPro;
 using UnityEngine;
@@ -17,6 +16,7 @@ public class Chest : MonoBehaviour, IInteractable
     [SerializeField] private Transform m_itemSpawnPoint;
     [SerializeField] private float m_verticalSpawnDistance = 1;
     [SerializeField] private float m_horizontalSpawnOffset = 1;
+    [SerializeField] private Vector3 m_aboveChestTargetPosition;
     
     private bool m_isOpen;
 
@@ -31,7 +31,6 @@ public class Chest : MonoBehaviour, IInteractable
         float i = 0;
         foreach (Lootable lootableItem in m_settings.GetRandomItems())
         {
-            Vector3 aboveChestTargetPosition = new Vector3(transform.position.x, transform.position.y + 1, transform.position.z);
             Vector3 targetPosition = new Vector3((m_itemSpawnPoint.position.x + i) - m_horizontalSpawnOffset, m_itemSpawnPoint.position.y - m_verticalSpawnDistance, m_itemSpawnPoint.position.z);
             GameObject item = Instantiate(lootableItem.gameObject, m_itemSpawnPoint.position, Quaternion.identity);
             item.name = item.GetComponent<SpriteRenderer>().sprite.name;
@@ -40,7 +39,7 @@ public class Chest : MonoBehaviour, IInteractable
             
             lootableComp.ChangeRarity(LootableRarity.DetermineRarity(lootableItem, m_settings.EpicDropChance, m_settings.RareDropChance, m_settings.UncommonDropChance));
             lootableComp.SetTargetPosition(targetPosition);
-            lootableComp.SetAboveChestTargetPosition(aboveChestTargetPosition);
+            lootableComp.SetAboveChestTargetPosition(transform.position + m_aboveChestTargetPosition);
             lootableComp.StartSpawnSequence(m_settings.TotalSpawnTime, m_settings.SpawnTimeInterval, 0);
             
             i++;
@@ -71,6 +70,6 @@ public class Chest : MonoBehaviour, IInteractable
         }
         
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(new Vector3(transform.position.x, transform.position.y + 1, transform.position.z), 0.1f);
+        Gizmos.DrawWireSphere(transform.position + m_aboveChestTargetPosition, 0.1f);
     }
 }

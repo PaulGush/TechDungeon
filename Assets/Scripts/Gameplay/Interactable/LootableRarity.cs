@@ -22,8 +22,6 @@ public static class LootableRarity
     public static Rarity DetermineRarity(Lootable lootable, float epicDropChance, float rareDropChance, float uncommonDropChance)
     {
         int roll = Random.Range(0, 100);
-            
-        Debug.Log($"Roll: {roll}");
 
         Rarity selectedRarity = roll switch
         {

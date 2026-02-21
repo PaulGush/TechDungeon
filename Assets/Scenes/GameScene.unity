@@ -936,6 +936,14 @@ PrefabInstance:
       propertyPath: m_horizontalSpawnOffset
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 134998139948037230, guid: 0d8bf16360f0ef76ea5e508765af2f10, type: 3}
+      propertyPath: m_verticalSpawnDistance
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 134998139948037230, guid: 0d8bf16360f0ef76ea5e508765af2f10, type: 3}
+      propertyPath: m_aboveChestTargetPosition.y
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 344338347674365080, guid: 0d8bf16360f0ef76ea5e508765af2f10, type: 3}
       propertyPath: m_LocalPosition.x
       value: -4
@@ -1030,7 +1038,7 @@ MonoBehaviour:
   m_Intensity: 1
   m_LightVolumeIntensity: 1
   m_LightVolumeEnabled: 0
-  m_ApplyToSortingLayers: 00000000a1abfdaf
+  m_ApplyToSortingLayers: 00000000a1abfdafab03f711
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -1362,6 +1370,14 @@ PrefabInstance:
       propertyPath: m_horizontalSpawnOffset
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 134998139948037230, guid: 0d8bf16360f0ef76ea5e508765af2f10, type: 3}
+      propertyPath: m_verticalSpawnDistance
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 134998139948037230, guid: 0d8bf16360f0ef76ea5e508765af2f10, type: 3}
+      propertyPath: m_aboveChestTargetPosition.y
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 344338347674365080, guid: 0d8bf16360f0ef76ea5e508765af2f10, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2
@@ -1493,7 +1509,7 @@ Canvas:
   m_VertexColorAlwaysGammaSpace: 1
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 0
+  m_SortingLayerID: 301401003
   m_SortingOrder: 5
   m_TargetDisplay: 0
 --- !u!224 &900285415
@@ -1687,6 +1703,14 @@ PrefabInstance:
     - target: {fileID: 134998139948037230, guid: 0d8bf16360f0ef76ea5e508765af2f10, type: 3}
       propertyPath: m_horizontalSpawnOffset
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 134998139948037230, guid: 0d8bf16360f0ef76ea5e508765af2f10, type: 3}
+      propertyPath: m_verticalSpawnDistance
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 134998139948037230, guid: 0d8bf16360f0ef76ea5e508765af2f10, type: 3}
+      propertyPath: m_aboveChestTargetPosition.y
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 344338347674365080, guid: 0d8bf16360f0ef76ea5e508765af2f10, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2554,6 +2578,14 @@ PrefabInstance:
     - target: {fileID: 134998139948037230, guid: 0d8bf16360f0ef76ea5e508765af2f10, type: 3}
       propertyPath: m_horizontalSpawnOffset
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 134998139948037230, guid: 0d8bf16360f0ef76ea5e508765af2f10, type: 3}
+      propertyPath: m_verticalSpawnDistance
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 134998139948037230, guid: 0d8bf16360f0ef76ea5e508765af2f10, type: 3}
+      propertyPath: m_aboveChestTargetPosition.y
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 344338347674365080, guid: 0d8bf16360f0ef76ea5e508765af2f10, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3925,6 +3957,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 7660786347803373070, guid: 085caa6957049c7f2a521973312b75d8, type: 3}
+      propertyPath: m_SortingLayer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7660786347803373070, guid: 085caa6957049c7f2a521973312b75d8, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 301401003
+      objectReference: {fileID: 0}
+    - target: {fileID: 7660786347803373070, guid: 085caa6957049c7f2a521973312b75d8, type: 3}
+      propertyPath: m_LightProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8025567143335108856, guid: 085caa6957049c7f2a521973312b75d8, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -4238,6 +4282,14 @@ PrefabInstance:
     - target: {fileID: 134998139948037230, guid: 0d8bf16360f0ef76ea5e508765af2f10, type: 3}
       propertyPath: m_horizontalSpawnOffset
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 134998139948037230, guid: 0d8bf16360f0ef76ea5e508765af2f10, type: 3}
+      propertyPath: m_verticalSpawnDistance
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 134998139948037230, guid: 0d8bf16360f0ef76ea5e508765af2f10, type: 3}
+      propertyPath: m_aboveChestTargetPosition.y
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 344338347674365080, guid: 0d8bf16360f0ef76ea5e508765af2f10, type: 3}
       propertyPath: m_LocalPosition.x

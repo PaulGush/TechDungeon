@@ -127,7 +127,7 @@ public class Lootable : MonoBehaviour
         m_targetPosition = targetPosition;
     }
 
-    public Lootable()
+    protected Lootable()
     {
         
     }
