@@ -2,6 +2,11 @@ using UnityEngine;
 
 namespace PlayerObject
 {
+    /// <summary>
+    /// Represents a weapon that can be dropped and picked up in the world.
+    /// Inherits from Lootable to reuse drop/bounce/rarity behavior for weapon items on the ground.
+    /// When equipped, bounce is disabled and the weapon attaches to the player's WeaponHolder.
+    /// </summary>
     public class Weapon : Lootable, IWeapon
     {
         [Header("References")]
@@ -28,14 +33,9 @@ namespace PlayerObject
 
         public void Unequip()
         {
-            Quaternion unequipRotation = Quaternion.identity;
-            if (m_spriteRenderer.flipY)
-            {
-                unequipRotation = Quaternion.Euler(0, 0, 180);
-            }
+            transform.localScale = Vector3.one;
+            transform.SetPositionAndRotation(transform.position, Quaternion.identity);
 
-            transform.SetPositionAndRotation(transform.position, unequipRotation);
-            
             m_isEquipped = false;
             m_bounceEnabled = true;
             SetBounceTargets();
@@ -44,7 +44,8 @@ namespace PlayerObject
         private void FixedUpdate()
         {
             if (!m_isEquipped) return;
-            m_spriteRenderer.flipY = m_weaponHolder.transform.rotation.eulerAngles.z < 180;    
+            bool shouldFlip = m_weaponHolder.transform.rotation.eulerAngles.z < 180;
+            transform.localScale = new Vector3(1f, shouldFlip ? -1f : 1f, 1f);
         }
     }
 }
