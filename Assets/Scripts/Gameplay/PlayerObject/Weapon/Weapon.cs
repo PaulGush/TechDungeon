@@ -13,7 +13,7 @@ namespace PlayerObject
         [SerializeField] private SpriteRenderer m_spriteRenderer;
         [SerializeField] private WeaponHolder m_weaponHolder;
 
-        [Header("Settings")] 
+        [Header("Settings")]
         [SerializeField] private float m_distanceFromPlayer = 0.65f;
         [SerializeField] private float m_zRotationOffset = 90f;
 
@@ -23,12 +23,21 @@ namespace PlayerObject
 
         public void Equip()
         {
+            if (IsSpawning)
+            {
+                CancelSpawn();
+            }
+
+            if (BounceEffect != null)
+            {
+                BounceEffect.Stop();
+            }
+
             m_weaponHolder = GetComponentInParent<WeaponHolder>();
             transform.localPosition = new Vector3(0, m_distanceFromPlayer, 0);
             transform.localEulerAngles = new Vector3(0, 0, m_zRotationOffset);
 
             m_isEquipped = true;
-            m_bounceEnabled = false;
         }
 
         public void Unequip()
@@ -37,8 +46,12 @@ namespace PlayerObject
             transform.SetPositionAndRotation(transform.position, Quaternion.identity);
 
             m_isEquipped = false;
-            m_bounceEnabled = true;
-            SetBounceTargets();
+
+            if (BounceEffect != null)
+            {
+                BounceEffect.SetTargets();
+                BounceEffect.enabled = true;
+            }
         }
 
         private void FixedUpdate()
