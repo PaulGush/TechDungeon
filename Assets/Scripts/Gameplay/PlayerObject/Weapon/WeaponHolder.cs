@@ -76,6 +76,8 @@ namespace PlayerObject
 
             other.TryGetComponent(out Weapon weaponVisual);
 
+            if (weaponVisual != null && weaponVisual.IsSpawning) return;
+
             m_weaponCandidate = other.gameObject;
 
             if (weaponVisual != null)
