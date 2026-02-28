@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2341521763764827986}
   - component: {fileID: 5529171428126671770}
   - component: {fileID: 3287459052487520913}
+  - component: {fileID: 8608150154073900571}
   m_Layer: 0
   m_Name: Deagle
   m_TagString: Untagged
@@ -37,6 +38,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2341521763764827986
 SpriteRenderer:
+  serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -82,6 +84,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 99
+  m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: 66f82a2bb90e7a5acbdffa13671a50c9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -91,7 +94,6 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &5529171428126671770
 MonoBehaviour:
@@ -105,8 +107,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 825a2f44364e658309cbce2bff3d00d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerObject.WeaponVisual
+  _rarity: 0
+  _lastRarity: 0
+  m_bounceEffect: {fileID: 0}
   m_spriteRenderer: {fileID: 2341521763764827986}
-  m_weaponAnchor: {fileID: 0}
+  m_weaponHolder: {fileID: 0}
+  m_distanceFromPlayer: 0.65
+  m_zRotationOffset: 90
 --- !u!114 &3287459052487520913
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -122,6 +129,20 @@ MonoBehaviour:
   m_inputReader: {fileID: 11400000, guid: c7fc619696fbc354f935b4ae0e11fc0c, type: 2}
   m_shootPoint: {fileID: 5112915074027988702}
   m_projectile: {fileID: 6481393338737401498, guid: 991df1a3ac21a8dfd8f6ff27d42b5f99, type: 3}
+--- !u!114 &8608150154073900571
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3558219982077590509}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18caa8effc97128ada3a178851237a1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BounceEffect
+  m_bounceSpeed: 0.25
+  m_bounceVerticalDistance: 0.1
 --- !u!1 &4432224048646835827
 GameObject:
   m_ObjectHideFlags: 0

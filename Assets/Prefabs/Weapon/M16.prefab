@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 3576594813636760699}
   - component: {fileID: 3513875380230150540}
   - component: {fileID: 2602948943765884150}
+  - component: {fileID: 6783190996219739245}
   m_Layer: 9
   m_Name: M16
   m_TagString: Untagged
@@ -111,8 +112,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerObject.WeaponVisual
   _rarity: 0
   _lastRarity: 0
-  m_bounceSpeed: 0.25
-  m_bounceVerticalDistance: 0.1
+  m_bounceEffect: {fileID: 0}
   m_spriteRenderer: {fileID: 3238553378049438022}
   m_weaponHolder: {fileID: 0}
   m_distanceFromPlayer: 0.65
@@ -193,6 +193,20 @@ MonoBehaviour:
   m_lootable: {fileID: 2536621532265573277}
   m_renderer: {fileID: 3238553378049438022}
   m_trail: {fileID: 2156895004148611147}
+--- !u!114 &6783190996219739245
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3910631917828287846}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18caa8effc97128ada3a178851237a1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BounceEffect
+  m_bounceSpeed: 0.25
+  m_bounceVerticalDistance: 0.1
 --- !u!1 &6551711240887446659
 GameObject:
   m_ObjectHideFlags: 0

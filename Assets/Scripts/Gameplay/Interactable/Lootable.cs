@@ -9,25 +9,23 @@ public class Lootable : MonoBehaviour
     [SerializeField] private LootableRarity.Rarity _rarity;
     [SerializeField, HideInInspector] private LootableRarity.Rarity _lastRarity;
 
+    [Header("References")]
+    [SerializeField] private BounceEffect m_bounceEffect;
+
     private Vector3 m_aboveChestTargetPosition;
     private Vector3 m_targetPosition;
+    private Coroutine m_spawnCoroutine;
+
+    public bool IsSpawning { get; private set; }
 
     public Action OnSpawnComplete;
 
-    private void OnEnable()
-    {
-        OnSpawnComplete += SetBounceTargets;
-    }
-
-    private void OnDisable()
-    {
-        OnSpawnComplete -= SetBounceTargets;
-    }
 
     public void StartSpawnSequence(float totalSpawnTime, float spawnTimeInterval, float delay)
     {
         transform.localScale = Vector3.zero;
-        StartCoroutine(SpawnCoroutine(totalSpawnTime, spawnTimeInterval, delay));
+        IsSpawning = true;
+        m_spawnCoroutine = StartCoroutine(SpawnCoroutine(totalSpawnTime, spawnTimeInterval, delay));
     }
 
     public void SetTargetPosition(Vector3 newValue)
@@ -46,11 +44,11 @@ public class Lootable : MonoBehaviour
         {
             yield return new WaitForSeconds(delay);
         }
-        
+
         float elapsedTime = 0f;
-        WaitForSeconds tick = new WaitForSeconds(spawnTimeInterval); 
+        WaitForSeconds tick = new WaitForSeconds(spawnTimeInterval);
         bool reachedAboveChestPosition = false;
-        
+
         while (elapsedTime < totalSpawnTime)
         {
             elapsedTime += spawnTimeInterval;
@@ -61,51 +59,45 @@ public class Lootable : MonoBehaviour
             {
                 reachedAboveChestPosition = true;
             }
-            
+
             transform.position = Vector3.Slerp(transform.position, !reachedAboveChestPosition ? m_aboveChestTargetPosition : m_targetPosition, t);
-            
+
             yield return tick;
         }
         transform.localScale = Vector3.one;
         transform.position = m_targetPosition;
+        FinishSpawn();
+    }
+
+    private void FinishSpawn()
+    {
+        IsSpawning = false;
+        m_spawnCoroutine = null;
+
+        if (BounceEffect != null)
+        {
+            BounceEffect.SetTargets();
+            BounceEffect.enabled = true;
+        }
+
         OnSpawnComplete?.Invoke();
     }
 
-    private void Update()
+    public void CancelSpawn()
     {
-        if (!m_bounceEnabled) return;
+        if (!IsSpawning) return;
 
-        if (m_bounceLowerTarget != Vector3.zero && m_bounceUpperTarget != Vector3.zero)
+        if (m_spawnCoroutine != null)
         {
-            Bounce();
+            StopCoroutine(m_spawnCoroutine);
+            m_spawnCoroutine = null;
         }
+
+        transform.localScale = Vector3.one;
+        transform.position = m_targetPosition;
+        IsSpawning = false;
     }
 
-    [Header("Bounce Settings")]
-    private Vector3 m_bounceUpperTarget;
-    private Vector3 m_bounceLowerTarget;
-    [SerializeField] private float m_bounceSpeed = 0.25f;
-    [SerializeField] private float m_bounceVerticalDistance = 0.1f;
-    private bool m_isMovingToUpper = true;
-    protected bool m_bounceEnabled = true;
-
-    protected void SetBounceTargets()
-    {
-        m_bounceLowerTarget = new Vector3(transform.position.x, transform.position.y - m_bounceVerticalDistance, transform.position.z);
-        m_bounceUpperTarget = new Vector3(transform.position.x, transform.position.y + m_bounceVerticalDistance, transform.position.z);
-    }
-
-    private void Bounce()
-    {
-        Vector3 target = m_isMovingToUpper ? m_bounceUpperTarget : m_bounceLowerTarget;
-        transform.position = Vector3.MoveTowards(transform.position, target, Time.deltaTime * m_bounceSpeed);
-
-        if (Vector3.Distance(transform.position, target) < 0.001f)
-        {
-            m_isMovingToUpper = !m_isMovingToUpper;
-        }
-    }
-    
     protected LootableRarity.Rarity m_rarity
     {
         get => _rarity;
@@ -119,7 +111,7 @@ public class Lootable : MonoBehaviour
             OnRarityChanged?.Invoke(value);
         }
     }
-    
+
     public Action<LootableRarity.Rarity> OnRarityChanged;
 
     public Lootable(Vector3 targetPosition)
@@ -129,7 +121,7 @@ public class Lootable : MonoBehaviour
 
     protected Lootable()
     {
-        
+
     }
 
     public void ChangeRarity(LootableRarity.Rarity newValue)
@@ -142,6 +134,18 @@ public class Lootable : MonoBehaviour
         if (_rarity != _lastRarity)
         {
             m_rarity = _rarity;
+        }
+    }
+
+    public BounceEffect BounceEffect
+    {
+        get
+        {
+            if (m_bounceEffect == null)
+            {
+                m_bounceEffect = GetComponent<BounceEffect>();
+            }
+            return m_bounceEffect;
         }
     }
 }

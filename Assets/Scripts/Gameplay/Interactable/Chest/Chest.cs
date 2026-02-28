@@ -13,6 +13,7 @@ public class Chest : MonoBehaviour, IInteractable
     [SerializeField] private ChestSettings m_settings;
 
     [Header("Settings")]
+    [SerializeField] private Transform m_environmentParent;
     [SerializeField] private Transform m_itemSpawnPoint;
     [SerializeField] private float m_verticalSpawnDistance = 1;
     [SerializeField] private float m_horizontalSpawnOffset = 1;
@@ -38,7 +39,7 @@ public class Chest : MonoBehaviour, IInteractable
         foreach (Lootable lootableItem in m_settings.GetRandomItems())
         {
             Vector3 targetPosition = new Vector3((m_itemSpawnPoint.position.x + i) - m_horizontalSpawnOffset, m_itemSpawnPoint.position.y - m_verticalSpawnDistance, m_itemSpawnPoint.position.z);
-            GameObject item = Instantiate(lootableItem.gameObject, m_itemSpawnPoint.position, Quaternion.identity);
+            GameObject item = Instantiate(lootableItem.gameObject, m_itemSpawnPoint.position, Quaternion.identity, m_environmentParent);
             item.name = item.GetComponent<SpriteRenderer>().sprite.name;
 
             Lootable lootableComp = item.GetComponent<Lootable>();
