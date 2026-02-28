@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 3910631917828287846}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.134, y: -1.945, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -83,7 +83,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: -1342329951
+  m_SortingLayerID: 1938986187
   m_SortingLayer: 1
   m_SortingOrder: 99
   m_MaskInteraction: 0
@@ -112,6 +112,7 @@ MonoBehaviour:
   _rarity: 0
   _lastRarity: 0
   m_bounceSpeed: 0.25
+  m_bounceVerticalDistance: 0.1
   m_spriteRenderer: {fileID: 3238553378049438022}
   m_weaponHolder: {fileID: 0}
   m_distanceFromPlayer: 0.65
@@ -301,7 +302,7 @@ TrailRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1342329951
-  m_SortingLayer: 1
+  m_SortingLayer: 0
   m_SortingOrder: 98
   m_MaskInteraction: 0
   m_Time: 0.5

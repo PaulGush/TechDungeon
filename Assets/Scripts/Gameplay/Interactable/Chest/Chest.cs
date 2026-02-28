@@ -5,28 +5,34 @@ using UnityEngine;
 public class Chest : MonoBehaviour, IInteractable
 {
     private static readonly int Open = Animator.StringToHash("Open");
-    
+
     [Header("References")]
     [SerializeField] private Animator m_animator;
     [SerializeField] private TextMeshPro m_interactText;
     [SerializeField] private InputReader m_inputReader;
     [SerializeField] private ChestSettings m_settings;
 
-    [Header("Settings")] 
+    [Header("Settings")]
     [SerializeField] private Transform m_itemSpawnPoint;
     [SerializeField] private float m_verticalSpawnDistance = 1;
     [SerializeField] private float m_horizontalSpawnOffset = 1;
     [SerializeField] private Vector3 m_aboveChestTargetPosition;
-    
+
     private bool m_isOpen;
+
+    private void OnDestroy()
+    {
+        m_inputReader.Interact -= Interact;
+    }
 
     public void Interact()
     {
         if (m_isOpen) return;
-        
+
         m_animator.SetTrigger(Open);
         m_interactText.enabled = false;
         m_isOpen = true;
+        m_inputReader.Interact -= Interact;
 
         float i = 0;
         foreach (Lootable lootableItem in m_settings.GetRandomItems())
@@ -36,26 +42,26 @@ public class Chest : MonoBehaviour, IInteractable
             item.name = item.GetComponent<SpriteRenderer>().sprite.name;
 
             Lootable lootableComp = item.GetComponent<Lootable>();
-            
-            lootableComp.ChangeRarity(LootableRarity.DetermineRarity(lootableItem, m_settings.EpicDropChance, m_settings.RareDropChance, m_settings.UncommonDropChance));
+
+            lootableComp.ChangeRarity(LootableRarity.DetermineRarity(m_settings.EpicDropChance, m_settings.RareDropChance, m_settings.UncommonDropChance));
             lootableComp.SetTargetPosition(targetPosition);
             lootableComp.SetAboveChestTargetPosition(transform.position + m_aboveChestTargetPosition);
             lootableComp.StartSpawnSequence(m_settings.TotalSpawnTime, m_settings.SpawnTimeInterval, 0);
-            
+
             i++;
         }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (m_isOpen || other.gameObject.layer != LayerMask.NameToLayer("Player")) return;
+        if (m_isOpen || other.gameObject.layer != GameConstants.Layers.PlayerLayer) return;
         m_interactText.enabled = true;
         m_inputReader.Interact += Interact;
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (m_isOpen|| other.gameObject.layer != LayerMask.NameToLayer("Player")) return;
+        if (m_isOpen || other.gameObject.layer != GameConstants.Layers.PlayerLayer) return;
         m_interactText.enabled = false;
         m_inputReader.Interact -= Interact;
     }
@@ -63,12 +69,12 @@ public class Chest : MonoBehaviour, IInteractable
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;
-        
+
         for(int i = 0; i < m_settings.ItemDropCount; i++)
         {
             Gizmos.DrawWireSphere(new Vector3(transform.position.x + i - m_horizontalSpawnOffset, transform.position.y - m_verticalSpawnDistance, transform.position.z), 0.1f);
         }
-        
+
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position + m_aboveChestTargetPosition, 0.1f);
     }

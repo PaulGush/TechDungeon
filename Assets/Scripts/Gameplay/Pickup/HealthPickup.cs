@@ -5,14 +5,14 @@ using UnityServiceLocator;
 public class HealthPickup : Pickup
 {
     [SerializeField] private int m_healAmount;
-    
+
     private ObjectPool m_pool;
-    
+
     private void OnEnable()
     {
-        m_pool = ServiceLocator.Global.Get<ObjectPool>();
+        ServiceLocator.Global.TryGet(out ObjectPool pool);
+        m_pool = pool;
     }
-    
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -21,7 +21,7 @@ public class HealthPickup : Pickup
 
     public override void Interact(GameObject other)
     {
-        if (!other.CompareTag("Player"))
+        if (other.gameObject.layer != GameConstants.Layers.PlayerLayer)
             return;
 
         if (!other.TryGetComponent(out EntityHealth health))

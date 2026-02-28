@@ -1,4 +1,3 @@
-using System;
 using PlayerObject;
 using UnityEngine;
 using UnityServiceLocator;
@@ -8,16 +7,13 @@ public class EnemyMovement : MonoBehaviour
     [Header("References")]
     [SerializeField] private EnemyController m_enemyController;
     [SerializeField] private Rigidbody2D m_rigidbody2D;
-    
-    [Header("Settings")]
-    [SerializeField] private float m_speed = 10f;
-    [SerializeField] private float m_attackRange = 1f;
-    
+    [SerializeField] private EnemySettings m_settings;
+
     private EnemyTargeting m_targeting;
 
     public bool CanMove;
-    
-    private void Start()
+
+    private void Awake()
     {
         m_targeting = m_enemyController.Targeting;
     }
@@ -32,11 +28,12 @@ public class EnemyMovement : MonoBehaviour
     {
         if (m_targeting.CurrentTarget == null)
         {
-            m_targeting.SetTarget(ServiceLocator.Global.Get<PlayerMovementController>().transform);
+            if (!ServiceLocator.Global.TryGet(out PlayerMovementController player)) return;
+            m_targeting.SetTarget(player.transform);
         }
 
-        m_rigidbody2D.MovePosition(Vector2.MoveTowards(m_rigidbody2D.position, m_targeting.CurrentTarget.position, m_speed * Time.fixedDeltaTime));
+        m_rigidbody2D.MovePosition(Vector2.MoveTowards(m_rigidbody2D.position, m_targeting.CurrentTarget.position, m_settings.Speed * Time.fixedDeltaTime));
     }
-    
-    public bool IsTargetInRange() => Vector2.Distance(gameObject.transform.position, m_targeting.CurrentTarget.position) <= m_attackRange;
+
+    public bool IsTargetInRange() => Vector2.Distance(gameObject.transform.position, m_targeting.CurrentTarget.position) <= m_settings.AttackRange;
 }

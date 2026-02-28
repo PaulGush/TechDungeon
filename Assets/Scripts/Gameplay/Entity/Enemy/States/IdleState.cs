@@ -1,6 +1,9 @@
+using System;
+
 public class IdleState : IState
 {
-    private EnemyController m_enemyController;
+    private readonly EnemyController m_enemyController;
+    private Action m_onTakeDamageHandler;
 
     public IdleState(EnemyController enemyController)
     {
@@ -9,16 +12,17 @@ public class IdleState : IState
 
     public void Enter()
     {
-        m_enemyController.Health.OnTakeDamage += () => m_enemyController.StateMachine.ChangeState(m_enemyController.StateMachine.SeekState);
+        m_onTakeDamageHandler = () => m_enemyController.StateMachine.ChangeState(m_enemyController.StateMachine.SeekState);
+        m_enemyController.Health.OnTakeDamage += m_onTakeDamageHandler;
     }
 
     public void Tick()
     {
-        
+
     }
 
     public void Exit()
     {
-        m_enemyController.Health.OnTakeDamage -= () => m_enemyController.StateMachine.ChangeState(m_enemyController.StateMachine.SeekState);
+        m_enemyController.Health.OnTakeDamage -= m_onTakeDamageHandler;
     }
 }

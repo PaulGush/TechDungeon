@@ -1,26 +1,18 @@
 public class AttackState : IState
 {
+    private readonly EnemyController m_enemyController;
+    private readonly EnemyMovement m_movement;
+    private readonly EnemyShooting m_shooting;
+
     public AttackState(EnemyController enemyController)
     {
         m_enemyController = enemyController;
+        m_movement = enemyController.Movement;
+        m_shooting = enemyController.Shooting;
     }
-    
-    private readonly EnemyController m_enemyController;
-    private EnemyMovement m_movement;
-    private EnemyShooting m_shooting;
-    
+
     public void Enter()
     {
-        if (m_movement == null)
-        {
-            m_movement = m_enemyController.Movement;
-        }
-
-        if (m_shooting == null)
-        {
-            m_shooting = m_enemyController.Shooting;
-        }
-        
         m_movement.CanMove = false;
     }
 
@@ -38,6 +30,6 @@ public class AttackState : IState
 
     public void Exit()
     {
-        
+
     }
 }

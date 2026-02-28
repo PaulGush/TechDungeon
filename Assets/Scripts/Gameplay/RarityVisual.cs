@@ -4,10 +4,11 @@ public class RarityVisual : MonoBehaviour
 {
     private static readonly int OutlineThickness = Shader.PropertyToID("_OutlineThickness");
     private static readonly int OutlineColor = Shader.PropertyToID("_OutlineColor");
+    private static readonly int PixelSizeID = Shader.PropertyToID("_PixelSize");
 
-    [Header("References")] 
+    [Header("References")]
     [SerializeField] private Lootable m_lootable;
-    [SerializeField] private Renderer m_renderer;
+    [SerializeField] private SpriteRenderer m_renderer;
     [SerializeField] private TrailRenderer m_trail;
 
     private LootableRarity.Rarity m_rarity;
@@ -30,11 +31,19 @@ public class RarityVisual : MonoBehaviour
         Color newColor = LootableRarity.RarityColors[m_rarity];
         SetOutlineColor(newColor);
         SetTrailColor(newColor);
+        UpdateTexelSize();
+    }
+
+    private void UpdateTexelSize()
+    {
+        Texture tex = m_renderer.sprite != null ? m_renderer.sprite.texture : null;
+        if (tex == null) return;
+        m_renderer.material.SetVector(PixelSizeID, new Vector4(1f / tex.width, 1f / tex.height, tex.width, tex.height));
     }
 
     private void SetOutlineColor(Color newColor)
     {
-        m_renderer.material.SetColor(OutlineColor ,newColor);
+        m_renderer.material.SetColor(OutlineColor, newColor);
     }
 
     public void SetOutlineThickness(float newValue)

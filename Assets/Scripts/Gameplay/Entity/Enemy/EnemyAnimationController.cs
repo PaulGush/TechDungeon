@@ -24,6 +24,8 @@ public class EnemyAnimationController : EntityAnimationController
             m_health.OnTakeDamage += OnTakeDamage;
             m_health.OnDeath += OnDeath;
         }
+
+        m_animator.SetBool(Dead, false);
     }
 
     private void OnDisable()
@@ -54,12 +56,12 @@ public class EnemyAnimationController : EntityAnimationController
     public void OnAttack()
     {
         if (m_animator.GetBool(Dead)) return;
-        
+
         m_animator.SetTrigger(Attack);
     }
 
     public void OnDeathComplete()
     {
-        m_enemyController.gameObject.SetActive(false);
+        m_enemyController.ReturnToPool();
     }
 }

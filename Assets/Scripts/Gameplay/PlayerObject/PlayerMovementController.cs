@@ -9,11 +9,7 @@ namespace PlayerObject
         [Header("References")]
         [SerializeField] private InputReader m_inputReader;
         [SerializeField] private Rigidbody2D m_rigidbody2D;
-
-        [Header("Settings")]
-        [SerializeField] private float m_speed = 10f;
-        [SerializeField] private float m_rollForce = 50f;
-        [SerializeField] private float m_rollDuration = 0.2f;
+        [SerializeField] private PlayerSettings m_settings;
 
         private float m_rollTimer;
 
@@ -39,9 +35,9 @@ namespace PlayerObject
                 m_rollTimer -= Time.fixedDeltaTime;
                 return;
             }
-            
+
             Vector2 direction = m_inputReader.MoveDirection;
-            Vector2 newPosition = m_rigidbody2D.position + direction * (m_speed * Time.fixedDeltaTime);
+            Vector2 newPosition = m_rigidbody2D.position + direction * (m_settings.Speed * Time.fixedDeltaTime);
             m_rigidbody2D.MovePosition(newPosition);
         }
 
@@ -49,9 +45,9 @@ namespace PlayerObject
         {
             if (m_rollTimer > 0) return;
 
-            m_rollTimer = m_rollDuration;
+            m_rollTimer = m_settings.RollDuration;
             m_rigidbody2D.linearVelocity = Vector2.zero;
-            m_rigidbody2D.AddForce(m_inputReader.MoveDirection * m_rollForce, ForceMode2D.Impulse);
+            m_rigidbody2D.AddForce(m_inputReader.MoveDirection * m_settings.RollForce, ForceMode2D.Impulse);
         }
     }
 }

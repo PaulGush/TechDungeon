@@ -6,13 +6,15 @@ public class ChestSettings : ScriptableObject
 {
     public List<Lootable> Items;
     public int ItemDropCount = 3;
-    public float UncommonDropChance = 50;
-    public float RareDropChance = 75;
-    public float EpicDropChance = 90;
-    
+
+    [Header("Drop Chances (percentage, must sum to <= 100)")]
+    public float EpicDropChance = 10;
+    public float RareDropChance = 15;
+    public float UncommonDropChance = 25;
+
     public float TotalSpawnTime = 0.5f;
     public float SpawnTimeInterval = 0.05f;
-    
+
     public Lootable[] GetRandomItems()
     {
         Lootable[] droppedItems = new Lootable[ItemDropCount];
@@ -21,7 +23,7 @@ public class ChestSettings : ScriptableObject
         {
             droppedItems[i] = Items[Random.Range(0, Items.Count)];
         }
-        
+
         return droppedItems;
     }
 }

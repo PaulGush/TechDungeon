@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5320158853249229822}
   - component: {fileID: 3633099380963209370}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: WeaponAnchor
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -60,7 +60,7 @@ GameObject:
   - component: {fileID: 5779308081635976221}
   - component: {fileID: 8369054480663514145}
   - component: {fileID: 2805923156366516581}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Visual
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -204,7 +204,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyShooting
   _enemyController: {fileID: 5296464329978220579}
   _shootPoint: {fileID: 6734990020364742783}
-  _fireRate: 0.25
+  _settings: {fileID: 11400000, guid: b1d2a736311f45d0aec432dadb0b9ceb, type: 2}
   _projectilePrefab: {fileID: 5187812260587514585, guid: f9cc98d9978166916b50e3a501a2e3b5, type: 3}
 --- !u!1 &6864235361929530881
 GameObject:
@@ -252,7 +252,7 @@ GameObject:
   - component: {fileID: 2300997181998269685}
   - component: {fileID: 4368650838405836056}
   - component: {fileID: 4045594035486960770}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Enemy_FlyingDrone
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -309,8 +309,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyMovement
   _enemyController: {fileID: 5296464329978220579}
   _rigidbody2D: {fileID: 2916310425264144612}
-  _speed: 2.5
-  _attackRange: 2
+  _settings: {fileID: 11400000, guid: b1d2a736311f45d0aec432dadb0b9ceb, type: 2}
   CanMove: 0
 --- !u!50 &2916310425264144612
 Rigidbody2D:
@@ -413,6 +412,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EntityHealth
   _currentHealth: 0
   _maxHealth: 50
+  _armor: 0
 --- !u!1 &8097938195515696249
 GameObject:
   m_ObjectHideFlags: 0

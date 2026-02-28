@@ -181,6 +181,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Projectile
   m_rigidbody2D: {fileID: 2821083896256912343}
   m_settings: {fileID: 11400000, guid: 6c041c566c8bddecf9f7ed266749378e, type: 2}
+  m_damageLayers:
+    serializedVersion: 2
+    m_Bits: 1280
 --- !u!95 &176081626738098485
 Animator:
   serializedVersion: 7

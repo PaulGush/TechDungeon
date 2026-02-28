@@ -8,17 +8,23 @@ public class Projectile : MonoBehaviour
     [SerializeField] private Rigidbody2D m_rigidbody2D;
     [SerializeField] private ProjectileSettings m_settings;
 
+    [Header("Collision Filtering")]
+    [SerializeField] private LayerMask m_damageLayers;
+
     private ObjectPool m_pool;
     private int m_hitsBeforeDeath;
-    
+
     public virtual void Initialize()
     {
-        ServiceLocator.Global.Get(out ObjectPool simplePool);
-        m_pool = simplePool;
-        
+        if (m_pool == null)
+        {
+            ServiceLocator.Global.TryGet(out ObjectPool pool);
+            m_pool = pool;
+        }
+
         m_hitsBeforeDeath = m_settings.HitsBeforeDeath;
         m_rigidbody2D.AddForce( transform.right * m_settings.Speed);
-        
+
         StartCoroutine(m_pool.ReturnAfter(gameObject, m_settings.Lifetime));
     }
 
@@ -29,6 +35,8 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        if (((1 << other.gameObject.layer) & m_damageLayers) == 0) return;
+
         if (other.gameObject.TryGetComponent<EntityHealth>(out var entityHealth))
         {
             entityHealth.TakeDamage(m_settings.Damage);

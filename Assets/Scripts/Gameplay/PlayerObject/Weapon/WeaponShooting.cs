@@ -8,16 +8,16 @@ public class WeaponShooting : MonoBehaviour, IWeapon
     [Header("References")]
     [SerializeField] private InputReader m_inputReader;
     [SerializeField] private Transform m_shootPoint;
-    
+
     [Header("Prefabs")]
     [SerializeField] private Projectile m_projectile;
-    
+
     private ObjectPool m_pool;
-    
+
     private void Start()
     {
-        ServiceLocator.Global.Get(out ObjectPool simplePool);
-        m_pool = simplePool;
+        ServiceLocator.Global.TryGet(out ObjectPool pool);
+        m_pool = pool;
     }
 
     public void Equip()

@@ -1038,7 +1038,7 @@ MonoBehaviour:
   m_Intensity: 1
   m_LightVolumeIntensity: 1
   m_LightVolumeEnabled: 0
-  m_ApplyToSortingLayers: 00000000a1abfdafab03f711
+  m_ApplyToSortingLayers: 00000000a1abfdafab03f711cb949273
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -3883,13 +3883,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: M16
       objectReference: {fileID: 0}
-    - target: {fileID: 3910631917828287846, guid: c6a35086649851c14b1e1585a631ce77, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6782185295320213348, guid: c6a35086649851c14b1e1585a631ce77, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.608
+      value: -6.742
       objectReference: {fileID: 0}
     - target: {fileID: 6782185295320213348, guid: c6a35086649851c14b1e1585a631ce77, type: 3}
       propertyPath: m_LocalPosition.y
@@ -3956,18 +3952,6 @@ PrefabInstance:
     - target: {fileID: 6893592627556747956, guid: 085caa6957049c7f2a521973312b75d8, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 7660786347803373070, guid: 085caa6957049c7f2a521973312b75d8, type: 3}
-      propertyPath: m_SortingLayer
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7660786347803373070, guid: 085caa6957049c7f2a521973312b75d8, type: 3}
-      propertyPath: m_SortingLayerID
-      value: 301401003
-      objectReference: {fileID: 0}
-    - target: {fileID: 7660786347803373070, guid: 085caa6957049c7f2a521973312b75d8, type: 3}
-      propertyPath: m_LightProbeUsage
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8025567143335108856, guid: 085caa6957049c7f2a521973312b75d8, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4066,6 +4050,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2805923156366516581, guid: 4bf1a82e2dc6a45168567b5f616ff4b1, type: 3}
+      propertyPath: m_settings
+      value: 
+      objectReference: {fileID: 11400000, guid: b1d2a736311f45d0aec432dadb0b9ceb, type: 2}
+    - target: {fileID: 2805923156366516581, guid: 4bf1a82e2dc6a45168567b5f616ff4b1, type: 3}
       propertyPath: m_shootPoint
       value: 
       objectReference: {fileID: 606324198}
@@ -4089,6 +4077,10 @@ PrefabInstance:
       propertyPath: m_speed
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 3660797839015898069, guid: 4bf1a82e2dc6a45168567b5f616ff4b1, type: 3}
+      propertyPath: m_settings
+      value: 
+      objectReference: {fileID: 11400000, guid: b1d2a736311f45d0aec432dadb0b9ceb, type: 2}
     - target: {fileID: 3660797839015898069, guid: 4bf1a82e2dc6a45168567b5f616ff4b1, type: 3}
       propertyPath: m_attackRange
       value: 2
@@ -4275,22 +4267,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 255144259}
     m_Modifications:
-    - target: {fileID: 134998139948037230, guid: 0d8bf16360f0ef76ea5e508765af2f10, type: 3}
-      propertyPath: m_settings
-      value: 
-      objectReference: {fileID: 11400000, guid: e66763254a8a685bca170b6d2c6ba5df, type: 2}
-    - target: {fileID: 134998139948037230, guid: 0d8bf16360f0ef76ea5e508765af2f10, type: 3}
-      propertyPath: m_horizontalSpawnOffset
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 134998139948037230, guid: 0d8bf16360f0ef76ea5e508765af2f10, type: 3}
-      propertyPath: m_verticalSpawnDistance
-      value: 0.7
-      objectReference: {fileID: 0}
-    - target: {fileID: 134998139948037230, guid: 0d8bf16360f0ef76ea5e508765af2f10, type: 3}
-      propertyPath: m_aboveChestTargetPosition.y
-      value: 0.5
-      objectReference: {fileID: 0}
     - target: {fileID: 344338347674365080, guid: 0d8bf16360f0ef76ea5e508765af2f10, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

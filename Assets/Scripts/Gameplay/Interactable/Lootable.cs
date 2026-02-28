@@ -57,7 +57,7 @@ public class Lootable : MonoBehaviour
             float t = Mathf.Clamp01(elapsedTime / totalSpawnTime);
             transform.localScale = Vector3.Slerp(Vector3.zero, Vector3.one, t * 2);
 
-            if (transform.position == m_aboveChestTargetPosition)
+            if (Vector3.Distance(transform.position, m_aboveChestTargetPosition) < 0.01f)
             {
                 reachedAboveChestPosition = true;
             }

@@ -19,18 +19,13 @@ public static class LootableRarity
         { Rarity.Epic, Color.orange }
     };
 
-    public static Rarity DetermineRarity(Lootable lootable, float epicDropChance, float rareDropChance, float uncommonDropChance)
+    public static Rarity DetermineRarity(float epicDropChance, float rareDropChance, float uncommonDropChance)
     {
-        int roll = Random.Range(0, 100);
+        float roll = Random.Range(0f, 100f);
 
-        Rarity selectedRarity = roll switch
-        {
-            _ when roll >= epicDropChance => Rarity.Epic,
-            _ when roll >= rareDropChance => Rarity.Rare,
-            _ when roll >= uncommonDropChance => Rarity.Uncommon,
-            _ => Rarity.Common
-        };
-
-        return selectedRarity;
+        if (roll < epicDropChance) return Rarity.Epic;
+        if (roll < epicDropChance + rareDropChance) return Rarity.Rare;
+        if (roll < epicDropChance + rareDropChance + uncommonDropChance) return Rarity.Uncommon;
+        return Rarity.Common;
     }
 }

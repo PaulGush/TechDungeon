@@ -60,7 +60,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6844856169148298511}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.45, y: 1.726, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -114,8 +114,8 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: -1342329951
-  m_SortingLayer: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 1
   m_MaskInteraction: 0
   m_Sprite: {fileID: -4969893957098187959, guid: 75d5e29acaeb4866fbf27ab43e9b07e1, type: 3}
@@ -213,6 +213,9 @@ MonoBehaviour:
   m_inputReader: {fileID: 11400000, guid: c7fc619696fbc354f935b4ae0e11fc0c, type: 2}
   m_settings: {fileID: 11400000, guid: e66763254a8a685bca170b6d2c6ba5df, type: 2}
   m_itemSpawnPoint: {fileID: 9037529158113671357}
+  m_verticalSpawnDistance: 0.7
+  m_horizontalSpawnOffset: 1
+  m_aboveChestTargetPosition: {x: 0, y: 0.5, z: 0}
 --- !u!61 &3779850417233469907
 BoxCollider2D:
   m_ObjectHideFlags: 0

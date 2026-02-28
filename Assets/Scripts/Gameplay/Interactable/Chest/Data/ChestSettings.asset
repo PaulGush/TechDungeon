@@ -15,8 +15,8 @@ MonoBehaviour:
   Items:
   - {fileID: 2536621532265573277, guid: c6a35086649851c14b1e1585a631ce77, type: 3}
   ItemDropCount: 3
-  UncommonDropChance: 50
-  RareDropChance: 75
-  EpicDropChance: 90
+  EpicDropChance: 10
+  RareDropChance: 15
+  UncommonDropChance: 25
   TotalSpawnTime: 2
   SpawnTimeInterval: 0.01

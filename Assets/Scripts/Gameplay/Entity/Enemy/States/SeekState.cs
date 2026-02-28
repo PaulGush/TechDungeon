@@ -1,21 +1,16 @@
 public class SeekState : IState
 {
+    private readonly EnemyController m_enemyController;
+    private readonly EnemyMovement m_movement;
+
     public SeekState(EnemyController enemyController)
     {
         m_enemyController = enemyController;
+        m_movement = enemyController.Movement;
     }
-    
-    private readonly EnemyController m_enemyController;
-    private EnemyMovement m_movement;
-    
 
     public void Enter()
     {
-        if (m_movement == null)
-        {
-            m_movement = m_enemyController.Movement;
-        }
-        
         m_movement.CanMove = true;
     }
 
@@ -29,6 +24,6 @@ public class SeekState : IState
 
     public void Exit()
     {
-        
+
     }
 }
