@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -9,9 +10,9 @@ public class SceneLoader : MonoBehaviour
         SceneManager.LoadScene(sceneName);
     }
 
-    public void LoadSceneAsync(string sceneName)
+    public void LoadSceneAsync(string sceneName, Action onComplete = null)
     {
-        StartCoroutine(LoadSceneAsyncCoroutine(sceneName));
+        StartCoroutine(LoadSceneAsyncCoroutine(sceneName, onComplete));
     }
 
     public void ReloadCurrentScene()
@@ -19,12 +20,20 @@ public class SceneLoader : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
-    private IEnumerator LoadSceneAsyncCoroutine(string sceneName)
+    private IEnumerator LoadSceneAsyncCoroutine(string sceneName, Action onComplete)
     {
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName);
+        if (asyncLoad == null)
+        {
+            Debug.LogError($"Failed to load scene: {sceneName}");
+            yield break;
+        }
+
         while (!asyncLoad.isDone)
         {
             yield return null;
         }
+
+        onComplete?.Invoke();
     }
 }
