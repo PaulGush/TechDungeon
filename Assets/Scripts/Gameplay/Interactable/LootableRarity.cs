@@ -8,7 +8,8 @@ public static class LootableRarity
         Common,
         Uncommon,
         Rare,
-        Epic
+        Epic,
+        Legendary
     }
 
     public static Dictionary<Rarity, Color> RarityColors = new Dictionary<Rarity, Color>()
@@ -16,16 +17,18 @@ public static class LootableRarity
         { Rarity.Common, Color.white },
         { Rarity.Uncommon, Color.green },
         { Rarity.Rare, Color.blue },
-        { Rarity.Epic, Color.orange }
+        { Rarity.Epic, new Color(1f, 0.5f, 0f) },
+        { Rarity.Legendary, new Color(1f, 0.84f, 0f) }
     };
 
-    public static Rarity DetermineRarity(float epicDropChance, float rareDropChance, float uncommonDropChance)
+    public static Rarity DetermineRarity(float legendaryDropChance, float epicDropChance, float rareDropChance, float uncommonDropChance)
     {
         float roll = Random.Range(0f, 100f);
 
-        if (roll < epicDropChance) return Rarity.Epic;
-        if (roll < epicDropChance + rareDropChance) return Rarity.Rare;
-        if (roll < epicDropChance + rareDropChance + uncommonDropChance) return Rarity.Uncommon;
+        if (roll < legendaryDropChance) return Rarity.Legendary;
+        if (roll < legendaryDropChance + epicDropChance) return Rarity.Epic;
+        if (roll < legendaryDropChance + epicDropChance + rareDropChance) return Rarity.Rare;
+        if (roll < legendaryDropChance + epicDropChance + rareDropChance + uncommonDropChance) return Rarity.Uncommon;
         return Rarity.Common;
     }
 }

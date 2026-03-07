@@ -12,6 +12,17 @@ public class RarityVisual : MonoBehaviour
     [SerializeField] private TrailRenderer m_trail;
 
     private LootableRarity.Rarity m_rarity;
+    private Material m_materialInstance;
+
+    private Material MaterialInstance
+    {
+        get
+        {
+            if (m_materialInstance == null)
+                m_materialInstance = m_renderer.material;
+            return m_materialInstance;
+        }
+    }
 
     private void OnEnable()
     {
@@ -38,17 +49,17 @@ public class RarityVisual : MonoBehaviour
     {
         Texture tex = m_renderer.sprite != null ? m_renderer.sprite.texture : null;
         if (tex == null) return;
-        m_renderer.material.SetVector(PixelSizeID, new Vector4(1f / tex.width, 1f / tex.height, tex.width, tex.height));
+        MaterialInstance.SetVector(PixelSizeID, new Vector4(1f / tex.width, 1f / tex.height, tex.width, tex.height));
     }
 
     private void SetOutlineColor(Color newColor)
     {
-        m_renderer.material.SetColor(OutlineColor, newColor);
+        MaterialInstance.SetColor(OutlineColor, newColor);
     }
 
     public void SetOutlineThickness(float newValue)
     {
-        m_renderer.material.SetFloat(OutlineThickness, newValue);
+        MaterialInstance.SetFloat(OutlineThickness, newValue);
     }
 
     private void SetTrailColor(Color newColor)

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Chest : MonoBehaviour, IInteractable
 {
+    private const float GizmoRadius = 0.1f;
     private static readonly int Open = Animator.StringToHash("Open");
 
     [Header("References")]
@@ -35,21 +36,22 @@ public class Chest : MonoBehaviour, IInteractable
         m_isOpen = true;
         m_inputReader.Interact -= Interact;
 
-        float i = 0;
+        float itemIndex = 0;
         foreach (Lootable lootableItem in m_settings.GetRandomItems())
         {
-            Vector3 targetPosition = new Vector3((m_itemSpawnPoint.position.x + i) - m_horizontalSpawnOffset, m_itemSpawnPoint.position.y - m_verticalSpawnDistance, m_itemSpawnPoint.position.z);
+            if (lootableItem == null) continue;
+            Vector3 targetPosition = new Vector3((m_itemSpawnPoint.position.x + itemIndex) - m_horizontalSpawnOffset, m_itemSpawnPoint.position.y - m_verticalSpawnDistance, m_itemSpawnPoint.position.z);
             GameObject item = Instantiate(lootableItem.gameObject, m_itemSpawnPoint.position, Quaternion.identity, m_environmentParent);
             item.name = item.GetComponent<SpriteRenderer>().sprite.name;
 
             Lootable lootableComp = item.GetComponent<Lootable>();
 
-            lootableComp.ChangeRarity(LootableRarity.DetermineRarity(m_settings.EpicDropChance, m_settings.RareDropChance, m_settings.UncommonDropChance));
+            lootableComp.ChangeRarity(LootableRarity.DetermineRarity(m_settings.LegendaryDropChance, m_settings.EpicDropChance, m_settings.RareDropChance, m_settings.UncommonDropChance));
             lootableComp.SetTargetPosition(targetPosition);
             lootableComp.SetAboveChestTargetPosition(transform.position + m_aboveChestTargetPosition);
             lootableComp.StartSpawnSequence(m_settings.TotalSpawnTime, m_settings.SpawnTimeInterval, 0);
 
-            i++;
+            itemIndex++;
         }
     }
 
@@ -73,10 +75,10 @@ public class Chest : MonoBehaviour, IInteractable
 
         for(int i = 0; i < m_settings.ItemDropCount; i++)
         {
-            Gizmos.DrawWireSphere(new Vector3(transform.position.x + i - m_horizontalSpawnOffset, transform.position.y - m_verticalSpawnDistance, transform.position.z), 0.1f);
+            Gizmos.DrawWireSphere(new Vector3(transform.position.x + i - m_horizontalSpawnOffset, transform.position.y - m_verticalSpawnDistance, transform.position.z), GizmoRadius);
         }
 
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position + m_aboveChestTargetPosition, 0.1f);
+        Gizmos.DrawWireSphere(transform.position + m_aboveChestTargetPosition, GizmoRadius);
     }
 }

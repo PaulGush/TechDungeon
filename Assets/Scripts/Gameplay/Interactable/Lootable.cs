@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class Lootable : MonoBehaviour
 {
+    private const float PositionSnapThreshold = 0.01f;
+    private const float ScaleMultiplier = 2f;
+
     [Header("Data")]
     [SerializeField] private LootableRarity.Rarity _rarity;
     [SerializeField, HideInInspector] private LootableRarity.Rarity _lastRarity;
@@ -53,9 +56,9 @@ public class Lootable : MonoBehaviour
         {
             elapsedTime += spawnTimeInterval;
             float t = Mathf.Clamp01(elapsedTime / totalSpawnTime);
-            transform.localScale = Vector3.Slerp(Vector3.zero, Vector3.one, t * 2);
+            transform.localScale = Vector3.Slerp(Vector3.zero, Vector3.one, t * ScaleMultiplier);
 
-            if (Vector3.Distance(transform.position, m_aboveChestTargetPosition) < 0.01f)
+            if ((transform.position - m_aboveChestTargetPosition).sqrMagnitude < PositionSnapThreshold * PositionSnapThreshold)
             {
                 reachedAboveChestPosition = true;
             }
