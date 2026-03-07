@@ -45,10 +45,10 @@ public class EntityHealth : MonoBehaviour
 
     public virtual bool Heal(int healAmount)
     {
-        if (m_currentHealth + healAmount > m_maxHealth)
+        if (m_currentHealth >= m_maxHealth)
             return false;
 
-        m_currentHealth += healAmount;
+        m_currentHealth = Mathf.Min(m_currentHealth + healAmount, m_maxHealth);
         OnHeal?.Invoke();
         OnHealthChanged?.Invoke(m_currentHealth);
         return true;

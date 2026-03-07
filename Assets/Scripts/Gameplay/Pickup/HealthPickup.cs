@@ -27,6 +27,8 @@ public class HealthPickup : Pickup
         if (!other.TryGetComponent(out EntityHealth health))
             return;
 
+        if (m_pool == null) return;
+
         if (health.Heal(m_healAmount))
         {
             m_pool.ReturnGameObject(gameObject);

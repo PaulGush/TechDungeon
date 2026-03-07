@@ -15,9 +15,14 @@ namespace PlayerObject
         private const float WeaponRotationOffset = -90f;
         private Vector2 m_previousFrameMousePosition;
 
-        private void FixedUpdate()
+        private void LateUpdate()
         {
             HandleWeaponPositionAndRotation();
+        }
+
+        private void OnDestroy()
+        {
+            m_inputReader.Interact -= Equip;
         }
 
         private void HandleWeaponPositionAndRotation()

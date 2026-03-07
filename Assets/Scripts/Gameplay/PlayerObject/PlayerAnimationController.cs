@@ -11,6 +11,7 @@ namespace PlayerObject
         private static readonly int MoveSpeed = Animator.StringToHash("MoveSpeed");
         private static readonly int Death = Animator.StringToHash("Death");
         private static readonly int Roll = Animator.StringToHash("Roll");
+        private static readonly WaitForSeconds FlashWait = new WaitForSeconds(0.2f);
         [Header("References")]
         [SerializeField] private Animator m_animator;
         [SerializeField] private SpriteRenderer m_spriteRenderer;
@@ -61,13 +62,13 @@ namespace PlayerObject
         private void OnHurt()
         {
             StopAllCoroutines();
-            StartCoroutine(ChangeColorForSeconds(m_damageColor, 0.2f));
+            StartCoroutine(ChangeColorForSeconds(m_damageColor));
         }
-        
+
         private void OnHeal()
         {
             StopAllCoroutines();
-            StartCoroutine(ChangeColorForSeconds(m_healColor, 0.2f));
+            StartCoroutine(ChangeColorForSeconds(m_healColor));
         }
 
         private void OnDeath()
@@ -76,10 +77,10 @@ namespace PlayerObject
             m_animator.SetTrigger(Death);
         }
 
-        private IEnumerator ChangeColorForSeconds(Color color, float seconds)
+        private IEnumerator ChangeColorForSeconds(Color color)
         {
             m_spriteRenderer.color = color;
-            yield return new WaitForSeconds(seconds);
+            yield return FlashWait;
             m_spriteRenderer.color = Color.white;
         }
 

@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c36584fb94b7aa92592c10ff09398ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyWeaponAnchor
-  _targeting: {fileID: 3582027185550081905}
+  m_targeting: {fileID: 3582027185550081905}
 --- !u!1 &5290733022659640539
 GameObject:
   m_ObjectHideFlags: 0
@@ -84,6 +84,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &7217550124218819427
 SpriteRenderer:
+  serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -129,6 +130,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
+  m_MaskInteraction: 0
   m_Sprite: {fileID: 1028906776217498605, guid: 9c802f0e432ce937db7f5b5a60ff9343, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -138,7 +140,6 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!95 &3418384139468555832
 Animator:
@@ -174,8 +175,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ac2e25cf2a456f9f9f6fb7de224c5bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAnimationController
-  _animator: {fileID: 3418384139468555832}
-  _enemyController: {fileID: 5296464329978220579}
+  m_animator: {fileID: 3418384139468555832}
+  m_enemyController: {fileID: 5296464329978220579}
 --- !u!114 &8369054480663514145
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -188,8 +189,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1acc8d40046a4a4ee9f57315808a6ff7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpriteController
-  _enemyController: {fileID: 5296464329978220579}
-  _spriteRenderer: {fileID: 7217550124218819427}
+  m_enemyController: {fileID: 5296464329978220579}
+  m_spriteRenderer: {fileID: 7217550124218819427}
 --- !u!114 &2805923156366516581
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -202,10 +203,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc5d530f6f9557189b32f03f335b4832, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyShooting
-  _enemyController: {fileID: 5296464329978220579}
-  _shootPoint: {fileID: 6734990020364742783}
-  _settings: {fileID: 11400000, guid: b1d2a736311f45d0aec432dadb0b9ceb, type: 2}
-  _projectilePrefab: {fileID: 5187812260587514585, guid: f9cc98d9978166916b50e3a501a2e3b5, type: 3}
+  m_enemyController: {fileID: 5296464329978220579}
+  m_shootPoint: {fileID: 6734990020364742783}
+  m_settings: {fileID: 11400000, guid: b1d2a736311f45d0aec432dadb0b9ceb, type: 2}
+  m_projectilePrefab: {fileID: 5187812260587514585, guid: f9cc98d9978166916b50e3a501a2e3b5, type: 3}
 --- !u!1 &6864235361929530881
 GameObject:
   m_ObjectHideFlags: 0
@@ -289,12 +290,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 795f62f050337e171b17662ccc3a05e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
-  _name: Bob
-  _animationController: {fileID: 5779308081635976221}
-  _health: {fileID: 4045594035486960770}
-  _movement: {fileID: 3660797839015898069}
-  _shooting: {fileID: 2805923156366516581}
-  _targeting: {fileID: 3582027185550081905}
+  m_name: Bob
+  m_animationController: {fileID: 5779308081635976221}
+  m_health: {fileID: 4045594035486960770}
+  m_movement: {fileID: 3660797839015898069}
+  m_shooting: {fileID: 2805923156366516581}
+  m_targeting: {fileID: 3582027185550081905}
 --- !u!114 &3660797839015898069
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -307,10 +308,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d315ddf2afbdf6f23bbf464e6d6b7135, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyMovement
-  _enemyController: {fileID: 5296464329978220579}
-  _rigidbody2D: {fileID: 2916310425264144612}
-  _settings: {fileID: 11400000, guid: b1d2a736311f45d0aec432dadb0b9ceb, type: 2}
+  m_enemyController: {fileID: 5296464329978220579}
+  m_rigidbody2D: {fileID: 2916310425264144612}
+  m_settings: {fileID: 11400000, guid: b1d2a736311f45d0aec432dadb0b9ceb, type: 2}
   CanMove: 0
+  Strafe: 0
 --- !u!50 &2916310425264144612
 Rigidbody2D:
   serializedVersion: 5
@@ -396,8 +398,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdabb95365c2254f39ff9c944b12e980, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyCollision
-  _collider: {fileID: 2300997181998269685}
-  _health: {fileID: 4045594035486960770}
+  m_collider: {fileID: 2300997181998269685}
+  m_health: {fileID: 4045594035486960770}
 --- !u!114 &4045594035486960770
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -410,9 +412,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d24eb0baf57c918e99812820c711bb4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EntityHealth
-  _currentHealth: 0
-  _maxHealth: 50
-  _armor: 0
+  m_currentHealth: 0
+  m_maxHealth: 100
+  m_armor: 0
 --- !u!1 &8097938195515696249
 GameObject:
   m_ObjectHideFlags: 0
@@ -494,5 +496,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5af2bcac53dcc7908abb4a19c1884574, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyTargeting
-  _enemyController: {fileID: 5296464329978220579}
-  _currentTarget: {fileID: 0}
+  m_enemyController: {fileID: 5296464329978220579}
+  m_currentTarget: {fileID: 0}

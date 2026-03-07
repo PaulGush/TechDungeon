@@ -13,6 +13,7 @@ public class Projectile : MonoBehaviour
 
     private ObjectPool m_pool;
     private int m_hitsBeforeDeath;
+    private Coroutine m_returnCoroutine;
 
     public virtual void Initialize()
     {
@@ -25,11 +26,16 @@ public class Projectile : MonoBehaviour
         m_hitsBeforeDeath = m_settings.HitsBeforeDeath;
         m_rigidbody2D.AddForce( transform.right * m_settings.Speed);
 
-        StartCoroutine(m_pool.ReturnAfter(gameObject, m_settings.Lifetime));
+        m_returnCoroutine = StartCoroutine(m_pool.ReturnAfter(gameObject, m_settings.Lifetime));
     }
 
     private void OnDisable()
     {
+        if (m_returnCoroutine != null)
+        {
+            StopCoroutine(m_returnCoroutine);
+            m_returnCoroutine = null;
+        }
         m_rigidbody2D.linearVelocity = Vector2.zero;
     }
 

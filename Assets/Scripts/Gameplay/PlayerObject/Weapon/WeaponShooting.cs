@@ -32,6 +32,8 @@ public class WeaponShooting : MonoBehaviour, IWeapon
 
     private void OnAttack()
     {
+        if (m_pool == null) return;
+
         GameObject projectile = m_pool.GetPooledObject(m_projectile.gameObject);
         projectile.transform.SetPositionAndRotation(m_shootPoint.position, m_shootPoint.rotation);
         projectile.GetComponent<Projectile>().Initialize();

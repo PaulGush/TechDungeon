@@ -71,8 +71,10 @@ namespace Gameplay.ObjectPool
 
         public void ReturnGameObject(GameObject gameObject)
         {
-            if (m_activeObjects.TryGetValue(gameObject.GetInstanceID(), out var pool))
+            int id = gameObject.GetInstanceID();
+            if (m_activeObjects.TryGetValue(id, out var pool))
             {
+                m_activeObjects.Remove(id);
                 pool.Release(gameObject);
             }
             else
