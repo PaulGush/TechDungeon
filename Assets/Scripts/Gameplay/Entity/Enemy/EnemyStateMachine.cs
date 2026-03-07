@@ -14,7 +14,7 @@ public class EnemyStateMachine
     private IdleState m_idleState;
     public SeekState SeekState;
     public AttackState AttackState;
-    
+
     public Action<IState> OnStateChanged;
 
     public void ChangeState(IState newState)
@@ -28,6 +28,13 @@ public class EnemyStateMachine
     public void Initialize()
     {
         ChangeState(m_idleState);
+    }
+
+    public void Reset()
+    {
+        m_currentState?.Exit();
+        m_currentState = null;
+        Initialize();
     }
 
     public void Tick()

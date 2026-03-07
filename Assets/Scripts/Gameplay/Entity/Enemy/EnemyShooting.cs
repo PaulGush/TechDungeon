@@ -36,6 +36,8 @@ public class EnemyShooting : MonoBehaviour
 
     public void Shoot()
     {
+        if (m_pool == null) return;
+
         GameObject projectile = m_pool.GetPooledObject(m_projectilePrefab);
         projectile.transform.SetPositionAndRotation(m_shootPoint.position, m_shootPoint.rotation);
         projectile.GetComponent<Projectile>().Initialize();

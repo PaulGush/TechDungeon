@@ -14,4 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemySettings
   Speed: 2.5
   AttackRange: 2
+  ObstacleAvoidanceDistance: 2
+  ObstacleLayerMask:
+    serializedVersion: 2
+    m_Bits: 2048
+  SteeringRayCount: 8
+  StuckThreshold: 0.1
+  StuckTimeBeforeEscape: 0.5
+  SeparationRadius: 1.5
+  SeparationWeight: 1.5
   FireRate: 0.25
+  PreferredAttackDistance: 1.5
+  StrafeSpeed: 1.5

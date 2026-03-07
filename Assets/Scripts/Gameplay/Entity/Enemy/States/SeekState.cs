@@ -24,6 +24,6 @@ public class SeekState : IState
 
     public void Exit()
     {
-
+        m_movement.CanMove = false;
     }
 }

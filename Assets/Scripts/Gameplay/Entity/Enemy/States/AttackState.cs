@@ -14,6 +14,7 @@ public class AttackState : IState
     public void Enter()
     {
         m_movement.CanMove = false;
+        m_movement.Strafe = true;
     }
 
     public void Tick()
@@ -22,7 +23,7 @@ public class AttackState : IState
         {
             m_enemyController.StateMachine.ChangeState(m_enemyController.StateMachine.SeekState);
         }
-        else
+        else if (m_movement.HasLineOfSight())
         {
             m_shooting.TryShoot();
         }
@@ -30,6 +31,6 @@ public class AttackState : IState
 
     public void Exit()
     {
-
+        m_movement.Strafe = false;
     }
 }

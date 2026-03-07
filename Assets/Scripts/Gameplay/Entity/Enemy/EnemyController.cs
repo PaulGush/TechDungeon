@@ -29,13 +29,13 @@ public class EnemyController : Entity
     {
         ServiceLocator.Global.TryGet(out ObjectPool pool);
         m_pool = pool;
+        m_stateMachine = new EnemyStateMachine(this);
     }
 
     private void OnEnable()
     {
         m_health.ResetHealth();
-        m_stateMachine = new EnemyStateMachine(this);
-        m_stateMachine.Initialize();
+        m_stateMachine.Reset();
     }
 
     private void FixedUpdate()
