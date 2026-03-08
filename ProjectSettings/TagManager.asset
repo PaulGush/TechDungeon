@@ -18,7 +18,7 @@ TagManager:
   - Weapon
   - Enemy
   - Walls
-  -
+  - 
   - 
   - 
   - 
@@ -42,8 +42,8 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Agent
-    uniqueID: 1938986187
+  - name: Player
+    uniqueID: 2158135681
     locked: 0
   m_RenderingLayers:
   - Default
