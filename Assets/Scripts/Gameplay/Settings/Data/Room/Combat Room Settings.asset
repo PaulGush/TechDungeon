@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 465df7d35af1903dabbc15ba2d8ca74d, type: 3}
+  m_Name: Combat Room Settings
+  m_EditorClassIdentifier: Assembly-CSharp::RoomSettings
+  RoomType: 0
+  RewardType: 0
+  RoomIcon: {fileID: 21300000, guid: 58ccc7c7891fe4cfe95630afa77ca790, type: 3}
+  RoomPrefabs:
+  - {fileID: 1837370586240707199, guid: 98633c906aa7ed17fbe8c38e7b157f90, type: 3}
+  EnemyWaves:
+  - EnemyPrefabs:
+    - {fileID: 7364831485085966955, guid: 4bf1a82e2dc6a45168567b5f616ff4b1, type: 3}
+    - {fileID: 7364831485085966955, guid: 4bf1a82e2dc6a45168567b5f616ff4b1, type: 3}
+    - {fileID: 7364831485085966955, guid: 4bf1a82e2dc6a45168567b5f616ff4b1, type: 3}
+    - {fileID: 7364831485085966955, guid: 4bf1a82e2dc6a45168567b5f616ff4b1, type: 3}
+    - {fileID: 7364831485085966955, guid: 4bf1a82e2dc6a45168567b5f616ff4b1, type: 3}
+    DelayBeforeSpawn: 2
