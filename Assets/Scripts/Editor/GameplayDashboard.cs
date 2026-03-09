@@ -10,7 +10,7 @@ namespace TechDungeon.Editor
     {
         private int m_selectedTab;
         private Vector2 m_scrollPosition;
-        private readonly string[] m_tabNames = { "Player", "Enemy", "Projectile", "Chest" };
+        private readonly string[] m_tabNames = { "Player", "Enemy", "Projectile", "Chest", "Tools" };
 
         private readonly Dictionary<int, List<ScriptableObject>> m_assets = new();
         private readonly Dictionary<int, List<UnityEditor.Editor>> m_editors = new();
@@ -89,6 +89,12 @@ namespace TechDungeon.Editor
                 RefreshAll();
             EditorGUILayout.EndHorizontal();
 
+            if (m_selectedTab == m_tabNames.Length - 1)
+            {
+                DrawToolsTab();
+                return;
+            }
+
             if (!m_assets.ContainsKey(m_selectedTab))
                 return;
 
@@ -126,6 +132,39 @@ namespace TechDungeon.Editor
 
             if (GUILayout.Button($"Create New {m_tabNames[m_selectedTab]} Settings"))
                 CreateNewAsset(m_selectedTab);
+
+            EditorGUILayout.EndScrollView();
+        }
+
+        private void DrawToolsTab()
+        {
+            m_scrollPosition = EditorGUILayout.BeginScrollView(m_scrollPosition);
+
+            EditorGUILayout.LabelField("Room", EditorStyles.boldLabel);
+
+            bool isPlaying = Application.isPlaying;
+            if (!isPlaying)
+            {
+                EditorGUILayout.HelpBox("Enter Play Mode to use room tools.", MessageType.Info);
+            }
+
+            EditorGUI.BeginDisabledGroup(!isPlaying);
+
+            if (GUILayout.Button("Clear Current Room"))
+            {
+                var room = FindAnyObjectByType<RoomInstance>();
+                if (room != null)
+                {
+                    room.ClearRoom();
+                    Debug.Log($"[GameplayDashboard] Cleared room: {room.name}");
+                }
+                else
+                {
+                    Debug.LogWarning("[GameplayDashboard] No active RoomInstance found in scene.");
+                }
+            }
+
+            EditorGUI.EndDisabledGroup();
 
             EditorGUILayout.EndScrollView();
         }
