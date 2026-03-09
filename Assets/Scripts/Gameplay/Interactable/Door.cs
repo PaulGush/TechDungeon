@@ -20,20 +20,20 @@ public class Door : MonoBehaviour
         return true;
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    protected virtual void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.layer != GameConstants.Layers.PlayerLayer) return;
-        
+
         if (CanUnlock() && !m_animator.GetBool(IsOpen))
         {
             Open();
         }
     }
 
-    private void OnTriggerExit2D(Collider2D other)
+    protected virtual void OnTriggerExit2D(Collider2D other)
     {
         if (other.gameObject.layer != GameConstants.Layers.PlayerLayer) return;
-        
+
         if (m_animator.GetBool(IsOpen))
         {
             Close();
