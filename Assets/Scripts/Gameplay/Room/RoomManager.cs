@@ -28,12 +28,14 @@ public class RoomManager : MonoBehaviour
     private RoomEncounter m_currentEncounter;
     private RoomSettings m_currentSettings;
 
+    public Transform CurrentRoomTransform => m_currentRoom != null ? m_currentRoom.transform : null;
+
     public event Action<RoomSettings> OnRoomLoaded;
     public event Action OnRoomCleared;
 
     private void Awake()
     {
-        ServiceLocator.For(this).Register(this);
+        ServiceLocator.Global.Register(this);
     }
 
     private void Start()
@@ -134,6 +136,10 @@ public class RoomManager : MonoBehaviour
             if (startLocked)
             {
                 door.Lock();
+            }
+            else
+            {
+                door.Unlock();
             }
         }
 

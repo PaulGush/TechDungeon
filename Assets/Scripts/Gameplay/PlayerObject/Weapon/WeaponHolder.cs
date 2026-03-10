@@ -2,6 +2,7 @@ using Input;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityServiceLocator;
 
 namespace PlayerObject
 {
@@ -10,10 +11,12 @@ namespace PlayerObject
         [SerializeField] private Camera m_camera;
         [SerializeField] private InputReader m_inputReader;
         [SerializeField] private TextMeshPro m_interactText;
-        [SerializeField] private Transform m_environmentParent;
 
         private const float WeaponRotationOffset = -90f;
         private Vector2 m_previousFrameMousePosition;
+        private RoomManager m_roomManager;
+
+        private RoomManager RoomManager => m_roomManager ??= ServiceLocator.Global.Get<RoomManager>();
 
         private void LateUpdate()
         {
@@ -63,7 +66,7 @@ namespace PlayerObject
 
         private void Unequip()
         {
-            m_currentWeapon.transform.SetParent(m_environmentParent);
+            m_currentWeapon.transform.SetParent(RoomManager.CurrentRoomTransform);
 
             foreach (Component component in m_currentWeapon.GetComponents(typeof(IWeapon)))
             {

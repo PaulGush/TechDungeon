@@ -104,6 +104,23 @@ public class RoomEncounter : MonoBehaviour
         m_deathCallbacks.Remove(enemy);
     }
 
+    public void KillAllEnemies()
+    {
+        StopAllCoroutines();
+
+        var enemiesToKill = new List<GameObject>(m_activeEnemies);
+        foreach (var enemy in enemiesToKill)
+        {
+            if (enemy == null) continue;
+
+            EntityHealth health = enemy.GetComponent<EntityHealth>();
+            if (health != null && !health.IsDead)
+            {
+                health.TakeDamage(health.CurrentHealth + health.Armor);
+            }
+        }
+    }
+
     public void CleanUp()
     {
         StopAllCoroutines();

@@ -155,7 +155,16 @@ namespace TechDungeon.Editor
                 var room = FindAnyObjectByType<RoomInstance>();
                 if (room != null)
                 {
-                    room.ClearRoom();
+                    var encounter = room.GetComponent<RoomEncounter>();
+                    if (encounter != null)
+                    {
+                        encounter.KillAllEnemies();
+                    }
+                    else
+                    {
+                        room.ClearRoom();
+                    }
+
                     Debug.Log($"[GameplayDashboard] Cleared room: {room.name}");
                 }
                 else

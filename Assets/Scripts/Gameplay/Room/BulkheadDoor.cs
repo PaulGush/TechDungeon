@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -12,7 +13,8 @@ public class BulkheadDoor : Door
     [Header("Bulkhead")]
     [SerializeField] private SpriteRenderer m_rewardIcon;
     [SerializeField] private BulkheadTransitionTrigger m_transitionTrigger;
-
+    [SerializeField] private List<GameObject> m_lockedVisuals; 
+    
     private RoomSettings m_roomSettings;
     private RoomManager m_roomManager;
     private bool m_isUsed;
@@ -28,17 +30,22 @@ public class BulkheadDoor : Door
         if (m_rewardIcon != null && settings.RoomIcon != null)
         {
             m_rewardIcon.sprite = settings.RoomIcon;
+            m_rewardIcon.enabled = false;
         }
     }
 
     public void Lock()
     {
         m_isLocked = true;
+        if (m_rewardIcon != null) m_rewardIcon.enabled = false;
+        foreach (GameObject visual in m_lockedVisuals) visual.SetActive(true);
     }
 
     public void Unlock()
     {
         m_isLocked = false;
+        if (m_rewardIcon != null) m_rewardIcon.enabled = true;
+        foreach (GameObject visual in m_lockedVisuals) visual.SetActive(false);
     }
 
     protected override bool CanUnlock()

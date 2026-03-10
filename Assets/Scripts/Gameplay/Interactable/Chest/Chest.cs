@@ -1,6 +1,7 @@
 using Input;
 using TMPro;
 using UnityEngine;
+using UnityServiceLocator;
 
 public class Chest : MonoBehaviour, IInteractable
 {
@@ -14,13 +15,15 @@ public class Chest : MonoBehaviour, IInteractable
     [SerializeField] private ChestSettings m_settings;
 
     [Header("Settings")]
-    [SerializeField] private Transform m_environmentParent;
     [SerializeField] private Transform m_itemSpawnPoint;
     [SerializeField] private float m_verticalSpawnDistance = 1;
     [SerializeField] private float m_horizontalSpawnOffset = 1;
     [SerializeField] private Vector3 m_aboveChestTargetPosition;
 
+    private RoomManager m_roomManager;
     private bool m_isOpen;
+
+    private RoomManager RoomManager => m_roomManager ??= ServiceLocator.Global.Get<RoomManager>();
 
     private void OnDestroy()
     {
@@ -36,12 +39,14 @@ public class Chest : MonoBehaviour, IInteractable
         m_isOpen = true;
         m_inputReader.Interact -= Interact;
 
+        Transform roomParent = RoomManager.CurrentRoomTransform;
+
         float itemIndex = 0;
         foreach (Lootable lootableItem in m_settings.GetRandomItems())
         {
             if (lootableItem == null) continue;
             Vector3 targetPosition = new Vector3((m_itemSpawnPoint.position.x + itemIndex) - m_horizontalSpawnOffset, m_itemSpawnPoint.position.y - m_verticalSpawnDistance, m_itemSpawnPoint.position.z);
-            GameObject item = Instantiate(lootableItem.gameObject, m_itemSpawnPoint.position, Quaternion.identity, m_environmentParent);
+            GameObject item = Instantiate(lootableItem.gameObject, m_itemSpawnPoint.position, Quaternion.identity, roomParent);
             item.name = item.GetComponent<SpriteRenderer>().sprite.name;
 
             Lootable lootableComp = item.GetComponent<Lootable>();
