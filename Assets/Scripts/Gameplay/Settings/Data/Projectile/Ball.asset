@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Ball
   m_EditorClassIdentifier: Assembly-CSharp::ProjectileSettings
   Damage: 10
-  Speed: 200
+  Speed: 500
   Lifetime: 3
   HitsBeforeDeath: 0

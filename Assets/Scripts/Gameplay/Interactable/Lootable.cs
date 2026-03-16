@@ -6,6 +6,7 @@ using UnityEngine;
 public class Lootable : MonoBehaviour
 {
     private const float PositionSnapThreshold = 0.01f;
+    private const float EarlyFinishThreshold = 0.05f;
     private const float ScaleMultiplier = 2f;
 
     [Header("Data")]
@@ -14,6 +15,7 @@ public class Lootable : MonoBehaviour
 
     [Header("References")]
     [SerializeField] private BounceEffect m_bounceEffect;
+    [SerializeField] private Collider2D m_collider;
 
     private Vector3 m_aboveChestTargetPosition;
     private Vector3 m_targetPosition;
@@ -28,6 +30,12 @@ public class Lootable : MonoBehaviour
     {
         transform.localScale = Vector3.zero;
         IsSpawning = true;
+
+        if (m_collider != null)
+        {
+            m_collider.enabled = false;
+        }
+
         m_spawnCoroutine = StartCoroutine(SpawnCoroutine(totalSpawnTime, spawnTimeInterval, delay));
     }
 
@@ -65,6 +73,11 @@ public class Lootable : MonoBehaviour
 
             transform.position = Vector3.Slerp(transform.position, !reachedAboveChestPosition ? m_aboveChestTargetPosition : m_targetPosition, t);
 
+            if (reachedAboveChestPosition && (transform.position - m_targetPosition).sqrMagnitude < EarlyFinishThreshold * EarlyFinishThreshold && transform.localScale.x >= 1f - EarlyFinishThreshold)
+            {
+                break;
+            }
+
             yield return tick;
         }
         transform.localScale = Vector3.one;
@@ -76,6 +89,11 @@ public class Lootable : MonoBehaviour
     {
         IsSpawning = false;
         m_spawnCoroutine = null;
+
+        if (m_collider != null)
+        {
+            m_collider.enabled = true;
+        }
 
         if (BounceEffect != null)
         {

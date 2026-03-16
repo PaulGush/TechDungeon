@@ -10,6 +10,7 @@ public class Projectile : MonoBehaviour
 
     [Header("Collision Filtering")]
     [SerializeField] private LayerMask m_damageLayers;
+    [SerializeField] private LayerMask m_destroyLayers;
 
     private ObjectPool m_pool;
     private int m_hitsBeforeDeath;
@@ -41,7 +42,15 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (((1 << other.gameObject.layer) & m_damageLayers) == 0) return;
+        int layerFlag = 1 << other.gameObject.layer;
+
+        if ((layerFlag & m_destroyLayers) != 0)
+        {
+            m_pool.ReturnGameObject(gameObject);
+            return;
+        }
+
+        if ((layerFlag & m_damageLayers) == 0) return;
 
         if (other.gameObject.TryGetComponent<EntityHealth>(out var entityHealth))
         {
