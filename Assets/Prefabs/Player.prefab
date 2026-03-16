@@ -193,7 +193,7 @@ GameObject:
   - component: {fileID: 6743109119496150532}
   - component: {fileID: 6523140587408125060}
   m_Layer: 8
-  m_Name: WeaponAnchor
+  m_Name: WeaponHolder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -229,7 +229,6 @@ MonoBehaviour:
   m_camera: {fileID: 0}
   m_inputReader: {fileID: 11400000, guid: c7fc619696fbc354f935b4ae0e11fc0c, type: 2}
   m_interactText: {fileID: 1158673349398736748}
-  m_environmentParent: {fileID: 0}
 --- !u!58 &6523140587408125060
 CircleCollider2D:
   m_ObjectHideFlags: 0
