@@ -45,6 +45,7 @@ namespace Gameplay.ObjectPool
         // Called when an item is taken from the pool.
         private void OnGet(GameObject gameObject)
         {
+            if (gameObject == null) return;
             gameObject.SetActive(true);
         }
 
@@ -65,21 +66,19 @@ namespace Gameplay.ObjectPool
         public System.Collections.IEnumerator ReturnAfter(GameObject gameObject, float seconds)
         {
             yield return new WaitForSeconds(seconds);
-            // Give it back to the pool.
+            if (gameObject == null) yield break;
             ReturnGameObject(gameObject);
         }
 
         public void ReturnGameObject(GameObject gameObject)
         {
+            if (gameObject == null) return;
+
             int id = gameObject.GetInstanceID();
             if (m_activeObjects.TryGetValue(id, out var pool))
             {
                 m_activeObjects.Remove(id);
                 pool.Release(gameObject);
-            }
-            else
-            {
-                Destroy(gameObject);
             }
         }
     }
