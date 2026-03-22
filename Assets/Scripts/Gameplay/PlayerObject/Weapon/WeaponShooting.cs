@@ -16,6 +16,8 @@ public class WeaponShooting : MonoBehaviour, IWeapon
     private ObjectPool m_pool;
     private Transform m_weaponHolder;
     private bool m_isObstructed;
+    private MutationManager m_mutationManager;
+    private AmmoManager m_ammoManager;
 
     public bool IsObstructed => m_isObstructed;
     public Vector2 ShootPointPosition => m_shootPoint.position;
@@ -24,6 +26,8 @@ public class WeaponShooting : MonoBehaviour, IWeapon
     {
         ServiceLocator.Global.TryGet(out ObjectPool pool);
         m_pool = pool;
+        ServiceLocator.Global.TryGet(out m_mutationManager);
+        ServiceLocator.Global.TryGet(out m_ammoManager);
     }
 
     public void Equip()
@@ -54,8 +58,38 @@ public class WeaponShooting : MonoBehaviour, IWeapon
     {
         if (m_pool == null || m_isObstructed) return;
 
+        // Resolve ammo type
+        AmmoSettings ammoSettings = null;
+        if (m_ammoManager != null)
+        {
+            AmmoSettings current = m_ammoManager.CurrentAmmoSettings;
+            if (current != null && current.Type != AmmoType.Standard)
+            {
+                if (m_ammoManager.TryConsumeAmmo())
+                    ammoSettings = current;
+            }
+        }
+
         GameObject projectile = m_pool.GetPooledObject(m_projectile.gameObject);
         projectile.transform.SetPositionAndRotation(m_shootPoint.position, m_shootPoint.rotation);
-        projectile.GetComponent<Projectile>().Initialize();
+
+        Projectile proj = projectile.GetComponent<Projectile>();
+        proj.SetProjectilePrefab(m_projectile.gameObject);
+
+        if (m_mutationManager != null)
+        {
+            proj.SetMutationModifiers(
+                m_mutationManager.GetFlatDamageBonus(),
+                m_mutationManager.GetDamageMultiplier(),
+                m_mutationManager.GetBonusPierce()
+            );
+        }
+
+        if (ammoSettings != null)
+        {
+            proj.SetAmmoModifiers(ammoSettings);
+        }
+
+        proj.Initialize();
     }
 }

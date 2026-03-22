@@ -53,4 +53,16 @@ public class EntityHealth : MonoBehaviour
         OnHealthChanged?.Invoke(m_currentHealth);
         return true;
     }
+
+    public void IncreaseMaxHealth(int amount)
+    {
+        m_maxHealth += amount;
+        m_currentHealth += amount;
+        OnHealthChanged?.Invoke(m_currentHealth);
+    }
+
+    public void IncreaseArmor(int amount)
+    {
+        m_armor += amount;
+    }
 }
