@@ -47,7 +47,8 @@ public class Chest : MonoBehaviour, IInteractable
             if (lootableItem == null) continue;
             Vector3 targetPosition = new Vector3((m_itemSpawnPoint.position.x + itemIndex) - m_horizontalSpawnOffset, m_itemSpawnPoint.position.y - m_verticalSpawnDistance, m_itemSpawnPoint.position.z);
             GameObject item = Instantiate(lootableItem.gameObject, m_itemSpawnPoint.position, Quaternion.identity, roomParent);
-            item.name = item.GetComponent<SpriteRenderer>().sprite.name;
+            SpriteRenderer sr = item.GetComponentInChildren<SpriteRenderer>();
+            if (sr != null) item.name = sr.sprite.name;
 
             Lootable lootableComp = item.GetComponent<Lootable>();
 

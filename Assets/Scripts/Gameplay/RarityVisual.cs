@@ -64,12 +64,14 @@ public class RarityVisual : MonoBehaviour
 
     private void SetTrailColor(Color newColor)
     {
+        if (m_trail == null) return;
         m_trail.startColor = newColor;
         m_trail.endColor = newColor;
     }
 
     private void SpawnComplete()
     {
+        if (m_trail == null) return;
         m_trail.emitting = false;
     }
 }

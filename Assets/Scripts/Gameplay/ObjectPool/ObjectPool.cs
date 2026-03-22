@@ -70,16 +70,19 @@ namespace Gameplay.ObjectPool
             ReturnGameObject(gameObject);
         }
 
-        public void ReturnGameObject(GameObject gameObject)
+        public bool ReturnGameObject(GameObject gameObject)
         {
-            if (gameObject == null) return;
+            if (gameObject == null) return false;
 
             int id = gameObject.GetInstanceID();
             if (m_activeObjects.TryGetValue(id, out var pool))
             {
                 m_activeObjects.Remove(id);
                 pool.Release(gameObject);
+                return true;
             }
+
+            return false;
         }
     }
 }

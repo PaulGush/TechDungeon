@@ -67,12 +67,18 @@ namespace Input
         
         public void OnPrevious(InputAction.CallbackContext context)
         {
-            Previous?.Invoke();
+            if (context.phase == InputActionPhase.Started)
+            {
+                Previous?.Invoke();
+            }
         }
-        
+
         public void OnNext(InputAction.CallbackContext context)
         {
-            Next?.Invoke();
+            if (context.phase == InputActionPhase.Started)
+            {
+                Next?.Invoke();
+            }
         }
         
         public void OnSprint(InputAction.CallbackContext context)

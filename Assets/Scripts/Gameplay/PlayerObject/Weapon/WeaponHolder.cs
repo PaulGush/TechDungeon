@@ -137,18 +137,18 @@ namespace PlayerObject
         {
             if (other.gameObject.layer != GameConstants.Layers.WeaponLayer) return;
 
-            other.TryGetComponent(out Weapon weaponVisual);
+            other.TryGetComponent(out Weapon weapon);
 
-            if (weaponVisual != null && weaponVisual.IsSpawning) return;
+            if (weapon != null && weapon.IsSpawning) return;
 
             if (!m_weaponsInRange.Contains(other.gameObject))
             {
                 m_weaponsInRange.Add(other.gameObject);
             }
 
-            if (weaponVisual != null)
+            if (weapon != null)
             {
-                weaponVisual.SetWeaponHolder(this);
+                weapon.SetWeaponHolder(this);
             }
 
             UpdateWeaponCandidate();
