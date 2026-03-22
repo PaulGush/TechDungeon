@@ -8,12 +8,99 @@ namespace TechDungeon.Editor
     public class ChestSettingsEditor : UnityEditor.Editor
     {
         private string m_simulationResult;
+        private GUIStyle m_barLabelStyleLight;
+        private GUIStyle m_barLabelStyleDark;
+
+        private void InitStyles()
+        {
+            if (m_barLabelStyleLight != null) return;
+            m_barLabelStyleLight = new GUIStyle(EditorStyles.miniLabel)
+            {
+                alignment = TextAnchor.MiddleCenter,
+                normal = { textColor = Color.white }
+            };
+            m_barLabelStyleDark = new GUIStyle(EditorStyles.miniLabel)
+            {
+                alignment = TextAnchor.MiddleCenter,
+                normal = { textColor = Color.black }
+            };
+        }
 
         public override void OnInspectorGUI()
         {
-            DrawDefaultInspector();
+            InitStyles();
+            serializedObject.Update();
 
             var settings = (ChestSettings)target;
+
+            // Draw properties before Guaranteed Drops header
+            DrawPropertiesExcluding(serializedObject,
+                "m_Script",
+                "GuaranteedItems",
+                "GuaranteedTypes",
+                "TotalSpawnTime",
+                "SpawnTimeInterval");
+
+            EditorGUILayout.Space(4);
+
+            // Guaranteed Drops section with validation
+            int maxGuaranteed = settings.ItemDropCount;
+            int currentGuaranteed = settings.TotalGuaranteedCount;
+
+            EditorGUILayout.LabelField("Guaranteed Drops", EditorStyles.boldLabel);
+            EditorGUILayout.HelpBox(
+                $"Using {currentGuaranteed} of {maxGuaranteed} guaranteed slots. " +
+                $"Remaining {Mathf.Max(0, maxGuaranteed - currentGuaranteed)} slots will be filled randomly.",
+                currentGuaranteed > maxGuaranteed ? MessageType.Error : MessageType.Info);
+
+            if (currentGuaranteed > maxGuaranteed)
+            {
+                EditorGUILayout.HelpBox(
+                    $"Too many guaranteed drops! You have {currentGuaranteed} guaranteed but only {maxGuaranteed} items will spawn. " +
+                    $"Remove {currentGuaranteed - maxGuaranteed} guaranteed entry(s).",
+                    MessageType.Error);
+            }
+
+            SerializedProperty guaranteedItemsProp = serializedObject.FindProperty("GuaranteedItems");
+            SerializedProperty guaranteedTypesProp = serializedObject.FindProperty("GuaranteedTypes");
+
+            EditorGUILayout.PropertyField(guaranteedItemsProp, new GUIContent("Guaranteed Items", "Specific prefabs that will always drop."), true);
+            EditorGUILayout.PropertyField(guaranteedTypesProp, new GUIContent("Guaranteed Types", "Item types — a random item of each type will drop."), true);
+
+            // Check for missing type coverage
+            if (settings.GuaranteedTypes != null)
+            {
+                foreach (LootItemType type in settings.GuaranteedTypes)
+                {
+                    bool found = false;
+                    if (settings.Items != null)
+                    {
+                        foreach (Lootable item in settings.Items)
+                        {
+                            if (item != null && item.ItemType == type)
+                            {
+                                found = true;
+                                break;
+                            }
+                        }
+                    }
+
+                    if (!found)
+                    {
+                        EditorGUILayout.HelpBox(
+                            $"No items of type \"{type}\" found in the Items pool. This guaranteed type will be skipped.",
+                            MessageType.Warning);
+                    }
+                }
+            }
+
+            EditorGUILayout.Space(4);
+
+            // Spawn timing
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("TotalSpawnTime"));
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("SpawnTimeInterval"));
+
+            serializedObject.ApplyModifiedProperties();
 
             EditorGUILayout.Space(8);
 
@@ -63,7 +150,8 @@ namespace TechDungeon.Editor
                     else
                         GUILayout.Label(AssetPreview.GetMiniThumbnail(settings.Items[i].gameObject), GUILayout.Width(64), GUILayout.Height(64));
 
-                    GUILayout.Label(settings.Items[i].name, EditorStyles.miniLabel, GUILayout.Width(64));
+                    string typeSuffix = $" [{settings.Items[i].ItemType}]";
+                    GUILayout.Label(settings.Items[i].name + typeSuffix, EditorStyles.miniLabel, GUILayout.Width(64));
                     EditorGUILayout.EndVertical();
 
                     row++;
@@ -108,15 +196,11 @@ namespace TechDungeon.Editor
                 Rect segRect = new Rect(x, rect.y, width, rect.height);
                 EditorGUI.DrawRect(segRect, color);
 
-                // Label with contrasting text
-                var style = new GUIStyle(EditorStyles.miniLabel)
-                {
-                    alignment = TextAnchor.MiddleCenter,
-                    normal = { textColor = (color.r + color.g + color.b > 1.5f) ? Color.black : Color.white }
-                };
-
                 if (width > 30)
+                {
+                    var style = (color.r + color.g + color.b > 1.5f) ? m_barLabelStyleDark : m_barLabelStyleLight;
                     GUI.Label(segRect, $"{pct:F0}%", style);
+                }
 
                 x += width;
             }

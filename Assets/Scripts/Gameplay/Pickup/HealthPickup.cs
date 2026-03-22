@@ -2,7 +2,7 @@ using Gameplay.ObjectPool;
 using UnityEngine;
 using UnityServiceLocator;
 
-public class HealthPickup : Pickup
+public class HealthPickup : Lootable
 {
     [SerializeField] private int m_healAmount;
 
@@ -16,22 +16,16 @@ public class HealthPickup : Pickup
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Interact(other.gameObject);
-    }
-
-    public override void Interact(GameObject other)
-    {
         if (other.gameObject.layer != GameConstants.Layers.PlayerLayer)
             return;
 
         if (!other.TryGetComponent(out EntityHealth health))
             return;
 
-        if (m_pool == null) return;
-
         if (health.Heal(m_healAmount))
         {
-            m_pool.ReturnGameObject(gameObject);
+            if (m_pool == null || !m_pool.ReturnGameObject(gameObject))
+                Destroy(gameObject);
         }
     }
 }
