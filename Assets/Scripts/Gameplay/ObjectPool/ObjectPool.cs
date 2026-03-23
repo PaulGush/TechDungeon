@@ -84,5 +84,22 @@ namespace Gameplay.ObjectPool
 
             return false;
         }
+
+        public void ClearAll()
+        {
+            m_activeObjects.Clear();
+
+            foreach (var pool in m_pools.Values)
+            {
+                pool.Clear();
+            }
+
+            m_pools.Clear();
+
+            foreach (Transform child in transform)
+            {
+                Destroy(child.gameObject);
+            }
+        }
     }
 }

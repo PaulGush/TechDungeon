@@ -17,6 +17,12 @@ public class MutationManager : MonoBehaviour
         ServiceLocator.Global.Register(this);
     }
 
+    public void Reset()
+    {
+        m_mutations.Clear();
+        m_health.ResetToBase();
+    }
+
     public void AddMutation(Mutation mutation)
     {
         m_mutations.Add(mutation);

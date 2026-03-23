@@ -16,6 +16,15 @@ public class EntityHealth : MonoBehaviour
     public Action OnDeath;
     public Action<int> OnHealthChanged;
 
+    private int m_baseMaxHealth;
+    private int m_baseArmor;
+
+    protected virtual void Awake()
+    {
+        m_baseMaxHealth = m_maxHealth;
+        m_baseArmor = m_armor;
+    }
+
     protected virtual void Start()
     {
         m_currentHealth = m_maxHealth;
@@ -39,6 +48,14 @@ public class EntityHealth : MonoBehaviour
 
     public void ResetHealth()
     {
+        m_currentHealth = m_maxHealth;
+        OnHealthChanged?.Invoke(m_currentHealth);
+    }
+
+    public void ResetToBase()
+    {
+        m_maxHealth = m_baseMaxHealth;
+        m_armor = m_baseArmor;
         m_currentHealth = m_maxHealth;
         OnHealthChanged?.Invoke(m_currentHealth);
     }

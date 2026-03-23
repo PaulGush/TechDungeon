@@ -77,6 +77,15 @@ namespace PlayerObject
             m_animator.SetTrigger(Death);
         }
 
+        public void ResetAnimator()
+        {
+            StopAllCoroutines();
+            m_spriteRenderer.color = Color.white;
+            m_animator.ResetTrigger(Death);
+            m_animator.Rebind();
+            m_animator.Update(0f);
+        }
+
         private IEnumerator ChangeColorForSeconds(Color color)
         {
             m_spriteRenderer.color = color;

@@ -88,6 +88,26 @@ namespace PlayerObject
         private GameObject m_weaponCandidate;
         private readonly List<GameObject> m_weaponsInRange = new();
 
+        public void Reset()
+        {
+            if (m_currentWeapon != null)
+            {
+                foreach (Component component in m_currentWeapon.GetComponents(typeof(IWeapon)))
+                {
+                    ((IWeapon)component).Unequip();
+                }
+
+                Destroy(m_currentWeapon);
+                m_currentWeapon = null;
+                m_currentWeaponShooting = null;
+            }
+
+            m_weaponCandidate = null;
+            m_weaponsInRange.Clear();
+            m_interactText.enabled = false;
+            m_inputReader.Interact -= Equip;
+        }
+
         private void Equip()
         {
             if (m_currentWeapon != null)

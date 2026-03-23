@@ -26,7 +26,7 @@ public class RoomManager : MonoBehaviour
     [SerializeField] private float m_spawnIndicatorDuration = 3f;
 
     [Header("Starting Room")]
-    [SerializeField] private RoomInstance m_startingRoom;
+    [SerializeField] private RoomInstance m_startingRoomPrefab;
 
     private RoomInstance m_currentRoom;
     private RoomEncounter m_currentEncounter;
@@ -44,16 +44,22 @@ public class RoomManager : MonoBehaviour
 
     private void Start()
     {
-        if (m_startingRoom != null)
+        if (m_startingRoomPrefab != null)
         {
-            SetUpStartingRoom();
+            LoadStartingRoom();
         }
     }
 
-    private void SetUpStartingRoom()
+    private void LoadStartingRoom()
     {
-        m_currentRoom = m_startingRoom;
+        Transform parent = m_roomParent != null ? m_roomParent : transform;
+        m_currentRoom = Instantiate(m_startingRoomPrefab, Vector3.zero, Quaternion.identity, parent);
         m_currentRoom.OnRoomCleared += HandleRoomCleared;
+
+        if (m_player != null && m_currentRoom.PlayerSpawnPoint != null)
+        {
+            m_player.position = m_currentRoom.PlayerSpawnPoint.position;
+        }
 
         InitializeBulkheadDoors(false);
 
@@ -172,6 +178,13 @@ public class RoomManager : MonoBehaviour
     {
         if (m_roomPool == null || m_roomPool.Count == 0) return null;
         return m_roomPool[UnityEngine.Random.Range(0, m_roomPool.Count)];
+    }
+
+    public void ResetToStartingRoom()
+    {
+        UnloadCurrentRoom();
+        m_inputReader.EnablePlayerActions();
+        LoadStartingRoom();
     }
 
     private void UnloadCurrentRoom()

@@ -17,6 +17,12 @@ public class AmmoManager : MonoBehaviour
     public Action<AmmoSettings> OnAmmoChanged;
     public Action<AmmoType, int> OnAmmoCountChanged;
 
+    public void Reset()
+    {
+        m_ammoCounts.Clear();
+        CycleToStandard();
+    }
+
     private void Awake()
     {
         ServiceLocator.Global.Register(this);
