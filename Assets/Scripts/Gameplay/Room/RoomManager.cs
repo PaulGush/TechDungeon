@@ -21,6 +21,10 @@ public class RoomManager : MonoBehaviour
     [Header("Room Spawn")]
     [SerializeField] private Transform m_roomParent;
 
+    [Header("Spawn Indicators")]
+    [SerializeField] private GameObject m_spawnIndicatorPrefab;
+    [SerializeField] private float m_spawnIndicatorDuration = 3f;
+
     [Header("Starting Room")]
     [SerializeField] private RoomInstance m_startingRoom;
 
@@ -98,7 +102,7 @@ public class RoomManager : MonoBehaviour
         if (isCombatRoom)
         {
             m_currentEncounter = m_currentRoom.gameObject.AddComponent<RoomEncounter>();
-            m_currentEncounter.Initialize(m_currentRoom, settings);
+            m_currentEncounter.Initialize(m_currentRoom, settings, m_spawnIndicatorPrefab, m_spawnIndicatorDuration);
         }
 
         m_currentRoom.OnRoomCleared += HandleRoomCleared;

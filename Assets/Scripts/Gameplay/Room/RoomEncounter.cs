@@ -14,10 +14,16 @@ public class RoomEncounter : MonoBehaviour
     private Dictionary<GameObject, Action> m_deathCallbacks = new Dictionary<GameObject, Action>();
     private int m_currentWaveIndex;
 
-    public void Initialize(RoomInstance roomInstance, RoomSettings settings)
+    private GameObject m_spawnIndicatorPrefab;
+    private float m_spawnIndicatorDuration;
+
+    public void Initialize(RoomInstance roomInstance, RoomSettings settings,
+        GameObject spawnIndicatorPrefab = null, float spawnIndicatorDuration = 0.8f)
     {
         m_roomInstance = roomInstance;
         m_settings = settings;
+        m_spawnIndicatorPrefab = spawnIndicatorPrefab;
+        m_spawnIndicatorDuration = spawnIndicatorDuration;
         ServiceLocator.Global.TryGet(out m_pool);
     }
 
@@ -42,6 +48,32 @@ public class RoomEncounter : MonoBehaviour
             yield return new WaitForSeconds(wave.DelayBeforeSpawn);
         }
 
+        // Collect spawn positions for this wave
+        var spawnPositions = new List<Vector3>();
+        for (int i = 0; i < wave.EnemyPrefabs.Count; i++)
+        {
+            if (wave.EnemyPrefabs[i] == null) continue;
+            Transform spawnPoint = m_roomInstance.GetSpawnPoint(i);
+            spawnPositions.Add(spawnPoint.position);
+        }
+
+        // Show spawn indicators
+        if (m_spawnIndicatorPrefab != null && spawnPositions.Count > 0)
+        {
+            foreach (Vector3 pos in spawnPositions)
+            {
+                GameObject indicator = m_pool != null
+                    ? m_pool.GetPooledObject(m_spawnIndicatorPrefab)
+                    : Instantiate(m_spawnIndicatorPrefab);
+                indicator.transform.position = pos;
+                SpawnIndicator script = indicator.GetComponent<SpawnIndicator>();
+                script?.Play(m_spawnIndicatorDuration);
+            }
+
+            yield return new WaitForSeconds(m_spawnIndicatorDuration);
+        }
+
+        // Spawn enemies
         for (int i = 0; i < wave.EnemyPrefabs.Count; i++)
         {
             GameObject prefab = wave.EnemyPrefabs[i];
