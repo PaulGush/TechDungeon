@@ -11,6 +11,7 @@ namespace PlayerObject
     {
         [SerializeField] private Camera m_camera;
         [SerializeField] private InputReader m_inputReader;
+        [SerializeField] private EntityHealth m_health;
         [SerializeField] private TextMeshPro m_interactText;
 
         private const float WeaponRotationOffset = -90f;
@@ -26,6 +27,9 @@ namespace PlayerObject
 
         private void LateUpdate()
         {
+            if (m_health.IsDead)
+                return;
+
             HandleWeaponPositionAndRotation();
             ClampWeaponToWalls();
         }
