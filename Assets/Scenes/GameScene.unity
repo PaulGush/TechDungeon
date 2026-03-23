@@ -2119,12 +2119,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RoomManager
   m_roomPool:
   - {fileID: 11400000, guid: 0b26a05ba07ae6d1786214179b46fa6c, type: 2}
-  - {fileID: 11400000, guid: 0b26a05ba07ae6d1786214179b46fa6c, type: 2}
+  - {fileID: 11400000, guid: 783d30acbfbde2e3eb2200d5ca15439d, type: 2}
   m_player: {fileID: 625906571257043941}
   m_inputReader: {fileID: 11400000, guid: c7fc619696fbc354f935b4ae0e11fc0c, type: 2}
   m_fadeCanvas: {fileID: 839647640}
   m_fadeDuration: 0.5
   m_roomParent: {fileID: 750750779}
+  m_spawnIndicatorPrefab: {fileID: 7843336540967314091, guid: eb7e19be8e45796a58c8ab2ee61a2f51, type: 3}
+  m_spawnIndicatorDuration: 3
   m_startingRoom: {fileID: 92892191}
 --- !u!21 &1933140621
 Material:
