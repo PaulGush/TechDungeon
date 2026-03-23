@@ -8,6 +8,7 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField] private EnemyController m_enemyController;
     [SerializeField] private Rigidbody2D m_rigidbody2D;
     [SerializeField] private EnemySettings m_settings;
+    public EnemySettings Settings => m_settings;
 
     private EnemyTargeting m_targeting;
 

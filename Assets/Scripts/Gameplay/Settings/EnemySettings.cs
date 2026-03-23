@@ -18,6 +18,10 @@ public class EnemySettings : ScriptableObject
     public float SeparationRadius = 1.5f;
     public float SeparationWeight = 1.5f;
 
+    [Header("Alert")]
+    [Tooltip("Time in seconds before the enemy deactivates if it cannot reach its target. 0 = never deactivate.")]
+    public float AlertDuration = 0f;
+
     [Header("Combat")]
     public float FireRate = 0.5f;
     public float PreferredAttackDistance = 0f;

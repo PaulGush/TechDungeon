@@ -19,9 +19,6 @@ MonoBehaviour:
   - {fileID: 1837370586240707199, guid: 98633c906aa7ed17fbe8c38e7b157f90, type: 3}
   EnemyWaves:
   - EnemyPrefabs:
-    - {fileID: 7364831485085966955, guid: 4bf1a82e2dc6a45168567b5f616ff4b1, type: 3}
-    - {fileID: 7364831485085966955, guid: 4bf1a82e2dc6a45168567b5f616ff4b1, type: 3}
-    - {fileID: 7364831485085966955, guid: 4bf1a82e2dc6a45168567b5f616ff4b1, type: 3}
-    - {fileID: 7364831485085966955, guid: 4bf1a82e2dc6a45168567b5f616ff4b1, type: 3}
+    - {fileID: 1100000000000000000, guid: f62323de1cde5226a9573cf527e1c479, type: 3}
     - {fileID: 7364831485085966955, guid: 4bf1a82e2dc6a45168567b5f616ff4b1, type: 3}
     DelayBeforeSpawn: 2
