@@ -16,6 +16,9 @@ namespace PlayerObject
         [SerializeField] private float m_effectDuration = 2f;
         [SerializeField] private float m_slowMoTimeScale = 0.1f;
 
+        [Header("Death Screen")]
+        [SerializeField] private DeathScreen m_deathScreen;
+
         [Header("Circle Cutout")]
         [SerializeField] private Color m_overlayColor = new Color(0, 0, 0, 0.85f);
         [SerializeField] private float m_startRadius = 1.5f;
@@ -86,9 +89,21 @@ namespace PlayerObject
                 yield return null;
             }
 
-            Time.timeScale = m_slowMoTimeScale;
-            Time.fixedDeltaTime = 0.02f * Time.timeScale;
             m_cutoutMaterial.SetFloat(RadiusID, m_endRadius);
+
+            Time.timeScale = 0f;
+            Time.fixedDeltaTime = 0f;
+
+            m_deathScreen.Show();
+        }
+
+        public void Reset()
+        {
+            StopAllCoroutines();
+            m_isDying = false;
+            m_cutoutImage.gameObject.SetActive(false);
+            Time.timeScale = 1f;
+            Time.fixedDeltaTime = 0.02f;
         }
 
         private void OnDestroy()
