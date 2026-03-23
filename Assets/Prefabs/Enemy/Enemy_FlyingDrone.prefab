@@ -253,6 +253,7 @@ GameObject:
   - component: {fileID: 2300997181998269685}
   - component: {fileID: 4368650838405836056}
   - component: {fileID: 4045594035486960770}
+  - component: {fileID: 5497215917303634743}
   m_Layer: 10
   m_Name: Enemy_FlyingDrone
   m_TagString: Enemy
@@ -296,6 +297,7 @@ MonoBehaviour:
   m_movement: {fileID: 3660797839015898069}
   m_shooting: {fileID: 2805923156366516581}
   m_targeting: {fileID: 3582027185550081905}
+  m_behavior: {fileID: 5497215917303634743}
 --- !u!114 &3660797839015898069
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -415,6 +417,18 @@ MonoBehaviour:
   m_currentHealth: 0
   m_maxHealth: 100
   m_armor: 0
+--- !u!114 &5497215917303634743
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7364831485085966955}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b28611a39279c39858d305fdf125acc0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DroneBehavior
 --- !u!1 &8097938195515696249
 GameObject:
   m_ObjectHideFlags: 0

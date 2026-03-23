@@ -2,20 +2,20 @@ using System;
 
 public class EnemyStateMachine
 {
-    public EnemyStateMachine(EnemyController enemyController)
-    {
-        m_idleState = new IdleState(enemyController);
-        SeekState = new SeekState(enemyController);
-        AttackState = new AttackState(enemyController);
-    }
-
     private IState m_currentState;
+    private readonly IState m_idleState;
 
-    private IdleState m_idleState;
-    public SeekState SeekState;
-    public AttackState AttackState;
+    public IState SeekState;
+    public IState AttackState;
 
     public Action<IState> OnStateChanged;
+
+    public EnemyStateMachine(IState idle, IState seek, IState attack)
+    {
+        m_idleState = idle;
+        SeekState = seek;
+        AttackState = attack;
+    }
 
     public void ChangeState(IState newState)
     {

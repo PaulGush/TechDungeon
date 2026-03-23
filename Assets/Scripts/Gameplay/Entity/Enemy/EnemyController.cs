@@ -23,13 +23,19 @@ public class EnemyController : Entity
     [SerializeField] private EnemyTargeting m_targeting;
     public EnemyTargeting Targeting => m_targeting;
 
+    [SerializeField] private EnemyBehavior m_behavior;
+
     private ObjectPool m_pool;
 
     private void Awake()
     {
         ServiceLocator.Global.TryGet(out ObjectPool pool);
         m_pool = pool;
-        m_stateMachine = new EnemyStateMachine(this);
+
+        IState idle = m_behavior.CreateIdleState(this);
+        IState seek = m_behavior.CreateSeekState(this);
+        IState attack = m_behavior.CreateAttackState(this);
+        m_stateMachine = new EnemyStateMachine(idle, seek, attack);
     }
 
     private void OnEnable()
