@@ -8,7 +8,7 @@ using UnityServiceLocator;
 public class RoomEncounter : MonoBehaviour
 {
     private RoomInstance m_roomInstance;
-    private RoomSettings m_settings;
+    private List<EnemyWave> m_waves;
     private ObjectPool m_pool;
     private List<GameObject> m_activeEnemies = new List<GameObject>();
     private Dictionary<GameObject, Action> m_deathCallbacks = new Dictionary<GameObject, Action>();
@@ -21,7 +21,17 @@ public class RoomEncounter : MonoBehaviour
         GameObject spawnIndicatorPrefab = null, float spawnIndicatorDuration = 0.8f)
     {
         m_roomInstance = roomInstance;
-        m_settings = settings;
+        m_waves = settings.EnemyWaves;
+        m_spawnIndicatorPrefab = spawnIndicatorPrefab;
+        m_spawnIndicatorDuration = spawnIndicatorDuration;
+        ServiceLocator.Global.TryGet(out m_pool);
+    }
+
+    public void Initialize(RoomInstance roomInstance, List<EnemyWave> waves,
+        GameObject spawnIndicatorPrefab = null, float spawnIndicatorDuration = 0.8f)
+    {
+        m_roomInstance = roomInstance;
+        m_waves = waves;
         m_spawnIndicatorPrefab = spawnIndicatorPrefab;
         m_spawnIndicatorDuration = spawnIndicatorDuration;
         ServiceLocator.Global.TryGet(out m_pool);
@@ -29,7 +39,7 @@ public class RoomEncounter : MonoBehaviour
 
     public void StartEncounter()
     {
-        if (m_settings.EnemyWaves == null || m_settings.EnemyWaves.Count == 0)
+        if (m_waves == null || m_waves.Count == 0)
         {
             m_roomInstance.ClearRoom();
             return;
@@ -38,7 +48,7 @@ public class RoomEncounter : MonoBehaviour
         m_currentWaveIndex = 0;
         m_activeEnemies.Clear();
         m_deathCallbacks.Clear();
-        StartCoroutine(SpawnWave(m_settings.EnemyWaves[m_currentWaveIndex]));
+        StartCoroutine(SpawnWave(m_waves[m_currentWaveIndex]));
     }
 
     private IEnumerator SpawnWave(EnemyWave wave)
@@ -110,12 +120,18 @@ public class RoomEncounter : MonoBehaviour
         UnsubscribeEnemy(enemy);
         m_activeEnemies.Remove(enemy);
 
+        EnemyController ec = enemy.GetComponent<EnemyController>();
+        if (ec != null && ServiceLocator.Global.TryGet(out CreditManager creditManager))
+        {
+            creditManager.AddCredits(ec.CreditValue);
+        }
+
         if (m_activeEnemies.Count > 0) return;
 
         m_currentWaveIndex++;
-        if (m_currentWaveIndex < m_settings.EnemyWaves.Count)
+        if (m_currentWaveIndex < m_waves.Count)
         {
-            StartCoroutine(SpawnWave(m_settings.EnemyWaves[m_currentWaveIndex]));
+            StartCoroutine(SpawnWave(m_waves[m_currentWaveIndex]));
         }
         else
         {

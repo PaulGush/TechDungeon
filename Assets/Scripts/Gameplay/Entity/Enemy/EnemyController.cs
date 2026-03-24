@@ -25,6 +25,10 @@ public class EnemyController : Entity
 
     [SerializeField] private EnemyBehavior m_behavior;
 
+    [Header("Rewards")]
+    [SerializeField] private int m_creditValue = 10;
+    public int CreditValue => m_creditValue;
+
     private ObjectPool m_pool;
 
     private void Awake()
