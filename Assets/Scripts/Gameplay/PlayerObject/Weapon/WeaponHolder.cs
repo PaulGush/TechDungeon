@@ -88,6 +88,9 @@ namespace PlayerObject
         private GameObject m_weaponCandidate;
         private readonly List<GameObject> m_weaponsInRange = new();
 
+        public System.Action<GameObject> OnWeaponChanged;
+        public GameObject CurrentWeapon => m_currentWeapon;
+
         public void Reset()
         {
             if (m_currentWeapon != null)
@@ -106,6 +109,7 @@ namespace PlayerObject
             m_weaponsInRange.Clear();
             m_interactText.enabled = false;
             m_inputReader.Interact -= Equip;
+            OnWeaponChanged?.Invoke(null);
         }
 
         private void Equip()
@@ -134,6 +138,7 @@ namespace PlayerObject
             Vector2 weaponWorld = m_currentWeapon.transform.position;
             m_shootPointLocalOffset = Vector2.Distance(shootWorld, weaponWorld);
 
+            OnWeaponChanged?.Invoke(m_currentWeapon);
             UpdateWeaponCandidate();
         }
 
@@ -154,6 +159,7 @@ namespace PlayerObject
 
             m_currentWeaponShooting = null;
             m_currentWeapon = null;
+            OnWeaponChanged?.Invoke(null);
         }
 
 
