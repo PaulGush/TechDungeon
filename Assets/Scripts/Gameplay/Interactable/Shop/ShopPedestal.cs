@@ -1,4 +1,5 @@
 using Input;
+using PlayerObject;
 using TMPro;
 using UnityEngine;
 using UnityServiceLocator;
@@ -7,9 +8,9 @@ public class ShopPedestal : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private InputReader m_inputReader;
-    [SerializeField] private TextMeshPro m_interactText;
     [SerializeField] private SpriteRenderer m_itemDisplay;
     [SerializeField] private Transform m_itemSpawnPoint;
+    [SerializeField] private TextMeshPro m_priceText;
 
     private Lootable m_itemPrefab;
     private LootableRarity.Rarity m_rarity;
@@ -17,6 +18,7 @@ public class ShopPedestal : MonoBehaviour
     private bool m_isSold;
     private ShopRoom m_shopRoom;
     private CreditManager m_creditManager;
+    private PlayerInteractionDisplay m_interactionDisplay;
 
     public void Initialize(Lootable itemPrefab, LootableRarity.Rarity rarity, int price, ShopRoom shopRoom)
     {
@@ -26,6 +28,7 @@ public class ShopPedestal : MonoBehaviour
         m_shopRoom = shopRoom;
 
         ServiceLocator.Global.TryGet(out m_creditManager);
+        ServiceLocator.Global.TryGet(out m_interactionDisplay);
 
         if (m_itemDisplay != null)
         {
@@ -36,10 +39,14 @@ public class ShopPedestal : MonoBehaviour
             }
         }
 
-        m_interactText.enabled = false;
+        if (m_priceText != null)
+        {
+            m_priceText.text = $"{m_price} CR";
+            m_priceText.enabled = true;
+        }
     }
 
-    private void Interact()
+    private void Buy()
     {
         if (m_isSold || m_itemPrefab == null) return;
 
@@ -48,12 +55,15 @@ public class ShopPedestal : MonoBehaviour
             SpawnItem();
             MarkSold();
         }
-        else
-        {
-            SpawnItem();
-            MarkSold();
-            m_shopRoom.HandleSteal(this);
-        }
+    }
+
+    private void Steal()
+    {
+        if (m_isSold || m_itemPrefab == null) return;
+
+        SpawnItem();
+        MarkSold();
+        m_shopRoom.HandleSteal(this);
     }
 
     private void SpawnItem()
@@ -81,37 +91,43 @@ public class ShopPedestal : MonoBehaviour
         if (m_itemDisplay != null)
             m_itemDisplay.enabled = false;
 
-        m_interactText.text = "SOLD";
-        m_inputReader.Interact -= Interact;
+        if (m_priceText != null)
+            m_priceText.enabled = false;
+
+        m_interactionDisplay?.Hide(this);
+        m_inputReader.Interact -= Buy;
+        m_inputReader.AltInteract -= Steal;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (m_isSold || other.gameObject.layer != GameConstants.Layers.PlayerLayer) return;
 
-        UpdateInteractText();
-        m_interactText.enabled = true;
-        m_inputReader.Interact += Interact;
+        m_interactionDisplay?.Show(GetInteractText(), this);
+        m_inputReader.Interact += Buy;
+        m_inputReader.AltInteract += Steal;
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
         if (other.gameObject.layer != GameConstants.Layers.PlayerLayer) return;
 
-        m_interactText.enabled = false;
-        m_inputReader.Interact -= Interact;
+        m_interactionDisplay?.Hide(this);
+        m_inputReader.Interact -= Buy;
+        m_inputReader.AltInteract -= Steal;
     }
 
-    private void UpdateInteractText()
+    private string GetInteractText()
     {
         bool canAfford = m_creditManager != null && m_creditManager.Credits >= m_price;
-        m_interactText.text = canAfford
-            ? $"[E] Buy - {m_price} CR"
-            : $"[E] Steal";
+        return canAfford
+            ? "[E] Acquire  [F] Jack"
+            : "[F] Jack";
     }
 
     private void OnDestroy()
     {
-        m_inputReader.Interact -= Interact;
+        m_inputReader.Interact -= Buy;
+        m_inputReader.AltInteract -= Steal;
     }
 }

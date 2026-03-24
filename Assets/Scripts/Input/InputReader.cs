@@ -19,6 +19,7 @@ namespace Input
         public UnityAction Next = delegate {  };
         public UnityAction Previous = delegate {  };
         public UnityAction Interact = delegate {  };
+        public UnityAction AltInteract = delegate {  };
         public UnityAction Inventory = delegate {  };
         public UnityAction InventoryReleased = delegate {  };
         public UnityAction Roll = delegate {  };
@@ -84,7 +85,15 @@ namespace Input
         
         public void OnSprint(InputAction.CallbackContext context)
         {
-            
+
+        }
+
+        public void OnAltInteract(InputAction.CallbackContext context)
+        {
+            if (context.phase == InputActionPhase.Started)
+            {
+                AltInteract?.Invoke();
+            }
         }
         public void OnInventory(InputAction.CallbackContext context)
         {
