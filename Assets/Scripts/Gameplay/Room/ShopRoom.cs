@@ -54,11 +54,12 @@ public class ShopRoom : MonoBehaviour
             if (door != null) door.Lock();
         }
 
+        m_roomInstance.OnRoomCleared += OnStealEncounterCleared;
+        m_roomInstance.StartRoom();
+
         m_stealEncounter = gameObject.AddComponent<RoomEncounter>();
         m_stealEncounter.Initialize(m_roomInstance, m_settings.StealWaves, m_spawnIndicatorPrefab, m_spawnIndicatorDuration);
         m_stealEncounter.StartEncounter();
-
-        m_roomInstance.OnRoomCleared += OnStealEncounterCleared;
     }
 
     private void OnStealEncounterCleared()

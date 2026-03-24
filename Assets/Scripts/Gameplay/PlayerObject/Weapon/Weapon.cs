@@ -33,6 +33,13 @@ namespace PlayerObject
                 BounceEffect.Stop();
             }
 
+            TrailRenderer trail = GetComponentInChildren<TrailRenderer>();
+            if (trail != null)
+            {
+                trail.emitting = false;
+                trail.Clear();
+            }
+
             m_weaponHolder = GetComponentInParent<WeaponHolder>();
             transform.localPosition = new Vector3(0, m_distanceFromPlayer, 0);
             transform.localEulerAngles = new Vector3(0, 0, m_zRotationOffset);
