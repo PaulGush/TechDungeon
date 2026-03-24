@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using Input;
-using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityServiceLocator;
@@ -12,7 +11,8 @@ namespace PlayerObject
         [SerializeField] private Camera m_camera;
         [SerializeField] private InputReader m_inputReader;
         [SerializeField] private EntityHealth m_health;
-        [SerializeField] private TextMeshPro m_interactText;
+
+        private PlayerInteractionDisplay m_interactionDisplay;
 
         private const float WeaponRotationOffset = -90f;
         private const float WallBuffer = 0.05f;
@@ -107,7 +107,7 @@ namespace PlayerObject
 
             m_weaponCandidate = null;
             m_weaponsInRange.Clear();
-            m_interactText.enabled = false;
+            m_interactionDisplay?.Hide(this);
             m_inputReader.Interact -= Equip;
             OnWeaponChanged?.Invoke(null);
         }
@@ -196,12 +196,14 @@ namespace PlayerObject
         {
             m_weaponsInRange.RemoveAll(w => w == null);
 
+            m_interactionDisplay ??= ServiceLocator.Global.Get<PlayerInteractionDisplay>();
+
             if (m_weaponsInRange.Count == 0)
             {
                 if (m_weaponCandidate != null)
                 {
                     m_weaponCandidate = null;
-                    m_interactText.enabled = false;
+                    m_interactionDisplay?.Hide(this);
                     m_inputReader.Interact -= Equip;
                 }
                 return;
@@ -227,10 +229,10 @@ namespace PlayerObject
                 m_inputReader.Interact += Equip;
             }
 
-            m_interactText.enabled = true;
-            m_interactText.text = m_currentWeapon != null
+            string text = m_currentWeapon != null
                 ? "Press E to swap " + m_currentWeapon.name + " for " + m_weaponCandidate.name
                 : "Press E to equip " + m_weaponCandidate.name;
+            m_interactionDisplay?.Show(text, this);
         }
     }
 }

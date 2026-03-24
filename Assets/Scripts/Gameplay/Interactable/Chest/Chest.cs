@@ -1,5 +1,5 @@
 using Input;
-using TMPro;
+using PlayerObject;
 using UnityEngine;
 using UnityServiceLocator;
 
@@ -10,7 +10,6 @@ public class Chest : MonoBehaviour, IInteractable
 
     [Header("References")]
     [SerializeField] private Animator m_animator;
-    [SerializeField] private TextMeshPro m_interactText;
     [SerializeField] private InputReader m_inputReader;
     [SerializeField] private ChestSettings m_settings;
 
@@ -21,6 +20,7 @@ public class Chest : MonoBehaviour, IInteractable
     [SerializeField] private Vector3 m_aboveChestTargetPosition;
 
     private RoomManager m_roomManager;
+    private PlayerInteractionDisplay m_interactionDisplay;
     private bool m_isOpen;
 
     private RoomManager RoomManager => m_roomManager ??= ServiceLocator.Global.Get<RoomManager>();
@@ -35,7 +35,7 @@ public class Chest : MonoBehaviour, IInteractable
         if (m_isOpen) return;
 
         m_animator.SetTrigger(Open);
-        m_interactText.enabled = false;
+        m_interactionDisplay?.Hide(this);
         m_isOpen = true;
         m_inputReader.Interact -= Interact;
 
@@ -64,14 +64,15 @@ public class Chest : MonoBehaviour, IInteractable
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (m_isOpen || other.gameObject.layer != GameConstants.Layers.PlayerLayer) return;
-        m_interactText.enabled = true;
+        m_interactionDisplay ??= ServiceLocator.Global.Get<PlayerInteractionDisplay>();
+        m_interactionDisplay.Show("[E]", this);
         m_inputReader.Interact += Interact;
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
         if (m_isOpen || other.gameObject.layer != GameConstants.Layers.PlayerLayer) return;
-        m_interactText.enabled = false;
+        m_interactionDisplay?.Hide(this);
         m_inputReader.Interact -= Interact;
     }
 
