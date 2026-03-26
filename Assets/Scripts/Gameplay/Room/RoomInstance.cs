@@ -11,13 +11,13 @@ public class RoomInstance : MonoBehaviour
     [Header("Doors")]
     [SerializeField] private List<BulkheadDoor> m_bulkheadDoors;
 
-    [Header("Room Bounds")]
-    [SerializeField] private Collider2D m_roomBounds;
+    [Header("Reward")]
+    [SerializeField] private RoomRewardChest m_rewardChest;
 
     public IReadOnlyList<Transform> EnemySpawnPoints => m_enemySpawnPoints;
     public IReadOnlyList<BulkheadDoor> BulkheadDoors => m_bulkheadDoors;
     public Transform PlayerSpawnPoint => m_playerSpawnPoint;
-    public Collider2D RoomBounds => m_roomBounds;
+    public RoomRewardChest RewardChest => m_rewardChest;
 
     public event Action OnRoomCleared;
     public event Action OnRoomStarted;
