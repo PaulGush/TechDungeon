@@ -7,9 +7,6 @@ using UnityServiceLocator;
 
 public class RoomManager : MonoBehaviour
 {
-    [Header("Room Pool")]
-    [SerializeField] private List<RoomSettings> m_roomPool;
-
     [Header("Player")]
     [SerializeField] private Transform m_player;
     [SerializeField] private InputReader m_inputReader;
@@ -28,6 +25,10 @@ public class RoomManager : MonoBehaviour
     [Header("Starting Room")]
     [SerializeField] private RoomInstance m_startingRoomPrefab;
 
+    [Header("Reward Icons")]
+    [SerializeField] private List<RewardIconMapping> m_rewardIcons;
+
+    private FloorManager m_floorManager;
     private RoomInstance m_currentRoom;
     private RoomEncounter m_currentEncounter;
     private RoomSettings m_currentSettings;
@@ -44,6 +45,13 @@ public class RoomManager : MonoBehaviour
 
     private void Start()
     {
+        ServiceLocator.Global.TryGet(out m_floorManager);
+
+        if (m_floorManager != null)
+        {
+            m_floorManager.GenerateFloor();
+        }
+
         if (m_startingRoomPrefab != null)
         {
             LoadStartingRoom();
@@ -67,12 +75,12 @@ public class RoomManager : MonoBehaviour
         m_currentRoom.ClearRoom();
     }
 
-    public void LoadRoom(RoomSettings settings)
+    public void LoadRoom(RoomSettings settings, RewardType rewardType)
     {
-        StartCoroutine(TransitionToRoom(settings));
+        StartCoroutine(TransitionToRoom(settings, rewardType));
     }
 
-    private IEnumerator TransitionToRoom(RoomSettings settings)
+    private IEnumerator TransitionToRoom(RoomSettings settings, RewardType rewardType)
     {
         m_inputReader.DisablePlayerActions();
 
@@ -82,6 +90,11 @@ public class RoomManager : MonoBehaviour
         }
 
         UnloadCurrentRoom();
+
+        if (m_floorManager != null)
+        {
+            m_floorManager.AdvanceRoom();
+        }
 
         RoomInstance prefab = settings.GetRandomRoomPrefab();
         if (prefab == null)
@@ -102,6 +115,13 @@ public class RoomManager : MonoBehaviour
         }
 
         bool isCombatRoom = settings.RoomType == RoomType.Combat || settings.RoomType == RoomType.Boss;
+
+        // Initialize reward chest if present
+        if (m_currentRoom.RewardChest != null && m_floorManager != null)
+        {
+            ChestSettings chestSettings = m_floorManager.GetChestSettingsForReward(rewardType);
+            m_currentRoom.RewardChest.Initialize(m_currentRoom, chestSettings);
+        }
 
         InitializeBulkheadDoors(isCombatRoom);
 
@@ -136,12 +156,33 @@ public class RoomManager : MonoBehaviour
 
     private void InitializeBulkheadDoors(bool startLocked)
     {
+        RoomSlot nextSlot = default;
+        bool hasNextRoom = false;
+
+        if (m_floorManager != null)
+        {
+            nextSlot = m_floorManager.GetNextRoomSlot();
+            hasNextRoom = nextSlot.Settings != null;
+        }
+
+        var usedRewards = new HashSet<RewardType>();
+
         foreach (BulkheadDoor door in m_currentRoom.BulkheadDoors)
         {
             if (door == null) continue;
 
-            RoomSettings nextRoom = GetRandomRoomFromPool();
-            door.Initialize(nextRoom, this);
+            if (!hasNextRoom)
+            {
+                door.Lock();
+                continue;
+            }
+
+            // Each door leads to the same next room but offers a different reward
+            RewardType reward = m_floorManager.GetRandomRewardTypeExcluding(usedRewards);
+            usedRewards.Add(reward);
+
+            Sprite icon = GetRewardIcon(reward);
+            door.Initialize(nextSlot.Settings, this, reward, icon);
 
             if (startLocked)
             {
@@ -159,6 +200,19 @@ public class RoomManager : MonoBehaviour
         }
     }
 
+    private Sprite GetRewardIcon(RewardType rewardType)
+    {
+        if (m_rewardIcons == null) return null;
+
+        foreach (var mapping in m_rewardIcons)
+        {
+            if (mapping.RewardType == rewardType)
+                return mapping.Icon;
+        }
+
+        return null;
+    }
+
     private void UnlockBulkheadDoors()
     {
         if (m_currentRoom == null) return;
@@ -174,15 +228,15 @@ public class RoomManager : MonoBehaviour
         OnRoomCleared?.Invoke();
     }
 
-    private RoomSettings GetRandomRoomFromPool()
-    {
-        if (m_roomPool == null || m_roomPool.Count == 0) return null;
-        return m_roomPool[UnityEngine.Random.Range(0, m_roomPool.Count)];
-    }
-
     public void ResetToStartingRoom()
     {
         UnloadCurrentRoom();
+
+        if (m_floorManager != null)
+        {
+            m_floorManager.Reset();
+        }
+
         m_inputReader.EnablePlayerActions();
         LoadStartingRoom();
     }
@@ -225,4 +279,11 @@ public class RoomManager : MonoBehaviour
             m_fadeCanvas.gameObject.SetActive(false);
         }
     }
+}
+
+[Serializable]
+public struct RewardIconMapping
+{
+    public RewardType RewardType;
+    public Sprite Icon;
 }

@@ -23,6 +23,11 @@ public class Chest : MonoBehaviour, IInteractable
     private PlayerInteractionDisplay m_interactionDisplay;
     private bool m_isOpen;
 
+    public void SetSettings(ChestSettings settings)
+    {
+        m_settings = settings;
+    }
+
     private RoomManager RoomManager => m_roomManager ??= ServiceLocator.Global.Get<RoomManager>();
 
     private void OnDestroy()
