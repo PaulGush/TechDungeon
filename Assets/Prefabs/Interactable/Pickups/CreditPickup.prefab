@@ -12,11 +12,11 @@ GameObject:
   - component: {fileID: 3862955753578037779}
   - component: {fileID: 1174132601514107492}
   - component: {fileID: 3120849157911201109}
-  - component: {fileID: 1111111111111111111}
-  - component: {fileID: 2222222222222222222}
+  - component: {fileID: 3333333333333333333}
+  - component: {fileID: 4444444444444444444}
   - component: {fileID: 115072870943143119}
   m_Layer: 0
-  m_Name: HealthPickup
+  m_Name: CreditPickup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -86,7 +86,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 5
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 8053270630468120130, guid: 75d5e29acaeb4866fbf27ab43e9b07e1, type: 3}
+  m_Sprite: {fileID: -7788000898245706078, guid: 75d5e29acaeb4866fbf27ab43e9b07e1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -154,12 +154,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ff797398f42215b7860037522cd72ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Lootable
-  m_itemType: 3
+  m_itemType: 4
   _rarity: 0
   _lastRarity: 0
   m_bounceEffect: {fileID: 115072870943143119}
   m_collider: {fileID: 1174132601514107492}
---- !u!114 &1111111111111111111
+--- !u!114 &3333333333333333333
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -171,7 +171,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 383517203c68f4e889ef7678e247c17e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Pickup
---- !u!114 &2222222222222222222
+--- !u!114 &4444444444444444444
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -180,10 +180,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 6567018296943458031}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cce0823dc4d347f98da579d93aed801c, type: 3}
+  m_Script: {fileID: 11500000, guid: 13885d7041b747fcb1722fbc8ed3e163, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::HealPickupEffect
-  m_healAmount: 10
+  m_EditorClassIdentifier: Assembly-CSharp::CreditPickupEffect
+  m_amount: 1
 --- !u!114 &115072870943143119
 MonoBehaviour:
   m_ObjectHideFlags: 0

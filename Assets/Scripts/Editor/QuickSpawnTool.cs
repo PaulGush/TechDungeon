@@ -71,16 +71,19 @@ namespace TechDungeon.Editor
                 m_prefabs[i] = list;
             }
 
-            // Also search for HealthPickup specifically
-            string[] healthGuids = AssetDatabase.FindAssets("t:Prefab HealthPickup");
-            foreach (string guid in healthGuids)
+            // Also search Interactable/Pickups folder
+            if (AssetDatabase.IsValidFolder("Assets/Prefabs/Interactable/Pickups"))
             {
-                string path = AssetDatabase.GUIDToAssetPath(guid);
-                var prefab = AssetDatabase.LoadAssetAtPath<GameObject>(path);
-                if (prefab != null && prefab.GetComponent<HealthPickup>() != null)
+                string[] pickupGuids = AssetDatabase.FindAssets("t:Prefab", new[] { "Assets/Prefabs/Interactable/Pickups" });
+                foreach (string guid in pickupGuids)
                 {
-                    if (!m_prefabs[2].Contains(prefab))
-                        m_prefabs[2].Add(prefab);
+                    string path = AssetDatabase.GUIDToAssetPath(guid);
+                    var prefab = AssetDatabase.LoadAssetAtPath<GameObject>(path);
+                    if (prefab != null && prefab.GetComponent<Pickup>() != null)
+                    {
+                        if (!m_prefabs[2].Contains(prefab))
+                            m_prefabs[2].Add(prefab);
+                    }
                 }
             }
 
