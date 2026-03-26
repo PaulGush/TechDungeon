@@ -18,10 +18,10 @@ namespace TechDungeon.Editor
 
         private static readonly (string typeName, string createMenu, string subfolder)[] s_tabConfig =
         {
-            ("PlayerSettings", "Settings/Player Settings", "Player"),
-            ("EnemySettings", "Settings/Enemy Settings", "Enemy"),
-            ("ProjectileSettings", "Projectiles/Projectile Settings", "Projectile"),
-            ("ChestSettings", "Interactables/Chest Settings", "Chest"),
+            ("PlayerSettings", "Data/Entity/Player Settings", "Player"),
+            ("EnemySettings", "Data/Entity/Enemy Settings", "Enemy"),
+            ("ProjectileSettings", "Data/Combat/Projectile Settings", "Projectile"),
+            ("ChestSettings", "Data/Loot/Chest Settings", "Loot"),
         };
 
         [MenuItem("TechDungeon/Gameplay Dashboard")]

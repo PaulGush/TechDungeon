@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Ammo/Ammo Settings")]
+[CreateAssetMenu(menuName = "Data/Combat/Ammo Settings")]
 public class AmmoSettings : ScriptableObject
 {
     public AmmoType Type;
