@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 3763659623427019421}
   - component: {fileID: 6595732265549668141}
   - component: {fileID: 3197216746436454748}
+  - component: {fileID: 1232323232323232323}
+  - component: {fileID: 1242424242424242424}
   - component: {fileID: 7470589045675095048}
   - component: {fileID: 7328289174258285405}
   m_Layer: 0
@@ -165,14 +167,38 @@ MonoBehaviour:
   m_GameObject: {fileID: 141127707305312635}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 949f5208531b4f287b0d0c5a6f5ee266, type: 3}
+  m_Script: {fileID: 11500000, guid: 7ff797398f42215b7860037522cd72ef, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MutationPickup
+  m_EditorClassIdentifier: Assembly-CSharp::Lootable
   m_itemType: 2
   _rarity: 0
   _lastRarity: 0
   m_bounceEffect: {fileID: 6595732265549668141}
   m_collider: {fileID: 3763659623427019421}
+--- !u!114 &1232323232323232323
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 141127707305312635}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 383517203c68f4e889ef7678e247c17e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Pickup
+--- !u!114 &1242424242424242424
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 141127707305312635}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e0af056b6534780acb3fac8fa08bda1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MutationPickupEffect
   m_mutation: {fileID: 11400000, guid: 0c6553d5de3969319aaf8cee00c79bec, type: 2}
 --- !u!114 &7470589045675095048
 MonoBehaviour:
