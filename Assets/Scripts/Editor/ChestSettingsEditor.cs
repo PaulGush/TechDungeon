@@ -41,6 +41,22 @@ namespace TechDungeon.Editor
                 "TotalSpawnTime",
                 "SpawnTimeInterval");
 
+            // Warn if no database assigned
+            if (settings.LootDatabase == null)
+            {
+                EditorGUILayout.HelpBox(
+                    "No Loot Database assigned. This chest will not drop any items.",
+                    MessageType.Error);
+            }
+
+            // Warn about empty categories
+            if (settings.ItemCategories == null || settings.ItemCategories.Count == 0)
+            {
+                EditorGUILayout.HelpBox(
+                    "No item categories selected. Add at least one category for random drops.",
+                    MessageType.Warning);
+            }
+
             EditorGUILayout.Space(4);
 
             // Guaranteed Drops section with validation
@@ -50,7 +66,7 @@ namespace TechDungeon.Editor
             EditorGUILayout.LabelField("Guaranteed Drops", EditorStyles.boldLabel);
             EditorGUILayout.HelpBox(
                 $"Using {currentGuaranteed} of {maxGuaranteed} guaranteed slots. " +
-                $"Remaining {Mathf.Max(0, maxGuaranteed - currentGuaranteed)} slots will be filled randomly.",
+                $"Remaining {Mathf.Max(0, maxGuaranteed - currentGuaranteed)} slots will be filled randomly from allowed categories.",
                 currentGuaranteed > maxGuaranteed ? MessageType.Error : MessageType.Info);
 
             if (currentGuaranteed > maxGuaranteed)
@@ -65,30 +81,31 @@ namespace TechDungeon.Editor
             SerializedProperty guaranteedTypesProp = serializedObject.FindProperty("GuaranteedTypes");
 
             EditorGUILayout.PropertyField(guaranteedItemsProp, new GUIContent("Guaranteed Items", "Specific prefabs that will always drop."), true);
-            EditorGUILayout.PropertyField(guaranteedTypesProp, new GUIContent("Guaranteed Types", "Item types — a random item of each type will drop."), true);
+            EditorGUILayout.PropertyField(guaranteedTypesProp, new GUIContent("Guaranteed Types", "Item types — a random item of each type will drop from the loot database."), true);
 
-            // Check for missing type coverage
-            if (settings.GuaranteedTypes != null)
+            // Check for missing type coverage in the database
+            if (settings.LootDatabase != null && settings.GuaranteedTypes != null)
             {
                 foreach (LootItemType type in settings.GuaranteedTypes)
                 {
-                    bool found = false;
-                    if (settings.Items != null)
-                    {
-                        foreach (Lootable item in settings.Items)
-                        {
-                            if (item != null && item.ItemType == type)
-                            {
-                                found = true;
-                                break;
-                            }
-                        }
-                    }
-
-                    if (!found)
+                    if (!settings.LootDatabase.HasItemsOfType(type))
                     {
                         EditorGUILayout.HelpBox(
-                            $"No items of type \"{type}\" found in the Items pool. This guaranteed type will be skipped.",
+                            $"No items of type \"{type}\" found in the Loot Database. This guaranteed type will be skipped.",
+                            MessageType.Warning);
+                    }
+                }
+            }
+
+            // Check category coverage in database
+            if (settings.LootDatabase != null && settings.ItemCategories != null)
+            {
+                foreach (LootItemType type in settings.ItemCategories)
+                {
+                    if (!settings.LootDatabase.HasItemsOfType(type))
+                    {
+                        EditorGUILayout.HelpBox(
+                            $"No items of type \"{type}\" found in the Loot Database. This category will produce no drops.",
                             MessageType.Warning);
                     }
                 }
@@ -122,39 +139,42 @@ namespace TechDungeon.Editor
 
             DrawRarityBar(barRect, commonChance, settings.UncommonDropChance, settings.RareDropChance, settings.EpicDropChance, settings.LegendaryDropChance);
 
-            EditorGUILayout.Space(4);
-
-            // Item preview grid
-            if (settings.Items != null && settings.Items.Count > 0)
+            // Item preview from database for selected categories
+            if (settings.LootDatabase != null && settings.ItemCategories != null && settings.ItemCategories.Count > 0)
             {
-                EditorGUILayout.LabelField("Item Previews", EditorStyles.boldLabel);
+                EditorGUILayout.Space(4);
+                EditorGUILayout.LabelField("Available Items (from Database)", EditorStyles.boldLabel);
 
                 int columns = 4;
                 int row = 0;
                 EditorGUILayout.BeginHorizontal();
 
-                for (int i = 0; i < settings.Items.Count; i++)
+                foreach (LootItemType category in settings.ItemCategories)
                 {
-                    if (settings.Items[i] == null) continue;
-
-                    if (row > 0 && row % columns == 0)
+                    var items = settings.LootDatabase.GetItemsOfType(category);
+                    foreach (Lootable item in items)
                     {
-                        EditorGUILayout.EndHorizontal();
-                        EditorGUILayout.BeginHorizontal();
+                        if (item == null) continue;
+
+                        if (row > 0 && row % columns == 0)
+                        {
+                            EditorGUILayout.EndHorizontal();
+                            EditorGUILayout.BeginHorizontal();
+                        }
+
+                        EditorGUILayout.BeginVertical(GUILayout.Width(72));
+                        var preview = AssetPreview.GetAssetPreview(item.gameObject);
+                        if (preview != null)
+                            GUILayout.Label(preview, GUILayout.Width(64), GUILayout.Height(64));
+                        else
+                            GUILayout.Label(AssetPreview.GetMiniThumbnail(item.gameObject), GUILayout.Width(64), GUILayout.Height(64));
+
+                        string typeSuffix = $" [{item.ItemType}]";
+                        GUILayout.Label(item.name + typeSuffix, EditorStyles.miniLabel, GUILayout.Width(64));
+                        EditorGUILayout.EndVertical();
+
+                        row++;
                     }
-
-                    EditorGUILayout.BeginVertical(GUILayout.Width(72));
-                    var preview = AssetPreview.GetAssetPreview(settings.Items[i].gameObject);
-                    if (preview != null)
-                        GUILayout.Label(preview, GUILayout.Width(64), GUILayout.Height(64));
-                    else
-                        GUILayout.Label(AssetPreview.GetMiniThumbnail(settings.Items[i].gameObject), GUILayout.Width(64), GUILayout.Height(64));
-
-                    string typeSuffix = $" [{settings.Items[i].ItemType}]";
-                    GUILayout.Label(settings.Items[i].name + typeSuffix, EditorStyles.miniLabel, GUILayout.Width(64));
-                    EditorGUILayout.EndVertical();
-
-                    row++;
                 }
 
                 EditorGUILayout.EndHorizontal();

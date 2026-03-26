@@ -1,10 +1,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "ChestSettings", menuName = "Interactables/Chest Settings")]
+[CreateAssetMenu(fileName = "ChestSettings", menuName = "Data/Loot/Chest Settings")]
 public class ChestSettings : ScriptableObject
 {
-    public List<Lootable> Items;
+    [Header("Loot Source")]
+    public LootDatabase LootDatabase;
+    public List<LootItemType> ItemCategories = new();
     public int ItemDropCount = 3;
 
     [Header("Drop Chances (percentage, must sum to <= 100)")]
@@ -17,7 +19,7 @@ public class ChestSettings : ScriptableObject
     [Tooltip("Each entry guarantees one drop slot will be a specific prefab.")]
     public List<Lootable> GuaranteedItems = new();
 
-    [Tooltip("Each entry guarantees one drop slot will be a random item of that type from the Items pool.")]
+    [Tooltip("Each entry guarantees one drop slot will be a random item of that type from the loot database.")]
     public List<LootItemType> GuaranteedTypes = new();
 
     public float TotalSpawnTime = 0.5f;
@@ -27,7 +29,7 @@ public class ChestSettings : ScriptableObject
 
     public Lootable[] GetRandomItems()
     {
-        if (Items == null || Items.Count == 0)
+        if (LootDatabase == null || ItemCategories == null || ItemCategories.Count == 0)
             return System.Array.Empty<Lootable>();
 
         var droppedItems = new List<Lootable>(ItemDropCount);
@@ -44,12 +46,12 @@ public class ChestSettings : ScriptableObject
             }
         }
 
-        // Fill guaranteed types from the Items pool
+        // Fill guaranteed types from the loot database
         if (GuaranteedTypes != null)
         {
             for (int i = 0; i < GuaranteedTypes.Count && slotsRemaining > 0; i++)
             {
-                Lootable match = GetRandomItemOfType(GuaranteedTypes[i]);
+                Lootable match = LootDatabase.GetRandomItemOfType(GuaranteedTypes[i]);
                 if (match != null)
                 {
                     droppedItems.Add(match);
@@ -58,27 +60,14 @@ public class ChestSettings : ScriptableObject
             }
         }
 
-        // Fill remaining slots randomly
+        // Fill remaining slots randomly from allowed categories
         for (int i = 0; i < slotsRemaining; i++)
         {
-            Lootable item = Items[Random.Range(0, Items.Count)];
+            Lootable item = LootDatabase.GetRandomItemFromCategories(ItemCategories);
             if (item == null) continue;
             droppedItems.Add(item);
         }
 
         return droppedItems.ToArray();
-    }
-
-    private Lootable GetRandomItemOfType(LootItemType type)
-    {
-        var matches = new List<Lootable>();
-        foreach (Lootable item in Items)
-        {
-            if (item != null && item.ItemType == type)
-                matches.Add(item);
-        }
-
-        if (matches.Count == 0) return null;
-        return matches[Random.Range(0, matches.Count)];
     }
 }
