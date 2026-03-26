@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Projectiles/Projectile Settings")]
+[CreateAssetMenu(menuName = "Data/Combat/Projectile Settings")]
 public class ProjectileSettings : ScriptableObject
 {
     public int Damage;

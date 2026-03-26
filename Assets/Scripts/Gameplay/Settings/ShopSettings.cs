@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Settings/Shop Settings")]
+[CreateAssetMenu(menuName = "Data/Room/Shop Settings")]
 public class ShopSettings : ScriptableObject
 {
     [Header("Item Pools")]

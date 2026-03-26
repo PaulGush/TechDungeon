@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Settings/Room Settings")]
+[CreateAssetMenu(menuName = "Data/Room/Room Settings")]
 public class RoomSettings : ScriptableObject
 {
     [Header("Room Info")]

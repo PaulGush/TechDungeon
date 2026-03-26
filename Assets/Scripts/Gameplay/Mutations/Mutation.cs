@@ -11,7 +11,7 @@ public enum MutationType
     AmmoEfficiency
 }
 
-[CreateAssetMenu(menuName = "Mutations/Mutation")]
+[CreateAssetMenu(menuName = "Data/Combat/Mutation")]
 public class Mutation : ScriptableObject
 {
     public string DisplayName;
