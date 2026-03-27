@@ -26,12 +26,7 @@ public class Chest : MonoBehaviour, IInteractable
 
     public void Lock() => m_isLocked = true;
     public void Unlock() => m_isLocked = false;
-
-    public void SetSettings(ChestSettings settings)
-    {
-        m_settings = settings;
-    }
-
+    
     public void SetSettings(ChestSettings settings)
     {
         m_settings = settings;
