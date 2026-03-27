@@ -32,6 +32,11 @@ public class Chest : MonoBehaviour, IInteractable
         m_settings = settings;
     }
 
+    public void SetSettings(ChestSettings settings)
+    {
+        m_settings = settings;
+    }
+
     private RoomManager RoomManager => m_roomManager ??= ServiceLocator.Global.Get<RoomManager>();
 
     private void OnDestroy()

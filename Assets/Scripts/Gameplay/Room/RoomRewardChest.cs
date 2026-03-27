@@ -3,6 +3,7 @@ using UnityEngine;
 public class RoomRewardChest : MonoBehaviour
 {
     [SerializeField] private Chest m_chest;
+    [SerializeField] private Collider2D m_interactionCollider;
     [SerializeField] private GameObject m_lockedVisual;
 
     private RoomInstance m_roomInstance;
@@ -33,7 +34,9 @@ public class RoomRewardChest : MonoBehaviour
     private void Lock()
     {
         m_isLocked = true;
-        m_chest.Lock();
+
+        if (m_interactionCollider != null)
+            m_interactionCollider.enabled = false;
 
         if (m_lockedVisual != null)
             m_lockedVisual.SetActive(true);
@@ -42,7 +45,9 @@ public class RoomRewardChest : MonoBehaviour
     private void Unlock()
     {
         m_isLocked = false;
-        m_chest.Unlock();
+
+        if (m_interactionCollider != null)
+            m_interactionCollider.enabled = true;
 
         if (m_lockedVisual != null)
             m_lockedVisual.SetActive(false);
