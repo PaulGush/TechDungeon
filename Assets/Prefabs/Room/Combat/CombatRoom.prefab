@@ -1548,7 +1548,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RoomRewardChest
   m_chest: {fileID: 8134218929827034803}
   m_interactionCollider: {fileID: 4161848314807313561}
-  m_lockedVisual: {fileID: 5674390124794102681}
+  m_lockedVisual: {fileID: 0}
 --- !u!1 &4419847507483118597
 GameObject:
   m_ObjectHideFlags: 0
@@ -2503,11 +2503,6 @@ PrefabInstance:
 --- !u!61 &4161848314807313561 stripped
 BoxCollider2D:
   m_CorrespondingSourceObject: {fileID: 5259302693029815876, guid: 0d8bf16360f0ef76ea5e508765af2f10, type: 3}
-  m_PrefabInstance: {fileID: 8159696872586986205}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &5674390124794102681 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4576337629124985156, guid: 0d8bf16360f0ef76ea5e508765af2f10, type: 3}
   m_PrefabInstance: {fileID: 8159696872586986205}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &8134218929827034803 stripped
