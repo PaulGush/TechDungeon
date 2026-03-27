@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(find 'G:/Github Repositories/TechDungeon/Assets/Tests' -name *.cs)",
+      "WebSearch",
+      "Skill(update-config)"
+    ]
+  },
+  "enableAllProjectMcpServers": true,
+  "enabledMcpjsonServers": [
+    "mcp-unity"
+  ]
+}
