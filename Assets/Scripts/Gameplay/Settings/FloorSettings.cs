@@ -15,7 +15,7 @@ public class FloorSettings : ScriptableObject
     [Header("Room Pools")]
     public List<RoomSettings> CombatRoomPool;
     public List<RoomSettings> ShopRoomPool;
-    public RoomSettings BossRoom;
+    public BossRoomSettings BossRoom;
 
     [Header("Rewards")]
     [Tooltip("Reward types that can be offered on doors for combat rooms.")]

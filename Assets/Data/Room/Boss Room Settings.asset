@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46952130058db174d99cd3ce41ff853c, type: 3}
+  m_Name: Boss Room Settings
+  m_EditorClassIdentifier: Assembly-CSharp::BossRoomSettings
+  RoomType: 3
+  RewardType: 4
+  RoomIcon: {fileID: 21300000, guid: 43a38f392ebd1b81fb46979fd7d27e62, type: 3}
+  RoomPrefabs:
+  - {fileID: 1837370586240707199, guid: 12e128e92b19d694ca695a15807eba8f, type: 3}
+  EnemyWaves: []
+  BossRewardChest: {fileID: 0}

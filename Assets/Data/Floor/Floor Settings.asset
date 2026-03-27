@@ -18,7 +18,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0b26a05ba07ae6d1786214179b46fa6c, type: 2}
   ShopRoomPool:
   - {fileID: 11400000, guid: 783d30acbfbde2e3eb2200d5ca15439d, type: 2}
-  BossRoom: {fileID: 0}
+  BossRoom: {fileID: 11400000, guid: 8528b821ddbaee44cb35d8e6e8dd2aef, type: 2}
   RewardOptions: 0100000002000000030000000000000004000000
   RewardChestMappings:
   - RewardType: 0

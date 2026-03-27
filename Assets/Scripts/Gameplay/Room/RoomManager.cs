@@ -166,6 +166,7 @@ public class RoomManager : MonoBehaviour
         }
 
         var usedRewards = new HashSet<RewardType>();
+        bool isBossNext = hasNextRoom && nextSlot.Settings is BossRoomSettings;
 
         foreach (BulkheadDoor door in m_currentRoom.BulkheadDoors)
         {
@@ -177,12 +178,19 @@ public class RoomManager : MonoBehaviour
                 continue;
             }
 
-            // Each door leads to the same next room but offers a different reward
-            RewardType reward = m_floorManager.GetRandomRewardTypeExcluding(usedRewards);
-            usedRewards.Add(reward);
+            if (isBossNext)
+            {
+                door.Initialize(nextSlot.Settings, this, RewardType.Credits, nextSlot.Settings.RoomIcon);
+            }
+            else
+            {
+                // Each door leads to the same next room but offers a different reward
+                RewardType reward = m_floorManager.GetRandomRewardTypeExcluding(usedRewards);
+                usedRewards.Add(reward);
 
-            Sprite icon = GetRewardIcon(reward);
-            door.Initialize(nextSlot.Settings, this, reward, icon);
+                Sprite icon = GetRewardIcon(reward);
+                door.Initialize(nextSlot.Settings, this, reward, icon);
+            }
 
             if (startLocked)
             {
