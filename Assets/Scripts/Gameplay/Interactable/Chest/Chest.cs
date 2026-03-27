@@ -22,6 +22,10 @@ public class Chest : MonoBehaviour, IInteractable
     private RoomManager m_roomManager;
     private PlayerInteractionDisplay m_interactionDisplay;
     private bool m_isOpen;
+    private bool m_isLocked;
+
+    public void Lock() => m_isLocked = true;
+    public void Unlock() => m_isLocked = false;
 
     public void SetSettings(ChestSettings settings)
     {
@@ -37,7 +41,7 @@ public class Chest : MonoBehaviour, IInteractable
 
     public void Interact()
     {
-        if (m_isOpen) return;
+        if (m_isOpen || m_isLocked) return;
 
         m_animator.SetTrigger(Open);
         m_interactionDisplay?.Hide(this);
@@ -68,7 +72,7 @@ public class Chest : MonoBehaviour, IInteractable
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (m_isOpen || other.gameObject.layer != GameConstants.Layers.PlayerLayer) return;
+        if (m_isOpen || m_isLocked || other.gameObject.layer != GameConstants.Layers.PlayerLayer) return;
         m_interactionDisplay ??= ServiceLocator.Global.Get<PlayerInteractionDisplay>();
         m_interactionDisplay.Show("[E]", this);
         m_inputReader.Interact += Interact;
