@@ -312,7 +312,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -336,7 +336,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -370,6 +370,19 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -377,12 +390,12 @@ TextureImporter:
       name: boss outline x1_0
       rect:
         serializedVersion: 2
-        x: 7
-        y: 385
-        width: 57
-        height: 47
+        x: 0
+        y: 384
+        width: 64
+        height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -399,12 +412,12 @@ TextureImporter:
       name: boss outline x1_1
       rect:
         serializedVersion: 2
-        x: 71
-        y: 385
-        width: 57
-        height: 46
+        x: 64
+        y: 384
+        width: 64
+        height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -421,12 +434,12 @@ TextureImporter:
       name: boss outline x1_2
       rect:
         serializedVersion: 2
-        x: 135
-        y: 385
-        width: 57
-        height: 47
+        x: 128
+        y: 384
+        width: 64
+        height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -443,12 +456,12 @@ TextureImporter:
       name: boss outline x1_3
       rect:
         serializedVersion: 2
-        x: 199
-        y: 385
-        width: 57
-        height: 48
+        x: 192
+        y: 384
+        width: 64
+        height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -465,12 +478,12 @@ TextureImporter:
       name: boss outline x1_4
       rect:
         serializedVersion: 2
-        x: 275
-        y: 412
-        width: 10
-        height: 13
+        x: 256
+        y: 384
+        width: 64
+        height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -487,12 +500,12 @@ TextureImporter:
       name: boss outline x1_5
       rect:
         serializedVersion: 2
-        x: 284
-        y: 415
-        width: 6
-        height: 6
+        x: 320
+        y: 384
+        width: 64
+        height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -509,12 +522,12 @@ TextureImporter:
       name: boss outline x1_6
       rect:
         serializedVersion: 2
-        x: 289
-        y: 416
-        width: 9
-        height: 8
+        x: 384
+        y: 384
+        width: 64
+        height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -531,12 +544,12 @@ TextureImporter:
       name: boss outline x1_7
       rect:
         serializedVersion: 2
-        x: 332
-        y: 385
-        width: 19
-        height: 28
+        x: 448
+        y: 384
+        width: 64
+        height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -553,12 +566,12 @@ TextureImporter:
       name: boss outline x1_8
       rect:
         serializedVersion: 2
-        x: 351
-        y: 385
-        width: 19
-        height: 28
+        x: 512
+        y: 384
+        width: 64
+        height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -575,12 +588,12 @@ TextureImporter:
       name: boss outline x1_9
       rect:
         serializedVersion: 2
-        x: 396
-        y: 385
-        width: 19
-        height: 28
+        x: 0
+        y: 320
+        width: 64
+        height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -597,12 +610,12 @@ TextureImporter:
       name: boss outline x1_10
       rect:
         serializedVersion: 2
-        x: 415
-        y: 385
-        width: 19
-        height: 28
+        x: 64
+        y: 320
+        width: 64
+        height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -619,12 +632,12 @@ TextureImporter:
       name: boss outline x1_11
       rect:
         serializedVersion: 2
-        x: 460
-        y: 385
-        width: 19
-        height: 29
+        x: 128
+        y: 320
+        width: 64
+        height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -641,12 +654,12 @@ TextureImporter:
       name: boss outline x1_12
       rect:
         serializedVersion: 2
-        x: 479
-        y: 385
-        width: 19
-        height: 29
+        x: 192
+        y: 320
+        width: 64
+        height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -663,12 +676,12 @@ TextureImporter:
       name: boss outline x1_13
       rect:
         serializedVersion: 2
-        x: 524
-        y: 385
-        width: 19
-        height: 29
+        x: 256
+        y: 320
+        width: 64
+        height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -685,12 +698,12 @@ TextureImporter:
       name: boss outline x1_14
       rect:
         serializedVersion: 2
-        x: 543
-        y: 385
-        width: 19
-        height: 29
+        x: 0
+        y: 256
+        width: 64
+        height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -707,12 +720,12 @@ TextureImporter:
       name: boss outline x1_15
       rect:
         serializedVersion: 2
-        x: 7
-        y: 321
-        width: 57
-        height: 47
+        x: 64
+        y: 256
+        width: 64
+        height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -729,12 +742,12 @@ TextureImporter:
       name: boss outline x1_16
       rect:
         serializedVersion: 2
-        x: 71
-        y: 321
-        width: 57
-        height: 46
+        x: 128
+        y: 256
+        width: 64
+        height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -751,12 +764,12 @@ TextureImporter:
       name: boss outline x1_17
       rect:
         serializedVersion: 2
-        x: 135
-        y: 321
-        width: 57
-        height: 47
+        x: 192
+        y: 256
+        width: 64
+        height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -773,12 +786,12 @@ TextureImporter:
       name: boss outline x1_18
       rect:
         serializedVersion: 2
-        x: 199
-        y: 321
-        width: 57
-        height: 48
+        x: 256
+        y: 256
+        width: 64
+        height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -795,12 +808,12 @@ TextureImporter:
       name: boss outline x1_19
       rect:
         serializedVersion: 2
-        x: 274
-        y: 343
-        width: 11
-        height: 15
+        x: 320
+        y: 256
+        width: 64
+        height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -817,12 +830,12 @@ TextureImporter:
       name: boss outline x1_20
       rect:
         serializedVersion: 2
-        x: 280
-        y: 345
-        width: 13
-        height: 10
+        x: 384
+        y: 256
+        width: 64
+        height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -839,12 +852,12 @@ TextureImporter:
       name: boss outline x1_21
       rect:
         serializedVersion: 2
-        x: 293
-        y: 346
-        width: 7
-        height: 9
+        x: 448
+        y: 256
+        width: 64
+        height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -861,12 +874,12 @@ TextureImporter:
       name: boss outline x1_22
       rect:
         serializedVersion: 2
-        x: 7
-        y: 257
-        width: 57
-        height: 49
+        x: 512
+        y: 256
+        width: 64
+        height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -883,12 +896,12 @@ TextureImporter:
       name: boss outline x1_23
       rect:
         serializedVersion: 2
-        x: 71
-        y: 257
-        width: 57
-        height: 49
+        x: 576
+        y: 256
+        width: 64
+        height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -905,12 +918,12 @@ TextureImporter:
       name: boss outline x1_24
       rect:
         serializedVersion: 2
-        x: 135
-        y: 257
-        width: 57
-        height: 46
+        x: 640
+        y: 256
+        width: 64
+        height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -927,12 +940,12 @@ TextureImporter:
       name: boss outline x1_25
       rect:
         serializedVersion: 2
-        x: 199
-        y: 257
-        width: 57
-        height: 47
+        x: 704
+        y: 256
+        width: 64
+        height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -949,12 +962,12 @@ TextureImporter:
       name: boss outline x1_26
       rect:
         serializedVersion: 2
-        x: 263
-        y: 257
-        width: 57
-        height: 49
+        x: 768
+        y: 256
+        width: 64
+        height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -971,12 +984,12 @@ TextureImporter:
       name: boss outline x1_27
       rect:
         serializedVersion: 2
-        x: 327
-        y: 257
-        width: 57
-        height: 49
+        x: 832
+        y: 256
+        width: 64
+        height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -993,12 +1006,12 @@ TextureImporter:
       name: boss outline x1_28
       rect:
         serializedVersion: 2
-        x: 391
-        y: 257
-        width: 57
-        height: 46
+        x: 896
+        y: 256
+        width: 64
+        height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1015,12 +1028,12 @@ TextureImporter:
       name: boss outline x1_29
       rect:
         serializedVersion: 2
-        x: 455
-        y: 257
-        width: 57
-        height: 47
+        x: 960
+        y: 256
+        width: 64
+        height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1037,12 +1050,12 @@ TextureImporter:
       name: boss outline x1_30
       rect:
         serializedVersion: 2
-        x: 531
-        y: 284
-        width: 7
-        height: 9
+        x: 1024
+        y: 256
+        width: 64
+        height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1059,12 +1072,12 @@ TextureImporter:
       name: boss outline x1_31
       rect:
         serializedVersion: 2
-        x: 540
-        y: 284
-        width: 8
-        height: 9
+        x: 0
+        y: 192
+        width: 64
+        height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1081,12 +1094,12 @@ TextureImporter:
       name: boss outline x1_32
       rect:
         serializedVersion: 2
-        x: 549
-        y: 283
-        width: 7
-        height: 9
+        x: 64
+        y: 192
+        width: 64
+        height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1103,12 +1116,12 @@ TextureImporter:
       name: boss outline x1_33
       rect:
         serializedVersion: 2
-        x: 590
-        y: 257
-        width: 24
-        height: 30
+        x: 128
+        y: 192
+        width: 64
+        height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1125,12 +1138,12 @@ TextureImporter:
       name: boss outline x1_34
       rect:
         serializedVersion: 2
-        x: 617
-        y: 257
-        width: 9
-        height: 28
+        x: 192
+        y: 192
+        width: 64
+        height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1147,12 +1160,12 @@ TextureImporter:
       name: boss outline x1_35
       rect:
         serializedVersion: 2
-        x: 656
-        y: 257
-        width: 21
-        height: 30
+        x: 256
+        y: 192
+        width: 64
+        height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1169,12 +1182,12 @@ TextureImporter:
       name: boss outline x1_36
       rect:
         serializedVersion: 2
-        x: 670
-        y: 272
-        width: 6
-        height: 15
+        x: 320
+        y: 192
+        width: 64
+        height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1191,12 +1204,12 @@ TextureImporter:
       name: boss outline x1_37
       rect:
         serializedVersion: 2
-        x: 679
-        y: 257
-        width: 9
-        height: 28
+        x: 0
+        y: 128
+        width: 64
+        height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1213,12 +1226,12 @@ TextureImporter:
       name: boss outline x1_38
       rect:
         serializedVersion: 2
-        x: 720
-        y: 257
-        width: 18
-        height: 27
+        x: 64
+        y: 128
+        width: 64
+        height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1235,12 +1248,12 @@ TextureImporter:
       name: boss outline x1_39
       rect:
         serializedVersion: 2
-        x: 741
-        y: 257
-        width: 9
-        height: 28
+        x: 128
+        y: 128
+        width: 64
+        height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1257,12 +1270,12 @@ TextureImporter:
       name: boss outline x1_40
       rect:
         serializedVersion: 2
-        x: 784
-        y: 257
-        width: 7
-        height: 28
+        x: 192
+        y: 128
+        width: 64
+        height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1279,12 +1292,12 @@ TextureImporter:
       name: boss outline x1_41
       rect:
         serializedVersion: 2
-        x: 805
-        y: 257
-        width: 9
-        height: 28
+        x: 256
+        y: 128
+        width: 64
+        height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1301,12 +1314,12 @@ TextureImporter:
       name: boss outline x1_42
       rect:
         serializedVersion: 2
-        x: 847
-        y: 257
-        width: 7
-        height: 28
+        x: 320
+        y: 128
+        width: 64
+        height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1323,12 +1336,12 @@ TextureImporter:
       name: boss outline x1_43
       rect:
         serializedVersion: 2
-        x: 860
-        y: 257
-        width: 18
-        height: 30
+        x: 384
+        y: 128
+        width: 64
+        height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1345,12 +1358,12 @@ TextureImporter:
       name: boss outline x1_44
       rect:
         serializedVersion: 2
-        x: 909
-        y: 257
-        width: 7
-        height: 28
+        x: 448
+        y: 128
+        width: 64
+        height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1367,12 +1380,12 @@ TextureImporter:
       name: boss outline x1_45
       rect:
         serializedVersion: 2
-        x: 919
-        y: 257
-        width: 25
-        height: 30
+        x: 512
+        y: 128
+        width: 64
+        height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1389,12 +1402,12 @@ TextureImporter:
       name: boss outline x1_46
       rect:
         serializedVersion: 2
-        x: 972
-        y: 257
-        width: 7
-        height: 28
+        x: 0
+        y: 64
+        width: 64
+        height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1411,12 +1424,12 @@ TextureImporter:
       name: boss outline x1_47
       rect:
         serializedVersion: 2
-        x: 982
-        y: 257
-        width: 9
-        height: 28
+        x: 64
+        y: 64
+        width: 64
+        height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1433,12 +1446,12 @@ TextureImporter:
       name: boss outline x1_48
       rect:
         serializedVersion: 2
-        x: 991
-        y: 257
-        width: 7
-        height: 27
+        x: 128
+        y: 64
+        width: 64
+        height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1455,12 +1468,12 @@ TextureImporter:
       name: boss outline x1_49
       rect:
         serializedVersion: 2
-        x: 1001
-        y: 257
-        width: 9
-        height: 27
+        x: 192
+        y: 64
+        width: 64
+        height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1477,12 +1490,12 @@ TextureImporter:
       name: boss outline x1_50
       rect:
         serializedVersion: 2
-        x: 1036
-        y: 257
-        width: 7
-        height: 28
+        x: 256
+        y: 64
+        width: 64
+        height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1499,12 +1512,12 @@ TextureImporter:
       name: boss outline x1_51
       rect:
         serializedVersion: 2
-        x: 1046
-        y: 257
-        width: 9
-        height: 28
+        x: 576
+        y: 0
+        width: 64
+        height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1517,803 +1530,11 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: boss outline x1_52
-      rect:
-        serializedVersion: 2
-        x: 1055
-        y: 257
-        width: 7
-        height: 28
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 9aece8daba1c40470800000000000000
-      internalID: 8360019751401868969
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: boss outline x1_53
-      rect:
-        serializedVersion: 2
-        x: 1065
-        y: 257
-        width: 9
-        height: 28
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 61dd87cb31108ae30800000000000000
-      internalID: 4514859810716966166
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: boss outline x1_54
-      rect:
-        serializedVersion: 2
-        x: 794
-        y: 257
-        width: 8
-        height: 12
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 2f7c01a50296a74c0800000000000000
-      internalID: -4289000107446056974
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: boss outline x1_55
-      rect:
-        serializedVersion: 2
-        x: 857
-        y: 262
-        width: 8
-        height: 7
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: dfba4a1fba941ab40800000000000000
-      internalID: 5449718026937347069
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: boss outline x1_56
-      rect:
-        serializedVersion: 2
-        x: 7
-        y: 201
-        width: 57
-        height: 39
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 9d05f32c751b78d60800000000000000
-      internalID: 7892471862469284057
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: boss outline x1_57
-      rect:
-        serializedVersion: 2
-        x: 70
-        y: 201
-        width: 57
-        height: 39
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: fa706c08ae7118a90800000000000000
-      internalID: -7313538023922726993
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: boss outline x1_58
-      rect:
-        serializedVersion: 2
-        x: 135
-        y: 201
-        width: 57
-        height: 39
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 2a73252e10f837ce0800000000000000
-      internalID: -1408625020182055006
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: boss outline x1_59
-      rect:
-        serializedVersion: 2
-        x: 198
-        y: 201
-        width: 57
-        height: 39
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: b7f1064b7789375c0800000000000000
-      internalID: -4218860786021294213
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: boss outline x1_60
-      rect:
-        serializedVersion: 2
-        x: 263
-        y: 201
-        width: 57
-        height: 39
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: b1516e9ff91963230800000000000000
-      internalID: 3618239466917205275
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: boss outline x1_61
-      rect:
-        serializedVersion: 2
-        x: 338
-        y: 221
-        width: 6
-        height: 10
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: d0bdb875b47c15110800000000000000
-      internalID: 1247997698163596045
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: boss outline x1_62
-      rect:
-        serializedVersion: 2
-        x: 344
-        y: 223
-        width: 6
-        height: 7
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 2e63573e154054970800000000000000
-      internalID: 8738395401737287394
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: boss outline x1_63
-      rect:
-        serializedVersion: 2
-        x: 349
-        y: 224
-        width: 10
-        height: 6
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: f180bb55203aff2f0800000000000000
-      internalID: -936850967046191073
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: boss outline x1_64
-      rect:
-        serializedVersion: 2
-        x: 358
-        y: 223
-        width: 15
-        height: 11
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 3f67f9139881d1890800000000000000
-      internalID: -7485800028097775885
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: boss outline x1_65
-      rect:
-        serializedVersion: 2
-        x: 7
-        y: 136
-        width: 57
-        height: 40
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: aa9a52e70deef2170800000000000000
-      internalID: 8156000029428263338
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: boss outline x1_66
-      rect:
-        serializedVersion: 2
-        x: 70
-        y: 136
-        width: 57
-        height: 40
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: b9c8a868edc870fb0800000000000000
-      internalID: -4681618400260485989
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: boss outline x1_67
-      rect:
-        serializedVersion: 2
-        x: 135
-        y: 136
-        width: 57
-        height: 40
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: ac0ccf9fcf5887f60800000000000000
-      internalID: 8032317256987623626
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: boss outline x1_68
-      rect:
-        serializedVersion: 2
-        x: 200
-        y: 136
-        width: 57
-        height: 40
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 5ee04cf1c58fed650800000000000000
-      internalID: 6259713606645190373
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: boss outline x1_69
-      rect:
-        serializedVersion: 2
-        x: 263
-        y: 136
-        width: 57
-        height: 40
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: df1b9504b82adc080800000000000000
-      internalID: -9165490947665317379
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: boss outline x1_70
-      rect:
-        serializedVersion: 2
-        x: 327
-        y: 137
-        width: 57
-        height: 39
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 93603787933dda9b0800000000000000
-      internalID: -5067161761934539207
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: boss outline x1_71
-      rect:
-        serializedVersion: 2
-        x: 391
-        y: 137
-        width: 57
-        height: 39
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 20ae23896583cf950800000000000000
-      internalID: 6484119508078488066
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: boss outline x1_72
-      rect:
-        serializedVersion: 2
-        x: 455
-        y: 137
-        width: 57
-        height: 39
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 6d3ff319001b89550800000000000000
-      internalID: 6167874305678898134
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: boss outline x1_73
-      rect:
-        serializedVersion: 2
-        x: 530
-        y: 157
-        width: 6
-        height: 10
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 0a9da82010bff1cd0800000000000000
-      internalID: -2585071679331182176
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: boss outline x1_74
-      rect:
-        serializedVersion: 2
-        x: 536
-        y: 159
-        width: 6
-        height: 7
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: eff9d546c0d79fb30800000000000000
-      internalID: 4321622809615638526
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: boss outline x1_75
-      rect:
-        serializedVersion: 2
-        x: 541
-        y: 160
-        width: 10
-        height: 6
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: fbf401a846d42af60800000000000000
-      internalID: 8044076978645520319
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: boss outline x1_76
-      rect:
-        serializedVersion: 2
-        x: 550
-        y: 159
-        width: 19
-        height: 11
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 7638c81542fff4ed0800000000000000
-      internalID: -2427441142677339289
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: boss outline x1_77
-      rect:
-        serializedVersion: 2
-        x: 6
-        y: 73
-        width: 56
-        height: 39
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 2575c442926dad040800000000000000
-      internalID: 4673283035541296978
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: boss outline x1_78
-      rect:
-        serializedVersion: 2
-        x: 70
-        y: 73
-        width: 57
-        height: 39
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 7ba408d740e744c90800000000000000
-      internalID: -7186480547625940297
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: boss outline x1_79
-      rect:
-        serializedVersion: 2
-        x: 135
-        y: 73
-        width: 56
-        height: 39
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 7789d51ea04bea0a0800000000000000
-      internalID: -6868354422869747593
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: boss outline x1_80
-      rect:
-        serializedVersion: 2
-        x: 199
-        y: 73
-        width: 57
-        height: 39
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: e74d7c34826917830800000000000000
-      internalID: 4067197038172296318
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: boss outline x1_81
-      rect:
-        serializedVersion: 2
-        x: 274
-        y: 93
-        width: 6
-        height: 10
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 3c311b77a58377340800000000000000
-      internalID: 4861416283976045507
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: boss outline x1_82
-      rect:
-        serializedVersion: 2
-        x: 280
-        y: 95
-        width: 6
-        height: 7
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: c1347f59c8c88b150800000000000000
-      internalID: 5888611048226243356
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: boss outline x1_83
-      rect:
-        serializedVersion: 2
-        x: 285
-        y: 96
-        width: 10
-        height: 6
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 98554b68b270dbed0800000000000000
-      internalID: -2396751543166282359
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: boss outline x1_84
-      rect:
-        serializedVersion: 2
-        x: 294
-        y: 95
-        width: 23
-        height: 11
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: adb5f53d7d450bd50800000000000000
-      internalID: 6750989127369317338
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: boss outline x1_85
-      rect:
-        serializedVersion: 2
-        x: 594
-        y: 29
-        width: 6
-        height: 10
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 8b8153dcc33a9ea70800000000000000
-      internalID: 8856789623736965304
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: boss outline x1_86
-      rect:
-        serializedVersion: 2
-        x: 599
-        y: 29
-        width: 6
-        height: 8
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: b387e6e86916d6d00800000000000000
-      internalID: 967536794217117755
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: boss outline x1_87
-      rect:
-        serializedVersion: 2
-        x: 604
-        y: 29
-        width: 17
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 38c7289b49d8e1f10800000000000000
-      internalID: 2242385334384098435
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: fe8c3c1b32ae02221b78e0f07e7d6475
     internalID: 0
     vertices: []
     indices: 
@@ -2321,7 +1542,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
       boss outline x1_0: 1731113675943190116
       boss outline x1_1: 5195199616214296878
@@ -2371,45 +1594,9 @@ TextureImporter:
       boss outline x1_5: 3252048244255535360
       boss outline x1_50: -1313145934408134141
       boss outline x1_51: 4203281032444916034
-      boss outline x1_52: 8360019751401868969
-      boss outline x1_53: 4514859810716966166
-      boss outline x1_54: -4289000107446056974
-      boss outline x1_55: 5449718026937347069
-      boss outline x1_56: 7892471862469284057
-      boss outline x1_57: -7313538023922726993
-      boss outline x1_58: -1408625020182055006
-      boss outline x1_59: -4218860786021294213
       boss outline x1_6: -5865967090320479612
-      boss outline x1_60: 3618239466917205275
-      boss outline x1_61: 1247997698163596045
-      boss outline x1_62: 8738395401737287394
-      boss outline x1_63: -936850967046191073
-      boss outline x1_64: -7485800028097775885
-      boss outline x1_65: 8156000029428263338
-      boss outline x1_66: -4681618400260485989
-      boss outline x1_67: 8032317256987623626
-      boss outline x1_68: 6259713606645190373
-      boss outline x1_69: -9165490947665317379
       boss outline x1_7: 1094946166471566378
-      boss outline x1_70: -5067161761934539207
-      boss outline x1_71: 6484119508078488066
-      boss outline x1_72: 6167874305678898134
-      boss outline x1_73: -2585071679331182176
-      boss outline x1_74: 4321622809615638526
-      boss outline x1_75: 8044076978645520319
-      boss outline x1_76: -2427441142677339289
-      boss outline x1_77: 4673283035541296978
-      boss outline x1_78: -7186480547625940297
-      boss outline x1_79: -6868354422869747593
       boss outline x1_8: 3711167039149869873
-      boss outline x1_80: 4067197038172296318
-      boss outline x1_81: 4861416283976045507
-      boss outline x1_82: 5888611048226243356
-      boss outline x1_83: -2396751543166282359
-      boss outline x1_84: 6750989127369317338
-      boss outline x1_85: 8856789623736965304
-      boss outline x1_86: 967536794217117755
-      boss outline x1_87: 2242385334384098435
       boss outline x1_9: 8570717541077631863
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
