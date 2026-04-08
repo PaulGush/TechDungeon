@@ -22,5 +22,6 @@ MonoBehaviour:
   GuaranteedItems:
   - {fileID: 7738597142486270006, guid: 16d778ca3a0e774629e8630f2a6deef7, type: 3}
   GuaranteedTypes: 00000000010000000300000001000000
+  RequiredPickupTypes: 
   TotalSpawnTime: 0.75
   SpawnTimeInterval: 0.01

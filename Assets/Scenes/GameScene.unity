@@ -3800,6 +3800,7 @@ MonoBehaviour:
   m_spawnIndicatorPrefab: {fileID: 7843336540967314091, guid: eb7e19be8e45796a58c8ab2ee61a2f51, type: 3}
   m_spawnIndicatorDuration: 3
   m_startingRoomPrefab: {fileID: 2002800953844984717, guid: bc8dc30c4a754b8faa13360e8b0e97af, type: 3}
+  m_startingChestSettings: {fileID: 11400000, guid: fc0c310f3adef6ce98e4dee1f38eca8b, type: 2}
   m_rewardIcons:
   - RewardType: 0
     Icon: {fileID: 21300000, guid: 528e46c30aae7230db501cbcc1e7ddd7, type: 3}

@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5062667946008375624}
   - component: {fileID: 2002800953844984717}
+  - component: {fileID: 4745744480593295500}
   m_Layer: 0
   m_Name: StartingRoom
   m_TagString: Untagged
@@ -56,7 +57,22 @@ MonoBehaviour:
   - {fileID: 1562243072582701761}
   - {fileID: 6037590404950431323}
   - {fileID: 4549259112517723489}
-  m_roomBounds: {fileID: 0}
+  m_rewardChest: {fileID: 4745744480593295500}
+--- !u!114 &4745744480593295500
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 571035775066740600}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f6cf027ce5b17ea685df540e9f0442f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RoomRewardChest
+  m_chest: {fileID: 5559338551726157879}
+  m_interactionCollider: {fileID: 8686767546346857866}
+  m_lockedVisual: {fileID: 0}
 --- !u!1 &4302264971494509566
 GameObject:
   m_ObjectHideFlags: 0
@@ -2265,6 +2281,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5062667946008375624}
     m_Modifications:
+    - target: {fileID: 134998139948037230, guid: 0d8bf16360f0ef76ea5e508765af2f10, type: 3}
+      propertyPath: m_settings
+      value: 
+      objectReference: {fileID: 11400000, guid: fc0c310f3adef6ce98e4dee1f38eca8b, type: 2}
     - target: {fileID: 344338347674365080, guid: 0d8bf16360f0ef76ea5e508765af2f10, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -2317,6 +2337,22 @@ PrefabInstance:
 --- !u!4 &5205726885880375489 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 344338347674365080, guid: 0d8bf16360f0ef76ea5e508765af2f10, type: 3}
+  m_PrefabInstance: {fileID: 5546500573688579161}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5559338551726157879 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 134998139948037230, guid: 0d8bf16360f0ef76ea5e508765af2f10, type: 3}
+  m_PrefabInstance: {fileID: 5546500573688579161}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 504d8eee1a971360ab18aed5c96cadb9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Chest
+--- !u!61 &8686767546346857866 stripped
+BoxCollider2D:
+  m_CorrespondingSourceObject: {fileID: 3779850417233469907, guid: 0d8bf16360f0ef76ea5e508765af2f10, type: 3}
   m_PrefabInstance: {fileID: 5546500573688579161}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7968628817535617171
