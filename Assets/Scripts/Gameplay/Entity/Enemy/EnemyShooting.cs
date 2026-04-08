@@ -5,19 +5,19 @@ using UnityServiceLocator;
 public class EnemyShooting : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] private EnemyController m_enemyController;
-    [SerializeField] private Transform m_shootPoint;
-    [SerializeField] private EnemySettings m_settings;
+    [SerializeField] protected EnemyController m_enemyController;
+    [SerializeField] protected Transform m_shootPoint;
+    [SerializeField] protected EnemySettings m_settings;
 
-    private EnemyAnimationController m_animationController;
+    protected EnemyAnimationController m_animationController;
 
     [Header("Prefabs")]
-    [SerializeField] private GameObject m_projectilePrefab;
+    [SerializeField] protected GameObject m_projectilePrefab;
 
-    private ObjectPool m_pool;
-    private float m_lastTimeFired;
+    protected ObjectPool m_pool;
+    protected float m_lastTimeFired;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         m_animationController = m_enemyController.AnimationController;
         if (ServiceLocator.Global.TryGet(out ObjectPool pool))
@@ -26,7 +26,7 @@ public class EnemyShooting : MonoBehaviour
         }
     }
 
-    public void TryShoot()
+    public virtual void TryShoot()
     {
         if (!(m_lastTimeFired + m_settings.FireRate <= Time.time))
             return;
@@ -34,7 +34,7 @@ public class EnemyShooting : MonoBehaviour
         m_animationController.OnAttack();
     }
 
-    public void Shoot()
+    public virtual void Shoot()
     {
         if (m_pool == null) return;
 
