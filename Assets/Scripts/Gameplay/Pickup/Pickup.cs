@@ -1,3 +1,4 @@
+using System;
 using Gameplay.ObjectPool;
 using UnityEngine;
 using UnityServiceLocator;
@@ -9,6 +10,8 @@ public class Pickup : MonoBehaviour
     private ObjectPool m_pool;
 
     private Lootable m_lootable;
+
+    public Action OnPickedUp;
 
     private void Awake()
     {
@@ -29,6 +32,9 @@ public class Pickup : MonoBehaviour
         if (m_effect == null) return;
 
         if (!m_effect.Apply(other.gameObject)) return;
+
+        OnPickedUp?.Invoke();
+        m_lootable.OnCollected?.Invoke();
 
         if (m_pool == null || !m_pool.ReturnGameObject(gameObject))
             Destroy(gameObject);

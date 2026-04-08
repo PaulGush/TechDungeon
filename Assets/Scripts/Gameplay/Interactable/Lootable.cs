@@ -28,6 +28,7 @@ public class Lootable : MonoBehaviour
     public bool IsSpawning { get; private set; }
 
     public Action OnSpawnComplete;
+    public Action OnCollected;
 
 
     public void StartSpawnSequence(float totalSpawnTime, float spawnTimeInterval, float delay)

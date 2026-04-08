@@ -24,6 +24,7 @@ public class RoomManager : MonoBehaviour
 
     [Header("Starting Room")]
     [SerializeField] private RoomInstance m_startingRoomPrefab;
+    [SerializeField] private ChestSettings m_startingChestSettings;
 
     [Header("Reward Icons")]
     [SerializeField] private List<RewardIconMapping> m_rewardIcons;
@@ -69,18 +70,30 @@ public class RoomManager : MonoBehaviour
             m_player.position = m_currentRoom.PlayerSpawnPoint.position;
         }
 
-        InitializeBulkheadDoors(false);
+        bool hasRewardChest = m_currentRoom.RewardChest != null;
+
+        if (hasRewardChest)
+        {
+            m_currentRoom.RewardChest.Initialize(m_currentRoom, m_startingChestSettings, m_player);
+        }
+
+        InitializeBulkheadDoors(hasRewardChest);
+
+        if (hasRewardChest)
+        {
+            m_currentRoom.OnRewardCollected += UnlockBulkheadDoors;
+        }
 
         m_currentRoom.StartRoom();
         m_currentRoom.ClearRoom();
     }
 
-    public void LoadRoom(RoomSettings settings, RewardType rewardType)
+    public void LoadRoom(RoomSettings settings, ChestSettings chestSettings)
     {
-        StartCoroutine(TransitionToRoom(settings, rewardType));
+        StartCoroutine(TransitionToRoom(settings, chestSettings));
     }
 
-    private IEnumerator TransitionToRoom(RoomSettings settings, RewardType rewardType)
+    private IEnumerator TransitionToRoom(RoomSettings settings, ChestSettings chestSettings)
     {
         m_inputReader.DisablePlayerActions();
 
@@ -117,13 +130,25 @@ public class RoomManager : MonoBehaviour
         bool isCombatRoom = settings.RoomType == RoomType.Combat || settings.RoomType == RoomType.Boss;
 
         // Initialize reward chest if present
-        if (m_currentRoom.RewardChest != null && m_floorManager != null)
+        bool hasRewardChest = false;
+        if (m_currentRoom.RewardChest != null && chestSettings != null)
         {
-            ChestSettings chestSettings = m_floorManager.GetChestSettingsForReward(rewardType);
-            m_currentRoom.RewardChest.Initialize(m_currentRoom, chestSettings);
+            m_currentRoom.RewardChest.Initialize(m_currentRoom, chestSettings, m_player);
+            hasRewardChest = true;
         }
 
-        InitializeBulkheadDoors(isCombatRoom);
+        bool startLocked = isCombatRoom || hasRewardChest;
+        InitializeBulkheadDoors(startLocked);
+
+        // Doors unlock when reward is collected, or on room clear if no reward chest
+        if (hasRewardChest)
+        {
+            m_currentRoom.OnRewardCollected += UnlockBulkheadDoors;
+        }
+        else if (isCombatRoom)
+        {
+            m_currentRoom.OnRoomCleared += UnlockBulkheadDoors;
+        }
 
         if (isCombatRoom)
         {
@@ -181,8 +206,9 @@ public class RoomManager : MonoBehaviour
             RewardType reward = m_floorManager.GetRandomRewardTypeExcluding(usedRewards);
             usedRewards.Add(reward);
 
+            ChestSettings chestSettings = m_floorManager.GetChestSettingsForReward(reward);
             Sprite icon = GetRewardIcon(reward);
-            door.Initialize(nextSlot.Settings, this, reward, icon);
+            door.Initialize(nextSlot.Settings, this, chestSettings, icon);
 
             if (startLocked)
             {
@@ -192,11 +218,6 @@ public class RoomManager : MonoBehaviour
             {
                 door.Unlock();
             }
-        }
-
-        if (startLocked)
-        {
-            m_currentRoom.OnRoomCleared += UnlockBulkheadDoors;
         }
     }
 
@@ -247,6 +268,7 @@ public class RoomManager : MonoBehaviour
 
         m_currentRoom.OnRoomCleared -= HandleRoomCleared;
         m_currentRoom.OnRoomCleared -= UnlockBulkheadDoors;
+        m_currentRoom.OnRewardCollected -= UnlockBulkheadDoors;
 
         if (m_currentEncounter != null)
         {

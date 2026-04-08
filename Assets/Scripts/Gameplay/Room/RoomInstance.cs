@@ -21,6 +21,7 @@ public class RoomInstance : MonoBehaviour
 
     public event Action OnRoomCleared;
     public event Action OnRoomStarted;
+    public event Action OnRewardCollected;
 
     private bool m_isCleared;
     public bool IsCleared => m_isCleared;
@@ -36,6 +37,11 @@ public class RoomInstance : MonoBehaviour
         if (m_isCleared) return;
         m_isCleared = true;
         OnRoomCleared?.Invoke();
+    }
+
+    public void CollectReward()
+    {
+        OnRewardCollected?.Invoke();
     }
 
     public Transform GetSpawnPoint(int index)

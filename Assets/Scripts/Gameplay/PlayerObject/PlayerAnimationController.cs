@@ -12,6 +12,7 @@ namespace PlayerObject
         private static readonly int Death = Animator.StringToHash("Death");
         private static readonly int Roll = Animator.StringToHash("Roll");
         private static readonly WaitForSeconds FlashWait = new WaitForSeconds(0.2f);
+        
         [Header("References")]
         [SerializeField] private Animator m_animator;
         [SerializeField] private SpriteRenderer m_spriteRenderer;

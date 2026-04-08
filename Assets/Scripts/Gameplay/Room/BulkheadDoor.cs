@@ -17,17 +17,17 @@ public class BulkheadDoor : Door
     
     private RoomSettings m_roomSettings;
     private RoomManager m_roomManager;
-    private RewardType m_rewardType;
+    private ChestSettings m_chestSettings;
     private bool m_isUsed;
     private bool m_isLocked;
 
     public bool IsLocked => m_isLocked;
 
-    public void Initialize(RoomSettings settings, RoomManager roomManager, RewardType rewardType, Sprite rewardIcon)
+    public void Initialize(RoomSettings settings, RoomManager roomManager, ChestSettings chestSettings, Sprite rewardIcon)
     {
         m_roomSettings = settings;
         m_roomManager = roomManager;
-        m_rewardType = rewardType;
+        m_chestSettings = chestSettings;
 
         if (m_rewardIcon != null && rewardIcon != null)
         {
@@ -76,6 +76,6 @@ public class BulkheadDoor : Door
         if (m_isUsed || m_isLocked) return;
 
         m_isUsed = true;
-        m_roomManager.LoadRoom(m_roomSettings, m_rewardType);
+        m_roomManager.LoadRoom(m_roomSettings, m_chestSettings);
     }
 }

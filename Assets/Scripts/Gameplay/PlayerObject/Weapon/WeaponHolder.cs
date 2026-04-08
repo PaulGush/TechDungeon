@@ -122,6 +122,9 @@ namespace PlayerObject
             m_currentWeapon = m_weaponCandidate;
             m_currentWeapon.transform.SetParent(transform);
 
+            Lootable lootable = m_currentWeapon.GetComponent<Lootable>();
+            if (lootable != null) lootable.OnCollected?.Invoke();
+
             m_weaponsInRange.Remove(m_currentWeapon);
 
             foreach (Component component in m_currentWeapon.GetComponents(typeof(IWeapon)))

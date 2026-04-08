@@ -22,6 +22,10 @@ public class ChestSettings : ScriptableObject
     [Tooltip("Each entry guarantees one drop slot will be a random item of that type from the loot database.")]
     public List<LootItemType> GuaranteedTypes = new();
 
+    [Header("Room Unlock")]
+    [Tooltip("Item types the player must pick up before the room unlocks. If empty, all items are required.")]
+    public List<LootItemType> RequiredPickupTypes = new();
+
     public float TotalSpawnTime = 0.5f;
     public float SpawnTimeInterval = 0.05f;
 

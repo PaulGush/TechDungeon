@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using Input;
 using PlayerObject;
 using UnityEngine;
@@ -24,8 +26,15 @@ public class Chest : MonoBehaviour, IInteractable
     private bool m_isOpen;
     private bool m_isLocked;
 
-    public void Lock() => m_isLocked = true;
-    public void Unlock() => m_isLocked = false;
+    private readonly List<GameObject> m_spawnedItems = new();
+    private int m_collectedCount;
+
+    public event Action<List<GameObject>> OnChestOpened;
+    public event Action OnAllItemsCollected;
+
+    public bool IsLocked() => m_isLocked;
+    
+    public void SetLockState(bool isLocked) => m_isLocked = isLocked;
     
     public void SetSettings(ChestSettings settings)
     {
@@ -49,6 +58,8 @@ public class Chest : MonoBehaviour, IInteractable
         m_inputReader.Interact -= Interact;
 
         Transform roomParent = RoomManager.CurrentRoomTransform;
+        m_spawnedItems.Clear();
+        m_collectedCount = 0;
 
         float itemIndex = 0;
         foreach (Lootable lootableItem in m_settings.GetRandomItems())
@@ -66,7 +77,32 @@ public class Chest : MonoBehaviour, IInteractable
             lootableComp.SetAboveChestTargetPosition(transform.position + m_aboveChestTargetPosition);
             lootableComp.StartSpawnSequence(m_settings.TotalSpawnTime, m_settings.SpawnTimeInterval, 0);
 
+            bool isRequired = m_settings.RequiredPickupTypes.Count == 0 ||
+                              m_settings.RequiredPickupTypes.Contains(lootableComp.ItemType);
+
+            if (isRequired)
+            {
+                lootableComp.OnCollected += HandleItemCollected;
+                m_spawnedItems.Add(item);
+            }
+
             itemIndex++;
+        }
+
+        OnChestOpened?.Invoke(m_spawnedItems);
+
+        if (m_spawnedItems.Count == 0)
+        {
+            OnAllItemsCollected?.Invoke();
+        }
+    }
+
+    private void HandleItemCollected()
+    {
+        m_collectedCount++;
+        if (m_collectedCount >= m_spawnedItems.Count)
+        {
+            OnAllItemsCollected?.Invoke();
         }
     }
 
@@ -87,6 +123,8 @@ public class Chest : MonoBehaviour, IInteractable
 
     private void OnDrawGizmosSelected()
     {
+        if (m_settings == null) return;
+        
         Gizmos.color = Color.yellow;
 
         for(int i = 0; i < m_settings.ItemDropCount; i++)
