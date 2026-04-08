@@ -6,18 +6,22 @@ public class EnemyAnimationController : EntityAnimationController
     private static readonly int Hurt = Animator.StringToHash("Hurt");
     private static readonly int Dead = Animator.StringToHash("Dead");
     private static readonly int Attack = Animator.StringToHash("Attack");
+    private static readonly int AttackIndex = Animator.StringToHash("AttackIndex");
     private static readonly int Rotation = Animator.StringToHash("Rotation");
     private static readonly int Active = Animator.StringToHash("Active");
 
-    [SerializeField] private EnemyController m_enemyController;
+    [SerializeField] protected EnemyController m_enemyController;
 
-    private EntityHealth m_health;
-    private EnemyTargeting m_targeting;
+    protected EntityHealth m_health;
+    protected EnemyTargeting m_targeting;
 
     private bool m_hasHeal;
     private bool m_hasHurt;
     private bool m_hasRotation;
     private bool m_hasActive;
+    private bool m_hasAttackIndex;
+
+    public int CurrentAttackIndex { get; set; }
 
     private void Awake()
     {
@@ -25,7 +29,7 @@ public class EnemyAnimationController : EntityAnimationController
         m_targeting = m_enemyController.Targeting;
     }
 
-    private void OnEnable()
+    protected virtual void OnEnable()
     {
         CacheParameters();
 
@@ -52,6 +56,7 @@ public class EnemyAnimationController : EntityAnimationController
         m_hasHurt = false;
         m_hasRotation = false;
         m_hasActive = false;
+        m_hasAttackIndex = false;
 
         foreach (AnimatorControllerParameter param in m_animator.parameters)
         {
@@ -60,10 +65,11 @@ public class EnemyAnimationController : EntityAnimationController
             else if (hash == Hurt) m_hasHurt = true;
             else if (hash == Rotation) m_hasRotation = true;
             else if (hash == Active) m_hasActive = true;
+            else if (hash == AttackIndex) m_hasAttackIndex = true;
         }
     }
 
-    private void OnDisable()
+    protected virtual void OnDisable()
     {
         if (m_health != null)
         {
@@ -78,7 +84,7 @@ public class EnemyAnimationController : EntityAnimationController
         }
     }
 
-    private void Update()
+    protected virtual void Update()
     {
         Transform target = m_targeting.CurrentTarget;
         if (target == null) return;
@@ -103,7 +109,7 @@ public class EnemyAnimationController : EntityAnimationController
         if (m_hasHurt) m_animator.SetTrigger(Hurt);
     }
 
-    private void OnDeath()
+    protected virtual void OnDeath()
     {
         m_animator.SetBool(Dead, true);
     }
@@ -111,6 +117,7 @@ public class EnemyAnimationController : EntityAnimationController
     public void OnAttack()
     {
         if (m_animator.GetBool(Dead)) return;
+        if (m_hasAttackIndex) m_animator.SetInteger(AttackIndex, CurrentAttackIndex);
         m_animator.SetTrigger(Attack);
     }
 

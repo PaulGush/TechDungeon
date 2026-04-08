@@ -1,5 +1,3 @@
-using UnityEngine;
-
 public class DroneBehavior : EnemyBehavior
 {
     public override IState CreateSeekState(EnemyController controller)

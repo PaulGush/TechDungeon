@@ -169,6 +169,19 @@ public class RoomEncounter : MonoBehaviour
         }
     }
 
+    public void RegisterEnemy(GameObject enemy)
+    {
+        m_activeEnemies.Add(enemy);
+
+        EntityHealth health = enemy.GetComponent<EntityHealth>();
+        if (health != null)
+        {
+            Action callback = () => OnEnemyDied(enemy);
+            m_deathCallbacks[enemy] = callback;
+            health.OnDeath += callback;
+        }
+    }
+
     public void CleanUp()
     {
         StopAllCoroutines();
