@@ -17,13 +17,13 @@ MonoBehaviour:
   ObstacleAvoidanceDistance: 0
   ObstacleLayerMask:
     serializedVersion: 2
-    m_Bits: 2048
+    m_Bits: 0
   SteeringRayCount: 8
   StuckThreshold: 0.1
   StuckTimeBeforeEscape: 0.5
-  AlertDuration: 2
   SeparationRadius: 0
   SeparationWeight: 0
+  AlertDuration: 2
   FireRate: 0.8
   PreferredAttackDistance: 0
   StrafeSpeed: 0
