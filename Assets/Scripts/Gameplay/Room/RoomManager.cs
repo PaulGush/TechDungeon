@@ -165,6 +165,14 @@ public class RoomManager : MonoBehaviour
             yield return Fade(1f, 0f);
         }
 
+        // Play boss cinematic before enabling player control
+        if (settings is BossRoomSettings bossSettings
+            && bossSettings.IntroCinematic != null
+            && ServiceLocator.Global.TryGet(out CinematicPlayer cinematicPlayer))
+        {
+            yield return cinematicPlayer.Play(bossSettings.IntroCinematic);
+        }
+
         m_inputReader.EnablePlayerActions();
 
         m_currentRoom.StartRoom();
