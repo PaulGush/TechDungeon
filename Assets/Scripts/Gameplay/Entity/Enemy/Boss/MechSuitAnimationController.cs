@@ -3,8 +3,8 @@ using UnityEngine;
 public class MechSuitAnimationController : EnemyAnimationController
 {
     private static readonly int Running = Animator.StringToHash("Running");
-    private static readonly int LegsRotation = LegsRotation;
-    private static readonly int LegsDead = LegsDead;
+    private static readonly int LegsRotation = Animator.StringToHash("LegsRotation");
+    private static readonly int LegsDead = Animator.StringToHash("LegsDead");
 
     [Header("Boss - Legs")]
     [SerializeField] private Animator m_legsAnimator;

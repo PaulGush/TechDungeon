@@ -6,8 +6,8 @@ public class Tank : MonoBehaviour
     [SerializeField] private Animator m_animator;
     [SerializeField] private bool m_empty;
     
-    private void OnValidate()
+    private void Start()
     {
-        m_animator.SetBool(Empty, m_empty);
+        m_animator?.SetBool(Empty, m_empty);
     }
 }

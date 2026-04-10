@@ -117,7 +117,7 @@ public class EnemyAnimationController : EntityAnimationController
     public void OnAttack()
     {
         if (m_animator.GetBool(Dead)) return;
-        if (m_hasAttackIndex) m_animator.SetInteger(AttackIndex, CurrentAttackIndex);
+        if (m_hasAttackIndex) m_animator.SetFloat(AttackIndex, CurrentAttackIndex);
         m_animator.SetTrigger(Attack);
     }
 
