@@ -8,8 +8,10 @@ public class BossPhaseManager : MonoBehaviour
 {
     [SerializeField] private EntityHealth m_health;
     [SerializeField] private EnemyAnimationController m_animationController;
+    [SerializeField] private EnemyMovement m_movement;
     [SerializeField] private BossSettings m_settings;
 
+    private BossSettings m_runtimeSettings;
     private int m_currentPhaseIndex;
     private bool m_initialized;
 
@@ -21,6 +23,14 @@ public class BossPhaseManager : MonoBehaviour
     {
         m_currentPhaseIndex = 0;
         m_initialized = false;
+
+        if (m_runtimeSettings == null)
+        {
+            m_runtimeSettings = Instantiate(m_settings);
+            m_movement.SetRuntimeSettings(m_runtimeSettings);
+        }
+
+        ApplyPhaseSettings(m_settings.Phases[0]);
 
         if (m_health != null)
         {
@@ -65,6 +75,7 @@ public class BossPhaseManager : MonoBehaviour
         if (targetPhase <= m_currentPhaseIndex) return;
 
         m_currentPhaseIndex = targetPhase;
+        ApplyPhaseSettings(CurrentPhase);
         if (m_animationController != null)
             m_animationController.CurrentAttackIndex = m_currentPhaseIndex;
         OnPhaseChanged?.Invoke(m_currentPhaseIndex);
@@ -73,6 +84,23 @@ public class BossPhaseManager : MonoBehaviour
         {
             SpawnMinions(CurrentPhase);
         }
+    }
+
+    private void ApplyPhaseSettings(BossPhase phase)
+    {
+        // Reset to base values first
+        m_runtimeSettings.Speed = m_settings.Speed;
+        m_runtimeSettings.StrafeSpeed = m_settings.StrafeSpeed;
+        m_runtimeSettings.AttackRange = m_settings.AttackRange;
+        m_runtimeSettings.PreferredAttackDistance = m_settings.PreferredAttackDistance;
+        m_runtimeSettings.FireRate = m_settings.FireRate;
+
+        // Apply overrides
+        if (phase.SpeedOverride >= 0) m_runtimeSettings.Speed = phase.SpeedOverride;
+        if (phase.StrafeSpeedOverride >= 0) m_runtimeSettings.StrafeSpeed = phase.StrafeSpeedOverride;
+        if (phase.AttackRangeOverride >= 0) m_runtimeSettings.AttackRange = phase.AttackRangeOverride;
+        if (phase.PreferredAttackDistanceOverride >= 0) m_runtimeSettings.PreferredAttackDistance = phase.PreferredAttackDistanceOverride;
+        if (phase.FireRateOverride >= 0) m_runtimeSettings.FireRate = phase.FireRateOverride;
     }
 
     private void SpawnMinions(BossPhase phase)

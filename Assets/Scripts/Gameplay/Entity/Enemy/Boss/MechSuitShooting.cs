@@ -13,11 +13,7 @@ public class MechSuitShooting : EnemyShooting
 
     public override void TryShoot()
     {
-        float fireRate = m_phaseManager != null
-            ? m_phaseManager.CurrentPhase.FireRateOverride
-            : m_settings.FireRate;
-
-        if (m_lastTimeFired + fireRate > Time.time)
+        if (m_lastTimeFired + m_settings.FireRate > Time.time)
             return;
 
         m_animationController.OnAttack();

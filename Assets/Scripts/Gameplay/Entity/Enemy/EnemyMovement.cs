@@ -15,6 +15,11 @@ public class EnemyMovement : MonoBehaviour
     public bool CanMove;
     public bool Strafe;
 
+    public void SetRuntimeSettings(EnemySettings runtimeSettings)
+    {
+        m_settings = runtimeSettings;
+    }
+
     // Context steering directions (pre-computed)
     private Vector2[] m_directions;
     private float[] m_interest;

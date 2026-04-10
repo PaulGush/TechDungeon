@@ -57,6 +57,9 @@ namespace TechDungeon.Editor
                 EditorGUILayout.Space(2);
                 EditorGUILayout.LabelField("Movement", EditorStyles.boldLabel);
                 EditorGUILayout.PropertyField(phase.FindPropertyRelative("SpeedOverride"));
+                EditorGUILayout.PropertyField(phase.FindPropertyRelative("StrafeSpeedOverride"));
+                EditorGUILayout.PropertyField(phase.FindPropertyRelative("AttackRangeOverride"));
+                EditorGUILayout.PropertyField(phase.FindPropertyRelative("PreferredAttackDistanceOverride"));
                 EditorGUILayout.PropertyField(phase.FindPropertyRelative("AggressiveChase"));
 
                 EditorGUILayout.Space(2);

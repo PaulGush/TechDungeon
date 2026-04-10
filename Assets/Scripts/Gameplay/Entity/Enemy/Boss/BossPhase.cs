@@ -16,7 +16,8 @@ public class BossPhase
     public float HealthThreshold = 1f;
 
     public BossAttackType AttackType = BossAttackType.Projectile;
-    public float FireRateOverride = 0.5f;
+    [Tooltip("-1 = use base settings")]
+    public float FireRateOverride = -1f;
 
     [Tooltip("How long the flamethrower stays active per attack")]
     public float FlameDuration = 1.5f;
@@ -30,7 +31,14 @@ public class BossPhase
     [Tooltip("Damage radius of the burst")]
     public float BurstRadius = 3f;
 
-    public float SpeedOverride = 3f;
+    [Tooltip("-1 = use base settings")]
+    public float SpeedOverride = -1f;
+    [Tooltip("-1 = use base settings")]
+    public float StrafeSpeedOverride = -1f;
+    [Tooltip("-1 = use base settings")]
+    public float AttackRangeOverride = -1f;
+    [Tooltip("-1 = use base settings")]
+    public float PreferredAttackDistanceOverride = -1f;
     public bool AggressiveChase;
 
     public bool SummonsMinions;
