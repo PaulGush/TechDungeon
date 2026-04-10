@@ -17,5 +17,9 @@ MonoBehaviour:
   RoomIcon: {fileID: 21300000, guid: 43a38f392ebd1b81fb46979fd7d27e62, type: 3}
   RoomPrefabs:
   - {fileID: 1837370586240707199, guid: 12e128e92b19d694ca695a15807eba8f, type: 3}
-  EnemyWaves: []
-  BossRewardChest: {fileID: 0}
+  EnemyWaves:
+  - EnemyPrefabs:
+    - {fileID: 6461043018938325683, guid: 6588412edb3f621768a908ecc2c0c36e, type: 3}
+    DelayBeforeSpawn: 0
+  BossRewardChest: {fileID: 11400000, guid: 53025c1b61233947db9078ed4fd4e253, type: 2}
+  IntroCinematic: {fileID: 11400000, guid: 4e5e043d1d8a200ceb3128a3e3bec486, type: 2}

@@ -24,19 +24,22 @@ MonoBehaviour:
   SeparationRadius: 1.5
   SeparationWeight: 1.5
   AlertDuration: 5
-  FireRate: 0.5
-  PreferredAttackDistance: 1
+  FireRate: 1
+  PreferredAttackDistance: 2
   StrafeSpeed: 3
   Phases:
   - HealthThreshold: 0.65
     AttackType: 0
-    FireRateOverride: 0
+    FireRateOverride: 0.75
     FlameDuration: 0
     FlameDamagePerTick: 0
     FlameTickInterval: 0
     BurstProjectileCount: 0
     BurstRadius: 0
-    SpeedOverride: 0
+    SpeedOverride: -1
+    StrafeSpeedOverride: -1
+    AttackRangeOverride: -1
+    PreferredAttackDistanceOverride: -1
     AggressiveChase: 0
     SummonsMinions: 0
     MinionCount: 0
@@ -50,19 +53,25 @@ MonoBehaviour:
     BurstProjectileCount: 0
     BurstRadius: 0
     SpeedOverride: 2.5
+    StrafeSpeedOverride: -1
+    AttackRangeOverride: 2
+    PreferredAttackDistanceOverride: 1
     AggressiveChase: 1
     SummonsMinions: 1
     MinionCount: 4
     MinionPrefab: {fileID: 7364831485085966955, guid: 4bf1a82e2dc6a45168567b5f616ff4b1, type: 3}
   - HealthThreshold: 0.1
     AttackType: 2
-    FireRateOverride: 0
+    FireRateOverride: 1.25
     FlameDuration: 2
     FlameDamagePerTick: 5
     FlameTickInterval: 0.5
     BurstProjectileCount: 8
     BurstRadius: 60
-    SpeedOverride: 2.5
+    SpeedOverride: -1
+    StrafeSpeedOverride: -1
+    AttackRangeOverride: 8
+    PreferredAttackDistanceOverride: 5
     AggressiveChase: 1
     SummonsMinions: 0
     MinionCount: 0

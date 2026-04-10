@@ -358,7 +358,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 795f62f050337e171b17662ccc3a05e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
-  m_name: Bob
+  m_name: M0L-E-W0P-R
   m_animationController: {fileID: 9036900333929752887}
   m_health: {fileID: 2183196438318982530}
   m_movement: {fileID: 6919540729802324588}
@@ -499,6 +499,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BossPhaseManager
   m_health: {fileID: 2183196438318982530}
   m_animationController: {fileID: 9036900333929752887}
+  m_movement: {fileID: 6919540729802324588}
   m_settings: {fileID: 11400000, guid: 624925f10ddd084168771d2c4b1ca8ef, type: 2}
 --- !u!114 &2894561612828567105
 MonoBehaviour:
