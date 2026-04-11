@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Input;
+using Unity.Cinemachine;
 using UnityEngine;
 using UnityServiceLocator;
 
@@ -25,6 +26,9 @@ public class RoomManager : MonoBehaviour
     [Header("Starting Room")]
     [SerializeField] private RoomInstance m_startingRoomPrefab;
     [SerializeField] private ChestSettings m_startingChestSettings;
+
+    [Header("Camera")]
+    [SerializeField] private CinemachineConfiner2D m_cameraConfiner;
 
     [Header("Reward Icons")]
     [SerializeField] private List<RewardIconMapping> m_rewardIcons;
@@ -83,6 +87,8 @@ public class RoomManager : MonoBehaviour
         {
             m_currentRoom.OnRewardCollected += UnlockBulkheadDoors;
         }
+
+        UpdateCameraConfiner();
 
         m_currentRoom.StartRoom();
         m_currentRoom.ClearRoom();
@@ -157,6 +163,8 @@ public class RoomManager : MonoBehaviour
         }
 
         m_currentRoom.OnRoomCleared += HandleRoomCleared;
+
+        UpdateCameraConfiner();
 
         OnRoomLoaded?.Invoke(settings);
 
@@ -250,6 +258,14 @@ public class RoomManager : MonoBehaviour
         {
             if (door != null) door.Unlock();
         }
+    }
+
+    private void UpdateCameraConfiner()
+    {
+        if (m_cameraConfiner == null || m_currentRoom == null) return;
+
+        m_cameraConfiner.BoundingShape2D = m_currentRoom.CameraBounds;
+        m_cameraConfiner.InvalidateBoundingShapeCache();
     }
 
     private void HandleRoomCleared()

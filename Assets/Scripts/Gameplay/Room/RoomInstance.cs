@@ -14,10 +14,15 @@ public class RoomInstance : MonoBehaviour
     [Header("Reward")]
     [SerializeField] private RoomRewardChest m_rewardChest;
 
+    [Header("Camera")]
+    [Tooltip("Collider defining the camera bounds for this room. Used by CinemachineConfiner2D.")]
+    [SerializeField] private Collider2D m_cameraBounds;
+
     public IReadOnlyList<Transform> EnemySpawnPoints => m_enemySpawnPoints;
     public IReadOnlyList<BulkheadDoor> BulkheadDoors => m_bulkheadDoors;
     public Transform PlayerSpawnPoint => m_playerSpawnPoint;
     public RoomRewardChest RewardChest => m_rewardChest;
+    public Collider2D CameraBounds => m_cameraBounds;
 
     public event Action OnRoomCleared;
     public event Action OnRoomStarted;
