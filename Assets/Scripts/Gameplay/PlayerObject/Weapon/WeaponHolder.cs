@@ -122,9 +122,6 @@ namespace PlayerObject
             m_currentWeapon = m_weaponCandidate;
             m_currentWeapon.transform.SetParent(transform);
 
-            Lootable lootable = m_currentWeapon.GetComponent<Lootable>();
-            if (lootable != null) lootable.OnCollected?.Invoke();
-
             m_weaponsInRange.Remove(m_currentWeapon);
 
             foreach (Component component in m_currentWeapon.GetComponents(typeof(IWeapon)))
@@ -177,6 +174,13 @@ namespace PlayerObject
             if (!m_weaponsInRange.Contains(other.gameObject))
             {
                 m_weaponsInRange.Add(other.gameObject);
+
+                Lootable lootable = other.GetComponent<Lootable>();
+                if (lootable != null && lootable.OnCollected != null)
+                {
+                    lootable.OnCollected.Invoke();
+                    lootable.OnCollected = null;
+                }
             }
 
             if (weapon != null)

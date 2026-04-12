@@ -31,10 +31,15 @@ public class Pickup : MonoBehaviour
         if (other.gameObject.layer != GameConstants.Layers.PlayerLayer) return;
         if (m_effect == null) return;
 
+        if (m_lootable.OnCollected != null)
+        {
+            m_lootable.OnCollected.Invoke();
+            m_lootable.OnCollected = null;
+        }
+
         if (!m_effect.Apply(other.gameObject)) return;
 
         OnPickedUp?.Invoke();
-        m_lootable.OnCollected?.Invoke();
 
         if (m_pool == null || !m_pool.ReturnGameObject(gameObject))
             Destroy(gameObject);
