@@ -32,6 +32,7 @@ public class RoomManager : MonoBehaviour
 
     [Header("Reward Icons")]
     [SerializeField] private List<RewardIconMapping> m_rewardIcons;
+    [SerializeField] private Sprite m_bossRoomIcon;
 
     private FloorManager m_floorManager;
     private RoomInstance m_currentRoom;
@@ -173,12 +174,19 @@ public class RoomManager : MonoBehaviour
             yield return Fade(1f, 0f);
         }
 
-        // Play boss cinematic before enabling player control
-        if (settings is BossRoomSettings bossSettings
-            && bossSettings.IntroCinematic != null
-            && ServiceLocator.Global.TryGet(out CinematicPlayer cinematicPlayer))
+        // Pre-spawn boss so it's visible during the cinematic
+        if (settings is BossRoomSettings bossSettings)
         {
-            yield return cinematicPlayer.Play(bossSettings.IntroCinematic);
+            if (bossSettings.PreSpawnBoss && m_currentEncounter != null)
+            {
+                m_currentEncounter.PreSpawnBoss();
+            }
+
+            if (bossSettings.IntroCinematic != null
+                && ServiceLocator.Global.TryGet(out CinematicPlayer cinematicPlayer))
+            {
+                yield return cinematicPlayer.Play(bossSettings.IntroCinematic);
+            }
         }
 
         m_inputReader.EnablePlayerActions();
@@ -223,7 +231,8 @@ public class RoomManager : MonoBehaviour
             usedRewards.Add(reward);
 
             ChestSettings chestSettings = m_floorManager.GetChestSettingsForReward(reward);
-            Sprite icon = GetRewardIcon(reward);
+            bool isBossRoom = nextSlot.Settings.RoomType == RoomType.Boss;
+            Sprite icon = isBossRoom ? m_bossRoomIcon : GetRewardIcon(reward);
             door.Initialize(nextSlot.Settings, this, chestSettings, icon);
 
             if (startLocked)
