@@ -21,14 +21,17 @@ public class DialogueMixerBehaviour : PlayableBehaviour
         DialogueBehaviour activeBehaviour = null;
         ScriptPlayable<DialogueBehaviour> activePlayable = default;
         int activeHash = -1;
+        float activeWeight = 0f;
 
         for (int i = 0; i < inputCount; i++)
         {
-            if (playable.GetInputWeight(i) > 0f)
+            float weight = playable.GetInputWeight(i);
+            if (weight > 0f)
             {
                 activePlayable = (ScriptPlayable<DialogueBehaviour>)playable.GetInput(i);
                 activeBehaviour = activePlayable.GetBehaviour();
                 activeHash = i;
+                activeWeight = weight;
                 break;
             }
         }
@@ -48,12 +51,16 @@ public class DialogueMixerBehaviour : PlayableBehaviour
         {
             if (m_hasActiveClip)
             {
+                m_dialogueBox.SetAlpha(0f);
                 m_hasActiveClip = false;
                 m_lastClipHash = -1;
                 m_lineShown = false;
             }
             return;
         }
+
+        // Apply clip weight as panel opacity
+        m_dialogueBox.SetAlpha(activeWeight);
 
         // New clip became active
         if (activeHash != m_lastClipHash)
@@ -62,8 +69,6 @@ public class DialogueMixerBehaviour : PlayableBehaviour
             m_hasActiveClip = true;
             m_pausedForInput = false;
             m_lineShown = false;
-
-            m_dialogueBox.Show();
 
             float clipDuration = (float)activePlayable.GetDuration();
             string text = activeBehaviour.Text;
@@ -87,7 +92,7 @@ public class DialogueMixerBehaviour : PlayableBehaviour
 
     public override void OnPlayableDestroy(Playable playable)
     {
-        if (m_dialogueBox != null && m_hasActiveClip)
+        if (m_dialogueBox != null)
         {
             m_dialogueBox.Hide();
             m_hasActiveClip = false;

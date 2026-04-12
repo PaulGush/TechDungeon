@@ -16,6 +16,9 @@ public class DialogueBoxUI : MonoBehaviour
     [Header("Indicator")]
     [SerializeField] private GameObject m_continueIndicator;
 
+    [Header("Opacity")]
+    [SerializeField] private CanvasGroup m_canvasGroup;
+
     private Coroutine m_typingCoroutine;
     private Coroutine m_portraitCoroutine;
     private bool m_isTyping;
@@ -46,7 +49,7 @@ public class DialogueBoxUI : MonoBehaviour
             StopCoroutine(m_portraitCoroutine);
 
         bool hasPortrait = frames != null && frames.Length > 0;
-        m_portraitSlot.gameObject.SetActive(hasPortrait);
+        m_portraitImage.enabled = hasPortrait;
 
         if (!hasPortrait) return;
 
@@ -120,6 +123,12 @@ public class DialogueBoxUI : MonoBehaviour
             m_continueIndicator.SetActive(true);
     }
 
+    public void SetAlpha(float alpha)
+    {
+        if (m_canvasGroup != null)
+            m_canvasGroup.alpha = alpha;
+    }
+
     public void Hide()
     {
         if (m_typingCoroutine != null)
@@ -127,11 +136,11 @@ public class DialogueBoxUI : MonoBehaviour
         if (m_portraitCoroutine != null)
             StopCoroutine(m_portraitCoroutine);
 
-        gameObject.SetActive(false);
+        SetAlpha(0f);
     }
 
     public void Show()
     {
-        gameObject.SetActive(true);
+        SetAlpha(1f);
     }
 }

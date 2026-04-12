@@ -22,7 +22,7 @@ public class DialogueClip : PlayableAsset, ITimelineClipAsset
     [Tooltip("Pause the timeline after typing finishes until the player presses a button.")]
     public bool WaitForInput = true;
 
-    public ClipCaps clipCaps => ClipCaps.None;
+    public ClipCaps clipCaps => ClipCaps.Blending;
 
     public override Playable CreatePlayable(PlayableGraph graph, GameObject owner)
     {
