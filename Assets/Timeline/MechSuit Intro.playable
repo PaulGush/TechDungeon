@@ -407,10 +407,10 @@ MonoBehaviour:
     m_Duration: 1
     m_TimeScale: 1
     m_ParentTrack: {fileID: 282426553256885783}
-    m_EaseInDuration: 0
+    m_EaseInDuration: 0.1
     m_EaseOutDuration: 0
-    m_BlendInDuration: 0
-    m_BlendOutDuration: 0
+    m_BlendInDuration: -1
+    m_BlendOutDuration: -1
     m_MixInCurve:
       serializedVersion: 2
       m_Curve:
@@ -477,9 +477,9 @@ MonoBehaviour:
     m_TimeScale: 1
     m_ParentTrack: {fileID: 282426553256885783}
     m_EaseInDuration: 0
-    m_EaseOutDuration: 0
-    m_BlendInDuration: 0
-    m_BlendOutDuration: 0
+    m_EaseOutDuration: 0.1
+    m_BlendInDuration: -1
+    m_BlendOutDuration: -1
     m_MixInCurve:
       serializedVersion: 2
       m_Curve:
@@ -692,11 +692,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DialogueClip
   SpeakerName: M0L-E-W0P-R
   Side: 0
-  PortraitFrames:
-  - {fileID: 1578129681013566555, guid: 2c009b54a7662a6f290619d64318a537, type: 3}
-  - {fileID: -2394942109720064594, guid: 2c009b54a7662a6f290619d64318a537, type: 3}
-  - {fileID: -1764742393624489896, guid: 2c009b54a7662a6f290619d64318a537, type: 3}
-  - {fileID: 4236823797309165613, guid: 2c009b54a7662a6f290619d64318a537, type: 3}
+  PortraitFrames: []
   PortraitFrameRate: 12
   Text: So, you made it this far...
   WaitForInput: 1
@@ -890,11 +886,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DialogueClip
   SpeakerName: M0L-E-W0P-R
   Side: 0
-  PortraitFrames:
-  - {fileID: 1578129681013566555, guid: 2c009b54a7662a6f290619d64318a537, type: 3}
-  - {fileID: -2394942109720064594, guid: 2c009b54a7662a6f290619d64318a537, type: 3}
-  - {fileID: -1764742393624489896, guid: 2c009b54a7662a6f290619d64318a537, type: 3}
-  - {fileID: 4236823797309165613, guid: 2c009b54a7662a6f290619d64318a537, type: 3}
+  PortraitFrames: []
   PortraitFrameRate: 12
   Text: Let's see what you've got!
   WaitForInput: 1

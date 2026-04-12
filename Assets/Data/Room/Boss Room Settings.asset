@@ -23,3 +23,4 @@ MonoBehaviour:
     DelayBeforeSpawn: 0
   BossRewardChest: {fileID: 11400000, guid: 53025c1b61233947db9078ed4fd4e253, type: 2}
   IntroCinematic: {fileID: 11400000, guid: 4e5e043d1d8a200ceb3128a3e3bec486, type: 2}
+  PreSpawnBoss: 1
