@@ -10,6 +10,7 @@ public class EntityHealth : MonoBehaviour
     [SerializeField] protected int m_armor;
     public int Armor => m_armor;
     public bool IsDead => m_currentHealth <= 0;
+    public bool IsGodMode { get; set; }
 
     public Action OnHeal;
     public Action OnTakeDamage;
@@ -33,6 +34,8 @@ public class EntityHealth : MonoBehaviour
 
     public virtual void TakeDamage(int damage)
     {
+        if (IsGodMode) return;
+
         int mitigated = Mathf.Max(damage - m_armor, 0);
         m_currentHealth -= mitigated;
         OnTakeDamage?.Invoke();

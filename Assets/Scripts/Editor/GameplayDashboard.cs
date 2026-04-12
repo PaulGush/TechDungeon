@@ -173,6 +173,24 @@ namespace TechDungeon.Editor
                 }
             }
 
+            EditorGUILayout.Space(8);
+            EditorGUILayout.LabelField("Player", EditorStyles.boldLabel);
+
+            EntityHealth playerHealth = FindPlayerHealth();
+            if (playerHealth != null)
+            {
+                bool godMode = EditorGUILayout.Toggle("God Mode", playerHealth.IsGodMode);
+                if (godMode != playerHealth.IsGodMode)
+                {
+                    playerHealth.IsGodMode = godMode;
+                    Debug.Log($"[GameplayDashboard] God Mode {(godMode ? "enabled" : "disabled")}");
+                }
+            }
+            else
+            {
+                EditorGUILayout.HelpBox("Player not found in scene.", MessageType.Info);
+            }
+
             EditorGUI.EndDisabledGroup();
 
             EditorGUILayout.EndScrollView();
@@ -217,5 +235,10 @@ namespace TechDungeon.Editor
             RefreshAll();
         }
 
+        private static EntityHealth FindPlayerHealth()
+        {
+            GameObject player = GameObject.FindWithTag(GameConstants.Tags.Player);
+            return player != null ? player.GetComponentInChildren<EntityHealth>() : null;
+        }
     }
 }
