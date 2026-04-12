@@ -1,0 +1,819 @@
+fileFormatVersion: 2
+guid: deb4978f94fe4df3696121134d9e8bad
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 5148722576113075372
+    second: FX_Fire03_Orb48px_Long_Behind_6x5_0
+  - first:
+      213: 4087918241974907033
+    second: FX_Fire03_Orb48px_Long_Behind_6x5_1
+  - first:
+      213: 6477854691039772546
+    second: FX_Fire03_Orb48px_Long_Behind_6x5_2
+  - first:
+      213: 5790590246278012897
+    second: FX_Fire03_Orb48px_Long_Behind_6x5_3
+  - first:
+      213: 8881160281118413374
+    second: FX_Fire03_Orb48px_Long_Behind_6x5_4
+  - first:
+      213: 3365467074819490788
+    second: FX_Fire03_Orb48px_Long_Behind_6x5_5
+  - first:
+      213: -8061714503782705872
+    second: FX_Fire03_Orb48px_Long_Behind_6x5_6
+  - first:
+      213: -3647676843295736659
+    second: FX_Fire03_Orb48px_Long_Behind_6x5_7
+  - first:
+      213: -3302349063298111391
+    second: FX_Fire03_Orb48px_Long_Behind_6x5_8
+  - first:
+      213: 5662020825438382810
+    second: FX_Fire03_Orb48px_Long_Behind_6x5_9
+  - first:
+      213: -224314009540805597
+    second: FX_Fire03_Orb48px_Long_Behind_6x5_10
+  - first:
+      213: 6510328073992059896
+    second: FX_Fire03_Orb48px_Long_Behind_6x5_11
+  - first:
+      213: -2454789447563905647
+    second: FX_Fire03_Orb48px_Long_Behind_6x5_12
+  - first:
+      213: -2193940216843606346
+    second: FX_Fire03_Orb48px_Long_Behind_6x5_13
+  - first:
+      213: 2649926841410131089
+    second: FX_Fire03_Orb48px_Long_Behind_6x5_14
+  - first:
+      213: 2633322052070980424
+    second: FX_Fire03_Orb48px_Long_Behind_6x5_15
+  - first:
+      213: 2025856613241726298
+    second: FX_Fire03_Orb48px_Long_Behind_6x5_16
+  - first:
+      213: -2202177681083763298
+    second: FX_Fire03_Orb48px_Long_Behind_6x5_17
+  - first:
+      213: -2756018459332877140
+    second: FX_Fire03_Orb48px_Long_Behind_6x5_18
+  - first:
+      213: -4037906567811427524
+    second: FX_Fire03_Orb48px_Long_Behind_6x5_19
+  - first:
+      213: -6628400660421670251
+    second: FX_Fire03_Orb48px_Long_Behind_6x5_20
+  - first:
+      213: 613254852862871195
+    second: FX_Fire03_Orb48px_Long_Behind_6x5_21
+  - first:
+      213: -1239855102675757278
+    second: FX_Fire03_Orb48px_Long_Behind_6x5_22
+  - first:
+      213: 3318267496400399867
+    second: FX_Fire03_Orb48px_Long_Behind_6x5_23
+  - first:
+      213: -5145594783397894115
+    second: FX_Fire03_Orb48px_Long_Behind_6x5_24
+  - first:
+      213: -703539439378841878
+    second: FX_Fire03_Orb48px_Long_Behind_6x5_25
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: FX_Fire03_Orb48px_Long_Behind_6x5_0
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 323
+        width: 18
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ca4014467efe37740800000000000000
+      internalID: 5148722576113075372
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FX_Fire03_Orb48px_Long_Behind_6x5_1
+      rect:
+        serializedVersion: 2
+        x: 78
+        y: 323
+        width: 14
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 990f0cb7bf33bb830800000000000000
+      internalID: 4087918241974907033
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FX_Fire03_Orb48px_Long_Behind_6x5_2
+      rect:
+        serializedVersion: 2
+        x: 151
+        y: 323
+        width: 10
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 28ff5063586f5e950800000000000000
+      internalID: 6477854691039772546
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FX_Fire03_Orb48px_Long_Behind_6x5_3
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 323
+        width: 7
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1ef1e3d262f4c5050800000000000000
+      internalID: 5790590246278012897
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FX_Fire03_Orb48px_Long_Behind_6x5_4
+      rect:
+        serializedVersion: 2
+        x: 267
+        y: 251
+        width: 35
+        height: 78
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e321f55a838304b70800000000000000
+      internalID: 8881160281118413374
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FX_Fire03_Orb48px_Long_Behind_6x5_5
+      rect:
+        serializedVersion: 2
+        x: 111
+        y: 179
+        width: 27
+        height: 75
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4e383e9397a84be20800000000000000
+      internalID: 3365467074819490788
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FX_Fire03_Orb48px_Long_Behind_6x5_6
+      rect:
+        serializedVersion: 2
+        x: 196
+        y: 251
+        width: 15
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 035da612f590f1090800000000000000
+      internalID: -8061714503782705872
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FX_Fire03_Orb48px_Long_Behind_6x5_7
+      rect:
+        serializedVersion: 2
+        x: 337
+        y: 251
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dac70fbbc39d06dc0800000000000000
+      internalID: -3647676843295736659
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FX_Fire03_Orb48px_Long_Behind_6x5_8
+      rect:
+        serializedVersion: 2
+        x: 407
+        y: 251
+        width: 20
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 168a5c50603bb22d0800000000000000
+      internalID: -3302349063298111391
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FX_Fire03_Orb48px_Long_Behind_6x5_9
+      rect:
+        serializedVersion: 2
+        x: 44
+        y: 179
+        width: 22
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ada6e1b21f9839e40800000000000000
+      internalID: 5662020825438382810
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FX_Fire03_Orb48px_Long_Behind_6x5_10
+      rect:
+        serializedVersion: 2
+        x: 179
+        y: 179
+        width: 31
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 32c3d27c89313ecf0800000000000000
+      internalID: -224314009540805597
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FX_Fire03_Orb48px_Long_Behind_6x5_11
+      rect:
+        serializedVersion: 2
+        x: 246
+        y: 179
+        width: 35
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8fbbc8dd3e4595a50800000000000000
+      internalID: 6510328073992059896
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FX_Fire03_Orb48px_Long_Behind_6x5_12
+      rect:
+        serializedVersion: 2
+        x: 313
+        y: 179
+        width: 40
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1957393e006deedd0800000000000000
+      internalID: -2454789447563905647
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FX_Fire03_Orb48px_Long_Behind_6x5_13
+      rect:
+        serializedVersion: 2
+        x: 380
+        y: 179
+        width: 44
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6b6e79c2ffe8d81e0800000000000000
+      internalID: -2193940216843606346
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FX_Fire03_Orb48px_Long_Behind_6x5_14
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 107
+        width: 48
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 194160f1c6e66c420800000000000000
+      internalID: 2649926841410131089
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FX_Fire03_Orb48px_Long_Behind_6x5_15
+      rect:
+        serializedVersion: 2
+        x: 83
+        y: 107
+        width: 52
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 84bb4e454707b8420800000000000000
+      internalID: 2633322052070980424
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FX_Fire03_Orb48px_Long_Behind_6x5_16
+      rect:
+        serializedVersion: 2
+        x: 152
+        y: 107
+        width: 54
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a5526263bd94d1c10800000000000000
+      internalID: 2025856613241726298
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FX_Fire03_Orb48px_Long_Behind_6x5_17
+      rect:
+        serializedVersion: 2
+        x: 222
+        y: 109
+        width: 55
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e9575b2111b4071e0800000000000000
+      internalID: -2202177681083763298
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FX_Fire03_Orb48px_Long_Behind_6x5_18
+      rect:
+        serializedVersion: 2
+        x: 292
+        y: 107
+        width: 55
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ca46b0130d7a0c9d0800000000000000
+      internalID: -2756018459332877140
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FX_Fire03_Orb48px_Long_Behind_6x5_19
+      rect:
+        serializedVersion: 2
+        x: 363
+        y: 107
+        width: 53
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c33126dce5976f7c0800000000000000
+      internalID: -4037906567811427524
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FX_Fire03_Orb48px_Long_Behind_6x5_20
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 35
+        width: 48
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 59a0a96d7b03304a0800000000000000
+      internalID: -6628400660421670251
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FX_Fire03_Orb48px_Long_Behind_6x5_21
+      rect:
+        serializedVersion: 2
+        x: 76
+        y: 35
+        width: 44
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b960dad1a08b28800800000000000000
+      internalID: 613254852862871195
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FX_Fire03_Orb48px_Long_Behind_6x5_22
+      rect:
+        serializedVersion: 2
+        x: 149
+        y: 35
+        width: 38
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2275e086a562bcee0800000000000000
+      internalID: -1239855102675757278
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FX_Fire03_Orb48px_Long_Behind_6x5_23
+      rect:
+        serializedVersion: 2
+        x: 221
+        y: 35
+        width: 33
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bfdaba005badc0e20800000000000000
+      internalID: 3318267496400399867
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FX_Fire03_Orb48px_Long_Behind_6x5_24
+      rect:
+        serializedVersion: 2
+        x: 294
+        y: 35
+        width: 27
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d1827799ecc2798b0800000000000000
+      internalID: -5145594783397894115
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FX_Fire03_Orb48px_Long_Behind_6x5_25
+      rect:
+        serializedVersion: 2
+        x: 366
+        y: 35
+        width: 22
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aeeb85e7b968c36f0800000000000000
+      internalID: -703539439378841878
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      FX_Fire03_Orb48px_Long_Behind_6x5_0: 5148722576113075372
+      FX_Fire03_Orb48px_Long_Behind_6x5_1: 4087918241974907033
+      FX_Fire03_Orb48px_Long_Behind_6x5_10: -224314009540805597
+      FX_Fire03_Orb48px_Long_Behind_6x5_11: 6510328073992059896
+      FX_Fire03_Orb48px_Long_Behind_6x5_12: -2454789447563905647
+      FX_Fire03_Orb48px_Long_Behind_6x5_13: -2193940216843606346
+      FX_Fire03_Orb48px_Long_Behind_6x5_14: 2649926841410131089
+      FX_Fire03_Orb48px_Long_Behind_6x5_15: 2633322052070980424
+      FX_Fire03_Orb48px_Long_Behind_6x5_16: 2025856613241726298
+      FX_Fire03_Orb48px_Long_Behind_6x5_17: -2202177681083763298
+      FX_Fire03_Orb48px_Long_Behind_6x5_18: -2756018459332877140
+      FX_Fire03_Orb48px_Long_Behind_6x5_19: -4037906567811427524
+      FX_Fire03_Orb48px_Long_Behind_6x5_2: 6477854691039772546
+      FX_Fire03_Orb48px_Long_Behind_6x5_20: -6628400660421670251
+      FX_Fire03_Orb48px_Long_Behind_6x5_21: 613254852862871195
+      FX_Fire03_Orb48px_Long_Behind_6x5_22: -1239855102675757278
+      FX_Fire03_Orb48px_Long_Behind_6x5_23: 3318267496400399867
+      FX_Fire03_Orb48px_Long_Behind_6x5_24: -5145594783397894115
+      FX_Fire03_Orb48px_Long_Behind_6x5_25: -703539439378841878
+      FX_Fire03_Orb48px_Long_Behind_6x5_3: 5790590246278012897
+      FX_Fire03_Orb48px_Long_Behind_6x5_4: 8881160281118413374
+      FX_Fire03_Orb48px_Long_Behind_6x5_5: 3365467074819490788
+      FX_Fire03_Orb48px_Long_Behind_6x5_6: -8061714503782705872
+      FX_Fire03_Orb48px_Long_Behind_6x5_7: -3647676843295736659
+      FX_Fire03_Orb48px_Long_Behind_6x5_8: -3302349063298111391
+      FX_Fire03_Orb48px_Long_Behind_6x5_9: 5662020825438382810
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

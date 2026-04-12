@@ -4,7 +4,7 @@ namespace PlayerObject
 {
     /// <summary>
     /// Represents a weapon that can be dropped and picked up in the world.
-    /// Inherits from Lootable to reuse drop/bounce/rarity behavior for weapon items on the ground.
+    /// Inherits from Lootable to reuse drop/bounce/rarity behaviour for weapon items on the ground.
     /// When equipped, bounce is disabled and the weapon attaches to the player's WeaponHolder.
     /// </summary>
     public class Weapon : Lootable, IWeapon
@@ -31,6 +31,13 @@ namespace PlayerObject
             if (BounceEffect != null)
             {
                 BounceEffect.Stop();
+            }
+
+            TrailRenderer trail = GetComponentInChildren<TrailRenderer>();
+            if (trail != null)
+            {
+                trail.emitting = false;
+                trail.Clear();
             }
 
             m_weaponHolder = GetComponentInParent<WeaponHolder>();

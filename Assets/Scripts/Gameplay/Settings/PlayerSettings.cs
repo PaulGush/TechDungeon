@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Settings/Player Settings")]
+[CreateAssetMenu(menuName = "Data/Entity/Player Settings")]
 public class PlayerSettings : ScriptableObject
 {
     [Header("Movement")]

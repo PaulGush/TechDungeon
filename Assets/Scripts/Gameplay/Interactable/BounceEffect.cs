@@ -9,6 +9,7 @@ public class BounceEffect : MonoBehaviour
     private Vector3 m_bounceUpperTarget;
     private Vector3 m_bounceLowerTarget;
     private bool m_isMovingToUpper = true;
+    private bool m_hasTargets;
 
     private void OnEnable()
     {
@@ -19,16 +20,17 @@ public class BounceEffect : MonoBehaviour
     {
         m_bounceLowerTarget = new Vector3(transform.position.x, transform.position.y - m_bounceVerticalDistance, transform.position.z);
         m_bounceUpperTarget = new Vector3(transform.position.x, transform.position.y + m_bounceVerticalDistance, transform.position.z);
+        m_hasTargets = true;
     }
 
     private void Update()
     {
-        if (m_bounceLowerTarget == Vector3.zero && m_bounceUpperTarget == Vector3.zero) return;
+        if (!m_hasTargets) return;
 
         Vector3 target = m_isMovingToUpper ? m_bounceUpperTarget : m_bounceLowerTarget;
         transform.position = Vector3.MoveTowards(transform.position, target, Time.deltaTime * m_bounceSpeed);
 
-        if (Vector3.Distance(transform.position, target) < 0.001f)
+        if ((transform.position - target).sqrMagnitude < Mathf.Epsilon)
         {
             m_isMovingToUpper = !m_isMovingToUpper;
         }
@@ -37,11 +39,10 @@ public class BounceEffect : MonoBehaviour
     public void Stop()
     {
         enabled = false;
-        if (m_bounceLowerTarget != Vector3.zero && m_bounceUpperTarget != Vector3.zero)
+        if (m_hasTargets)
         {
             transform.position = (m_bounceUpperTarget + m_bounceLowerTarget) / 2f;
         }
-        m_bounceUpperTarget = Vector3.zero;
-        m_bounceLowerTarget = Vector3.zero;
+        m_hasTargets = false;
     }
 }

@@ -12,10 +12,16 @@ namespace PlayerObject
         [SerializeField] private PlayerSettings m_settings;
 
         private float m_rollTimer;
+        private MutationManager m_mutationManager;
 
         private void Awake()
         {
             ServiceLocator.Global.Register(this);
+        }
+
+        private void Start()
+        {
+            ServiceLocator.Global.TryGet(out m_mutationManager);
         }
 
         private void OnEnable()
@@ -37,7 +43,10 @@ namespace PlayerObject
             }
 
             Vector2 direction = m_inputReader.MoveDirection;
-            Vector2 newPosition = m_rigidbody2D.position + direction * (m_settings.Speed * Time.fixedDeltaTime);
+            float speed = m_settings.Speed;
+            if (m_mutationManager != null)
+                speed *= m_mutationManager.GetSpeedMultiplier();
+            Vector2 newPosition = m_rigidbody2D.position + direction * (speed * Time.fixedDeltaTime);
             m_rigidbody2D.MovePosition(newPosition);
         }
 

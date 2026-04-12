@@ -19,7 +19,9 @@ namespace Input
         public UnityAction Next = delegate {  };
         public UnityAction Previous = delegate {  };
         public UnityAction Interact = delegate {  };
+        public UnityAction AltInteract = delegate {  };
         public UnityAction Inventory = delegate {  };
+        public UnityAction InventoryReleased = delegate {  };
         public UnityAction Roll = delegate {  };
         public UnityAction Look = delegate {  };
         
@@ -67,21 +69,38 @@ namespace Input
         
         public void OnPrevious(InputAction.CallbackContext context)
         {
-            Previous?.Invoke();
+            if (context.phase == InputActionPhase.Started)
+            {
+                Previous?.Invoke();
+            }
         }
-        
+
         public void OnNext(InputAction.CallbackContext context)
         {
-            Next?.Invoke();
+            if (context.phase == InputActionPhase.Started)
+            {
+                Next?.Invoke();
+            }
         }
         
         public void OnSprint(InputAction.CallbackContext context)
         {
-            
+
+        }
+
+        public void OnAltInteract(InputAction.CallbackContext context)
+        {
+            if (context.phase == InputActionPhase.Started)
+            {
+                AltInteract?.Invoke();
+            }
         }
         public void OnInventory(InputAction.CallbackContext context)
         {
-            Inventory?.Invoke();
+            if (context.phase == InputActionPhase.Started)
+                Inventory?.Invoke();
+            else if (context.phase == InputActionPhase.Canceled)
+                InventoryReleased?.Invoke();
         }
 
         public void OnRoll(InputAction.CallbackContext context)

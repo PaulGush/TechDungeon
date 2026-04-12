@@ -1,25 +1,47 @@
+using System;
+using System.Collections.Generic;
 using Input;
-using TMPro;
+using PlayerObject;
 using UnityEngine;
+using UnityServiceLocator;
 
 public class Chest : MonoBehaviour, IInteractable
 {
+    private const float GizmoRadius = 0.1f;
     private static readonly int Open = Animator.StringToHash("Open");
 
     [Header("References")]
     [SerializeField] private Animator m_animator;
-    [SerializeField] private TextMeshPro m_interactText;
     [SerializeField] private InputReader m_inputReader;
     [SerializeField] private ChestSettings m_settings;
 
     [Header("Settings")]
-    [SerializeField] private Transform m_environmentParent;
     [SerializeField] private Transform m_itemSpawnPoint;
     [SerializeField] private float m_verticalSpawnDistance = 1;
     [SerializeField] private float m_horizontalSpawnOffset = 1;
     [SerializeField] private Vector3 m_aboveChestTargetPosition;
 
+    private RoomManager m_roomManager;
+    private PlayerInteractionDisplay m_interactionDisplay;
     private bool m_isOpen;
+    private bool m_isLocked;
+
+    private readonly List<GameObject> m_spawnedItems = new();
+    private int m_collectedCount;
+
+    public event Action<List<GameObject>> OnChestOpened;
+    public event Action OnAllItemsCollected;
+
+    public bool IsLocked() => m_isLocked;
+    
+    public void SetLockState(bool isLocked) => m_isLocked = isLocked;
+    
+    public void SetSettings(ChestSettings settings)
+    {
+        m_settings = settings;
+    }
+
+    private RoomManager RoomManager => m_roomManager ??= ServiceLocator.Global.Get<RoomManager>();
 
     private void OnDestroy()
     {
@@ -28,55 +50,89 @@ public class Chest : MonoBehaviour, IInteractable
 
     public void Interact()
     {
-        if (m_isOpen) return;
+        if (m_isOpen || m_isLocked) return;
 
         m_animator.SetTrigger(Open);
-        m_interactText.enabled = false;
+        m_interactionDisplay?.Hide(this);
         m_isOpen = true;
         m_inputReader.Interact -= Interact;
 
-        float i = 0;
+        Transform roomParent = RoomManager.CurrentRoomTransform;
+        m_spawnedItems.Clear();
+        m_collectedCount = 0;
+
+        float itemIndex = 0;
         foreach (Lootable lootableItem in m_settings.GetRandomItems())
         {
-            Vector3 targetPosition = new Vector3((m_itemSpawnPoint.position.x + i) - m_horizontalSpawnOffset, m_itemSpawnPoint.position.y - m_verticalSpawnDistance, m_itemSpawnPoint.position.z);
-            GameObject item = Instantiate(lootableItem.gameObject, m_itemSpawnPoint.position, Quaternion.identity, m_environmentParent);
-            item.name = item.GetComponent<SpriteRenderer>().sprite.name;
+            if (lootableItem == null) continue;
+            Vector3 targetPosition = new Vector3((m_itemSpawnPoint.position.x + itemIndex) - m_horizontalSpawnOffset, m_itemSpawnPoint.position.y - m_verticalSpawnDistance, m_itemSpawnPoint.position.z);
+            GameObject item = Instantiate(lootableItem.gameObject, m_itemSpawnPoint.position, Quaternion.identity, roomParent);
+            SpriteRenderer sr = item.GetComponentInChildren<SpriteRenderer>();
+            if (sr != null) item.name = sr.sprite.name;
 
             Lootable lootableComp = item.GetComponent<Lootable>();
 
-            lootableComp.ChangeRarity(LootableRarity.DetermineRarity(m_settings.EpicDropChance, m_settings.RareDropChance, m_settings.UncommonDropChance));
+            lootableComp.ChangeRarity(LootableRarity.DetermineRarity(m_settings.LegendaryDropChance, m_settings.EpicDropChance, m_settings.RareDropChance, m_settings.UncommonDropChance));
             lootableComp.SetTargetPosition(targetPosition);
             lootableComp.SetAboveChestTargetPosition(transform.position + m_aboveChestTargetPosition);
             lootableComp.StartSpawnSequence(m_settings.TotalSpawnTime, m_settings.SpawnTimeInterval, 0);
 
-            i++;
+            bool isRequired = m_settings.RequiredPickupTypes.Count == 0 ||
+                              m_settings.RequiredPickupTypes.Contains(lootableComp.ItemType);
+
+            if (isRequired)
+            {
+                lootableComp.OnCollected += HandleItemCollected;
+                m_spawnedItems.Add(item);
+            }
+
+            itemIndex++;
+        }
+
+        OnChestOpened?.Invoke(m_spawnedItems);
+
+        if (m_spawnedItems.Count == 0)
+        {
+            OnAllItemsCollected?.Invoke();
+        }
+    }
+
+    private void HandleItemCollected()
+    {
+        m_collectedCount++;
+        if (m_collectedCount >= m_spawnedItems.Count)
+        {
+            OnAllItemsCollected?.Invoke();
         }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (m_isOpen || other.gameObject.layer != GameConstants.Layers.PlayerLayer) return;
-        m_interactText.enabled = true;
+        if (m_isOpen || m_isLocked || other.gameObject.layer != GameConstants.Layers.PlayerLayer) return;
+        m_interactionDisplay ??= ServiceLocator.Global.Get<PlayerInteractionDisplay>();
+        m_interactionDisplay.Show("[E]", this);
         m_inputReader.Interact += Interact;
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
         if (m_isOpen || other.gameObject.layer != GameConstants.Layers.PlayerLayer) return;
-        m_interactText.enabled = false;
+        m_interactionDisplay?.Hide(this);
         m_inputReader.Interact -= Interact;
     }
 
     private void OnDrawGizmosSelected()
     {
+        if (m_settings == null) return;
+        
         Gizmos.color = Color.yellow;
 
         for(int i = 0; i < m_settings.ItemDropCount; i++)
         {
-            Gizmos.DrawWireSphere(new Vector3(transform.position.x + i - m_horizontalSpawnOffset, transform.position.y - m_verticalSpawnDistance, transform.position.z), 0.1f);
+            Gizmos.DrawWireSphere(new Vector3(transform.position.x + i - m_horizontalSpawnOffset, transform.position.y - m_verticalSpawnDistance, transform.position.z), GizmoRadius);
         }
 
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position + m_aboveChestTargetPosition, 0.1f);
+        Gizmos.DrawWireSphere(transform.position + m_aboveChestTargetPosition, GizmoRadius);
     }
 }

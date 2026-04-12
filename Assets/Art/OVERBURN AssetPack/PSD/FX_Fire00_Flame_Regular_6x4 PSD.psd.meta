@@ -1,0 +1,845 @@
+fileFormatVersion: 2
+guid: db194c936832ab628a1de6dff743e763
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -471957553315632062
+    second: FX_Fire00_Flame_Regular_6x4 PSD_0
+  - first:
+      213: -636057114566110220
+    second: FX_Fire00_Flame_Regular_6x4 PSD_1
+  - first:
+      213: 5591093673079625517
+    second: FX_Fire00_Flame_Regular_6x4 PSD_2
+  - first:
+      213: -3079297040445799649
+    second: FX_Fire00_Flame_Regular_6x4 PSD_3
+  - first:
+      213: 3035729689293401230
+    second: FX_Fire00_Flame_Regular_6x4 PSD_4
+  - first:
+      213: -2038394983027220971
+    second: FX_Fire00_Flame_Regular_6x4 PSD_5
+  - first:
+      213: 14339201676915723
+    second: FX_Fire00_Flame_Regular_6x4 PSD_6
+  - first:
+      213: 9086873211627599773
+    second: FX_Fire00_Flame_Regular_6x4 PSD_7
+  - first:
+      213: 9186803648912207438
+    second: FX_Fire00_Flame_Regular_6x4 PSD_8
+  - first:
+      213: 5573454099912306366
+    second: FX_Fire00_Flame_Regular_6x4 PSD_9
+  - first:
+      213: 5242189127551010536
+    second: FX_Fire00_Flame_Regular_6x4 PSD_10
+  - first:
+      213: -8944060728337702118
+    second: FX_Fire00_Flame_Regular_6x4 PSD_11
+  - first:
+      213: -8619254738536837611
+    second: FX_Fire00_Flame_Regular_6x4 PSD_12
+  - first:
+      213: -1838778767905600145
+    second: FX_Fire00_Flame_Regular_6x4 PSD_13
+  - first:
+      213: -4647383191406834095
+    second: FX_Fire00_Flame_Regular_6x4 PSD_14
+  - first:
+      213: 4177990637468110524
+    second: FX_Fire00_Flame_Regular_6x4 PSD_15
+  - first:
+      213: 5827335688766997121
+    second: FX_Fire00_Flame_Regular_6x4 PSD_16
+  - first:
+      213: -1278715760525974738
+    second: FX_Fire00_Flame_Regular_6x4 PSD_17
+  - first:
+      213: 6704520195321843091
+    second: FX_Fire00_Flame_Regular_6x4 PSD_18
+  - first:
+      213: -4116288001616574912
+    second: FX_Fire00_Flame_Regular_6x4 PSD_19
+  - first:
+      213: 4119869058128309589
+    second: FX_Fire00_Flame_Regular_6x4 PSD_20
+  - first:
+      213: -4014109024199570557
+    second: FX_Fire00_Flame_Regular_6x4 PSD_21
+  - first:
+      213: 937547665893466554
+    second: FX_Fire00_Flame_Regular_6x4 PSD_22
+  - first:
+      213: -7417325094339340316
+    second: FX_Fire00_Flame_Regular_6x4 PSD_23
+  - first:
+      213: 6996254633017809120
+    second: FX_Fire00_Flame_Regular_6x4 PSD_24
+  - first:
+      213: 7892952502417089337
+    second: FX_Fire00_Flame_Regular_6x4 PSD_25
+  - first:
+      213: 7516382767173225746
+    second: FX_Fire00_Flame_Regular_6x4 PSD_26
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: FX_Fire00_Flame_Regular_6x4 PSD_0
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 160
+        width: 20
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 24c2f851b154379f0800000000000000
+      internalID: -471957553315632062
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FX_Fire00_Flame_Regular_6x4 PSD_1
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 160
+        width: 20
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4f35d6d9c654c27f0800000000000000
+      internalID: -636057114566110220
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FX_Fire00_Flame_Regular_6x4 PSD_2
+      rect:
+        serializedVersion: 2
+        x: 111
+        y: 160
+        width: 20
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d2758d1a21e879d40800000000000000
+      internalID: 5591093673079625517
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FX_Fire00_Flame_Regular_6x4 PSD_3
+      rect:
+        serializedVersion: 2
+        x: 159
+        y: 160
+        width: 20
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f13015218a32445d0800000000000000
+      internalID: -3079297040445799649
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FX_Fire00_Flame_Regular_6x4 PSD_4
+      rect:
+        serializedVersion: 2
+        x: 207
+        y: 160
+        width: 20
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e8ca0748114112a20800000000000000
+      internalID: 3035729689293401230
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FX_Fire00_Flame_Regular_6x4 PSD_5
+      rect:
+        serializedVersion: 2
+        x: 212
+        y: 182
+        width: 9
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 51e59b4109a26b3e0800000000000000
+      internalID: -2038394983027220971
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FX_Fire00_Flame_Regular_6x4 PSD_6
+      rect:
+        serializedVersion: 2
+        x: 255
+        y: 160
+        width: 20
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b04b05e8d61f23000800000000000000
+      internalID: 14339201676915723
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FX_Fire00_Flame_Regular_6x4 PSD_7
+      rect:
+        serializedVersion: 2
+        x: 261
+        y: 183
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d97731aaa0f0b1e70800000000000000
+      internalID: 9086873211627599773
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FX_Fire00_Flame_Regular_6x4 PSD_8
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 112
+        width: 20
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e4eaca2be351e7f70800000000000000
+      internalID: 9186803648912207438
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FX_Fire00_Flame_Regular_6x4 PSD_9
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 112
+        width: 20
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ebea73579f2e85d40800000000000000
+      internalID: 5573454099912306366
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FX_Fire00_Flame_Regular_6x4 PSD_10
+      rect:
+        serializedVersion: 2
+        x: 109
+        y: 112
+        width: 22
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8e6c719bc3fffb840800000000000000
+      internalID: 5242189127551010536
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FX_Fire00_Flame_Regular_6x4 PSD_11
+      rect:
+        serializedVersion: 2
+        x: 157
+        y: 112
+        width: 22
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a13e8edb72050e380800000000000000
+      internalID: -8944060728337702118
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FX_Fire00_Flame_Regular_6x4 PSD_12
+      rect:
+        serializedVersion: 2
+        x: 205
+        y: 112
+        width: 22
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 51ec8e86b71426880800000000000000
+      internalID: -8619254738536837611
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FX_Fire00_Flame_Regular_6x4 PSD_13
+      rect:
+        serializedVersion: 2
+        x: 254
+        y: 112
+        width: 21
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f6dc47ee3785b76e0800000000000000
+      internalID: -1838778767905600145
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FX_Fire00_Flame_Regular_6x4 PSD_14
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 65
+        width: 17
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 15e031d3c9d218fb0800000000000000
+      internalID: -4647383191406834095
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FX_Fire00_Flame_Regular_6x4 PSD_15
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 65
+        width: 18
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cbec13d49543bf930800000000000000
+      internalID: 4177990637468110524
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FX_Fire00_Flame_Regular_6x4 PSD_16
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 65
+        width: 18
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 182c9e33feaded050800000000000000
+      internalID: 5827335688766997121
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FX_Fire00_Flame_Regular_6x4 PSD_17
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 65
+        width: 18
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e23e72d6ac6114ee0800000000000000
+      internalID: -1278715760525974738
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FX_Fire00_Flame_Regular_6x4 PSD_18
+      rect:
+        serializedVersion: 2
+        x: 208
+        y: 65
+        width: 18
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 39d4797789d3b0d50800000000000000
+      internalID: 6704520195321843091
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FX_Fire00_Flame_Regular_6x4 PSD_19
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 65
+        width: 18
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 046017e1fd100e6c0800000000000000
+      internalID: -4116288001616574912
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FX_Fire00_Flame_Regular_6x4 PSD_20
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 16
+        width: 18
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 55d6cd29417bc2930800000000000000
+      internalID: 4119869058128309589
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FX_Fire00_Flame_Regular_6x4 PSD_21
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 16
+        width: 19
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 38b05e23c150b48c0800000000000000
+      internalID: -4014109024199570557
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FX_Fire00_Flame_Regular_6x4 PSD_22
+      rect:
+        serializedVersion: 2
+        x: 67
+        y: 39
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ab1a39182a6d20d00800000000000000
+      internalID: 937547665893466554
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FX_Fire00_Flame_Regular_6x4 PSD_23
+      rect:
+        serializedVersion: 2
+        x: 111
+        y: 16
+        width: 19
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4e71058102e501990800000000000000
+      internalID: -7417325094339340316
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FX_Fire00_Flame_Regular_6x4 PSD_24
+      rect:
+        serializedVersion: 2
+        x: 159
+        y: 16
+        width: 19
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0e8153f5580b71160800000000000000
+      internalID: 6996254633017809120
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FX_Fire00_Flame_Regular_6x4 PSD_25
+      rect:
+        serializedVersion: 2
+        x: 207
+        y: 16
+        width: 19
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 933e9977b76698d60800000000000000
+      internalID: 7892952502417089337
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FX_Fire00_Flame_Regular_6x4 PSD_26
+      rect:
+        serializedVersion: 2
+        x: 255
+        y: 16
+        width: 19
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 21d4a31ad4e8f4860800000000000000
+      internalID: 7516382767173225746
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      FX_Fire00_Flame_Regular_6x4 PSD_0: -471957553315632062
+      FX_Fire00_Flame_Regular_6x4 PSD_1: -636057114566110220
+      FX_Fire00_Flame_Regular_6x4 PSD_10: 5242189127551010536
+      FX_Fire00_Flame_Regular_6x4 PSD_11: -8944060728337702118
+      FX_Fire00_Flame_Regular_6x4 PSD_12: -8619254738536837611
+      FX_Fire00_Flame_Regular_6x4 PSD_13: -1838778767905600145
+      FX_Fire00_Flame_Regular_6x4 PSD_14: -4647383191406834095
+      FX_Fire00_Flame_Regular_6x4 PSD_15: 4177990637468110524
+      FX_Fire00_Flame_Regular_6x4 PSD_16: 5827335688766997121
+      FX_Fire00_Flame_Regular_6x4 PSD_17: -1278715760525974738
+      FX_Fire00_Flame_Regular_6x4 PSD_18: 6704520195321843091
+      FX_Fire00_Flame_Regular_6x4 PSD_19: -4116288001616574912
+      FX_Fire00_Flame_Regular_6x4 PSD_2: 5591093673079625517
+      FX_Fire00_Flame_Regular_6x4 PSD_20: 4119869058128309589
+      FX_Fire00_Flame_Regular_6x4 PSD_21: -4014109024199570557
+      FX_Fire00_Flame_Regular_6x4 PSD_22: 937547665893466554
+      FX_Fire00_Flame_Regular_6x4 PSD_23: -7417325094339340316
+      FX_Fire00_Flame_Regular_6x4 PSD_24: 6996254633017809120
+      FX_Fire00_Flame_Regular_6x4 PSD_25: 7892952502417089337
+      FX_Fire00_Flame_Regular_6x4 PSD_26: 7516382767173225746
+      FX_Fire00_Flame_Regular_6x4 PSD_3: -3079297040445799649
+      FX_Fire00_Flame_Regular_6x4 PSD_4: 3035729689293401230
+      FX_Fire00_Flame_Regular_6x4 PSD_5: -2038394983027220971
+      FX_Fire00_Flame_Regular_6x4 PSD_6: 14339201676915723
+      FX_Fire00_Flame_Regular_6x4 PSD_7: 9086873211627599773
+      FX_Fire00_Flame_Regular_6x4 PSD_8: 9186803648912207438
+      FX_Fire00_Flame_Regular_6x4 PSD_9: 5573454099912306366
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

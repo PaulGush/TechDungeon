@@ -1,0 +1,61 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93aa332e0b41a68bb8c01dbc611ae0c1, type: 3}
+  m_Name: Shop Settings
+  m_EditorClassIdentifier: Assembly-CSharp::ShopSettings
+  WeaponPool:
+  - {fileID: 2536621532265573277, guid: c6a35086649851c14b1e1585a631ce77, type: 3}
+  MutationPool:
+  - {fileID: 6637486031254150006, guid: b40c518e2175cb339af08b77a3c9aee7, type: 3}
+  - {fileID: 79931091165269276, guid: 9c451cb080ab597c095345db91d9a5ab, type: 3}
+  - {fileID: 5275515147056584636, guid: c905decee594eb2bd977e7e5719a5f41, type: 3}
+  - {fileID: 8964799408785770487, guid: d38b7e3f39375d2719b15e4018756ec9, type: 3}
+  - {fileID: 4959467597934817882, guid: b68cf8394843c363b91f5c5f9febe88f, type: 3}
+  - {fileID: 3484471441096754992, guid: 6d76cc3bd3a26bac9b52dbd1255abd8e, type: 3}
+  - {fileID: 5470309978589268339, guid: 56562eaa31f6326608a528c66fa870a0, type: 3}
+  - {fileID: 3032770367628932271, guid: fa6045cbf040cf7d2be36508fe2d6be2, type: 3}
+  - {fileID: 6102318387772162344, guid: 588e8b690970ef4f6b9545efb9c4257a, type: 3}
+  - {fileID: 3197216746436454748, guid: 5111024788cf9788abed55a5c9e2d136, type: 3}
+  - {fileID: 8758581025134409485, guid: 977f5c5290b87e6b1a676d96a4d21944, type: 3}
+  ConsumablePool:
+  - {fileID: 3120849157911201109, guid: c40789c1772a6fbffab017019d07e6a8, type: 3}
+  - {fileID: 2435936962670642201, guid: eb2d8b4618d74d657986986dae646003, type: 3}
+  - {fileID: 3606803587980472974, guid: b649999bb4f67113dbc8d01f87564ffa, type: 3}
+  - {fileID: 7235092908592743970, guid: 12f95b2676bc2f5b1af1d0be990ba63c, type: 3}
+  - {fileID: 7738597142486270006, guid: 16d778ca3a0e774629e8630f2a6deef7, type: 3}
+  CommonPrice:
+    Min: 10
+    Max: 20
+  UncommonPrice:
+    Min: 20
+    Max: 40
+  RarePrice:
+    Min: 40
+    Max: 70
+  EpicPrice:
+    Min: 70
+    Max: 120
+  LegendaryPrice:
+    Min: 120
+    Max: 200
+  LegendaryDropChance: 2
+  EpicDropChance: 8
+  RareDropChance: 20
+  UncommonDropChance: 35
+  StealWaves:
+  - EnemyPrefabs:
+    - {fileID: 7364831485085966955, guid: 4bf1a82e2dc6a45168567b5f616ff4b1, type: 3}
+    - {fileID: 7364831485085966955, guid: 4bf1a82e2dc6a45168567b5f616ff4b1, type: 3}
+    - {fileID: 1100000000000000000, guid: f62323de1cde5226a9573cf527e1c479, type: 3}
+    - {fileID: 1100000000000000000, guid: f62323de1cde5226a9573cf527e1c479, type: 3}
+    - {fileID: 7364831485085966955, guid: 4bf1a82e2dc6a45168567b5f616ff4b1, type: 3}
+    DelayBeforeSpawn: 2

@@ -5,26 +5,43 @@ using UnityEngine;
 
 public class Lootable : MonoBehaviour
 {
+    private const float PositionSnapThreshold = 0.01f;
+    private const float EarlyFinishThreshold = 0.05f;
+    private const float ScaleMultiplier = 2f;
+
     [Header("Data")]
+    [SerializeField] private LootItemType m_itemType;
     [SerializeField] private LootableRarity.Rarity _rarity;
     [SerializeField, HideInInspector] private LootableRarity.Rarity _lastRarity;
 
+    public LootItemType ItemType => m_itemType;
+
     [Header("References")]
     [SerializeField] private BounceEffect m_bounceEffect;
+    [SerializeField] private Collider2D m_collider;
 
     private Vector3 m_aboveChestTargetPosition;
     private Vector3 m_targetPosition;
+    private Vector3 m_originalScale;
     private Coroutine m_spawnCoroutine;
 
     public bool IsSpawning { get; private set; }
 
     public Action OnSpawnComplete;
+    public Action OnCollected;
 
 
     public void StartSpawnSequence(float totalSpawnTime, float spawnTimeInterval, float delay)
     {
+        m_originalScale = transform.localScale;
         transform.localScale = Vector3.zero;
         IsSpawning = true;
+
+        if (m_collider != null)
+        {
+            m_collider.enabled = false;
+        }
+
         m_spawnCoroutine = StartCoroutine(SpawnCoroutine(totalSpawnTime, spawnTimeInterval, delay));
     }
 
@@ -53,18 +70,23 @@ public class Lootable : MonoBehaviour
         {
             elapsedTime += spawnTimeInterval;
             float t = Mathf.Clamp01(elapsedTime / totalSpawnTime);
-            transform.localScale = Vector3.Slerp(Vector3.zero, Vector3.one, t * 2);
+            transform.localScale = Vector3.Slerp(Vector3.zero, m_originalScale, t * ScaleMultiplier);
 
-            if (Vector3.Distance(transform.position, m_aboveChestTargetPosition) < 0.01f)
+            if ((transform.position - m_aboveChestTargetPosition).sqrMagnitude < PositionSnapThreshold * PositionSnapThreshold)
             {
                 reachedAboveChestPosition = true;
             }
 
             transform.position = Vector3.Slerp(transform.position, !reachedAboveChestPosition ? m_aboveChestTargetPosition : m_targetPosition, t);
 
+            if (reachedAboveChestPosition && (transform.position - m_targetPosition).sqrMagnitude < EarlyFinishThreshold * EarlyFinishThreshold && transform.localScale.x >= m_originalScale.x - EarlyFinishThreshold)
+            {
+                break;
+            }
+
             yield return tick;
         }
-        transform.localScale = Vector3.one;
+        transform.localScale = m_originalScale;
         transform.position = m_targetPosition;
         FinishSpawn();
     }
@@ -73,6 +95,11 @@ public class Lootable : MonoBehaviour
     {
         IsSpawning = false;
         m_spawnCoroutine = null;
+
+        if (m_collider != null)
+        {
+            m_collider.enabled = true;
+        }
 
         if (BounceEffect != null)
         {
@@ -93,7 +120,7 @@ public class Lootable : MonoBehaviour
             m_spawnCoroutine = null;
         }
 
-        transform.localScale = Vector3.one;
+        transform.localScale = m_originalScale;
         transform.position = m_targetPosition;
         IsSpawning = false;
     }

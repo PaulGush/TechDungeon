@@ -29,11 +29,7 @@ namespace UnityServiceLocator {
 
         public ServiceManager Register<T>(T service) {
             Type type = typeof(T);
-            
-            if (!m_services.TryAdd(type, service)) {
-                Debug.LogError($"ServiceManager.Register: Service of type {type.FullName} already registered");
-            }
-            
+            m_services[type] = service;
             return this;
         }
 
@@ -41,11 +37,8 @@ namespace UnityServiceLocator {
             if (!type.IsInstanceOfType(service)) {
                 throw new ArgumentException("Type of service does not match type of service interface", nameof(service));
             }
-            
-            if (!m_services.TryAdd(type, service)) {
-                Debug.LogError($"ServiceManager.Register: Service of type {type.FullName} already registered");
-            }
-            
+
+            m_services[type] = service;
             return this;
         }
     }

@@ -38,6 +38,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2647580534825030868
 SpriteRenderer:
+  serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -83,6 +84,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
+  m_MaskInteraction: 0
   m_Sprite: {fileID: 7768218842330296567, guid: 160c96a17fe2169dc9bf4bc014028043, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -92,7 +94,6 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!50 &2821083896256912343
 Rigidbody2D:
@@ -119,7 +120,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!61 &2324538919008771901
 BoxCollider2D:
@@ -180,10 +181,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Projectile
   m_rigidbody2D: {fileID: 2821083896256912343}
+  m_spriteRenderer: {fileID: 2647580534825030868}
   m_settings: {fileID: 11400000, guid: 80caf986ffed834d0927a59da35147d7, type: 2}
   m_damageLayers:
     serializedVersion: 2
     m_Bits: 1280
+  m_destroyLayers:
+    serializedVersion: 2
+    m_Bits: 2048
 --- !u!95 &2678852360200457398
 Animator:
   serializedVersion: 7

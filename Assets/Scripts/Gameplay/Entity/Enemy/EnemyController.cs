@@ -23,19 +23,29 @@ public class EnemyController : Entity
     [SerializeField] private EnemyTargeting m_targeting;
     public EnemyTargeting Targeting => m_targeting;
 
+    [SerializeField] private EnemyBehavior m_behavior;
+
+    [Header("Rewards")]
+    [SerializeField] private int m_creditValue = 10;
+    public int CreditValue => m_creditValue;
+
     private ObjectPool m_pool;
 
     private void Awake()
     {
         ServiceLocator.Global.TryGet(out ObjectPool pool);
         m_pool = pool;
+
+        IState idle = m_behavior.CreateIdleState(this);
+        IState seek = m_behavior.CreateSeekState(this);
+        IState attack = m_behavior.CreateAttackState(this);
+        m_stateMachine = new EnemyStateMachine(idle, seek, attack);
     }
 
     private void OnEnable()
     {
         m_health.ResetHealth();
-        m_stateMachine = new EnemyStateMachine(this);
-        m_stateMachine.Initialize();
+        m_stateMachine.Reset();
     }
 
     private void FixedUpdate()

@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24a0934f081a7106892097d733f7b5f3, type: 3}
+  m_Name: Armor_Small
+  m_EditorClassIdentifier: Assembly-CSharp::Mutation
+  DisplayName: Light Plating
+  Description: +2 armor
+  Icon: {fileID: 0}
+  Type: 5
+  Value: 2

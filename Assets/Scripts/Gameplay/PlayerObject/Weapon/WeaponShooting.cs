@@ -1,5 +1,6 @@
 using Gameplay.ObjectPool;
 using Input;
+using PlayerObject;
 using UnityEngine;
 using UnityServiceLocator;
 
@@ -13,27 +14,82 @@ public class WeaponShooting : MonoBehaviour, IWeapon
     [SerializeField] private Projectile m_projectile;
 
     private ObjectPool m_pool;
+    private Transform m_weaponHolder;
+    private bool m_isObstructed;
+    private MutationManager m_mutationManager;
+    private AmmoManager m_ammoManager;
+
+    public bool IsObstructed => m_isObstructed;
+    public Vector2 ShootPointPosition => m_shootPoint.position;
 
     private void Start()
     {
         ServiceLocator.Global.TryGet(out ObjectPool pool);
         m_pool = pool;
+        ServiceLocator.Global.TryGet(out m_mutationManager);
+        ServiceLocator.Global.TryGet(out m_ammoManager);
     }
 
     public void Equip()
     {
+        m_weaponHolder = GetComponentInParent<WeaponHolder>().transform;
         m_inputReader.Attack += OnAttack;
     }
 
     public void Unequip()
     {
         m_inputReader.Attack -= OnAttack;
+        m_isObstructed = false;
+    }
+
+    private void Update()
+    {
+        if (m_weaponHolder == null) return;
+
+        Vector2 origin = m_weaponHolder.position;
+        Vector2 target = m_shootPoint.position;
+        Vector2 direction = target - origin;
+        float distance = direction.magnitude;
+
+        m_isObstructed = Physics2D.Raycast(origin, direction, distance, GameConstants.Layers.WallsLayerMask);
     }
 
     private void OnAttack()
     {
+        if (m_pool == null || m_isObstructed) return;
+
+        // Resolve ammo type
+        AmmoSettings ammoSettings = null;
+        if (m_ammoManager != null)
+        {
+            AmmoSettings current = m_ammoManager.CurrentAmmoSettings;
+            if (current != null && current.Type != AmmoType.Standard)
+            {
+                if (m_ammoManager.TryConsumeAmmo())
+                    ammoSettings = current;
+            }
+        }
+
         GameObject projectile = m_pool.GetPooledObject(m_projectile.gameObject);
         projectile.transform.SetPositionAndRotation(m_shootPoint.position, m_shootPoint.rotation);
-        projectile.GetComponent<Projectile>().Initialize();
+
+        Projectile proj = projectile.GetComponent<Projectile>();
+        proj.SetProjectilePrefab(m_projectile.gameObject);
+
+        if (m_mutationManager != null)
+        {
+            proj.SetMutationModifiers(
+                m_mutationManager.GetFlatDamageBonus(),
+                m_mutationManager.GetDamageMultiplier(),
+                m_mutationManager.GetBonusPierce()
+            );
+        }
+
+        if (ammoSettings != null)
+        {
+            proj.SetAmmoModifiers(ammoSettings);
+        }
+
+        proj.Initialize();
     }
 }
