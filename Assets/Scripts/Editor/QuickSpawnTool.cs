@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Gameplay.ObjectPool;
+using PlayerObject;
 using UnityEditor;
 using UnityEngine;
 using UnityServiceLocator;
@@ -170,7 +171,7 @@ namespace TechDungeon.Editor
 
             if (m_spawnAtPlayer)
             {
-                var player = GameObject.FindGameObjectWithTag("Player");
+                ServiceLocator.Global.TryGet(out PlayerMovementController player);
                 pos = player != null ? player.transform.position : Vector3.zero;
             }
             else
