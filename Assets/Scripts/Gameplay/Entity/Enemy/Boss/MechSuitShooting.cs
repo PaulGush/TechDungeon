@@ -13,6 +13,15 @@ public class MechSuitShooting : EnemyShooting
 
     public override void TryShoot()
     {
+        BossPhase phase = m_phaseManager != null ? m_phaseManager.CurrentPhase : null;
+        BossAttackType attackType = phase != null ? phase.AttackType : BossAttackType.Projectile;
+
+        // The missile barrage drives its own cadence from MissileBarrage's phase loop
+        // (teleport → volley → teleport). TryShoot is a no-op for that phase so the
+        // state machine's attack tick can't double-trigger it.
+        if (attackType == BossAttackType.MissileBarrage)
+            return;
+
         if (m_lastTimeFired + m_settings.FireRate > Time.time)
             return;
 
@@ -32,13 +41,23 @@ public class MechSuitShooting : EnemyShooting
                 return;
 
             case BossAttackType.Flamethrower:
-                if (m_flamethrower != null && phase != null)
-                    m_flamethrower.Fire(phase.FlameDamagePerTick, phase.FlameTickInterval, phase.FlameDuration);
+                if (phase == null) break;
+                if (m_flamethrower == null)
+                {
+                    Debug.LogWarning($"{nameof(MechSuitShooting)}: {nameof(m_flamethrower)} is not assigned for Flamethrower phase.", this);
+                    break;
+                }
+                m_flamethrower.Fire(phase.FlameDamagePerTick, phase.FlameTickInterval, phase.FlameDuration);
                 break;
 
             case BossAttackType.Burst:
-                if (m_burstAttack != null && phase != null)
-                    m_burstAttack.Fire(phase.BurstProjectileCount);
+                if (phase == null) break;
+                if (m_burstAttack == null)
+                {
+                    Debug.LogWarning($"{nameof(MechSuitShooting)}: {nameof(m_burstAttack)} is not assigned for Burst phase.", this);
+                    break;
+                }
+                m_burstAttack.Fire(phase.BurstProjectileCount);
                 break;
         }
 
