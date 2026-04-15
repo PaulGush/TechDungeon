@@ -708,8 +708,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfa64a8770cbffb51b4d26bff1196c25, type: 3}
   m_Name: TransformMoveClip
   m_EditorClassIdentifier: Assembly-CSharp::TransformMoveClip
-  StartPosition: {x: -150, y: 225, z: 0}
-  EndPosition: {x: 150, y: 225, z: 0}
+  StartPosition: {x: -150, y: 550, z: 0}
+  EndPosition: {x: 150, y: 550, z: 0}
   UseLocalSpace: 0
 --- !u!114 &6140229505771442576
 MonoBehaviour:
