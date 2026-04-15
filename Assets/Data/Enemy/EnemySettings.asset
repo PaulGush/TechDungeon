@@ -17,7 +17,7 @@ MonoBehaviour:
   ObstacleAvoidanceDistance: 2
   ObstacleLayerMask:
     serializedVersion: 2
-    m_Bits: 2048
+    m_Bits: 6144
   SteeringRayCount: 8
   StuckThreshold: 0.1
   StuckTimeBeforeEscape: 0.5
