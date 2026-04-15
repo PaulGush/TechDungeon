@@ -13,6 +13,10 @@ public class ExplosionEffect : MonoBehaviour
 
     private IEnumerator AnimateExplosion()
     {
+        // Wait one frame so callers that Instantiate-then-set-scale can apply
+        // their target scale before we capture it as the animation endpoint.
+        yield return null;
+
         float elapsed = 0f;
         Vector3 startScale = Vector3.zero;
         Vector3 endScale = transform.localScale;
