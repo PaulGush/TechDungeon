@@ -17,6 +17,7 @@ namespace PlayerObject
         private void Awake()
         {
             ServiceLocator.Global.Register(this);
+            Physics2D.IgnoreLayerCollision(GameConstants.Layers.PlayerLayer, GameConstants.Layers.EnemyLayer, true);
         }
 
         private void Start()
