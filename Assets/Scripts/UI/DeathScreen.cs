@@ -27,9 +27,12 @@ public class DeathScreen : MonoBehaviour
 
     private CanvasGroup[] m_buttonGroups;
     private RectTransform[] m_buttonRects;
+    private float m_originalFixedDeltaTime;
 
     private void Awake()
     {
+        m_originalFixedDeltaTime = Time.fixedDeltaTime;
+
         m_buttonGroups = new[]
         {
             GetOrAddCanvasGroup(m_newRunButton),
@@ -46,6 +49,12 @@ public class DeathScreen : MonoBehaviour
         m_mainMenuButton.onClick.AddListener(OnMainMenu);
 
         gameObject.SetActive(false);
+    }
+
+    private void OnDestroy()
+    {
+        if (m_newRunButton != null) m_newRunButton.onClick.RemoveListener(OnNewRun);
+        if (m_mainMenuButton != null) m_mainMenuButton.onClick.RemoveListener(OnMainMenu);
     }
 
     public void Show()
@@ -102,7 +111,7 @@ public class DeathScreen : MonoBehaviour
     private void OnMainMenu()
     {
         Time.timeScale = 1f;
-        Time.fixedDeltaTime = 0.02f;
+        Time.fixedDeltaTime = m_originalFixedDeltaTime;
         ServiceLocator.Global.Get<ObjectPool>().ClearAll();
         SceneManager.LoadScene(m_mainMenuScene);
     }

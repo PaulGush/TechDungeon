@@ -17,6 +17,11 @@ public class EnemyShooting : MonoBehaviour
     protected ObjectPool m_pool;
     protected float m_lastTimeFired;
 
+    public void SetRuntimeSettings(EnemySettings runtimeSettings)
+    {
+        m_settings = runtimeSettings;
+    }
+
     protected virtual void Awake()
     {
         m_animationController = m_enemyController.AnimationController;

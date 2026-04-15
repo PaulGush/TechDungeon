@@ -14,6 +14,12 @@ public class CameraShake : MonoBehaviour
 
     public void ShakeCam(float duration, float amp, float freq)
     {
+        if (m_cameraShake == null)
+        {
+            Debug.LogWarning($"{nameof(CameraShake)}: {nameof(m_cameraShake)} is not assigned.", this);
+            return;
+        }
+
         StopAllCoroutines();
         StartCoroutine(ShakeCamCoroutine(duration, amp, freq));
     }
@@ -22,10 +28,10 @@ public class CameraShake : MonoBehaviour
     {
         m_cameraShake.AmplitudeGain = amp;
         m_cameraShake.FrequencyGain = freq;
-        
+
         yield return new WaitForSeconds(duration);
-        
-        m_cameraShake.AmplitudeGain = 0;
-        m_cameraShake.FrequencyGain = 0;
+
+        m_cameraShake.AmplitudeGain = 0f;
+        m_cameraShake.FrequencyGain = 0f;
     }
 }

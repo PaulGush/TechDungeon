@@ -27,11 +27,18 @@ namespace PlayerObject
 
         private Material m_cutoutMaterial;
         private bool m_isDying;
+        private float m_originalFixedDeltaTime;
 
         private static readonly int CenterID = Shader.PropertyToID("_Center");
         private static readonly int RadiusID = Shader.PropertyToID("_Radius");
         private static readonly int SoftnessID = Shader.PropertyToID("_Softness");
         private static readonly int ColorID = Shader.PropertyToID("_Color");
+
+        private void Awake()
+        {
+            // Captured once so we can restore the project's configured timestep regardless of what it is.
+            m_originalFixedDeltaTime = Time.fixedDeltaTime;
+        }
 
         private void OnEnable()
         {
@@ -78,7 +85,7 @@ namespace PlayerObject
                 float easedT = t * t;
 
                 Time.timeScale = Mathf.Lerp(originalTimeScale, m_slowMoTimeScale, t);
-                Time.fixedDeltaTime = 0.02f * Time.timeScale;
+                Time.fixedDeltaTime = m_originalFixedDeltaTime * Time.timeScale;
 
                 Vector3 screenPos = m_camera.WorldToViewportPoint(m_playerTransform.position);
                 m_cutoutMaterial.SetVector(CenterID, new Vector4(screenPos.x, screenPos.y, 0, 0));
@@ -103,13 +110,13 @@ namespace PlayerObject
             m_isDying = false;
             m_cutoutImage.gameObject.SetActive(false);
             Time.timeScale = 1f;
-            Time.fixedDeltaTime = 0.02f;
+            Time.fixedDeltaTime = m_originalFixedDeltaTime;
         }
 
         private void OnDestroy()
         {
             Time.timeScale = 1f;
-            Time.fixedDeltaTime = 0.02f;
+            Time.fixedDeltaTime = m_originalFixedDeltaTime;
         }
     }
 }

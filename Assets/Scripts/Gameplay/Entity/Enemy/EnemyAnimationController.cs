@@ -86,12 +86,13 @@ public class EnemyAnimationController : EntityAnimationController
 
     protected virtual void Update()
     {
+        if (!m_hasRotation) return;
+
         Transform target = m_targeting.CurrentTarget;
         if (target == null) return;
 
-        Vector3 diff = (target.position - m_enemyController.transform.position).normalized;
-        float angle = Mathf.Repeat(-Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg, 360f);
-        if (m_hasRotation) m_animator.SetFloat(Rotation, angle);
+        Vector2 diff = ((Vector2)(target.position - m_enemyController.transform.position)).normalized;
+        m_animator.SetFloat(Rotation, MathUtilities.CalculateSpriteFacingAngleDegrees(diff));
     }
 
     private void OnTargetChanged(Transform target)
