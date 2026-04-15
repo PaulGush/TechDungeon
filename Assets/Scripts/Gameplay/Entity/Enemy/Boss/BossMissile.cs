@@ -1,11 +1,11 @@
-using System.Collections.Generic;
 using Gameplay.ObjectPool;
 using UnityEngine;
 using UnityServiceLocator;
 
 /// <summary>
 /// A single missile launched by <see cref="MissileBarrage"/>. Travels from a launch point
-/// to a fixed ground-target along a parabolic arc, then deals area damage on impact.
+/// to a fixed ground-target along a parabolic arc, then spawns an ExplosionEffect at the
+/// impact site which handles the trigger-based area damage and falloff itself.
 /// Self-contained: generates its own sprite at first enable so no manual prefab authoring is required.
 /// </summary>
 public class BossMissile : MonoBehaviour
@@ -13,9 +13,6 @@ public class BossMissile : MonoBehaviour
     private const int SpriteSize = 16;
     private const int SortingOrder = 5;
 
-    private static readonly List<Collider2D> s_overlapResults = new List<Collider2D>();
-    private static ContactFilter2D s_contactFilter;
-    private static bool s_contactFilterInitialized;
     private static Sprite s_missileSprite;
 
     [SerializeField] private SpriteRenderer m_spriteRenderer;
@@ -107,25 +104,14 @@ public class BossMissile : MonoBehaviour
 
         if (m_explosionEffectPrefab != null)
         {
-            GameObject vfx = Instantiate(m_explosionEffectPrefab, m_targetPosition, Quaternion.identity);
-            vfx.transform.localScale = Vector3.one * (m_explosionRadius * 2f);
-        }
+            GameObject vfx = m_pool != null
+                ? m_pool.GetPooledObject(m_explosionEffectPrefab)
+                : Instantiate(m_explosionEffectPrefab);
+            vfx.transform.position = m_targetPosition;
+            vfx.transform.rotation = Quaternion.identity;
 
-        if (m_explosionRadius > 0f && m_damage > 0)
-        {
-            if (!s_contactFilterInitialized)
-            {
-                s_contactFilter = new ContactFilter2D { useTriggers = true };
-                s_contactFilterInitialized = true;
-            }
-            s_contactFilter.SetLayerMask(m_damageLayers);
-
-            int hitCount = Physics2D.OverlapCircle(m_targetPosition, m_explosionRadius, s_contactFilter, s_overlapResults);
-            for (int i = 0; i < hitCount; i++)
-            {
-                if (s_overlapResults[i].TryGetComponent(out EntityHealth health))
-                    health.TakeDamage(m_damage);
-            }
+            if (vfx.TryGetComponent(out ExplosionEffect explosion))
+                explosion.Initialize(m_explosionRadius, m_damage, m_damageLayers);
         }
 
         if (m_pool == null || !m_pool.ReturnGameObject(gameObject))

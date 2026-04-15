@@ -190,7 +190,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -228,7 +228,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -282,12 +282,12 @@ TextureImporter:
       name: FX_Fire00_ShockWave_6x4_0
       rect:
         serializedVersion: 2
-        x: 59
-        y: 444
-        width: 11
-        height: 11
+        x: 0
+        y: 384
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -304,12 +304,12 @@ TextureImporter:
       name: FX_Fire00_ShockWave_6x4_1
       rect:
         serializedVersion: 2
-        x: 180
-        y: 440
-        width: 23
-        height: 21
+        x: 128
+        y: 384
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -326,12 +326,12 @@ TextureImporter:
       name: FX_Fire00_ShockWave_6x4_2
       rect:
         serializedVersion: 2
-        x: 305
-        y: 437
-        width: 29
-        height: 27
+        x: 256
+        y: 384
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -348,12 +348,12 @@ TextureImporter:
       name: FX_Fire00_ShockWave_6x4_3
       rect:
         serializedVersion: 2
-        x: 429
-        y: 434
-        width: 36
-        height: 33
+        x: 384
+        y: 384
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -370,12 +370,12 @@ TextureImporter:
       name: FX_Fire00_ShockWave_6x4_4
       rect:
         serializedVersion: 2
-        x: 553
-        y: 431
-        width: 44
-        height: 40
+        x: 512
+        y: 384
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -392,12 +392,12 @@ TextureImporter:
       name: FX_Fire00_ShockWave_6x4_5
       rect:
         serializedVersion: 2
-        x: 674
-        y: 424
-        width: 57
-        height: 55
+        x: 640
+        y: 384
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -414,12 +414,12 @@ TextureImporter:
       name: FX_Fire00_ShockWave_6x4_6
       rect:
         serializedVersion: 2
-        x: 32
-        y: 293
-        width: 62
-        height: 61
+        x: 0
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -436,12 +436,12 @@ TextureImporter:
       name: FX_Fire00_ShockWave_6x4_7
       rect:
         serializedVersion: 2
-        x: 158
-        y: 290
-        width: 67
-        height: 67
+        x: 128
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -458,12 +458,12 @@ TextureImporter:
       name: FX_Fire00_ShockWave_6x4_8
       rect:
         serializedVersion: 2
-        x: 285
-        y: 287
-        width: 71
-        height: 73
+        x: 256
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -480,12 +480,12 @@ TextureImporter:
       name: FX_Fire00_ShockWave_6x4_9
       rect:
         serializedVersion: 2
-        x: 410
-        y: 284
-        width: 78
-        height: 79
+        x: 384
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -502,12 +502,12 @@ TextureImporter:
       name: FX_Fire00_ShockWave_6x4_10
       rect:
         serializedVersion: 2
-        x: 537
-        y: 282
-        width: 80
-        height: 83
+        x: 512
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -524,12 +524,12 @@ TextureImporter:
       name: FX_Fire00_ShockWave_6x4_11
       rect:
         serializedVersion: 2
-        x: 665
-        y: 281
-        width: 82
-        height: 85
+        x: 640
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -546,12 +546,12 @@ TextureImporter:
       name: FX_Fire00_ShockWave_6x4_12
       rect:
         serializedVersion: 2
-        x: 22
-        y: 149
-        width: 88
-        height: 91
+        x: 0
+        y: 128
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -568,12 +568,12 @@ TextureImporter:
       name: FX_Fire00_ShockWave_6x4_13
       rect:
         serializedVersion: 2
-        x: 148
-        y: 146
-        width: 92
-        height: 95
+        x: 128
+        y: 128
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -590,12 +590,12 @@ TextureImporter:
       name: FX_Fire00_ShockWave_6x4_14
       rect:
         serializedVersion: 2
-        x: 275
-        y: 145
-        width: 94
-        height: 97
+        x: 256
+        y: 128
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -612,12 +612,12 @@ TextureImporter:
       name: FX_Fire00_ShockWave_6x4_15
       rect:
         serializedVersion: 2
-        x: 402
-        y: 143
-        width: 94
-        height: 99
+        x: 384
+        y: 128
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -634,12 +634,12 @@ TextureImporter:
       name: FX_Fire00_ShockWave_6x4_16
       rect:
         serializedVersion: 2
-        x: 529
-        y: 166
-        width: 94
-        height: 76
+        x: 512
+        y: 128
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -656,12 +656,12 @@ TextureImporter:
       name: FX_Fire00_ShockWave_6x4_17
       rect:
         serializedVersion: 2
-        x: 657
-        y: 191
-        width: 72
-        height: 49
+        x: 640
+        y: 128
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -678,12 +678,12 @@ TextureImporter:
       name: FX_Fire00_ShockWave_6x4_18
       rect:
         serializedVersion: 2
-        x: 728
-        y: 200
-        width: 15
-        height: 27
+        x: 0
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -700,12 +700,12 @@ TextureImporter:
       name: FX_Fire00_ShockWave_6x4_19
       rect:
         serializedVersion: 2
-        x: 743
-        y: 197
-        width: 8
-        height: 8
+        x: 128
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -722,12 +722,12 @@ TextureImporter:
       name: FX_Fire00_ShockWave_6x4_20
       rect:
         serializedVersion: 2
-        x: 596
-        y: 154
-        width: 28
-        height: 41
+        x: 256
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -744,12 +744,12 @@ TextureImporter:
       name: FX_Fire00_ShockWave_6x4_21
       rect:
         serializedVersion: 2
-        x: 659
-        y: 168
-        width: 25
-        height: 21
+        x: 384
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -762,671 +762,11 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: FX_Fire00_ShockWave_6x4_22
-      rect:
-        serializedVersion: 2
-        x: 726
-        y: 154
-        width: 14
-        height: 23
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 7d9b0cd440f303c30800000000000000
-      internalID: 4337035728874682839
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: FX_Fire00_ShockWave_6x4_23
-      rect:
-        serializedVersion: 2
-        x: 737
-        y: 175
-        width: 14
-        height: 18
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: e934e35c896667b30800000000000000
-      internalID: 4284724901819859870
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: FX_Fire00_ShockWave_6x4_24
-      rect:
-        serializedVersion: 2
-        x: 540
-        y: 141
-        width: 57
-        height: 26
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 71cec3fafa9d902a0800000000000000
-      internalID: -6770641216192320489
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: FX_Fire00_ShockWave_6x4_25
-      rect:
-        serializedVersion: 2
-        x: 670
-        y: 141
-        width: 40
-        height: 24
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 32647f2f119e0cc20800000000000000
-      internalID: 3224833596497282595
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: FX_Fire00_ShockWave_6x4_26
-      rect:
-        serializedVersion: 2
-        x: 715
-        y: 146
-        width: 9
-        height: 10
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: a52c8114a87224fa0800000000000000
-      internalID: -5818044293858147750
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: FX_Fire00_ShockWave_6x4_27
-      rect:
-        serializedVersion: 2
-        x: 37
-        y: 89
-        width: 48
-        height: 21
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 03f3cca2496754d90800000000000000
-      internalID: -7114149657616564432
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: FX_Fire00_ShockWave_6x4_28
-      rect:
-        serializedVersion: 2
-        x: 167
-        y: 90
-        width: 11
-        height: 12
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 3d87d8f1a78a03a00800000000000000
-      internalID: 734271981730232531
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: FX_Fire00_ShockWave_6x4_29
-      rect:
-        serializedVersion: 2
-        x: 178
-        y: 92
-        width: 30
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: fd7df05f089a66070800000000000000
-      internalID: 8099347351204779999
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: FX_Fire00_ShockWave_6x4_30
-      rect:
-        serializedVersion: 2
-        x: 296
-        y: 91
-        width: 8
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 3b382329012edee30800000000000000
-      internalID: 4534528960632095667
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: FX_Fire00_ShockWave_6x4_31
-      rect:
-        serializedVersion: 2
-        x: 308
-        y: 96
-        width: 12
-        height: 11
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: c62d0ee1b2aeaf5e0800000000000000
-      internalID: -1874928823923846548
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: FX_Fire00_ShockWave_6x4_32
-      rect:
-        serializedVersion: 2
-        x: 321
-        y: 99
-        width: 7
-        height: 7
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 78b8338cd7e155820800000000000000
-      internalID: 2906262660116089735
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: FX_Fire00_ShockWave_6x4_33
-      rect:
-        serializedVersion: 2
-        x: 18
-        y: 64
-        width: 21
-        height: 28
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 80303f58753cd5830800000000000000
-      internalID: 4061617219634922248
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: FX_Fire00_ShockWave_6x4_34
-      rect:
-        serializedVersion: 2
-        x: 90
-        y: 84
-        width: 11
-        height: 14
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: d33a0c9f167b88d30800000000000000
-      internalID: 4433995464576115517
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: FX_Fire00_ShockWave_6x4_35
-      rect:
-        serializedVersion: 2
-        x: 147
-        y: 69
-        width: 17
-        height: 19
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 86307027ffa622520800000000000000
-      internalID: 2675818773973762920
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: FX_Fire00_ShockWave_6x4_36
-      rect:
-        serializedVersion: 2
-        x: 219
-        y: 85
-        width: 8
-        height: 8
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 647ce0773a9ce3b20800000000000000
-      internalID: 3116149696101271366
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: FX_Fire00_ShockWave_6x4_37
-      rect:
-        serializedVersion: 2
-        x: 276
-        y: 71
-        width: 14
-        height: 14
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 4b1343facc0b868d0800000000000000
-      internalID: -2852835970779958860
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: FX_Fire00_ShockWave_6x4_38
-      rect:
-        serializedVersion: 2
-        x: 94
-        y: 74
-        width: 8
-        height: 10
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 8fcea719d0bf8afb0800000000000000
-      internalID: -4636179780684026632
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: FX_Fire00_ShockWave_6x4_39
-      rect:
-        serializedVersion: 2
-        x: 405
-        y: 72
-        width: 11
-        height: 12
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: dfb86888f77ab3240800000000000000
-      internalID: 4772592396322376701
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: FX_Fire00_ShockWave_6x4_40
-      rect:
-        serializedVersion: 2
-        x: 22
-        y: 44
-        width: 10
-        height: 14
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: b46425e08c48de060800000000000000
-      internalID: 6984384591890105931
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: FX_Fire00_ShockWave_6x4_41
-      rect:
-        serializedVersion: 2
-        x: 103
-        y: 52
-        width: 7
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: f790f6dfa35dd98c0800000000000000
-      internalID: -3990799245443659393
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: FX_Fire00_ShockWave_6x4_42
-      rect:
-        serializedVersion: 2
-        x: 30
-        y: 41
-        width: 8
-        height: 7
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 880a3385cbdcc6c40800000000000000
-      internalID: 5507002653184598152
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: FX_Fire00_ShockWave_6x4_43
-      rect:
-        serializedVersion: 2
-        x: 87
-        y: 35
-        width: 10
-        height: 10
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: b169622923bc09e10800000000000000
-      internalID: 2202483635844978203
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: FX_Fire00_ShockWave_6x4_44
-      rect:
-        serializedVersion: 2
-        x: 217
-        y: 35
-        width: 7
-        height: 7
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 1ae4027ea7ca7bc80800000000000000
-      internalID: -8306981343797948767
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: FX_Fire00_ShockWave_6x4_45
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 29
-        width: 7
-        height: 7
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: f2ab704871c020390800000000000000
-      internalID: -7853701505041843665
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: FX_Fire00_ShockWave_6x4_46
-      rect:
-        serializedVersion: 2
-        x: 43
-        y: 21
-        width: 9
-        height: 8
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 2eb9d128434794800800000000000000
-      internalID: 597136194473401314
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: FX_Fire00_ShockWave_6x4_47
-      rect:
-        serializedVersion: 2
-        x: 51
-        y: 13
-        width: 18
-        height: 20
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 1a93dbbdfccb57910800000000000000
-      internalID: 1834580024154208673
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: FX_Fire00_ShockWave_6x4_48
-      rect:
-        serializedVersion: 2
-        x: 89
-        y: 27
-        width: 8
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 717c903e96c9a24f0800000000000000
-      internalID: -852697200838719721
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: FX_Fire00_ShockWave_6x4_49
-      rect:
-        serializedVersion: 2
-        x: 181
-        y: 13
-        width: 14
-        height: 18
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 63f8f9fa101d5d770800000000000000
-      internalID: 8635037665724436278
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: FX_Fire00_ShockWave_6x4_50
-      rect:
-        serializedVersion: 2
-        x: 310
-        y: 14
-        width: 11
-        height: 14
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 0c2bab2996d3e2460800000000000000
-      internalID: 7218774776364053184
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: FX_Fire00_ShockWave_6x4_51
-      rect:
-        serializedVersion: 2
-        x: 439
-        y: 18
-        width: 8
-        height: 8
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: dfa7337395ccc5f50800000000000000
-      internalID: 6871591815010810621
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: af5057e41f7725ec9b6aa7a8acf0694d
     internalID: 0
     vertices: []
     indices: 
@@ -1434,7 +774,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":128.0,"y":128.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
       FX_Fire00_ShockWave_6x4_0: -7700687156600979802
       FX_Fire00_ShockWave_6x4_1: 7608286959978499194
@@ -1451,39 +793,9 @@ TextureImporter:
       FX_Fire00_ShockWave_6x4_2: 9039296869446969831
       FX_Fire00_ShockWave_6x4_20: -7333568229603517733
       FX_Fire00_ShockWave_6x4_21: 7478174961445024863
-      FX_Fire00_ShockWave_6x4_22: 4337035728874682839
-      FX_Fire00_ShockWave_6x4_23: 4284724901819859870
-      FX_Fire00_ShockWave_6x4_24: -6770641216192320489
-      FX_Fire00_ShockWave_6x4_25: 3224833596497282595
-      FX_Fire00_ShockWave_6x4_26: -5818044293858147750
-      FX_Fire00_ShockWave_6x4_27: -7114149657616564432
-      FX_Fire00_ShockWave_6x4_28: 734271981730232531
-      FX_Fire00_ShockWave_6x4_29: 8099347351204779999
       FX_Fire00_ShockWave_6x4_3: 249370892660090331
-      FX_Fire00_ShockWave_6x4_30: 4534528960632095667
-      FX_Fire00_ShockWave_6x4_31: -1874928823923846548
-      FX_Fire00_ShockWave_6x4_32: 2906262660116089735
-      FX_Fire00_ShockWave_6x4_33: 4061617219634922248
-      FX_Fire00_ShockWave_6x4_34: 4433995464576115517
-      FX_Fire00_ShockWave_6x4_35: 2675818773973762920
-      FX_Fire00_ShockWave_6x4_36: 3116149696101271366
-      FX_Fire00_ShockWave_6x4_37: -2852835970779958860
-      FX_Fire00_ShockWave_6x4_38: -4636179780684026632
-      FX_Fire00_ShockWave_6x4_39: 4772592396322376701
       FX_Fire00_ShockWave_6x4_4: -5083704332153253090
-      FX_Fire00_ShockWave_6x4_40: 6984384591890105931
-      FX_Fire00_ShockWave_6x4_41: -3990799245443659393
-      FX_Fire00_ShockWave_6x4_42: 5507002653184598152
-      FX_Fire00_ShockWave_6x4_43: 2202483635844978203
-      FX_Fire00_ShockWave_6x4_44: -8306981343797948767
-      FX_Fire00_ShockWave_6x4_45: -7853701505041843665
-      FX_Fire00_ShockWave_6x4_46: 597136194473401314
-      FX_Fire00_ShockWave_6x4_47: 1834580024154208673
-      FX_Fire00_ShockWave_6x4_48: -852697200838719721
-      FX_Fire00_ShockWave_6x4_49: 8635037665724436278
       FX_Fire00_ShockWave_6x4_5: 3074366488388435302
-      FX_Fire00_ShockWave_6x4_50: 7218774776364053184
-      FX_Fire00_ShockWave_6x4_51: 6871591815010810621
       FX_Fire00_ShockWave_6x4_6: 6684179277787695662
       FX_Fire00_ShockWave_6x4_7: 6379984198929159432
       FX_Fire00_ShockWave_6x4_8: 327607764948261474
