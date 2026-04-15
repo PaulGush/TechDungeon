@@ -25,6 +25,7 @@ public class DialogueBoxUI : MonoBehaviour
     private string m_fullText;
 
     public bool IsTyping => m_isTyping;
+    public bool IsLineVisible => m_canvasGroup != null && m_canvasGroup.alpha > 0f;
 
     public void ShowLine(DialogueLine line, float typingSpeed)
     {
