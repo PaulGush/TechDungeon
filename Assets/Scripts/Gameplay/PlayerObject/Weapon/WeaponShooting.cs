@@ -15,11 +15,9 @@ public class WeaponShooting : MonoBehaviour, IWeapon
 
     private ObjectPool m_pool;
     private Transform m_weaponHolder;
-    private bool m_isObstructed;
     private MutationManager m_mutationManager;
     private AmmoManager m_ammoManager;
 
-    public bool IsObstructed => m_isObstructed;
     public Vector2 ShootPointPosition => m_shootPoint.position;
 
     private void Start()
@@ -39,24 +37,22 @@ public class WeaponShooting : MonoBehaviour, IWeapon
     public void Unequip()
     {
         m_inputReader.Attack -= OnAttack;
-        m_isObstructed = false;
     }
 
-    private void Update()
+    private bool IsShootPointObstructed()
     {
-        if (m_weaponHolder == null) return;
+        if (m_weaponHolder == null) return false;
 
         Vector2 origin = m_weaponHolder.position;
         Vector2 target = m_shootPoint.position;
         Vector2 direction = target - origin;
-        float distance = direction.magnitude;
 
-        m_isObstructed = Physics2D.Raycast(origin, direction, distance, GameConstants.Layers.WallsLayerMask);
+        return Physics2D.Raycast(origin, direction, direction.magnitude, GameConstants.Layers.WallsLayerMask);
     }
 
     private void OnAttack()
     {
-        if (m_pool == null || m_isObstructed) return;
+        if (m_pool == null || IsShootPointObstructed()) return;
 
         // Resolve ammo type
         AmmoSettings ammoSettings = null;

@@ -8,6 +8,10 @@ namespace TechDungeon.Editor
 {
     public class QuickSpawnTool : EditorWindow
     {
+        private const float PrefabCellOuterWidth = 80f;
+        private const float PrefabCellInnerWidth = 72f;
+        private const float PrefabButtonSize = 64f;
+
         private int m_selectedTab;
         private Vector2 m_scrollPosition;
         private readonly string[] m_tabNames = { "Enemy", "Weapon", "Pickup" };
@@ -128,7 +132,7 @@ namespace TechDungeon.Editor
 
         private void DrawPrefabGrid(List<GameObject> prefabs)
         {
-            int columns = Mathf.Max(1, (int)(position.width / 80));
+            int columns = Mathf.Max(1, (int)(position.width / PrefabCellOuterWidth));
             int col = 0;
 
             EditorGUILayout.BeginHorizontal();
@@ -141,17 +145,17 @@ namespace TechDungeon.Editor
                     EditorGUILayout.BeginHorizontal();
                 }
 
-                EditorGUILayout.BeginVertical(GUILayout.Width(72));
+                EditorGUILayout.BeginVertical(GUILayout.Width(PrefabCellInnerWidth));
 
                 var preview = AssetPreview.GetAssetPreview(prefab);
                 var content = preview != null
                     ? new GUIContent(preview)
                     : new GUIContent(AssetPreview.GetMiniThumbnail(prefab));
 
-                if (GUILayout.Button(content, GUILayout.Width(64), GUILayout.Height(64)))
+                if (GUILayout.Button(content, GUILayout.Width(PrefabButtonSize), GUILayout.Height(PrefabButtonSize)))
                     SpawnPrefab(prefab);
 
-                GUILayout.Label(prefab.name, EditorStyles.miniLabel, GUILayout.Width(64));
+                GUILayout.Label(prefab.name, EditorStyles.miniLabel, GUILayout.Width(PrefabButtonSize));
                 EditorGUILayout.EndVertical();
 
                 col++;

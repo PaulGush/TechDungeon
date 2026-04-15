@@ -16,6 +16,8 @@ namespace PlayerObject
 
         private const float WeaponRotationOffset = -90f;
         private const float WallBuffer = 0.05f;
+        // Squared deadzone for gamepad/stick look input — below this magnitude we fall back to the mouse cursor.
+        private const float LookInputDeadzoneSqr = 0.1f;
 
         private Vector2 m_previousFrameMousePosition;
         private RoomManager m_roomManager;
@@ -42,17 +44,20 @@ namespace PlayerObject
         private void HandleWeaponPositionAndRotation()
         {
             Vector2 lookDirection = m_inputReader.LookDirection;
-            if (lookDirection.sqrMagnitude > 0.1f)
+            if (lookDirection.sqrMagnitude > LookInputDeadzoneSqr)
             {
                 transform.rotation = MathUtilities.CalculateAimRotation(lookDirection, WeaponRotationOffset);
+                return;
             }
-            else if (m_previousFrameMousePosition != Mouse.current.position.ReadValue())
+
+            Vector2 mousePosition = Mouse.current.position.ReadValue();
+            if (mousePosition != m_previousFrameMousePosition)
             {
-                Vector3 diff = m_camera.ScreenToWorldPoint(Mouse.current.position.ReadValue()) - transform.position;
+                Vector3 diff = m_camera.ScreenToWorldPoint(mousePosition) - transform.position;
                 diff.Normalize();
                 transform.rotation = MathUtilities.CalculateAimRotation(diff, WeaponRotationOffset);
             }
-            m_previousFrameMousePosition = Mouse.current.position.ReadValue();
+            m_previousFrameMousePosition = mousePosition;
         }
 
         private void ClampWeaponToWalls()
