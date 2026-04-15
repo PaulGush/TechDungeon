@@ -13,7 +13,8 @@ public class Flamethrower : MonoBehaviour
     private float m_tickTimer;
     private bool m_isFiring;
 
-    private readonly List<EntityHealth> m_targets = new List<EntityHealth>();
+    private readonly HashSet<EntityHealth> m_targets = new HashSet<EntityHealth>();
+    private readonly List<EntityHealth> m_deadTargetsBuffer = new List<EntityHealth>();
 
     public void Fire(int damagePerTick, float tickInterval, float duration)
     {
@@ -61,16 +62,22 @@ public class Flamethrower : MonoBehaviour
 
     private void DamageTick()
     {
-        for (int i = m_targets.Count - 1; i >= 0; i--)
+        foreach (EntityHealth target in m_targets)
         {
-            if (m_targets[i] == null || m_targets[i].IsDead)
+            if (target == null || target.IsDead)
             {
-                m_targets.RemoveAt(i);
+                m_deadTargetsBuffer.Add(target);
                 continue;
             }
 
-            m_targets[i].TakeDamage(m_damagePerTick);
+            target.TakeDamage(m_damagePerTick);
         }
+
+        if (m_deadTargetsBuffer.Count == 0) return;
+
+        for (int i = 0; i < m_deadTargetsBuffer.Count; i++)
+            m_targets.Remove(m_deadTargetsBuffer[i]);
+        m_deadTargetsBuffer.Clear();
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -78,19 +85,13 @@ public class Flamethrower : MonoBehaviour
         if (!m_isFiring) return;
         if (((1 << other.gameObject.layer) & m_damageLayers) == 0) return;
 
-        EntityHealth health = other.GetComponent<EntityHealth>();
-        if (health != null && !m_targets.Contains(health))
-        {
+        if (other.TryGetComponent(out EntityHealth health))
             m_targets.Add(health);
-        }
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        EntityHealth health = other.GetComponent<EntityHealth>();
-        if (health != null)
-        {
+        if (other.TryGetComponent(out EntityHealth health))
             m_targets.Remove(health);
-        }
     }
 }

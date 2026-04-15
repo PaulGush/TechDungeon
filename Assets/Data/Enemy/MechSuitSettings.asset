@@ -30,6 +30,7 @@ MonoBehaviour:
   Phases:
   - HealthThreshold: 0.65
     AttackType: 0
+    AttackAnimationIndex: 2
     FireRateOverride: 0.75
     FlameDuration: 0
     FlameDamagePerTick: 0
@@ -45,23 +46,34 @@ MonoBehaviour:
     MinionCount: 0
     MinionPrefab: {fileID: 0}
   - HealthThreshold: 0.4
-    AttackType: 2
-    FireRateOverride: 1.25
-    FlameDuration: 2
-    FlameDamagePerTick: 5
-    FlameTickInterval: 0.5
-    BurstProjectileCount: 8
-    BurstRadius: 60
+    AttackType: 3
+    AttackAnimationIndex: 0
+    FireRateOverride: 4
+    FlameDuration: 0
+    FlameDamagePerTick: 0
+    FlameTickInterval: 0
+    BurstProjectileCount: 0
+    BurstRadius: 0
+    MissileCount: 5
+    MissileSpreadRadius: 4
+    MissileMinSeparation: 1.5
+    MissileTelegraphDuration: 1.25
+    MissileTravelDuration: 0.85
+    MissileArcHeightRatio: 0.4
+    MissileDamage: 4
+    MissileExplosionRadius: 1.25
+    MissileExplosionEffectPrefab: {fileID: 0}
     SpeedOverride: -1
     StrafeSpeedOverride: -1
-    AttackRangeOverride: 8
-    PreferredAttackDistanceOverride: 5
-    AggressiveChase: 1
+    AttackRangeOverride: 12
+    PreferredAttackDistanceOverride: 8
+    AggressiveChase: 0
     SummonsMinions: 1
     MinionCount: 4
     MinionPrefab: {fileID: 7364831485085966955, guid: 4bf1a82e2dc6a45168567b5f616ff4b1, type: 3}
   - HealthThreshold: 0.1
     AttackType: 1
+    AttackAnimationIndex: 1
     FireRateOverride: 0.25
     FlameDuration: 2
     FlameDamagePerTick: 5
