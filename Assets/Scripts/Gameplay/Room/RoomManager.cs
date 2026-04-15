@@ -33,6 +33,7 @@ public class RoomManager : MonoBehaviour
     [Header("Reward Icons")]
     [SerializeField] private List<RewardIconMapping> m_rewardIcons;
     [SerializeField] private Sprite m_bossRoomIcon;
+    [SerializeField] private Sprite m_shopRoomIcon;
 
     private FloorManager m_floorManager;
     private RoomInstance m_currentRoom;
@@ -40,6 +41,7 @@ public class RoomManager : MonoBehaviour
     private RoomSettings m_currentSettings;
 
     public Transform CurrentRoomTransform => m_currentRoom != null ? m_currentRoom.transform : null;
+    public RoomInstance CurrentRoom => m_currentRoom;
 
     public event Action<RoomSettings> OnRoomLoaded;
     public event Action OnRoomCleared;
@@ -231,8 +233,12 @@ public class RoomManager : MonoBehaviour
             usedRewards.Add(reward);
 
             ChestSettings chestSettings = m_floorManager.GetChestSettingsForReward(reward);
-            bool isBossRoom = nextSlot.Settings.RoomType == RoomType.Boss;
-            Sprite icon = isBossRoom ? m_bossRoomIcon : GetRewardIcon(reward);
+            Sprite icon = nextSlot.Settings.RoomType switch
+            {
+                RoomType.Boss => m_bossRoomIcon,
+                RoomType.Shop => m_shopRoomIcon,
+                _ => GetRewardIcon(reward)
+            };
             door.Initialize(nextSlot.Settings, this, chestSettings, icon);
 
             if (startLocked)

@@ -5,11 +5,15 @@ public class RewardIndicator : MonoBehaviour
 {
     private const float OrbitRadius = 1.5f;
     private const float HideDistance = 2f;
+    private const float HideDistanceSqr = HideDistance * HideDistance;
     private const float PulseSpeed = 3f;
     private const float MinAlpha = 0.4f;
     private const float MaxAlpha = 0.9f;
+    private const float InitialScale = 0.5f;
+    private const float SpriteRotationOffset = -90f;
     private const int ArrowTextureSize = 32;
     private const int SortOrder = 100;
+    private static readonly Color ArrowTint = new Color(1f, 0.85f, 0.2f, MaxAlpha);
 
     private Transform m_player;
     private List<GameObject> m_targets;
@@ -28,17 +32,17 @@ public class RewardIndicator : MonoBehaviour
             s_arrowSprite = CreateArrowSprite();
 
         m_spriteRenderer.sprite = s_arrowSprite;
-        m_spriteRenderer.color = new Color(1f, 0.85f, 0.2f, MaxAlpha);
+        m_spriteRenderer.color = ArrowTint;
         m_spriteRenderer.sortingOrder = SortOrder;
 
-        transform.localScale = Vector3.one * 0.5f;
+        transform.localScale = Vector3.one * InitialScale;
     }
 
     private void Update()
     {
         if (m_player == null) return;
 
-        m_targets.RemoveAll(t => t == null);
+        PruneDestroyedTargets();
 
         if (m_targets.Count == 0)
         {
@@ -46,12 +50,10 @@ public class RewardIndicator : MonoBehaviour
             return;
         }
 
-        GameObject nearest = FindNearestTarget();
+        GameObject nearest = FindNearestTarget(out float nearestDistSqr);
         if (nearest == null) return;
 
-        float dist = Vector2.Distance(m_player.position, nearest.transform.position);
-
-        if (dist < HideDistance)
+        if (nearestDistSqr < HideDistanceSqr)
         {
             m_spriteRenderer.enabled = false;
             return;
@@ -63,27 +65,37 @@ public class RewardIndicator : MonoBehaviour
         transform.position = (Vector2)m_player.position + direction * OrbitRadius;
 
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(0, 0, angle - 90f);
+        transform.rotation = Quaternion.Euler(0f, 0f, angle + SpriteRotationOffset);
 
-        float alpha = Mathf.Lerp(MinAlpha, MaxAlpha, (Mathf.Sin(Time.time * PulseSpeed) + 1f) / 2f);
+        float alpha = Mathf.Lerp(MinAlpha, MaxAlpha, (Mathf.Sin(Time.time * PulseSpeed) + 1f) * 0.5f);
         Color c = m_spriteRenderer.color;
         c.a = alpha;
         m_spriteRenderer.color = c;
     }
 
-    private GameObject FindNearestTarget()
+    private void PruneDestroyedTargets()
+    {
+        for (int i = m_targets.Count - 1; i >= 0; i--)
+        {
+            if (m_targets[i] == null)
+                m_targets.RemoveAt(i);
+        }
+    }
+
+    private GameObject FindNearestTarget(out float nearestDistSqr)
     {
         GameObject nearest = null;
-        float nearestDist = float.MaxValue;
+        nearestDistSqr = float.MaxValue;
 
-        foreach (GameObject target in m_targets)
+        Vector2 playerPos = m_player.position;
+        for (int i = 0; i < m_targets.Count; i++)
         {
-            float dist = Vector2.Distance(m_player.position, target.transform.position);
-            if (dist < nearestDist)
-            {
-                nearestDist = dist;
-                nearest = target;
-            }
+            GameObject target = m_targets[i];
+            float distSqr = ((Vector2)target.transform.position - playerPos).sqrMagnitude;
+            if (distSqr >= nearestDistSqr) continue;
+
+            nearestDistSqr = distSqr;
+            nearest = target;
         }
 
         return nearest;
