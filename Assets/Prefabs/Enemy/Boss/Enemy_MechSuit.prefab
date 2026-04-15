@@ -366,6 +366,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7347244267169436199}
+  - component: {fileID: 453433710525788049}
   - component: {fileID: 5073760771567818614}
   - component: {fileID: 6919540729802324588}
   - component: {fileID: 7071131069249136683}
@@ -374,6 +375,7 @@ GameObject:
   - component: {fileID: 2183196438318982530}
   - component: {fileID: 1126372842136865695}
   - component: {fileID: 2894561612828567105}
+  - component: {fileID: 310361910360395599}
   m_Layer: 10
   m_Name: Enemy_MechSuit
   m_TagString: Enemy
@@ -403,6 +405,18 @@ Transform:
   - {fileID: 5456389916990627987}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &453433710525788049
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6461043018938325683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f790aed7d1eb9a7ae8277a43ef77b703, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BossEntity
 --- !u!114 &5073760771567818614
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -575,6 +589,25 @@ MonoBehaviour:
   m_phaseManager: {fileID: 1126372842136865695}
   m_mechSuitShooting: {fileID: 7008022331651549324}
   m_settings: {fileID: 11400000, guid: 624925f10ddd084168771d2c4b1ca8ef, type: 2}
+--- !u!114 &310361910360395599
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6461043018938325683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3660d6201fe986a8a7b272c09533b5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BossDeathSequence
+  m_health: {fileID: 2183196438318982530}
+  m_enemyController: {fileID: 5073760771567818614}
+  m_animationController: {fileID: 9036900333929752887}
+  m_deathCinematic: {fileID: 11400000, guid: 97ca9e13438228b19b882947bd4e0b74, type: 2}
+  m_slowDuration: 1
+  m_haltTimeScale: 0
+  m_deathAnimationDuration: 0.5
 --- !u!1 &8073088548248990926
 GameObject:
   m_ObjectHideFlags: 0
@@ -834,6 +867,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MechSuitAnimationController
   m_animator: {fileID: 1984641698252405002}
   m_enemyController: {fileID: 5073760771567818614}
+  m_suppressDefaultDeathAnimation: 1
   m_legsAnimator: {fileID: 4142732762126842663}
   m_legsSpriteRenderer: {fileID: 8081815579358575484}
 --- !u!114 &7008022331651549324

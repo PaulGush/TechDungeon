@@ -19,6 +19,14 @@ public class RoomEncounter : MonoBehaviour
     private GameObject m_spawnIndicatorPrefab;
     private float m_spawnIndicatorDuration;
 
+    /// <summary>
+    /// The boss enemy spawned into this room, if any. Set whenever an enemy carrying a
+    /// <see cref="BossEntity"/> marker is spawned via <see cref="PreSpawnBoss"/> or
+    /// <see cref="SpawnWave"/>. Consumed by RoomManager to wire the boss vcam tracking
+    /// target without coupling to a specific prefab.
+    /// </summary>
+    public GameObject Boss { get; private set; }
+
     public void Initialize(RoomInstance roomInstance, RoomSettings settings,
         GameObject spawnIndicatorPrefab = null, float spawnIndicatorDuration = 0.8f)
     {
@@ -71,6 +79,9 @@ public class RoomEncounter : MonoBehaviour
         }
 
         m_activeEnemies.Add(boss);
+
+        if (boss.GetComponent<BossEntity>() != null)
+            Boss = boss;
 
         EntityHealth health = boss.GetComponent<EntityHealth>();
         if (health != null)
@@ -171,6 +182,9 @@ public class RoomEncounter : MonoBehaviour
 
             m_activeEnemies.Add(enemy);
 
+            if (enemy.GetComponent<BossEntity>() != null)
+                Boss = enemy;
+
             EntityHealth health = enemy.GetComponent<EntityHealth>();
             if (health != null)
             {
@@ -236,6 +250,29 @@ public class RoomEncounter : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Removes every active enemy that isn't the boss from the encounter — unsubscribes
+    /// their death callbacks, pulls them out of <see cref="m_activeEnemies"/>, and returns
+    /// them to the pool. Used by BossDeathSequence to wipe surviving minions the moment
+    /// the boss takes its lethal blow, so the death cutscene plays in a clean room.
+    /// </summary>
+    public void ClearNonBossEnemies()
+    {
+        for (int i = m_activeEnemies.Count - 1; i >= 0; i--)
+        {
+            GameObject enemy = m_activeEnemies[i];
+            if (enemy == null || enemy == Boss) continue;
+
+            UnsubscribeEnemy(enemy);
+            m_activeEnemies.RemoveAt(i);
+
+            if (m_pool != null)
+                m_pool.ReturnGameObject(enemy);
+            else
+                Destroy(enemy);
+        }
+    }
+
     public void RegisterEnemy(GameObject enemy)
     {
         m_activeEnemies.Add(enemy);
@@ -271,5 +308,6 @@ public class RoomEncounter : MonoBehaviour
 
         m_activeEnemies.Clear();
         m_deathCallbacks.Clear();
+        Boss = null;
     }
 }

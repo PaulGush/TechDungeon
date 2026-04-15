@@ -29,6 +29,8 @@ public class RoomManager : MonoBehaviour
 
     [Header("Camera")]
     [SerializeField] private CinemachineConfiner2D m_cameraConfiner;
+    [Tooltip("Vcam used to frame the boss during cinematics. Its tracking target is auto-wired to the room's BossEntity on room load and cleared on room unload.")]
+    [SerializeField] private CinemachineCamera m_bossVcam;
 
     [Header("Reward Icons")]
     [SerializeField] private List<RewardIconMapping> m_rewardIcons;
@@ -39,9 +41,12 @@ public class RoomManager : MonoBehaviour
     private RoomInstance m_currentRoom;
     private RoomEncounter m_currentEncounter;
     private RoomSettings m_currentSettings;
+    private EntityHealth m_playerHealth;
 
     public Transform CurrentRoomTransform => m_currentRoom != null ? m_currentRoom.transform : null;
     public RoomInstance CurrentRoom => m_currentRoom;
+    public RoomEncounter CurrentEncounter => m_currentEncounter;
+    public CinemachineCamera BossVcam => m_bossVcam;
 
     public event Action<RoomSettings> OnRoomLoaded;
     public event Action OnRoomCleared;
@@ -49,6 +54,9 @@ public class RoomManager : MonoBehaviour
     private void Awake()
     {
         ServiceLocator.Global.Register(this);
+
+        if (m_player != null)
+            m_playerHealth = m_player.GetComponentInChildren<EntityHealth>();
     }
 
     private void Start()
@@ -184,6 +192,8 @@ public class RoomManager : MonoBehaviour
                 m_currentEncounter.PreSpawnBoss();
             }
 
+            RefreshBossCameraTarget();
+
             if (bossSettings.IntroCinematic != null
                 && ServiceLocator.Global.TryGet(out CinematicPlayer cinematicPlayer))
             {
@@ -283,6 +293,41 @@ public class RoomManager : MonoBehaviour
         m_cameraConfiner.InvalidateBoundingShapeCache();
     }
 
+    private void RefreshBossCameraTarget()
+    {
+        if (m_bossVcam == null) return;
+
+        GameObject boss = m_currentEncounter != null ? m_currentEncounter.Boss : null;
+        m_bossVcam.Target.TrackingTarget = boss != null ? boss.transform : null;
+    }
+
+    public void SetBossVcamActive(bool active)
+    {
+        if (m_bossVcam != null)
+            m_bossVcam.enabled = active;
+    }
+
+    public void SetPlayerInputActive(bool active)
+    {
+        if (m_inputReader == null) return;
+        if (active)
+            m_inputReader.EnablePlayerActions();
+        else
+            m_inputReader.DisablePlayerActions();
+    }
+
+    public void SetPlayerGodMode(bool enabled)
+    {
+        if (m_playerHealth != null)
+            m_playerHealth.IsGodMode = enabled;
+    }
+
+    public void SetCameraConfinerActive(bool active)
+    {
+        if (m_cameraConfiner != null)
+            m_cameraConfiner.enabled = active;
+    }
+
     private void HandleRoomCleared()
     {
         OnRoomCleared?.Invoke();
@@ -318,6 +363,8 @@ public class RoomManager : MonoBehaviour
         m_currentRoom = null;
         m_currentEncounter = null;
         m_currentSettings = null;
+
+        RefreshBossCameraTarget();
     }
 
     private IEnumerator Fade(float from, float to)

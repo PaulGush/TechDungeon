@@ -12,6 +12,9 @@ public class EnemyAnimationController : EntityAnimationController
 
     [SerializeField] protected EnemyController m_enemyController;
 
+    [Tooltip("If true, the default Dead animator state and OnDeathComplete pool return are skipped. The owning entity is responsible for its own death visualization and pool return (e.g., via BossDeathSequence).")]
+    [SerializeField] private bool m_suppressDefaultDeathAnimation;
+
     protected EntityHealth m_health;
     protected EnemyTargeting m_targeting;
 
@@ -37,7 +40,8 @@ public class EnemyAnimationController : EntityAnimationController
         {
             m_health.OnHeal += OnHeal;
             m_health.OnTakeDamage += OnTakeDamage;
-            m_health.OnDeath += OnDeath;
+            if (!m_suppressDefaultDeathAnimation)
+                m_health.OnDeath += OnDeath;
         }
 
         if (m_targeting != null)
@@ -115,6 +119,16 @@ public class EnemyAnimationController : EntityAnimationController
         m_animator.SetBool(Dead, true);
     }
 
+    /// <summary>
+    /// Fires the death animation manually. Used by entities that suppress the default
+    /// OnDeath subscription (e.g., bosses with a death cutscene) and need to trigger
+    /// the death animator state at a controlled point in their own sequence.
+    /// </summary>
+    public void PlayDeathAnimation()
+    {
+        OnDeath();
+    }
+
     public void OnAttack()
     {
         if (m_animator.GetBool(Dead)) return;
@@ -124,6 +138,10 @@ public class EnemyAnimationController : EntityAnimationController
 
     public void OnDeathComplete()
     {
+        // When the default death flow is suppressed the owning entity (e.g., BossDeathSequence)
+        // is in charge of pool return, so this animation-event callback must no-op or it will
+        // race against the owner's cleanup and double-return the object to the pool.
+        if (m_suppressDefaultDeathAnimation) return;
         m_enemyController.ReturnToPool();
     }
 }

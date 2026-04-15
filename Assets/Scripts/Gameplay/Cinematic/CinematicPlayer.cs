@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Playables;
@@ -29,6 +30,11 @@ public class CinematicPlayer : MonoBehaviour
     private void Awake()
     {
         ServiceLocator.Global.Register(this);
+
+        // Run the timeline in unscaled time so death cinematics (which slow Time.timeScale)
+        // still play at real speed and stay in sync with the dialogue typing — DialogueBoxUI
+        // already drives its typewriter via WaitForSecondsRealtime.
+        m_director.timeUpdateMode = DirectorUpdateMode.UnscaledGameTime;
 
         m_advanceAction = new InputAction("CinematicAdvance", InputActionType.Button);
         m_advanceAction.AddBinding("<Keyboard>/anyKey");
@@ -175,6 +181,30 @@ public class CinematicPlayer : MonoBehaviour
             if (output.sourceObject is DialogueTrack)
             {
                 m_director.SetGenericBinding(output.sourceObject, m_dialogueBox);
+            }
+        }
+    }
+
+    /// <summary>
+    /// Resolves the <see cref="ExposedReference{T}"/> on every <see cref="CinemachineShot"/>
+    /// clip in the timeline to <paramref name="vcam"/>. Required for runtime-swapped
+    /// timelines because <c>PlayableDirector.playableAsset =</c> doesn't carry exposed
+    /// references — without this call, CinemachineShots resolve to null and the brain
+    /// has no driving vcam, so the camera renders from the bare Camera transform (0,0,0
+    /// in our scene). Call before <see cref="Play"/>.
+    /// </summary>
+    public void BindAllCinemachineShots(TimelineAsset timeline, CinemachineCamera vcam)
+    {
+        if (timeline == null || vcam == null) return;
+
+        foreach (TrackAsset track in timeline.GetOutputTracks())
+        {
+            if (track is not CinemachineTrack cmTrack) continue;
+
+            foreach (TimelineClip clip in cmTrack.GetClips())
+            {
+                if (clip.asset is CinemachineShot shot)
+                    m_director.SetReferenceValue(shot.VirtualCamera.exposedName, vcam);
             }
         }
     }
