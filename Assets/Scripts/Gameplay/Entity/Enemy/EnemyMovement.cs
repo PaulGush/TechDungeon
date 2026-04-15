@@ -81,6 +81,11 @@ public class EnemyMovement : MonoBehaviour
     {
         m_targeting = m_enemyController.Targeting;
         BuildDirectionTable();
+
+        // Enemies are driven entirely by MovePosition / Teleport — no physics forces
+        // act on them. Forcing Kinematic prevents the Dynamic player from pushing
+        // enemies around on contact while still blocking the player at the enemy's collider.
+        m_rigidbody2D.bodyType = RigidbodyType2D.Kinematic;
     }
 
     private void OnEnable()
