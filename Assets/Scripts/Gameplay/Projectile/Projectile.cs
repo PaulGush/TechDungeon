@@ -91,30 +91,33 @@ public class Projectile : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         int layerFlag = 1 << other.gameObject.layer;
+        bool hitDestroyLayer = (layerFlag & m_destroyLayers) != 0;
+        bool hitDamageLayer = (layerFlag & m_damageLayers) != 0;
+        if (!hitDestroyLayer && !hitDamageLayer) return;
 
-        if ((layerFlag & m_destroyLayers) != 0)
+        AmmoEffectContext ctx = BuildContext();
+
+        if (hitDestroyLayer)
         {
-            if (m_ammoEffect != null && m_ammoEffect.TryPreventDestroy(BuildContext()))
+            if (m_ammoEffect != null && m_ammoEffect.TryPreventDestroy(ctx))
                 return;
 
-            m_ammoEffect?.OnDestroy(BuildContext());
+            m_ammoEffect?.OnDestroy(ctx);
             m_pool.ReturnGameObject(gameObject);
             return;
         }
 
-        if ((layerFlag & m_damageLayers) == 0) return;
-
-        if (other.gameObject.TryGetComponent<EntityHealth>(out var entityHealth))
+        if (other.gameObject.TryGetComponent(out EntityHealth entityHealth))
         {
             int totalDamage = Mathf.RoundToInt((m_settings.Damage + m_bonusDamage) * m_damageMultiplier);
             entityHealth.TakeDamage(totalDamage);
         }
 
-        m_ammoEffect?.OnHit(BuildContext());
+        m_ammoEffect?.OnHit(ctx);
 
         if (m_hitsBeforeDeath-- <= 0)
         {
-            m_ammoEffect?.OnDestroy(BuildContext());
+            m_ammoEffect?.OnDestroy(ctx);
             m_pool.ReturnGameObject(gameObject);
         }
     }
