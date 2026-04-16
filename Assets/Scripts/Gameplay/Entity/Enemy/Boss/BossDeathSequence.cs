@@ -142,6 +142,11 @@ public class BossDeathSequence : MonoBehaviour
 
         // Clear the interceptor so the final Kill() falls through to OnDeath, which is
         // what RoomEncounter is subscribed to for room-clear bookkeeping.
+        // The boss vcam has BlendHint=FreezeWhenBlendingOut on its CinemachineCamera,
+        // so the brain snapshots its state at the moment SetBossVcamActive(false)
+        // disables it. The snapshot is frozen at the death position, which means the
+        // boss GameObject's pool teleport to (0,0,0) immediately below cannot affect
+        // the in-progress boss→player blend.
         m_health.DeathInterceptor = null;
         m_health.Kill();
         if (m_enemyController != null)
