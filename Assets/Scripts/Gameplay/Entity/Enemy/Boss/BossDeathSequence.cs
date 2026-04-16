@@ -140,15 +140,20 @@ public class BossDeathSequence : MonoBehaviour
             m_roomManager.SetPlayerGodMode(false);
         }
 
-        // Re-enable any behaviours we paused so pool reuse spawns a clean boss next run.
-        RestoreBossBehaviours();
-
         // Clear the interceptor so the final Kill() falls through to OnDeath, which is
         // what RoomEncounter is subscribed to for room-clear bookkeeping.
         m_health.DeathInterceptor = null;
         m_health.Kill();
         if (m_enemyController != null)
             m_enemyController.ReturnToPool();
+
+        // Restore enabled-state *after* the pool deactivates the GameObject. Doing it
+        // earlier re-fires BossPhaseManager.OnEnable while health is still clamped at 1,
+        // which makes EvaluatePhase walk through every remaining phase and SpawnMinions
+        // for any with SummonsMinions=true. With the GameObject inactive, setting
+        // enabled=true is a no-op until the next pool fetch reactivates the boss and
+        // runs a fresh OnEnable against full health.
+        RestoreBossBehaviours();
     }
 
     private void HaltBossBehaviours()
