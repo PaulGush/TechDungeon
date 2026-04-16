@@ -86,6 +86,13 @@ public class CinematicPlayer : MonoBehaviour
 
     private void OnDirectorStopped(PlayableDirector director)
     {
+        EndCinematicInput();
+        m_isPlaying = false;
+        OnCinematicComplete?.Invoke();
+    }
+
+    private void EndCinematicInput()
+    {
         m_advanceAction.performed -= OnAdvance;
         m_advanceAction.Disable();
         m_skipAction.Disable();
@@ -97,9 +104,6 @@ public class CinematicPlayer : MonoBehaviour
 
         if (m_dialogueBox != null)
             m_dialogueBox.Hide();
-
-        m_isPlaying = false;
-        OnCinematicComplete?.Invoke();
     }
 
     private void Update()
@@ -155,12 +159,37 @@ public class CinematicPlayer : MonoBehaviour
 
     public Coroutine Play(TimelineAsset timeline)
     {
-        return StartCoroutine(PlayCinematic(timeline));
+        return StartCoroutine(PlayCinematic(timeline, false));
     }
 
-    private IEnumerator PlayCinematic(TimelineAsset timeline)
+    /// <summary>
+    /// Plays the timeline and holds its last frame when it finishes. The playable graph
+    /// stays alive so track effects (TransformMove bars, etc.) remain applied. Call
+    /// <see cref="ReleaseHold"/> when ready to tear down the graph and restore state.
+    /// </summary>
+    public Coroutine PlayAndHold(TimelineAsset timeline)
+    {
+        return StartCoroutine(PlayCinematic(timeline, true));
+    }
+
+    /// <summary>
+    /// Stops a held timeline, tearing down its playable graph and restoring any
+    /// track-driven state (e.g., TransformMove positions).
+    /// </summary>
+    public void ReleaseHold()
+    {
+        if (m_director.state != PlayState.Paused && m_director.state != PlayState.Playing)
+            return;
+        m_director.Stop();
+    }
+
+    private IEnumerator PlayCinematic(TimelineAsset timeline, bool holdLastFrame)
     {
         m_director.playableAsset = timeline;
+
+        if (holdLastFrame)
+            m_director.extrapolationMode = DirectorWrapMode.Hold;
+
         m_director.Play();
         BeginCinematic();
 
@@ -168,9 +197,25 @@ public class CinematicPlayer : MonoBehaviour
         yield return null;
         m_advanceRequested = false;
 
-        while (m_isPlaying)
+        if (holdLastFrame)
         {
-            yield return null;
+            // Wait until the timeline reaches its end. With Hold wrap mode the director
+            // keeps the last frame applied and doesn't fire stopped, so we poll.
+            while (m_director.state == PlayState.Playing
+                   && m_director.time < m_director.duration)
+            {
+                yield return null;
+            }
+
+            // Clean up input/dialogue but leave the graph alive (bars stay in place).
+            EndCinematicInput();
+        }
+        else
+        {
+            while (m_isPlaying)
+            {
+                yield return null;
+            }
         }
     }
 
