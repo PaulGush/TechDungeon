@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.Timeline;
 using UnityServiceLocator;
@@ -32,6 +33,12 @@ public class BossDeathSequence : MonoBehaviour
     [Header("Death Animation")]
     [Tooltip("How long to wait for the boss's death animation to play out before returning to pool. Should match the death animation clip length.")]
     [SerializeField] private float m_deathAnimationDuration = 0.5f;
+    [Tooltip("Time scale during the death animation. Values below 1 create a slow-motion effect for the explosion.")]
+    [SerializeField] private float m_deathAnimationTimeScale = 0.3f;
+
+    [Header("Camera Blend-Out")]
+    [Tooltip("How long the camera blends from the boss vcam back to the player vcam after the explosion.")]
+    [SerializeField] private float m_blendOutDuration = 1.5f;
 
     private float m_originalFixedDeltaTime;
     private bool m_isDying;
@@ -107,8 +114,9 @@ public class BossDeathSequence : MonoBehaviour
         Time.timeScale = m_haltTimeScale;
         Time.fixedDeltaTime = m_originalFixedDeltaTime * Time.timeScale;
 
+        CinematicPlayer cinematicPlayer = null;
         if (m_deathCinematic != null
-            && ServiceLocator.Global.TryGet(out CinematicPlayer cinematicPlayer))
+            && ServiceLocator.Global.TryGet(out cinematicPlayer))
         {
             // Bind the death timeline's CinemachineShot clips to the boss vcam at runtime.
             // Without this, the timeline's exposed-reference lookups resolve to null
@@ -117,25 +125,60 @@ public class BossDeathSequence : MonoBehaviour
             if (m_roomManager != null && m_roomManager.BossVcam != null)
                 cinematicPlayer.BindAllCinemachineShots(m_deathCinematic, m_roomManager.BossVcam);
 
-            yield return cinematicPlayer.Play(m_deathCinematic);
+            // PlayAndHold keeps the playable graph alive at the last frame so
+            // track-driven effects (letterbox bars) stay in place through the explosion.
+            yield return cinematicPlayer.PlayAndHold(m_deathCinematic);
         }
 
-        // Restore time before the explosion so the death animation reads at full speed.
-        Time.timeScale = 1f;
-        Time.fixedDeltaTime = m_originalFixedDeltaTime;
+        // Ramp time to a slow-mo rate for the death animation so the explosion reads as
+        // the cinematic's finale. Using a nonzero timeScale (rather than 0 + unscaled
+        // animators) keeps the CinemachineBrain able to process blends — with timeScale 0
+        // and IgnoreTimeScale off, pending blends queue up and all resolve at once when
+        // time restores, causing the camera to bounce.
+        Time.timeScale = m_deathAnimationTimeScale;
+        Time.fixedDeltaTime = m_originalFixedDeltaTime * m_deathAnimationTimeScale;
 
-        // Death animation contains the explosion VFX baked in. Trigger it manually since
-        // the default OnDeath subscription is suppressed on this entity. Camera stays on
-        // the boss vcam through the explosion for framing.
         if (m_animationController != null)
             m_animationController.PlayDeathAnimation();
 
-        yield return new WaitForSecondsRealtime(m_deathAnimationDuration);
+        // The animation clip plays at the slowed rate, so real-world wait = clip / scale.
+        yield return new WaitForSecondsRealtime(m_deathAnimationDuration / m_deathAnimationTimeScale);
+
+        // Release the held timeline — this tears down the playable graph, which lets
+        // TransformMoveMixerBehaviour.OnPlayableDestroy restore the bar positions.
+        if (cinematicPlayer != null)
+            cinematicPlayer.ReleaseHold();
+
+        Time.timeScale = 1f;
+        Time.fixedDeltaTime = m_originalFixedDeltaTime;
+
+        // Override the brain's default blend so the transition from boss vcam back to
+        // the player vcam is a long, smooth ease rather than an abrupt cut/snap.
+        CinemachineBrain brain = CinemachineBrain.GetActiveBrain(0);
+        CinemachineBlendDefinition originalBlend = default;
+        bool brainFound = brain != null;
+        if (brainFound)
+        {
+            originalBlend = brain.DefaultBlend;
+            brain.DefaultBlend = new CinemachineBlendDefinition(
+                CinemachineBlendDefinition.Styles.EaseInOut, m_blendOutDuration);
+        }
 
         if (m_roomManager != null)
         {
             m_roomManager.SetBossVcamActive(false);
             m_roomManager.SetCameraConfinerActive(true);
+        }
+
+        // Wait for the blend to finish before restoring input so the player isn't
+        // distracted by the camera still moving.
+        yield return new WaitForSeconds(m_blendOutDuration);
+
+        if (brainFound)
+            brain.DefaultBlend = originalBlend;
+
+        if (m_roomManager != null)
+        {
             m_roomManager.SetPlayerInputActive(true);
             m_roomManager.SetPlayerGodMode(false);
         }
