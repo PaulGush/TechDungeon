@@ -375,7 +375,7 @@ GameObject:
   - component: {fileID: 2183196438318982530}
   - component: {fileID: 1126372842136865695}
   - component: {fileID: 2894561612828567105}
-  - component: {fileID: 310361910360395599}
+  - component: {fileID: 8017914464383048241}
   m_Layer: 10
   m_Name: Enemy_MechSuit
   m_TagString: Enemy
@@ -589,7 +589,7 @@ MonoBehaviour:
   m_phaseManager: {fileID: 1126372842136865695}
   m_mechSuitShooting: {fileID: 7008022331651549324}
   m_settings: {fileID: 11400000, guid: 624925f10ddd084168771d2c4b1ca8ef, type: 2}
---- !u!114 &310361910360395599
+--- !u!114 &8017914464383048241
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -598,16 +598,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 6461043018938325683}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f3660d6201fe986a8a7b272c09533b5f, type: 3}
+  m_Script: {fileID: 11500000, guid: ccbd6f8e8260f4e90a3df080ab29412d, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BossDeathSequence
+  m_EditorClassIdentifier: Assembly-CSharp::BossDeathTrigger
   m_health: {fileID: 2183196438318982530}
   m_enemyController: {fileID: 5073760771567818614}
   m_animationController: {fileID: 9036900333929752887}
-  m_deathCinematic: {fileID: 11400000, guid: 97ca9e13438228b19b882947bd4e0b74, type: 2}
-  m_slowDuration: 1
-  m_haltTimeScale: 0
-  m_deathAnimationDuration: 0.5
+  m_deathTimeline: {fileID: 11400000, guid: 97ca9e13438228b19b882947bd4e0b74, type: 2}
 --- !u!1 &8073088548248990926
 GameObject:
   m_ObjectHideFlags: 0
@@ -812,7 +809,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 2, y: 2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
