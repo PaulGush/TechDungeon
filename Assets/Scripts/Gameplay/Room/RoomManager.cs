@@ -301,6 +301,11 @@ public class RoomManager : MonoBehaviour
         m_bossVcam.Target.TrackingTarget = boss != null ? boss.transform : null;
     }
 
+    public bool IsBossVcamActive => m_bossVcam != null && m_bossVcam.enabled;
+    public bool IsPlayerInputActive => m_inputReader != null && m_inputReader.IsPlayerActionsEnabled;
+    public bool IsGodModeActive => m_playerHealth != null && m_playerHealth.IsGodMode;
+    public bool IsCameraConfinerActive => m_cameraConfiner != null && m_cameraConfiner.enabled;
+
     public void SetBossVcamActive(bool active)
     {
         if (m_bossVcam != null)
