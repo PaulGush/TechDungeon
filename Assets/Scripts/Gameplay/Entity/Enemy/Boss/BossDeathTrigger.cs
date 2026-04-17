@@ -21,6 +21,12 @@ public class BossDeathTrigger : MonoBehaviour
     [SerializeField] private EnemyAnimationController m_animationController;
     [SerializeField] private TimelineAsset m_deathTimeline;
 
+    [Header("Timeline Clip Names")]
+    [Tooltip("Display name of the CinemachineShot clips on the death timeline that should be bound to the boss vcam.")]
+    [SerializeField] private string m_bossCameraClipName = "Boss Cam";
+    [Tooltip("Display name of the CinemachineShot clips on the death timeline that should be bound to the player vcam.")]
+    [SerializeField] private string m_playerCameraClipName = "Player Cam";
+
     private bool m_isDying;
     private RoomManager m_roomManager;
     private readonly List<MonoBehaviour> m_dormantBehaviours = new List<MonoBehaviour>();
@@ -68,9 +74,15 @@ public class BossDeathTrigger : MonoBehaviour
 
     private void BindTracks(CinematicPlayer cinematicPlayer)
     {
-        // CinemachineShots need runtime binding so the boss vcam resolves correctly.
-        if (m_roomManager != null && m_roomManager.BossVcam != null)
-            cinematicPlayer.BindAllCinemachineShots(m_deathTimeline, m_roomManager.BossVcam);
+        // CinemachineShots need runtime binding so the vcams resolve correctly.
+        if (m_roomManager != null)
+        {
+            if (m_roomManager.BossVcam != null)
+                cinematicPlayer.BindCinemachineShots(m_deathTimeline, m_bossCameraClipName, m_roomManager.BossVcam);
+
+            if (m_roomManager.PlayerVcam != null)
+                cinematicPlayer.BindCinemachineShots(m_deathTimeline, m_playerCameraClipName, m_roomManager.PlayerVcam);
+        }
 
         // Bind custom tracks to their targets at runtime.
         cinematicPlayer.BindTrack<GameStateTrack>(m_deathTimeline, m_roomManager);

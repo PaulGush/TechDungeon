@@ -266,7 +266,7 @@ MonoBehaviour:
     m_PreExtrapolationMode: 0
     m_PostExtrapolationTime: 0
     m_PreExtrapolationTime: 0
-    m_DisplayName: vcam_Player
+    m_DisplayName: Player Cam
   - m_Version: 1
     m_Start: 0
     m_ClipIn: 0
@@ -335,7 +335,7 @@ MonoBehaviour:
     m_PreExtrapolationMode: 0
     m_PostExtrapolationTime: 0
     m_PreExtrapolationTime: 0
-    m_DisplayName: vcam_Boss
+    m_DisplayName: Boss Cam
   m_Markers:
     m_Objects: []
   TrackPriority: 0

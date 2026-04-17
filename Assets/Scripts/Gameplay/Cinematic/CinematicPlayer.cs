@@ -187,13 +187,14 @@ public class CinematicPlayer : MonoBehaviour
 
     /// <summary>
     /// Resolves the <see cref="ExposedReference{T}"/> on every <see cref="CinemachineShot"/>
-    /// clip in the timeline to <paramref name="vcam"/>. Required for runtime-swapped
-    /// timelines because <c>PlayableDirector.playableAsset =</c> doesn't carry exposed
-    /// references — without this call, CinemachineShots resolve to null and the brain
-    /// has no driving vcam, so the camera renders from the bare Camera transform (0,0,0
-    /// in our scene). Call before <see cref="Play"/>.
+    /// CinemachineShot clips whose display name matches <paramref name="clipName"/>
+    /// to <paramref name="vcam"/>. Required for runtime-swapped timelines because
+    /// <c>PlayableDirector.playableAsset =</c> doesn't carry exposed references —
+    /// without this call, CinemachineShots resolve to null and the brain has no
+    /// driving vcam, so the camera renders from the bare Camera transform (0,0,0
+    /// in our scene). Call once per vcam before <see cref="Play"/>.
     /// </summary>
-    public void BindAllCinemachineShots(TimelineAsset timeline, CinemachineCamera vcam)
+    public void BindCinemachineShots(TimelineAsset timeline, string clipName, CinemachineCamera vcam)
     {
         if (timeline == null || vcam == null) return;
 
@@ -203,6 +204,7 @@ public class CinematicPlayer : MonoBehaviour
 
             foreach (TimelineClip clip in cmTrack.GetClips())
             {
+                if (clip.displayName != clipName) continue;
                 if (clip.asset is CinemachineShot shot)
                     m_director.SetReferenceValue(shot.VirtualCamera.exposedName, vcam);
             }

@@ -29,8 +29,12 @@ public class RoomManager : MonoBehaviour
 
     [Header("Camera")]
     [SerializeField] private CinemachineConfiner2D m_cameraConfiner;
+    [Tooltip("Vcam that normally follows the player. Exposed so cinematics can bind Cinemachine shots back to it when they need to cut to the player mid-sequence.")]
+    [SerializeField] private CinemachineCamera m_playerVcam;
     [Tooltip("Vcam used to frame the boss during cinematics. Its tracking target is auto-wired to the room's BossEntity on room load and cleared on room unload.")]
     [SerializeField] private CinemachineCamera m_bossVcam;
+    [Tooltip("Baseline priority for the boss vcam outside cinematics. Kept lower than the player vcam so it stays idle until a Cinemachine track overrides the blend.")]
+    [SerializeField] private int m_bossVcamIdlePriority = -100;
 
     [Header("Reward Icons")]
     [SerializeField] private List<RewardIconMapping> m_rewardIcons;
@@ -46,6 +50,7 @@ public class RoomManager : MonoBehaviour
     public Transform CurrentRoomTransform => m_currentRoom != null ? m_currentRoom.transform : null;
     public RoomInstance CurrentRoom => m_currentRoom;
     public RoomEncounter CurrentEncounter => m_currentEncounter;
+    public CinemachineCamera PlayerVcam => m_playerVcam;
     public CinemachineCamera BossVcam => m_bossVcam;
 
     public event Action<RoomSettings> OnRoomLoaded;
@@ -57,6 +62,9 @@ public class RoomManager : MonoBehaviour
 
         if (m_player != null)
             m_playerHealth = m_player.GetComponentInChildren<EntityHealth>();
+
+        if (m_bossVcam != null)
+            m_bossVcam.Priority.Value = m_bossVcamIdlePriority;
     }
 
     private void Start()
@@ -301,16 +309,9 @@ public class RoomManager : MonoBehaviour
         m_bossVcam.Target.TrackingTarget = boss != null ? boss.transform : null;
     }
 
-    public bool IsBossVcamActive => m_bossVcam != null && m_bossVcam.enabled;
     public bool IsPlayerInputActive => m_inputReader != null && m_inputReader.IsPlayerActionsEnabled;
     public bool IsGodModeActive => m_playerHealth != null && m_playerHealth.IsGodMode;
     public bool IsCameraConfinerActive => m_cameraConfiner != null && m_cameraConfiner.enabled;
-
-    public void SetBossVcamActive(bool active)
-    {
-        if (m_bossVcam != null)
-            m_bossVcam.enabled = active;
-    }
 
     public void SetPlayerInputActive(bool active)
     {

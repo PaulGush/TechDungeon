@@ -417,6 +417,10 @@ PlayableDirector:
     value: {fileID: 0}
   - key: {fileID: 863194708772023232, guid: 97ca9e13438228b19b882947bd4e0b74, type: 2}
     value: {fileID: 1817901450}
+  - key: {fileID: 8111803775355025747, guid: 97ca9e13438228b19b882947bd4e0b74, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: 8017763221237992873, guid: 97ca9e13438228b19b882947bd4e0b74, type: 2}
+    value: {fileID: 1817901450}
   m_ExposedReferences:
     m_References:
     - cde9348cb71e788a1a7544fdad7d99db: {fileID: 502264223}
@@ -2275,7 +2279,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_RenderShadows: 1
+  m_RenderShadows: 0
   m_RequiresDepthTextureOption: 2
   m_RequiresOpaqueTextureOption: 2
   m_CameraType: 0
@@ -2355,7 +2359,7 @@ Camera:
   m_AllowMSAA: 0
   m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
-  m_OcclusionCulling: 0
+  m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
 --- !u!4 &519420032
@@ -3530,7 +3534,7 @@ GameObject:
   - component: {fileID: 1034529696}
   - component: {fileID: 1034529697}
   m_Layer: 0
-  m_Name: vcam_Player
+  m_Name: Player Cam
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3580,8 +3584,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineCamera
   Priority:
-    Enabled: 0
-    m_Value: 0
+    Enabled: 1
+    m_Value: 1
   OutputChannel: 1
   StandbyUpdate: 2
   m_StreamingVersion: 20241001
@@ -4387,7 +4391,7 @@ GameObject:
   - component: {fileID: 1412333063}
   - component: {fileID: 1412333064}
   m_Layer: 0
-  m_Name: vcam_Boss
+  m_Name: Boss Cam
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4415,14 +4419,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1412333061}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f9dfa5b682dcd46bda6128250e975f58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineCamera
   Priority:
     Enabled: 1
-    m_Value: 100
+    m_Value: 0
   OutputChannel: 1
   StandbyUpdate: 2
   m_StreamingVersion: 20241001
@@ -5037,7 +5041,9 @@ MonoBehaviour:
   m_startingRoomPrefab: {fileID: 2002800953844984717, guid: bc8dc30c4a754b8faa13360e8b0e97af, type: 3}
   m_startingChestSettings: {fileID: 11400000, guid: fc0c310f3adef6ce98e4dee1f38eca8b, type: 2}
   m_cameraConfiner: {fileID: 1034529697}
+  m_playerVcam: {fileID: 1034529693}
   m_bossVcam: {fileID: 1412333063}
+  m_bossVcamIdlePriority: -100
   m_rewardIcons:
   - RewardType: 0
     Icon: {fileID: 21300000, guid: 528e46c30aae7230db501cbcc1e7ddd7, type: 3}

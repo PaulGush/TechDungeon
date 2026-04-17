@@ -6,7 +6,6 @@ public class GameStateMixerBehaviour : PlayableBehaviour
     private bool m_originalCaptured;
     private bool m_originalPlayerInput;
     private bool m_originalGodMode;
-    private bool m_originalBossVcam;
     private bool m_originalConfiner;
 
     public override void ProcessFrame(Playable playable, FrameData info, object playerData)
@@ -18,7 +17,6 @@ public class GameStateMixerBehaviour : PlayableBehaviour
         {
             m_originalPlayerInput = m_roomManager.IsPlayerInputActive;
             m_originalGodMode = m_roomManager.IsGodModeActive;
-            m_originalBossVcam = m_roomManager.IsBossVcamActive;
             m_originalConfiner = m_roomManager.IsCameraConfinerActive;
             m_originalCaptured = true;
         }
@@ -35,7 +33,6 @@ public class GameStateMixerBehaviour : PlayableBehaviour
 
             m_roomManager.SetPlayerInputActive(behaviour.PlayerInputActive);
             m_roomManager.SetPlayerGodMode(behaviour.PlayerGodMode);
-            m_roomManager.SetBossVcamActive(behaviour.BossVcamActive);
             m_roomManager.SetCameraConfinerActive(behaviour.CameraConfinerActive);
             break; // First active clip wins (no blending for booleans).
         }
@@ -47,7 +44,6 @@ public class GameStateMixerBehaviour : PlayableBehaviour
         {
             m_roomManager.SetPlayerInputActive(m_originalPlayerInput);
             m_roomManager.SetPlayerGodMode(m_originalGodMode);
-            m_roomManager.SetBossVcamActive(m_originalBossVcam);
             m_roomManager.SetCameraConfinerActive(m_originalConfiner);
         }
     }
