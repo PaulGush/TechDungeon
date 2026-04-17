@@ -13,14 +13,14 @@ MonoBehaviour:
   m_Name: Consumable
   m_EditorClassIdentifier: Assembly-CSharp::ChestSettings
   LootDatabase: {fileID: 11400000, guid: ac36e302e983b0e21a22312cf3bb8d8c, type: 2}
-  ItemCategories: 03000000
-  ItemDropCount: 5
+  ItemCategories: 0000000001000000020000000300000004000000
+  ItemDropCount: 3
   LegendaryDropChance: 5
   EpicDropChance: 10
   RareDropChance: 15
   UncommonDropChance: 25
-  GuaranteedItems:
-  - {fileID: 7738597142486270006, guid: 16d778ca3a0e774629e8630f2a6deef7, type: 3}
-  GuaranteedTypes: 00000000010000000300000001000000
+  GuaranteedItems: []
+  GuaranteedTypes: 03000000
+  RequiredPickupTypes: 
   TotalSpawnTime: 0.75
   SpawnTimeInterval: 0.01

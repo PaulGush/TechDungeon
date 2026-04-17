@@ -13,14 +13,14 @@ MonoBehaviour:
   m_Name: Start
   m_EditorClassIdentifier: Assembly-CSharp::ChestSettings
   LootDatabase: {fileID: 11400000, guid: ac36e302e983b0e21a22312cf3bb8d8c, type: 2}
-  ItemCategories: 00000000
+  ItemCategories: 0000000001000000020000000300000004000000
   ItemDropCount: 3
   LegendaryDropChance: 5
   EpicDropChance: 10
   RareDropChance: 15
   UncommonDropChance: 25
   GuaranteedItems: []
-  GuaranteedTypes: 000000000100000003000000
+  GuaranteedTypes: 00000000
   RequiredPickupTypes: 00000000
   TotalSpawnTime: 0.75
   SpawnTimeInterval: 0.01
