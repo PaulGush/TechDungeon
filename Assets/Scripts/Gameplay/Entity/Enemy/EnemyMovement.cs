@@ -63,6 +63,16 @@ public class EnemyMovement : MonoBehaviour
         m_rigidbody2D.position = worldPosition;
     }
 
+    /// <summary>
+    /// Immediately clears the movement flag so <see cref="IsMoving"/> returns false.
+    /// Call before disabling this component if animation controllers need to read a
+    /// clean state while the component is inactive.
+    /// </summary>
+    public void Stop()
+    {
+        m_isMoving = false;
+    }
+
     public void SetRuntimeSettings(EnemySettings runtimeSettings)
     {
         m_settings = runtimeSettings;
