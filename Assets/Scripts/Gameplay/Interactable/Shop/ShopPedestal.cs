@@ -6,6 +6,9 @@ using UnityServiceLocator;
 
 public class ShopPedestal : MonoBehaviour
 {
+    private static readonly int OutlineColorId = Shader.PropertyToID("_OutlineColor");
+    private static readonly int PixelSizeId = Shader.PropertyToID("_PixelSize");
+
     [Header("References")]
     [SerializeField] private InputReader m_inputReader;
     [SerializeField] private SpriteRenderer m_itemDisplay;
@@ -37,6 +40,13 @@ public class ShopPedestal : MonoBehaviour
             {
                 m_itemDisplay.sprite = prefabRenderer.sprite;
             }
+
+            Material mat = m_itemDisplay.material;
+            mat.SetColor(OutlineColorId, LootableRarity.RarityColors[m_rarity]);
+
+            Texture tex = m_itemDisplay.sprite != null ? m_itemDisplay.sprite.texture : null;
+            if (tex != null)
+                mat.SetVector(PixelSizeId, new Vector4(1f / tex.width, 1f / tex.height, tex.width, tex.height));
         }
 
         if (m_priceText != null)
