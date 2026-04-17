@@ -16,6 +16,7 @@ public class Projectile : MonoBehaviour
     private ObjectPool m_pool;
     private int m_hitsBeforeDeath;
     private Coroutine m_returnCoroutine;
+    private bool m_destroyed;
 
     // Mutation modifiers
     private int m_bonusDamage;
@@ -63,6 +64,7 @@ public class Projectile : MonoBehaviour
         }
 
         m_hitsBeforeDeath = m_settings.HitsBeforeDeath + m_bonusPierce + (m_ammoSettings != null ? m_ammoSettings.BonusPierce : 0);
+        m_destroyed = false;
         m_rigidbody2D.AddForce( transform.right * m_settings.Speed);
 
         m_returnCoroutine = StartCoroutine(m_pool.ReturnAfter(gameObject, m_settings.Lifetime));
@@ -90,6 +92,11 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        // Guard against extra trigger callbacks that Unity already queued for this physics
+        // step after we decided to destroy the projectile — otherwise clustered enemies can
+        // each take damage from what should have been a single non-piercing hit.
+        if (m_destroyed) return;
+
         int layerFlag = 1 << other.gameObject.layer;
         bool hitDestroyLayer = (layerFlag & m_destroyLayers) != 0;
         bool hitDamageLayer = (layerFlag & m_damageLayers) != 0;
@@ -102,6 +109,7 @@ public class Projectile : MonoBehaviour
             if (m_ammoEffect != null && m_ammoEffect.TryPreventDestroy(ctx))
                 return;
 
+            m_destroyed = true;
             m_ammoEffect?.OnDestroy(ctx);
             m_pool.ReturnGameObject(gameObject);
             return;
@@ -117,6 +125,7 @@ public class Projectile : MonoBehaviour
 
         if (m_hitsBeforeDeath-- <= 0)
         {
+            m_destroyed = true;
             m_ammoEffect?.OnDestroy(ctx);
             m_pool.ReturnGameObject(gameObject);
         }
