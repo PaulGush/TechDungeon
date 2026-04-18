@@ -464,8 +464,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HitStopOnDeath
   m_health: {fileID: 4045594035486960770}
-  m_duration: 0.3
+  m_duration: 0.1
   m_scale: 0.02
+  m_delay: 0.25
 --- !u!1 &8097938195515696249
 GameObject:
   m_ObjectHideFlags: 0
