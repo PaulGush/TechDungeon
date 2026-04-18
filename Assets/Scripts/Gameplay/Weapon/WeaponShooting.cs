@@ -17,6 +17,9 @@ public class WeaponShooting : MonoBehaviour, IWeapon
     [Tooltip("Impulse amplitude applied to the camera shake service each time the weapon fires. Keep this subtle — shoot shake should be tactile, not disorienting. Zero disables.")]
     [SerializeField] private float m_shootShakeAmplitude = 0.02f;
 
+    [Tooltip("Pooled muzzle flash prefab spawned at the shoot point each time the weapon fires. Leave empty to skip.")]
+    [SerializeField] private GameObject m_muzzleFlashPrefab;
+
     private ObjectPool m_pool;
     private Transform m_weaponHolder;
     private MutationManager m_mutationManager;
@@ -93,6 +96,12 @@ public class WeaponShooting : MonoBehaviour, IWeapon
         }
 
         proj.Initialize();
+
+        if (m_muzzleFlashPrefab != null)
+        {
+            GameObject flash = m_pool.GetPooledObject(m_muzzleFlashPrefab);
+            flash.transform.SetPositionAndRotation(m_shootPoint.position, m_shootPoint.rotation);
+        }
 
         if (m_cameraShake != null && m_shootShakeAmplitude > 0f)
             m_cameraShake.Shake(m_shootShakeAmplitude, -m_shootPoint.right);

@@ -17,6 +17,9 @@ public class Projectile : MonoBehaviour
     [Tooltip("Impulse amplitude applied to the camera shake service each time this projectile damages an entity. Zero disables.")]
     [SerializeField] private float m_hitShakeAmplitude = 0.1f;
 
+    [Tooltip("Pooled hit spark prefab spawned at the impact point each time this projectile damages an entity. Leave empty to skip.")]
+    [SerializeField] private GameObject m_hitSparkPrefab;
+
     private ObjectPool m_pool;
     private int m_hitsBeforeDeath;
     private Coroutine m_returnCoroutine;
@@ -119,6 +122,7 @@ public class Projectile : MonoBehaviour
 
             m_destroyed = true;
             m_ammoEffect?.OnDestroy(ctx);
+            SpawnHitSpark();
             m_pool.ReturnGameObject(gameObject);
             return;
         }
@@ -138,8 +142,25 @@ public class Projectile : MonoBehaviour
         {
             m_destroyed = true;
             m_ammoEffect?.OnDestroy(ctx);
+            SpawnHitSpark();
             m_pool.ReturnGameObject(gameObject);
         }
+    }
+
+    private void SpawnHitSpark()
+    {
+        if (m_hitSparkPrefab == null || m_pool == null) return;
+
+        GameObject spark = m_pool.GetPooledObject(m_hitSparkPrefab);
+
+        Vector2 velocity = m_rigidbody2D.linearVelocity;
+        Quaternion rotation = velocity.sqrMagnitude > 0.0001f
+            ? Quaternion.Euler(0f, 0f, Mathf.Atan2(velocity.y, velocity.x) * Mathf.Rad2Deg)
+            : transform.rotation;
+        spark.transform.SetPositionAndRotation(transform.position, rotation);
+
+        if (m_ammoSettings != null && spark.TryGetComponent(out PooledEffect effect))
+            effect.SetTint(m_ammoSettings.ProjectileColor);
     }
 
     private AmmoEffectContext BuildContext()
