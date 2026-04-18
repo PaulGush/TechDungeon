@@ -170,7 +170,9 @@ MonoBehaviour:
   m_missileLaunchPoint: {fileID: 5456389916990627987}
   m_missilePrefab: {fileID: 5118271442833915001, guid: f526c798921ffc99096f0738680492b3, type: 3}
   m_indicatorPrefab: {fileID: 7843336540967314091, guid: eb7e19be8e45796a58c8ab2ee61a2f51, type: 3}
-  m_chargeTintRenderer: {fileID: 8401865433470844010}
+  m_chargeTintRenderers:
+  - {fileID: 8401865433470844010}
+  - {fileID: 8081815579358575484}
   m_phaseManager: {fileID: 1126372842136865695}
   m_movement: {fileID: 6919540729802324588}
   m_targeting: {fileID: 1348896912302612419}

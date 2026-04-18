@@ -26,8 +26,8 @@ public class MissileBarrage : MonoBehaviour
     [SerializeField] private Transform m_missileLaunchPoint;
     [SerializeField] private GameObject m_missilePrefab;
     [SerializeField] private GameObject m_indicatorPrefab;
-    [Tooltip("SpriteRenderer tinted while the boss is charging the barrage. Usually the boss torso.")]
-    [SerializeField] private SpriteRenderer m_chargeTintRenderer;
+    [Tooltip("SpriteRenderers tinted while the boss is charging the barrage (e.g., torso + legs). Original colors are cached on first tint and restored on clear.")]
+    [SerializeField] private SpriteRenderer[] m_chargeTintRenderers;
     [SerializeField] private BossPhaseManager m_phaseManager;
     [SerializeField] private EnemyMovement m_movement;
     [SerializeField] private EnemyTargeting m_targeting;
@@ -40,8 +40,8 @@ public class MissileBarrage : MonoBehaviour
 
     private ObjectPool m_pool;
     private PlayerMovementController m_cachedPlayer;
-    private Color m_originalSpriteColor;
-    private bool m_capturedSpriteColor;
+    private Color[] m_originalTintColors;
+    private bool m_capturedTintColors;
     private int m_lastRetreatPointIndex = -1;
     private Coroutine m_phaseLoopCoroutine;
 
@@ -183,9 +183,9 @@ public class MissileBarrage : MonoBehaviour
             Debug.LogWarning($"{nameof(MissileBarrage)}: {nameof(m_animationController)} is not assigned — attack pose will not play at launch.", this);
             // Not fatal — barrage still fires.
         }
-        if (m_chargeTintRenderer == null)
+        if (m_chargeTintRenderers == null || m_chargeTintRenderers.Length == 0)
         {
-            Debug.LogWarning($"{nameof(MissileBarrage)}: {nameof(m_chargeTintRenderer)} is not assigned — no visual charge cue.", this);
+            Debug.LogWarning($"{nameof(MissileBarrage)}: {nameof(m_chargeTintRenderers)} is empty — no visual charge cue.", this);
             // Not fatal — barrage still fires.
         }
         if (m_damageLayers == 0)
@@ -342,20 +342,35 @@ public class MissileBarrage : MonoBehaviour
 
     private void ApplyChargeTint()
     {
-        if (m_chargeTintRenderer == null) return;
+        if (m_chargeTintRenderers == null || m_chargeTintRenderers.Length == 0) return;
 
-        if (!m_capturedSpriteColor)
+        if (!m_capturedTintColors)
         {
-            m_originalSpriteColor = m_chargeTintRenderer.color;
-            m_capturedSpriteColor = true;
+            m_originalTintColors = new Color[m_chargeTintRenderers.Length];
+            for (int i = 0; i < m_chargeTintRenderers.Length; i++)
+            {
+                if (m_chargeTintRenderers[i] != null)
+                    m_originalTintColors[i] = m_chargeTintRenderers[i].color;
+            }
+            m_capturedTintColors = true;
         }
-        m_chargeTintRenderer.color = m_chargeTint;
+
+        for (int i = 0; i < m_chargeTintRenderers.Length; i++)
+        {
+            if (m_chargeTintRenderers[i] != null)
+                m_chargeTintRenderers[i].color = m_chargeTint;
+        }
     }
 
     private void ClearChargeTint()
     {
-        if (m_chargeTintRenderer == null || !m_capturedSpriteColor) return;
-        m_chargeTintRenderer.color = m_originalSpriteColor;
+        if (m_chargeTintRenderers == null || !m_capturedTintColors) return;
+
+        for (int i = 0; i < m_chargeTintRenderers.Length; i++)
+        {
+            if (m_chargeTintRenderers[i] != null && i < m_originalTintColors.Length)
+                m_chargeTintRenderers[i].color = m_originalTintColors[i];
+        }
     }
 
     private void OnDisable()
