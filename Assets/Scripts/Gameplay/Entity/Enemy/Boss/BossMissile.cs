@@ -90,7 +90,7 @@ public class BossMissile : MonoBehaviour
         // Aim the sprite along its instantaneous travel direction so it visually nose-dives at impact.
         Vector3 forward = position - transform.position;
         if (forward.sqrMagnitude > Mathf.Epsilon)
-            transform.rotation = MathUtilities.CalculateAimRotation(forward, -90f);
+            transform.rotation = MathUtilities.CalculateAimRotation(forward);
 
         transform.position = position;
 
