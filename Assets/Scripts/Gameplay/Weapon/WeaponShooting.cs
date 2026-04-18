@@ -1,3 +1,4 @@
+using System.Collections;
 using Gameplay.ObjectPool;
 using Input;
 using PlayerObject;
@@ -17,14 +18,20 @@ public class WeaponShooting : MonoBehaviour, IWeapon
     [Tooltip("Impulse amplitude applied to the camera shake service each time the weapon fires. Keep this subtle — shoot shake should be tactile, not disorienting. Zero disables.")]
     [SerializeField] private float m_shootShakeAmplitude = 0.02f;
 
-    [Tooltip("Pooled muzzle flash prefab spawned at the shoot point each time the weapon fires. Leave empty to skip.")]
-    [SerializeField] private GameObject m_muzzleFlashPrefab;
+    [Tooltip("Child object on the weapon that is toggled on for a brief flash each time the weapon fires. Leave empty to skip.")]
+    [SerializeField] private GameObject m_muzzleFlashObject;
+
+    [Tooltip("Seconds the muzzle flash object stays active after firing.")]
+    [SerializeField] private float m_muzzleFlashDuration = 0.05f;
 
     private ObjectPool m_pool;
     private Transform m_weaponHolder;
     private MutationManager m_mutationManager;
     private AmmoManager m_ammoManager;
     private CameraShake m_cameraShake;
+    private Coroutine m_muzzleFlashRoutine;
+    private SpriteRenderer m_muzzleFlashRenderer;
+    private Color m_muzzleFlashDefaultTint = Color.white;
 
     public Vector2 ShootPointPosition => m_shootPoint.position;
 
@@ -41,11 +48,30 @@ public class WeaponShooting : MonoBehaviour, IWeapon
     {
         m_weaponHolder = GetComponentInParent<WeaponHolder>().transform;
         m_inputReader.Attack += OnAttack;
+
+        if (m_muzzleFlashObject != null)
+        {
+            if (m_muzzleFlashRenderer == null)
+            {
+                m_muzzleFlashRenderer = m_muzzleFlashObject.GetComponentInChildren<SpriteRenderer>(true);
+                if (m_muzzleFlashRenderer != null)
+                    m_muzzleFlashDefaultTint = m_muzzleFlashRenderer.color;
+            }
+            m_muzzleFlashObject.SetActive(false);
+        }
     }
 
     public void Unequip()
     {
         m_inputReader.Attack -= OnAttack;
+
+        if (m_muzzleFlashRoutine != null)
+        {
+            StopCoroutine(m_muzzleFlashRoutine);
+            m_muzzleFlashRoutine = null;
+        }
+        if (m_muzzleFlashObject != null)
+            m_muzzleFlashObject.SetActive(false);
     }
 
     private bool IsShootPointObstructed()
@@ -97,13 +123,31 @@ public class WeaponShooting : MonoBehaviour, IWeapon
 
         proj.Initialize();
 
-        if (m_muzzleFlashPrefab != null)
-        {
-            GameObject flash = m_pool.GetPooledObject(m_muzzleFlashPrefab);
-            flash.transform.SetPositionAndRotation(m_shootPoint.position, m_shootPoint.rotation);
-        }
+        FlashMuzzle(ammoSettings);
 
         if (m_cameraShake != null && m_shootShakeAmplitude > 0f)
             m_cameraShake.Shake(m_shootShakeAmplitude, -m_shootPoint.right);
+    }
+
+    private void FlashMuzzle(AmmoSettings ammoSettings)
+    {
+        if (m_muzzleFlashObject == null || m_muzzleFlashDuration <= 0f) return;
+
+        if (m_muzzleFlashRoutine != null)
+            StopCoroutine(m_muzzleFlashRoutine);
+
+        if (m_muzzleFlashRenderer != null)
+            m_muzzleFlashRenderer.color = ammoSettings != null ? ammoSettings.ProjectileColor : m_muzzleFlashDefaultTint;
+
+        m_muzzleFlashObject.SetActive(true);
+        m_muzzleFlashRoutine = StartCoroutine(HideMuzzleFlashAfterDelay());
+    }
+
+    private IEnumerator HideMuzzleFlashAfterDelay()
+    {
+        yield return new WaitForSeconds(m_muzzleFlashDuration);
+        if (m_muzzleFlashObject != null)
+            m_muzzleFlashObject.SetActive(false);
+        m_muzzleFlashRoutine = null;
     }
 }
