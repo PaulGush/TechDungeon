@@ -60,6 +60,7 @@ GameObject:
   - component: {fileID: 5779308081635976221}
   - component: {fileID: 8369054480663514145}
   - component: {fileID: 2805923156366516581}
+  - component: {fileID: 1263478230203899774}
   m_Layer: 10
   m_Name: Visual
   m_TagString: Enemy
@@ -108,7 +109,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 25ac9d4bb57a72e65aefe29e80cab179, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -177,6 +178,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAnimationController
   m_animator: {fileID: 3418384139468555832}
   m_enemyController: {fileID: 5296464329978220579}
+  m_suppressDefaultDeathAnimation: 0
 --- !u!114 &8369054480663514145
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -207,6 +209,23 @@ MonoBehaviour:
   m_shootPoint: {fileID: 6734990020364742783}
   m_settings: {fileID: 11400000, guid: b1d2a736311f45d0aec432dadb0b9ceb, type: 2}
   m_projectilePrefab: {fileID: 5187812260587514585, guid: f9cc98d9978166916b50e3a501a2e3b5, type: 3}
+--- !u!114 &1263478230203899774
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5290733022659640539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84dd8c835ebb1bda794847a124b513d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HitFlash
+  m_health: {fileID: 4045594035486960770}
+  m_renderer: {fileID: 7217550124218819427}
+  m_scaleTarget: {fileID: 0}
+  m_duration: 0.1
+  m_popScale: 1.15
 --- !u!1 &6864235361929530881
 GameObject:
   m_ObjectHideFlags: 0
@@ -254,6 +273,7 @@ GameObject:
   - component: {fileID: 4368650838405836056}
   - component: {fileID: 4045594035486960770}
   - component: {fileID: 5497215917303634743}
+  - component: {fileID: 5500510025994509599}
   m_Layer: 10
   m_Name: Enemy_FlyingDrone
   m_TagString: Enemy
@@ -298,6 +318,7 @@ MonoBehaviour:
   m_shooting: {fileID: 2805923156366516581}
   m_targeting: {fileID: 3582027185550081905}
   m_behavior: {fileID: 5497215917303634743}
+  m_creditValue: 10
 --- !u!114 &3660797839015898069
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -315,6 +336,7 @@ MonoBehaviour:
   m_settings: {fileID: 11400000, guid: b1d2a736311f45d0aec432dadb0b9ceb, type: 2}
   CanMove: 0
   Strafe: 0
+  Frozen: 0
 --- !u!50 &2916310425264144612
 Rigidbody2D:
   serializedVersion: 5
@@ -429,6 +451,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b28611a39279c39858d305fdf125acc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DroneBehavior
+--- !u!114 &5500510025994509599
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7364831485085966955}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57f1fc55c0b56bb3eba7a565322c3fd1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HitStopOnDeath
+  m_health: {fileID: 4045594035486960770}
+  m_duration: 0.3
+  m_scale: 0.02
 --- !u!1 &8097938195515696249
 GameObject:
   m_ObjectHideFlags: 0

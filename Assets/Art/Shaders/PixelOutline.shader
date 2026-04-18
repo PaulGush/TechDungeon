@@ -7,6 +7,8 @@ Shader "Custom/PixelOutline"
         _OutlineThickness ("Outline Thickness", Float) = 1
         _PixelSize ("Pixel Size", Vector) = (0.03125, 0.03125, 0, 0)
         [Toggle(CORNERS_ON)] CORNERS ("Corners", Float) = 1
+        _FlashColor ("Flash Color", Color) = (1, 1, 1, 1)
+        _FlashAmount ("Flash Amount", Range(0, 1)) = 0
     }
 
     SubShader
@@ -55,6 +57,8 @@ Shader "Custom/PixelOutline"
                 float _OutlineThickness;
                 float4 _PixelSize;
                 float CORNERS;
+                float4 _FlashColor;
+                float _FlashAmount;
             CBUFFER_END
 
             Varyings vert(Attributes input)
@@ -72,7 +76,10 @@ Shader "Custom/PixelOutline"
                 col *= input.color;
 
                 if (col.a > 0.01)
+                {
+                    col.rgb = lerp(col.rgb, _FlashColor.rgb, _FlashAmount);
                     return col;
+                }
 
                 float2 texelSize = _PixelSize.xy * _OutlineThickness;
 
@@ -132,6 +139,8 @@ Shader "Custom/PixelOutline"
                 float _OutlineThickness;
                 float4 _PixelSize;
                 float CORNERS;
+                float4 _FlashColor;
+                float _FlashAmount;
             CBUFFER_END
 
             Varyings vert(Attributes input)
@@ -149,7 +158,10 @@ Shader "Custom/PixelOutline"
                 col *= input.color;
 
                 if (col.a > 0.01)
+                {
+                    col.rgb = lerp(col.rgb, _FlashColor.rgb, _FlashAmount);
                     return col;
+                }
 
                 float2 texelSize = _PixelSize.xy * _OutlineThickness;
 
