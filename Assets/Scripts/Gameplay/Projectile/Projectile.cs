@@ -127,20 +127,31 @@ public class Projectile : MonoBehaviour
             return;
         }
 
-        if (other.gameObject.TryGetComponent(out EntityHealth entityHealth))
-        {
-            int totalDamage = Mathf.RoundToInt((m_settings.Damage + m_bonusDamage) * m_damageMultiplier);
-            entityHealth.TakeDamage(totalDamage);
+        // Only count this as a pierce-consuming hit if we actually found an EntityHealth
+        // to damage. Passing through damage-layer colliders that don't represent a damageable
+        // entity (boss attack hitboxes like the flamethrower trigger, or any future hurtbox
+        // that forwards hits elsewhere) would otherwise silently consume pierces and
+        // desync the destroy check from the damage check.
+        if (!other.gameObject.TryGetComponent(out EntityHealth entityHealth))
+            return;
 
-            if (m_cameraShake != null && m_hitShakeAmplitude > 0f)
-                m_cameraShake.Shake(m_hitShakeAmplitude);
-        }
+        // Decide destruction up-front and flag it before any side-effecting calls so a
+        // same-physics-step re-entry from a sibling collider can't slip past the m_destroyed
+        // guard above and land a second hit.
+        bool willDestroy = m_hitsBeforeDeath-- <= 0;
+        if (willDestroy)
+            m_destroyed = true;
+
+        int totalDamage = Mathf.RoundToInt((m_settings.Damage + m_bonusDamage) * m_damageMultiplier);
+        entityHealth.TakeDamage(totalDamage);
+
+        if (m_cameraShake != null && m_hitShakeAmplitude > 0f)
+            m_cameraShake.Shake(m_hitShakeAmplitude);
 
         m_ammoEffect?.OnHit(ctx);
 
-        if (m_hitsBeforeDeath-- <= 0)
+        if (willDestroy)
         {
-            m_destroyed = true;
             m_ammoEffect?.OnDestroy(ctx);
             SpawnHitSpark();
             m_pool.ReturnGameObject(gameObject);
