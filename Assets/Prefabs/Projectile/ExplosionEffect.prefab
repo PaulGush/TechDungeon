@@ -107,6 +107,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ExplosionEffect
   m_damageCollider: {fileID: 6198626582200329564}
+  m_shakeAmplitude: 0.2
 --- !u!95 &4708236697102236908
 Animator:
   serializedVersion: 7

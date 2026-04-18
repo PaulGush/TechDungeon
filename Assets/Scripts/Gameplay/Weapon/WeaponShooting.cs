@@ -13,10 +13,15 @@ public class WeaponShooting : MonoBehaviour, IWeapon
     [Header("Prefabs")]
     [SerializeField] private Projectile m_projectile;
 
+    [Header("Feedback")]
+    [Tooltip("Impulse amplitude applied to the camera shake service each time the weapon fires. Keep this subtle — shoot shake should be tactile, not disorienting. Zero disables.")]
+    [SerializeField] private float m_shootShakeAmplitude = 0.02f;
+
     private ObjectPool m_pool;
     private Transform m_weaponHolder;
     private MutationManager m_mutationManager;
     private AmmoManager m_ammoManager;
+    private CameraShake m_cameraShake;
 
     public Vector2 ShootPointPosition => m_shootPoint.position;
 
@@ -26,6 +31,7 @@ public class WeaponShooting : MonoBehaviour, IWeapon
         m_pool = pool;
         ServiceLocator.Global.TryGet(out m_mutationManager);
         ServiceLocator.Global.TryGet(out m_ammoManager);
+        ServiceLocator.Global.TryGet(out m_cameraShake);
     }
 
     public void Equip()
@@ -87,5 +93,8 @@ public class WeaponShooting : MonoBehaviour, IWeapon
         }
 
         proj.Initialize();
+
+        if (m_cameraShake != null && m_shootShakeAmplitude > 0f)
+            m_cameraShake.Shake(m_shootShakeAmplitude, -m_shootPoint.right);
     }
 }

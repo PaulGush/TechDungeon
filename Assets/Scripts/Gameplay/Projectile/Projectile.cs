@@ -13,10 +13,15 @@ public class Projectile : MonoBehaviour
     [SerializeField] private LayerMask m_damageLayers;
     [SerializeField] private LayerMask m_destroyLayers;
 
+    [Header("Feedback")]
+    [Tooltip("Impulse amplitude applied to the camera shake service each time this projectile damages an entity. Zero disables.")]
+    [SerializeField] private float m_hitShakeAmplitude = 0.1f;
+
     private ObjectPool m_pool;
     private int m_hitsBeforeDeath;
     private Coroutine m_returnCoroutine;
     private bool m_destroyed;
+    private CameraShake m_cameraShake;
 
     // Mutation modifiers
     private int m_bonusDamage;
@@ -62,6 +67,9 @@ public class Projectile : MonoBehaviour
             ServiceLocator.Global.TryGet(out ObjectPool pool);
             m_pool = pool;
         }
+
+        if (m_cameraShake == null)
+            ServiceLocator.Global.TryGet(out m_cameraShake);
 
         m_hitsBeforeDeath = m_settings.HitsBeforeDeath + m_bonusPierce + (m_ammoSettings != null ? m_ammoSettings.BonusPierce : 0);
         m_destroyed = false;
@@ -119,6 +127,9 @@ public class Projectile : MonoBehaviour
         {
             int totalDamage = Mathf.RoundToInt((m_settings.Damage + m_bonusDamage) * m_damageMultiplier);
             entityHealth.TakeDamage(totalDamage);
+
+            if (m_cameraShake != null && m_hitShakeAmplitude > 0f)
+                m_cameraShake.Shake(m_hitShakeAmplitude);
         }
 
         m_ammoEffect?.OnHit(ctx);

@@ -5,6 +5,8 @@ using UnityEngine.Timeline;
 public class BossEventClip : PlayableAsset, ITimelineClipAsset
 {
     public BossEventType EventType;
+    [Tooltip("Only used when EventType is ScreenShake. Amplitude passed to the camera shake impulse.")]
+    public float ShakeAmplitude = 1f;
 
     public ClipCaps clipCaps => ClipCaps.None;
 
@@ -13,6 +15,7 @@ public class BossEventClip : PlayableAsset, ITimelineClipAsset
         var playable = ScriptPlayable<BossEventBehaviour>.Create(graph);
         var behaviour = playable.GetBehaviour();
         behaviour.EventType = EventType;
+        behaviour.ShakeAmplitude = ShakeAmplitude;
         return playable;
     }
 }

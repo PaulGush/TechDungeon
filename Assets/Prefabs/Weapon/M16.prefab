@@ -134,6 +134,7 @@ MonoBehaviour:
   m_inputReader: {fileID: 11400000, guid: c7fc619696fbc354f935b4ae0e11fc0c, type: 2}
   m_shootPoint: {fileID: 7976618290720294897}
   m_projectile: {fileID: 6481393338737401498, guid: 991df1a3ac21a8dfd8f6ff27d42b5f99, type: 3}
+  m_shootShakeAmplitude: 0.0005
 --- !u!61 &3513875380230150540
 BoxCollider2D:
   m_ObjectHideFlags: 0

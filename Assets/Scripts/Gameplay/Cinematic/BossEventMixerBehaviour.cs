@@ -1,11 +1,12 @@
 using System.Collections.Generic;
 using UnityEngine.Playables;
+using UnityServiceLocator;
 
 public class BossEventMixerBehaviour : PlayableBehaviour
 {
     private BossDeathTrigger m_trigger;
     private readonly HashSet<int> m_firedEvents = new HashSet<int>();
-    private readonly List<BossEventType> m_allEvents = new List<BossEventType>();
+    private readonly List<CapturedEvent> m_allEvents = new List<CapturedEvent>();
     private bool m_eventsCaptured;
 
     public override void ProcessFrame(Playable playable, FrameData info, object playerData)
@@ -22,7 +23,8 @@ public class BossEventMixerBehaviour : PlayableBehaviour
             for (int i = 0; i < inputCount; i++)
             {
                 var input = (ScriptPlayable<BossEventBehaviour>)playable.GetInput(i);
-                m_allEvents.Add(input.GetBehaviour().EventType);
+                var b = input.GetBehaviour();
+                m_allEvents.Add(new CapturedEvent(b.EventType, b.ShakeAmplitude));
             }
             m_eventsCaptured = true;
         }
@@ -36,7 +38,7 @@ public class BossEventMixerBehaviour : PlayableBehaviour
             var input = (ScriptPlayable<BossEventBehaviour>)playable.GetInput(i);
             var behaviour = input.GetBehaviour();
 
-            FireEvent(behaviour.EventType);
+            FireEvent(behaviour.EventType, behaviour.ShakeAmplitude);
             m_firedEvents.Add(i);
         }
     }
@@ -50,11 +52,11 @@ public class BossEventMixerBehaviour : PlayableBehaviour
         for (int i = 0; i < m_allEvents.Count; i++)
         {
             if (m_firedEvents.Contains(i)) continue;
-            FireEvent(m_allEvents[i]);
+            FireEvent(m_allEvents[i].Type, m_allEvents[i].ShakeAmplitude);
         }
     }
 
-    private void FireEvent(BossEventType eventType)
+    private void FireEvent(BossEventType eventType, float shakeAmplitude)
     {
         switch (eventType)
         {
@@ -67,6 +69,22 @@ public class BossEventMixerBehaviour : PlayableBehaviour
             case BossEventType.ReturnToPool:
                 m_trigger.ReturnToPool();
                 break;
+            case BossEventType.ScreenShake:
+                if (ServiceLocator.Global.TryGet(out CameraShake shake))
+                    shake.Shake(shakeAmplitude);
+                break;
+        }
+    }
+
+    private readonly struct CapturedEvent
+    {
+        public readonly BossEventType Type;
+        public readonly float ShakeAmplitude;
+
+        public CapturedEvent(BossEventType type, float shakeAmplitude)
+        {
+            Type = type;
+            ShakeAmplitude = shakeAmplitude;
         }
     }
 }

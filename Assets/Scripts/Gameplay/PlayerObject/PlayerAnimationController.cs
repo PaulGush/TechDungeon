@@ -1,6 +1,7 @@
 using System.Collections;
 using Input;
 using UnityEngine;
+using UnityServiceLocator;
 
 namespace PlayerObject
 {
@@ -22,6 +23,11 @@ namespace PlayerObject
         [Header("Settings")]
         [SerializeField] private Color m_healColor = Color.green;
         [SerializeField] private Color m_damageColor = Color.red;
+
+        [Tooltip("Impulse amplitude applied to the camera shake service when the player takes damage. Zero disables.")]
+        [SerializeField] private float m_damageShakeAmplitude = 0.4f;
+
+        private CameraShake m_cameraShake;
 
         private void OnEnable()
         {
@@ -64,6 +70,11 @@ namespace PlayerObject
         {
             StopAllCoroutines();
             StartCoroutine(ChangeColorForSeconds(m_damageColor));
+
+            if (m_cameraShake == null)
+                ServiceLocator.Global.TryGet(out m_cameraShake);
+            if (m_cameraShake != null && m_damageShakeAmplitude > 0f)
+                m_cameraShake.Shake(m_damageShakeAmplitude);
         }
 
         private void OnHeal()

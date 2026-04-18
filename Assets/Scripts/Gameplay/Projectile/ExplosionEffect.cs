@@ -8,9 +8,8 @@ public class ExplosionEffect : MonoBehaviour
     [SerializeField] private CircleCollider2D m_damageCollider;
 
     [Header("Camera Shake")]
-    [SerializeField] private float m_shakeDuration = 0.15f;
-    [SerializeField] private float m_shakeAmplitude = 1.5f;
-    [SerializeField] private float m_shakeFrequency = 2f;
+    [Tooltip("Impulse amplitude applied to the camera shake service on detonation. Sits in the same scale as CameraShake — 0.3 is a noticeable punch, 1.0 is a large boss-grade shake.")]
+    [SerializeField] private float m_shakeAmplitude = 0.3f;
 
     private ObjectPool m_pool;
     private CameraShake m_cameraShake;
@@ -38,7 +37,7 @@ public class ExplosionEffect : MonoBehaviour
         if (m_cameraShake == null)
             ServiceLocator.Global.TryGet(out m_cameraShake);
         if (m_cameraShake != null)
-            m_cameraShake.ShakeCam(m_shakeDuration, m_shakeAmplitude, m_shakeFrequency);
+            m_cameraShake.Shake(m_shakeAmplitude);
     }
 
     private void OnTriggerEnter2D(Collider2D other)

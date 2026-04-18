@@ -605,6 +605,8 @@ MonoBehaviour:
   m_enemyController: {fileID: 5073760771567818614}
   m_animationController: {fileID: 9036900333929752887}
   m_deathTimeline: {fileID: 11400000, guid: 97ca9e13438228b19b882947bd4e0b74, type: 2}
+  m_bossCameraClipName: Boss Cam
+  m_playerCameraClipName: Player Cam
 --- !u!1 &8073088548248990926
 GameObject:
   m_ObjectHideFlags: 0
