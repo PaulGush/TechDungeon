@@ -433,7 +433,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::HitFlash
   m_health: {fileID: 11400000000000010}
   m_renderer: {fileID: 21200000000000001}
-  m_scaleTarget: {fileID: 0}
+  m_scaleTarget: {fileID: 400000000000000002}
   m_duration: 0.1
   m_popScale: 1.15
 --- !u!1 &1100000000000000003

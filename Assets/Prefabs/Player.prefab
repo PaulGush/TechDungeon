@@ -284,6 +284,7 @@ GameObject:
   - component: {fileID: 7177646092199643287}
   - component: {fileID: 5226993944516471503}
   - component: {fileID: 8746665850675550964}
+  - component: {fileID: 71725469843262459}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -334,7 +335,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 25ac9d4bb57a72e65aefe29e80cab179, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -406,7 +407,7 @@ MonoBehaviour:
   m_inputReader: {fileID: 11400000, guid: c7fc619696fbc354f935b4ae0e11fc0c, type: 2}
   m_health: {fileID: 4176536670723386620}
   m_healColor: {r: 0, g: 1, b: 0, a: 1}
-  m_damageColor: {r: 1, g: 0, b: 0, a: 1}
+  m_damageShakeAmplitude: 0.4
 --- !u!114 &1068127892481412382
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -546,3 +547,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerObject.PlayerInteractionDisplay
   m_text: {fileID: 1158673349398736748}
+--- !u!114 &71725469843262459
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6893592627556747956}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84dd8c835ebb1bda794847a124b513d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HitFlash
+  m_health: {fileID: 4176536670723386620}
+  m_renderer: {fileID: 2559176277881236394}
+  m_scaleTarget: {fileID: 8025567143335108856}
+  m_duration: 0.1
+  m_popScale: 1.15

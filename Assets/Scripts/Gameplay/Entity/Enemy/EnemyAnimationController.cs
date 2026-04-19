@@ -3,7 +3,6 @@ using UnityEngine;
 public class EnemyAnimationController : EntityAnimationController
 {
     private static readonly int Heal = Animator.StringToHash("Heal");
-    private static readonly int Hurt = Animator.StringToHash("Hurt");
     private static readonly int Dead = Animator.StringToHash("Dead");
     private static readonly int Attack = Animator.StringToHash("Attack");
     private static readonly int AttackIndex = Animator.StringToHash("AttackIndex");
@@ -19,7 +18,6 @@ public class EnemyAnimationController : EntityAnimationController
     protected EnemyTargeting m_targeting;
 
     private bool m_hasHeal;
-    private bool m_hasHurt;
     private bool m_hasRotation;
     private bool m_hasActive;
     private bool m_hasAttackIndex;
@@ -39,7 +37,6 @@ public class EnemyAnimationController : EntityAnimationController
         if (m_health != null)
         {
             m_health.OnHeal += OnHeal;
-            m_health.OnTakeDamage += OnTakeDamage;
             if (!m_suppressDefaultDeathAnimation)
                 m_health.OnDeath += OnDeath;
         }
@@ -57,7 +54,6 @@ public class EnemyAnimationController : EntityAnimationController
     private void CacheParameters()
     {
         m_hasHeal = false;
-        m_hasHurt = false;
         m_hasRotation = false;
         m_hasActive = false;
         m_hasAttackIndex = false;
@@ -66,7 +62,6 @@ public class EnemyAnimationController : EntityAnimationController
         {
             int hash = param.nameHash;
             if (hash == Heal) m_hasHeal = true;
-            else if (hash == Hurt) m_hasHurt = true;
             else if (hash == Rotation) m_hasRotation = true;
             else if (hash == Active) m_hasActive = true;
             else if (hash == AttackIndex) m_hasAttackIndex = true;
@@ -78,7 +73,6 @@ public class EnemyAnimationController : EntityAnimationController
         if (m_health != null)
         {
             m_health.OnHeal -= OnHeal;
-            m_health.OnTakeDamage -= OnTakeDamage;
             m_health.OnDeath -= OnDeath;
         }
 
@@ -107,11 +101,6 @@ public class EnemyAnimationController : EntityAnimationController
     private void OnHeal()
     {
         if (m_hasHeal) m_animator.SetTrigger(Heal);
-    }
-
-    private void OnTakeDamage()
-    {
-        if (m_hasHurt) m_animator.SetTrigger(Hurt);
     }
 
     protected virtual void OnDeath()

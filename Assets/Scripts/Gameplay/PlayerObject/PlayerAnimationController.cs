@@ -22,7 +22,6 @@ namespace PlayerObject
         
         [Header("Settings")]
         [SerializeField] private Color m_healColor = Color.green;
-        [SerializeField] private Color m_damageColor = Color.red;
 
         [Tooltip("Impulse amplitude applied to the camera shake service when the player takes damage. Zero disables.")]
         [SerializeField] private float m_damageShakeAmplitude = 0.4f;
@@ -68,9 +67,6 @@ namespace PlayerObject
 
         private void OnHurt()
         {
-            StopAllCoroutines();
-            StartCoroutine(ChangeColorForSeconds(m_damageColor));
-
             if (m_cameraShake == null)
                 ServiceLocator.Global.TryGet(out m_cameraShake);
             if (m_cameraShake != null && m_damageShakeAmplitude > 0f)
