@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 3513875380230150540}
   - component: {fileID: 2602948943765884150}
   - component: {fileID: 6783190996219739245}
+  - component: {fileID: 6427150150237015703}
   m_Layer: 9
   m_Name: M16
   m_TagString: Untagged
@@ -213,6 +214,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BounceEffect
   m_bounceSpeed: 0.25
   m_bounceVerticalDistance: 0.1
+--- !u!114 &6427150150237015703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3910631917828287846}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51cda67957a668b63aec7be93f853a4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Gameplay.Audio.WeaponAudio
+  m_fireSound: {fileID: 11400000, guid: aaa6e07b5959f727797b8f425c253dd3, type: 2}
+  m_ammoLayerSound: {fileID: 0}
 --- !u!1 &6551711240887446659
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,9 +1,13 @@
+using System;
 using Gameplay.ObjectPool;
 using UnityEngine;
 using UnityServiceLocator;
 
 public class Projectile : MonoBehaviour
 {
+    public event Action OnEntityImpact;
+    public event Action OnWallImpact;
+
     [Header("References")]
     [SerializeField] private Rigidbody2D m_rigidbody2D;
     [SerializeField] private SpriteRenderer m_spriteRenderer;
@@ -123,6 +127,7 @@ public class Projectile : MonoBehaviour
             m_destroyed = true;
             m_ammoEffect?.OnDestroy(ctx);
             SpawnHitSpark();
+            OnWallImpact?.Invoke();
             m_pool.ReturnGameObject(gameObject);
             return;
         }
@@ -149,6 +154,8 @@ public class Projectile : MonoBehaviour
             m_cameraShake.Shake(m_hitShakeAmplitude);
 
         m_ammoEffect?.OnHit(ctx);
+
+        OnEntityImpact?.Invoke();
 
         if (willDestroy)
         {

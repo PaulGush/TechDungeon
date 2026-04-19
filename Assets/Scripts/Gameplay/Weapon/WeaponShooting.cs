@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using Gameplay.ObjectPool;
 using Input;
@@ -7,6 +8,8 @@ using UnityServiceLocator;
 
 public class WeaponShooting : MonoBehaviour, IWeapon
 {
+    public event Action<AmmoSettings> OnFired;
+
     [Header("References")]
     [SerializeField] private InputReader m_inputReader;
     [SerializeField] private Transform m_shootPoint;
@@ -127,6 +130,8 @@ public class WeaponShooting : MonoBehaviour, IWeapon
 
         if (m_cameraShake != null && m_shootShakeAmplitude > 0f)
             m_cameraShake.Shake(m_shootShakeAmplitude, -m_shootPoint.right);
+
+        OnFired?.Invoke(ammoSettings);
     }
 
     private void FlashMuzzle(AmmoSettings ammoSettings)
