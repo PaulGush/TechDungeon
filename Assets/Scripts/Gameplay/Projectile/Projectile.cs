@@ -29,6 +29,7 @@ public class Projectile : MonoBehaviour
     private Coroutine m_returnCoroutine;
     private bool m_destroyed;
     private CameraShake m_cameraShake;
+    private Color m_defaultColor = Color.white;
 
     // Mutation modifiers
     private int m_bonusDamage;
@@ -67,6 +68,15 @@ public class Projectile : MonoBehaviour
 
     public void SetProjectilePrefab(GameObject prefab) => m_prefab = prefab;
 
+    private void Awake()
+    {
+        // Cache in Awake (not Start) so the authored prefab color is captured before
+        // SetAmmoModifiers can run on the first shot — otherwise a first fire with an
+        // ammo tint would bake the ammo color in as the "default".
+        if (m_spriteRenderer != null)
+            m_defaultColor = m_spriteRenderer.color;
+    }
+
     public virtual void Initialize()
     {
         if (m_pool == null)
@@ -102,7 +112,7 @@ public class Projectile : MonoBehaviour
         m_ammoEffect = null;
 
         if (m_spriteRenderer != null)
-            m_spriteRenderer.color = Color.white;
+            m_spriteRenderer.color = m_defaultColor;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -126,7 +136,7 @@ public class Projectile : MonoBehaviour
 
             m_destroyed = true;
             m_ammoEffect?.OnDestroy(ctx);
-            SpawnHitSpark();
+            SpawnHitSpark(alignToWallNormal: true);
             OnWallImpact?.Invoke();
             m_pool.ReturnGameObject(gameObject);
             return;
@@ -160,22 +170,48 @@ public class Projectile : MonoBehaviour
         if (willDestroy)
         {
             m_ammoEffect?.OnDestroy(ctx);
-            SpawnHitSpark();
+            SpawnHitSpark(alignToWallNormal: false);
             m_pool.ReturnGameObject(gameObject);
         }
     }
 
-    private void SpawnHitSpark()
+    private void SpawnHitSpark(bool alignToWallNormal)
     {
         if (m_hitSparkPrefab == null || m_pool == null) return;
 
         GameObject spark = m_pool.GetPooledObject(m_hitSparkPrefab);
 
         Vector2 velocity = m_rigidbody2D.linearVelocity;
-        Quaternion rotation = velocity.sqrMagnitude > 0.0001f
-            ? Quaternion.Euler(0f, 0f, Mathf.Atan2(velocity.y, velocity.x) * Mathf.Rad2Deg)
-            : transform.rotation;
-        spark.transform.SetPositionAndRotation(transform.position, rotation);
+        Vector2 position = transform.position;
+        Quaternion rotation;
+
+        if (alignToWallNormal && velocity.sqrMagnitude > 0.0001f)
+        {
+            // Raycast from behind the projectile along its flight to find the exact wall
+            // surface it hit. The raycast normal gives a true perpendicular for the spark.
+            Vector2 velocityDir = velocity.normalized;
+            Vector2 castStart = position - velocityDir * 0.5f;
+            RaycastHit2D hit = Physics2D.Raycast(castStart, velocityDir, 1f, m_destroyLayers);
+            if (hit.collider != null)
+            {
+                position = hit.point;
+                rotation = Quaternion.Euler(0f, 0f, Mathf.Atan2(hit.normal.y, hit.normal.x) * Mathf.Rad2Deg + 180f);
+            }
+            else
+            {
+                // Fallback: flip the spark to face opposite to the velocity so it still reads
+                // as an outward splash rather than continuing through the wall.
+                rotation = Quaternion.Euler(0f, 0f, Mathf.Atan2(-velocityDir.y, -velocityDir.x) * Mathf.Rad2Deg + 180f);
+            }
+        }
+        else
+        {
+            rotation = velocity.sqrMagnitude > 0.0001f
+                ? Quaternion.Euler(0f, 0f, Mathf.Atan2(velocity.y, velocity.x) * Mathf.Rad2Deg)
+                : transform.rotation;
+        }
+
+        spark.transform.SetPositionAndRotation(position, rotation);
 
         if (m_ammoSettings != null && spark.TryGetComponent(out PooledEffect effect))
             effect.SetTint(m_ammoSettings.ProjectileColor);
