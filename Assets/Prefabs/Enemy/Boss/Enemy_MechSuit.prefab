@@ -181,6 +181,22 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   m_chargeTint: {r: 0.990566, g: 0.2569865, b: 0.2569865, a: 1}
+  m_teleportPuffPrefab: {fileID: 0}
+  m_teleportHitFlashes:
+  - {fileID: 2719027451751963115}
+  - {fileID: 4307534045834281410}
+  m_teleportFlashColor: {r: 0.23347218, g: 0.616574, b: 0.84404075, a: 1}
+  m_teleportWindUpDuration: 0.3
+  m_teleportFadeRenderers:
+  - {fileID: 8401865433470844010}
+  - {fileID: 8081815579358575484}
+  m_teleportScaleTarget: {fileID: 7347244267169436199}
+  m_teleportVanishScale: 0.1
+  m_teleportVanishAlpha: 0
+  m_teleportArrivalScale: 1.3
+  m_teleportArrivalDuration: 0.1
+  m_teleportHitStopDuration: 0.06
+  m_teleportHitStopTimeScale: 0.02
 --- !u!1 &4698091473865144639
 GameObject:
   m_ObjectHideFlags: 0
@@ -620,6 +636,7 @@ GameObject:
   - component: {fileID: 5177073242483053874}
   - component: {fileID: 8081815579358575484}
   - component: {fileID: 4142732762126842663}
+  - component: {fileID: 4307534045834281410}
   m_Layer: 10
   m_Name: Legs
   m_TagString: Untagged
@@ -668,7 +685,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 25ac9d4bb57a72e65aefe29e80cab179, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -723,6 +740,25 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &4307534045834281410
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8073088548248990926}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84dd8c835ebb1bda794847a124b513d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HitFlash
+  m_health: {fileID: 2183196438318982530}
+  m_renderer: {fileID: 8081815579358575484}
+  m_scaleTarget: {fileID: 5177073242483053874}
+  m_duration: 0.1
+  m_popScale: 1.15
+  m_hitColor: {r: 1, g: 1, b: 1, a: 1}
+  m_healColor: {r: 0.4, g: 1, b: 0.4, a: 1}
 --- !u!1 &8343292595127297727
 GameObject:
   m_ObjectHideFlags: 0
@@ -737,6 +773,7 @@ GameObject:
   - component: {fileID: 4144838218216824272}
   - component: {fileID: 9036900333929752887}
   - component: {fileID: 7008022331651549324}
+  - component: {fileID: 2719027451751963115}
   m_Layer: 10
   m_Name: Torso
   m_TagString: Enemy
@@ -785,7 +822,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 25ac9d4bb57a72e65aefe29e80cab179, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -890,3 +927,22 @@ MonoBehaviour:
   m_phaseManager: {fileID: 1126372842136865695}
   m_flamethrower: {fileID: 3296511922803988649}
   m_burstAttack: {fileID: 3704123723417835679}
+--- !u!114 &2719027451751963115
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8343292595127297727}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84dd8c835ebb1bda794847a124b513d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HitFlash
+  m_health: {fileID: 2183196438318982530}
+  m_renderer: {fileID: 8401865433470844010}
+  m_scaleTarget: {fileID: 7086331989687145428}
+  m_duration: 0.1
+  m_popScale: 1.15
+  m_hitColor: {r: 1, g: 1, b: 1, a: 1}
+  m_healColor: {r: 0.4, g: 1, b: 0.4, a: 1}

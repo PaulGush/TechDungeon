@@ -38,10 +38,55 @@ public class MissileBarrage : MonoBehaviour
     [Tooltip("Color the boss sprite is lerped to while charging the barrage.")]
     [SerializeField] private Color m_chargeTint = new Color(1f, 0.35f, 0.35f, 1f);
 
+    [Header("Teleport VFX")]
+    [Tooltip("Pool-friendly puff prefab spawned at the source and destination of each teleport. Leave empty to skip the puff.")]
+    [SerializeField] private GameObject m_teleportPuffPrefab;
+
+    [Tooltip("HitFlashes driven on teleport (e.g., torso + legs). Leave empty to skip the flash.")]
+    [SerializeField] private HitFlash[] m_teleportHitFlashes;
+
+    [Tooltip("Color fed to the teleport HitFlashes. Keep it distinct from the damage flash so players can read the reposition.")]
+    [SerializeField] private Color m_teleportFlashColor = new Color(0.6f, 0.85f, 1f, 1f);
+
+    [Tooltip("Seconds the boss charges in place before the snap. Zero disables the wind-up.")]
+    [SerializeField] private float m_teleportWindUpDuration = 0.2f;
+
+    [Tooltip("Renderers that fade down during wind-up and fade back in on arrival. Typically the same set as the charge tint / HitFlash renderers.")]
+    [SerializeField] private SpriteRenderer[] m_teleportFadeRenderers;
+
+    [Tooltip("Transform scaled during the teleport. Typically the boss root. Leave empty to disable the scale tween.")]
+    [SerializeField] private Transform m_teleportScaleTarget;
+
+    [Tooltip("Scale multiplier reached at the end of wind-up. 0 fully collapses; 0.1-0.3 reads as 'compressing into the puff'.")]
+    [Range(0f, 1f)]
+    [SerializeField] private float m_teleportVanishScale = 0.2f;
+
+    [Tooltip("Alpha multiplier reached at the end of wind-up. 0 fully hides the boss during the snap.")]
+    [Range(0f, 1f)]
+    [SerializeField] private float m_teleportVanishAlpha = 0f;
+
+    [Tooltip("Scale multiplier the boss first appears at on arrival. Above 1 gives a pop-in overshoot; below 1 grows out of nothing.")]
+    [SerializeField] private float m_teleportArrivalScale = 1.3f;
+
+    [Tooltip("Seconds the arrival tween takes to return to the original scale and alpha after the snap.")]
+    [SerializeField] private float m_teleportArrivalDuration = 0.15f;
+
+    [Header("Teleport Hit-Stop")]
+    [Tooltip("Seconds Time.timeScale is pinned near zero at the moment of the snap, to sell the reposition. Zero disables the hit-stop.")]
+    [SerializeField] private float m_teleportHitStopDuration = 0.06f;
+
+    [Tooltip("Time.timeScale value held during the teleport hit-stop. Values near zero (not exactly zero) work best.")]
+    [SerializeField] private float m_teleportHitStopTimeScale = 0.02f;
+
     private ObjectPool m_pool;
     private PlayerMovementController m_cachedPlayer;
+    private HitStopService m_hitStopService;
     private Color[] m_originalTintColors;
     private bool m_capturedTintColors;
+    private Color[] m_teleportBaseColors;
+    private bool m_capturedTeleportColors;
+    private Vector3 m_teleportBaseScale;
+    private bool m_capturedTeleportScale;
     private int m_lastRetreatPointIndex = -1;
     private Coroutine m_phaseLoopCoroutine;
 
@@ -93,11 +138,7 @@ public class MissileBarrage : MonoBehaviour
         if (m_movement != null)
             m_movement.Frozen = true;
 
-        Vector2? firstRetreat = PickNextRetreatPoint();
-        if (firstRetreat.HasValue && m_movement != null)
-            m_movement.Teleport(firstRetreat.Value);
-
-        m_phaseLoopCoroutine = StartCoroutine(BarragePhaseLoop());
+        m_phaseLoopCoroutine = StartCoroutine(BarragePhaseLoop(PickNextRetreatPoint()));
     }
 
     private void ExitMissileBarragePhase()
@@ -108,12 +149,152 @@ public class MissileBarrage : MonoBehaviour
             m_phaseLoopCoroutine = null;
         }
         ClearChargeTint();
+        RestoreTeleportVisuals();
         if (m_movement != null)
             m_movement.Frozen = false;
     }
 
-    private IEnumerator BarragePhaseLoop()
+    // Wraps EnemyMovement.Teleport with a wind-up (flash + source puff + scale/fade
+    // collapse), the snap (with hit-stop), and arrival (destination puff + flash +
+    // scale/fade pop-in), so the reposition reads as an intentional beat rather
+    // than a silent snap.
+    private IEnumerator DoTeleport(Vector2 destination)
     {
+        if (m_movement == null) yield break;
+
+        Vector2 source = transform.position;
+        CaptureTeleportBaselines();
+
+        FlashTeleport();
+        SpawnTeleportPuff(source);
+
+        // Wind-up: collapse the boss's scale + alpha so it visibly "compresses into the puff".
+        if (m_teleportWindUpDuration > 0f)
+        {
+            float elapsed = 0f;
+            while (elapsed < m_teleportWindUpDuration)
+            {
+                elapsed += Time.unscaledDeltaTime;
+                float t = Mathf.Clamp01(elapsed / m_teleportWindUpDuration);
+                // Ease-in so the collapse accelerates toward the snap.
+                float eased = t * t;
+                float scaleMult = Mathf.Lerp(1f, m_teleportVanishScale, eased);
+                float alphaMult = Mathf.Lerp(1f, m_teleportVanishAlpha, eased);
+                ApplyTeleportVisuals(scaleMult, alphaMult);
+                yield return null;
+            }
+            ApplyTeleportVisuals(m_teleportVanishScale, m_teleportVanishAlpha);
+        }
+
+        m_movement.Teleport(destination);
+        SpawnTeleportPuff(destination);
+        FlashTeleport();
+
+        if (m_teleportHitStopDuration > 0f)
+        {
+            if (m_hitStopService == null)
+                ServiceLocator.Global.TryGet(out m_hitStopService);
+            if (m_hitStopService != null)
+                m_hitStopService.Freeze(m_teleportHitStopDuration, m_teleportHitStopTimeScale);
+        }
+
+        // Arrival: pop back to full scale/alpha (optionally overshoot) from the vanish state.
+        if (m_teleportArrivalDuration > 0f)
+        {
+            // Prime the starting state so the first frame renders at arrival-start values
+            // even if the wind-up was skipped.
+            ApplyTeleportVisuals(m_teleportArrivalScale, m_teleportVanishAlpha);
+
+            float elapsed = 0f;
+            while (elapsed < m_teleportArrivalDuration)
+            {
+                elapsed += Time.unscaledDeltaTime;
+                float t = Mathf.Clamp01(elapsed / m_teleportArrivalDuration);
+                // Ease-out so the overshoot settles smoothly into rest.
+                float eased = 1f - (1f - t) * (1f - t);
+                float scaleMult = Mathf.Lerp(m_teleportArrivalScale, 1f, eased);
+                float alphaMult = Mathf.Lerp(m_teleportVanishAlpha, 1f, eased);
+                ApplyTeleportVisuals(scaleMult, alphaMult);
+                yield return null;
+            }
+        }
+
+        ApplyTeleportVisuals(1f, 1f);
+    }
+
+    private void FlashTeleport()
+    {
+        if (m_teleportHitFlashes == null) return;
+        for (int i = 0; i < m_teleportHitFlashes.Length; i++)
+        {
+            if (m_teleportHitFlashes[i] != null)
+                m_teleportHitFlashes[i].Flash(m_teleportFlashColor);
+        }
+    }
+
+    private void CaptureTeleportBaselines()
+    {
+        if (!m_capturedTeleportColors && m_teleportFadeRenderers != null && m_teleportFadeRenderers.Length > 0)
+        {
+            m_teleportBaseColors = new Color[m_teleportFadeRenderers.Length];
+            for (int i = 0; i < m_teleportFadeRenderers.Length; i++)
+            {
+                if (m_teleportFadeRenderers[i] != null)
+                    m_teleportBaseColors[i] = m_teleportFadeRenderers[i].color;
+            }
+            m_capturedTeleportColors = true;
+        }
+
+        if (!m_capturedTeleportScale && m_teleportScaleTarget != null)
+        {
+            m_teleportBaseScale = m_teleportScaleTarget.localScale;
+            m_capturedTeleportScale = true;
+        }
+    }
+
+    private void ApplyTeleportVisuals(float scaleMultiplier, float alphaMultiplier)
+    {
+        if (m_capturedTeleportScale && m_teleportScaleTarget != null)
+            m_teleportScaleTarget.localScale = m_teleportBaseScale * scaleMultiplier;
+
+        if (m_capturedTeleportColors && m_teleportFadeRenderers != null)
+        {
+            for (int i = 0; i < m_teleportFadeRenderers.Length; i++)
+            {
+                if (m_teleportFadeRenderers[i] == null) continue;
+                if (i >= m_teleportBaseColors.Length) continue;
+                Color baseColor = m_teleportBaseColors[i];
+                m_teleportFadeRenderers[i].color = new Color(
+                    baseColor.r,
+                    baseColor.g,
+                    baseColor.b,
+                    baseColor.a * alphaMultiplier);
+            }
+        }
+    }
+
+    private void RestoreTeleportVisuals()
+    {
+        if (!m_capturedTeleportColors && !m_capturedTeleportScale) return;
+        ApplyTeleportVisuals(1f, 1f);
+    }
+
+    private void SpawnTeleportPuff(Vector2 position)
+    {
+        if (m_teleportPuffPrefab == null) return;
+
+        GameObject puff = m_pool != null
+            ? m_pool.GetPooledObject(m_teleportPuffPrefab)
+            : Instantiate(m_teleportPuffPrefab);
+        puff.transform.position = position;
+    }
+
+    private IEnumerator BarragePhaseLoop(Vector2? initialRetreat)
+    {
+        // Initial teleport runs inside the loop so its wind-up can yield.
+        if (initialRetreat.HasValue)
+            yield return DoTeleport(initialRetreat.Value);
+
         while (true)
         {
             // Cooldown between volleys (also acts as the initial delay after phase
@@ -134,13 +315,9 @@ public class MissileBarrage : MonoBehaviour
             if (target != null)
                 yield return BarrageRoutine(phase, target);
 
-            // Snap to the next retreat point the instant the volley finishes.
-            if (m_movement != null)
-            {
-                Vector2? nextRetreat = PickNextRetreatPoint();
-                if (nextRetreat.HasValue)
-                    m_movement.Teleport(nextRetreat.Value);
-            }
+            Vector2? nextRetreat = PickNextRetreatPoint();
+            if (nextRetreat.HasValue)
+                yield return DoTeleport(nextRetreat.Value);
         }
     }
 
@@ -381,6 +558,7 @@ public class MissileBarrage : MonoBehaviour
         StopAllCoroutines();
         m_phaseLoopCoroutine = null;
         ClearChargeTint();
+        RestoreTeleportVisuals();
         if (m_movement != null)
             m_movement.Frozen = false;
     }

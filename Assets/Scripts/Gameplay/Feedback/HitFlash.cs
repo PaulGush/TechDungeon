@@ -85,7 +85,7 @@ public class HitFlash : MonoBehaviour
         Flash(m_healColor);
     }
 
-    private void Flash(Color color)
+    public void Flash(Color color)
     {
         if (m_routine != null) StopCoroutine(m_routine);
         m_routine = StartCoroutine(FlashRoutine(color));
