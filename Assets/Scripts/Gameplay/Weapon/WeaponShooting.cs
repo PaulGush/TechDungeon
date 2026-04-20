@@ -4,6 +4,7 @@ using Gameplay.ObjectPool;
 using Input;
 using PlayerObject;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 using UnityServiceLocator;
 
 public class WeaponShooting : MonoBehaviour, IWeapon
@@ -25,6 +26,9 @@ public class WeaponShooting : MonoBehaviour, IWeapon
     [Tooltip("Child object on the weapon that is toggled on for a brief flash each time the weapon fires. Leave empty to skip.")]
     [SerializeField] private GameObject m_muzzleFlashObject;
 
+    [Tooltip("Optional Light2D on (or under) the muzzle flash object. Its color is tinted by the ammo color on fire and restored to its authored default otherwise. Auto-resolved from the muzzle flash object if left empty.")]
+    [SerializeField] private Light2D m_muzzleFlashLight;
+
     [Tooltip("Seconds the muzzle flash object stays active after firing.")]
     [SerializeField] private float m_muzzleFlashDuration = 0.05f;
 
@@ -36,6 +40,7 @@ public class WeaponShooting : MonoBehaviour, IWeapon
     private Coroutine m_muzzleFlashRoutine;
     private SpriteRenderer m_muzzleFlashRenderer;
     private Color m_muzzleFlashDefaultTint = Color.white;
+    private Color m_muzzleFlashDefaultLightColor = Color.white;
 
     private bool m_equipped;
     private float m_cooldownEndsAt;
@@ -59,6 +64,22 @@ public class WeaponShooting : MonoBehaviour, IWeapon
         ServiceLocator.Global.TryGet(out m_mutationManager);
         ServiceLocator.Global.TryGet(out m_ammoManager);
         ServiceLocator.Global.TryGet(out m_cameraShake);
+
+        // Cache the muzzle flash's authored default tints once at Start so they
+        // survive ammo-color overrides. Doing this in Equip was fragile because
+        // a re-equip after a tinted shot would have captured the ammo color as
+        // the "default".
+        if (m_muzzleFlashObject != null)
+        {
+            m_muzzleFlashRenderer = m_muzzleFlashObject.GetComponentInChildren<SpriteRenderer>(true);
+            if (m_muzzleFlashRenderer != null)
+                m_muzzleFlashDefaultTint = m_muzzleFlashRenderer.color;
+
+            if (m_muzzleFlashLight == null)
+                m_muzzleFlashLight = m_muzzleFlashObject.GetComponentInChildren<Light2D>(true);
+            if (m_muzzleFlashLight != null)
+                m_muzzleFlashDefaultLightColor = m_muzzleFlashLight.color;
+        }
     }
 
     public void Equip()
@@ -72,15 +93,7 @@ public class WeaponShooting : MonoBehaviour, IWeapon
             Debug.LogWarning($"WeaponShooting on '{name}' has no WeaponSettings assigned — falling back to unthrottled semi-auto.", this);
 
         if (m_muzzleFlashObject != null)
-        {
-            if (m_muzzleFlashRenderer == null)
-            {
-                m_muzzleFlashRenderer = m_muzzleFlashObject.GetComponentInChildren<SpriteRenderer>(true);
-                if (m_muzzleFlashRenderer != null)
-                    m_muzzleFlashDefaultTint = m_muzzleFlashRenderer.color;
-            }
             m_muzzleFlashObject.SetActive(false);
-        }
     }
 
     public void Unequip()
@@ -302,6 +315,9 @@ public class WeaponShooting : MonoBehaviour, IWeapon
 
         if (m_muzzleFlashRenderer != null)
             m_muzzleFlashRenderer.color = ammoSettings != null ? ammoSettings.ProjectileColor : m_muzzleFlashDefaultTint;
+
+        if (m_muzzleFlashLight != null)
+            m_muzzleFlashLight.color = ammoSettings != null ? ammoSettings.ProjectileColor : m_muzzleFlashDefaultLightColor;
 
         m_muzzleFlashObject.SetActive(true);
         m_muzzleFlashRoutine = StartCoroutine(HideMuzzleFlashAfterDelay());
