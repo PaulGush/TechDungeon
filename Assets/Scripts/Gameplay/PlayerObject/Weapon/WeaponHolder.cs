@@ -72,21 +72,22 @@ namespace PlayerObject
 
             RaycastHit2D hit = Physics2D.Raycast(origin, aimDir, totalReach, GameConstants.Layers.WallsLayerMask);
 
+            float kickback = m_currentWeaponShooting.CurrentKickbackOffset;
+            Vector3 localPos = m_currentWeapon.transform.localPosition;
+
             if (hit)
             {
                 // Pull weapon back so the shoot point stops at the wall (minus buffer)
                 float clampedLocalY = Mathf.Max(0f, hit.distance - m_shootPointLocalOffset - WallBuffer);
-                Vector3 localPos = m_currentWeapon.transform.localPosition;
-                localPos.y = clampedLocalY;
-                m_currentWeapon.transform.localPosition = localPos;
+                localPos.y = Mathf.Max(0f, clampedLocalY + kickback);
             }
             else
             {
-                // Restore original position
-                Vector3 localPos = m_currentWeapon.transform.localPosition;
-                localPos.y = m_weaponOriginalLocalY;
-                m_currentWeapon.transform.localPosition = localPos;
+                // Restore original position, plus any active kickback offset
+                localPos.y = Mathf.Max(0f, m_weaponOriginalLocalY + kickback);
             }
+
+            m_currentWeapon.transform.localPosition = localPos;
         }
 
         private GameObject m_currentWeapon;
