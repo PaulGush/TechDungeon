@@ -3,6 +3,7 @@ Shader "Custom/SpriteHitFlash"
     Properties
     {
         [HideInInspector] [PerRendererData] [NoScaleOffset] _MainTex ("Sprite Texture", 2D) = "white" {}
+        [HideInInspector] [PerRendererData] _RendererColor ("RendererColor", Color) = (1, 1, 1, 1)
         _FlashColor ("Flash Color", Color) = (1, 1, 1, 1)
         _FlashAmount ("Flash Amount", Range(0, 1)) = 0
     }
@@ -50,6 +51,10 @@ Shader "Custom/SpriteHitFlash"
             TEXTURE2D(_MainTex);
             SAMPLER(sampler_MainTex);
 
+            // Per-renderer (populated by SpriteRenderer via MaterialPropertyBlock).
+            // Declared outside UnityPerMaterial so Unity can override it per-sprite.
+            float4 _RendererColor;
+
             CBUFFER_START(UnityPerMaterial)
                 float4 _FlashColor;
                 float _FlashAmount;
@@ -67,7 +72,7 @@ Shader "Custom/SpriteHitFlash"
             half4 frag(Varyings input) : SV_Target
             {
                 half4 col = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, input.uv);
-                col *= input.color;
+                col *= input.color * _RendererColor;
                 col.rgb = lerp(col.rgb, _FlashColor.rgb, _FlashAmount);
                 return col;
             }
@@ -101,6 +106,10 @@ Shader "Custom/SpriteHitFlash"
             TEXTURE2D(_MainTex);
             SAMPLER(sampler_MainTex);
 
+            // Per-renderer (populated by SpriteRenderer via MaterialPropertyBlock).
+            // Declared outside UnityPerMaterial so Unity can override it per-sprite.
+            float4 _RendererColor;
+
             CBUFFER_START(UnityPerMaterial)
                 float4 _FlashColor;
                 float _FlashAmount;
@@ -118,7 +127,7 @@ Shader "Custom/SpriteHitFlash"
             half4 frag(Varyings input) : SV_Target
             {
                 half4 col = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, input.uv);
-                col *= input.color;
+                col *= input.color * _RendererColor;
                 col.rgb = lerp(col.rgb, _FlashColor.rgb, _FlashAmount);
                 return col;
             }
