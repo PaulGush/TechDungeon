@@ -285,6 +285,7 @@ GameObject:
   - component: {fileID: 5226993944516471503}
   - component: {fileID: 8746665850675550964}
   - component: {fileID: 71725469843262459}
+  - component: {fileID: 498501020100782916}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -405,7 +406,7 @@ MonoBehaviour:
   m_animator: {fileID: 7740086479829220560}
   m_inputReader: {fileID: 11400000, guid: c7fc619696fbc354f935b4ae0e11fc0c, type: 2}
   m_health: {fileID: 4176536670723386620}
-  m_damageShakeAmplitude: 0.4
+  m_damageShakeAmplitude: 0.2
 --- !u!114 &1068127892481412382
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -564,3 +565,19 @@ MonoBehaviour:
   m_popScale: 1.15
   m_hitColor: {r: 1, g: 1, b: 1, a: 1}
   m_healColor: {r: 0.4, g: 1, b: 0.4, a: 1}
+--- !u!114 &498501020100782916
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6893592627556747956}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e91b40cc7f2fac6fa36f7fd49b0bdd0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ChromaticAberrationPunch
+  m_health: {fileID: 4176536670723386620}
+  m_peakIntensity: 0.7
+  m_recoverDuration: 0.35
+  m_volumePriority: 100
