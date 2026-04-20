@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 6783190996219739245}
   - component: {fileID: 6427150150237015703}
   m_Layer: 9
-  m_Name: M16
+  m_Name: MachineGun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -90,7 +90,7 @@ SpriteRenderer:
   m_SortingLayer: 1
   m_SortingOrder: 1
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: 1f07a32b8d0c9083692c8836e99875be, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2105465ff13f6e6b3bd3d3acc01acf7c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -135,7 +135,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WeaponShooting
   m_inputReader: {fileID: 11400000, guid: c7fc619696fbc354f935b4ae0e11fc0c, type: 2}
   m_shootPoint: {fileID: 7976618290720294897}
-  m_settings: {fileID: 11400000, guid: c6e3f4a5b7c8d9012345678901bcdef0, type: 2}
+  m_settings: {fileID: 11400000, guid: a0c7d8e9f1234567890123abcdef0127, type: 2}
   m_projectile: {fileID: 6481393338737401498, guid: 991df1a3ac21a8dfd8f6ff27d42b5f99, type: 3}
   m_shootShakeAmplitude: 0.0005
   m_muzzleFlashObject: {fileID: 7198577369456203947}
@@ -178,7 +178,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.578125, y: 0.203125}
+    oldSize: {x: 0.71875, y: 0.1875}
     newSize: {x: 0.13, y: 0.1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -254,7 +254,7 @@ Transform:
   m_GameObject: {fileID: 6551711240887446659}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.302, y: 0.025, z: 0}
+  m_LocalPosition: {x: 0.363, y: 0.049, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -421,11 +421,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4809628487574871910, guid: 5e64bb60ab6684b4ba45ae872ae9a578, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.2897
+      value: 0.364
       objectReference: {fileID: 0}
     - target: {fileID: 4809628487574871910, guid: 5e64bb60ab6684b4ba45ae872ae9a578, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.0216
+      value: 0.049
       objectReference: {fileID: 0}
     - target: {fileID: 4809628487574871910, guid: 5e64bb60ab6684b4ba45ae872ae9a578, type: 3}
       propertyPath: m_LocalPosition.z
