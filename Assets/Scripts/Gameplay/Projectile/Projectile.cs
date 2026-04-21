@@ -13,6 +13,12 @@ public class Projectile : MonoBehaviour
     [SerializeField] private SpriteRenderer m_spriteRenderer;
     [SerializeField] private ProjectileSettings m_settings;
 
+    [Tooltip("Optional TrailRenderer on the projectile. Cleared on spawn to prevent pool-reuse streaks, and its start/end colors are driven by ammo color > trail override > sprite color.")]
+    [SerializeField] private TrailRenderer m_trail;
+
+    [Tooltip("Optional explicit color for the trail when no ammo is loaded. Leave alpha at zero to fall back to the sprite's color (for bullets whose trail should match their sprite). Set alpha > 0 to force a specific trail color distinct from the sprite tint (e.g. a white missile with an orange trail).")]
+    [SerializeField] private Color m_trailColor = new Color(0f, 0f, 0f, 0f);
+
     [Header("Collision Filtering")]
     [SerializeField] private LayerMask m_damageLayers;
     [SerializeField] private LayerMask m_destroyLayers;
@@ -52,17 +58,21 @@ public class Projectile : MonoBehaviour
     {
         m_ammoSettings = settings;
         m_ammoEffect = settings != null ? settings.CreateEffect() : null;
-
-        if (m_spriteRenderer != null && settings != null)
-            m_spriteRenderer.color = settings.ProjectileColor;
+        ApplyAmmoTint(settings);
     }
 
     public void SetAmmoEffect(AmmoSettings settings, IAmmoEffect effect)
     {
         m_ammoSettings = settings;
         m_ammoEffect = effect;
+        ApplyAmmoTint(settings);
+    }
 
-        if (m_spriteRenderer != null && settings != null)
+    private void ApplyAmmoTint(AmmoSettings settings)
+    {
+        if (settings == null) return;
+
+        if (m_spriteRenderer != null)
             m_spriteRenderer.color = settings.ProjectileColor;
     }
 
@@ -92,6 +102,29 @@ public class Projectile : MonoBehaviour
         m_destroyed = false;
         m_rigidbody2D.AddForce( transform.right * m_settings.Speed);
 
+        // Clear after the caller has positioned the projectile so the trail doesn't
+        // draw a streak from the pool's last firing location to the new one. Priority:
+        // explicit TrailColor override (if alpha > 0) > ammo tint > sprite color.
+        // Override wins over ammo so projectiles like the missile can force a trail
+        // color distinct from their intrinsic ammo's ProjectileColor.
+        if (m_trail != null)
+        {
+            Color tint;
+            if (m_trailColor.a > 0f)
+                tint = m_trailColor;
+            else if (m_ammoSettings != null)
+                tint = m_ammoSettings.ProjectileColor;
+            else if (m_spriteRenderer != null)
+                tint = m_spriteRenderer.color;
+            else
+                tint = Color.white;
+
+            m_trail.startColor = tint;
+            tint.a = 0f;
+            m_trail.endColor = tint;
+            m_trail.Clear();
+        }
+
         m_returnCoroutine = StartCoroutine(m_pool.ReturnAfter(gameObject, m_settings.Lifetime));
     }
 
@@ -113,6 +146,9 @@ public class Projectile : MonoBehaviour
 
         if (m_spriteRenderer != null)
             m_spriteRenderer.color = m_defaultColor;
+
+        if (m_trail != null)
+            m_trail.Clear();
     }
 
     private void OnTriggerEnter2D(Collider2D other)
