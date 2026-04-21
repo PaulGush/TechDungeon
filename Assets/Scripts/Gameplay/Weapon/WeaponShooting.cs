@@ -41,6 +41,7 @@ public class WeaponShooting : MonoBehaviour, IWeapon
     private SpriteRenderer m_muzzleFlashRenderer;
     private Color m_muzzleFlashDefaultTint = Color.white;
     private Color m_muzzleFlashDefaultLightColor = Color.white;
+    private Lootable m_lootable;
 
     private bool m_equipped;
     private float m_cooldownEndsAt;
@@ -88,6 +89,9 @@ public class WeaponShooting : MonoBehaviour, IWeapon
         m_equipped = true;
         m_cooldownEndsAt = 0f;
         m_chargeStartTime = -1f;
+
+        if (m_lootable == null)
+            m_lootable = GetComponent<Lootable>() ?? GetComponentInParent<Lootable>() ?? GetComponentInChildren<Lootable>();
 
         if (m_settings == null)
             Debug.LogWarning($"WeaponShooting on '{name}' has no WeaponSettings assigned — falling back to unthrottled semi-auto.", this);
@@ -287,6 +291,8 @@ public class WeaponShooting : MonoBehaviour, IWeapon
             mult *= m_mutationManager.GetDamageMultiplier();
             pierce = m_mutationManager.GetBonusPierce();
         }
+        if (m_lootable != null)
+            mult *= LootableRarity.GetDamageMultiplier(m_lootable.Rarity);
         proj.SetMutationModifiers(flatBonus, mult, pierce);
 
         if (ammoSettings != null)
