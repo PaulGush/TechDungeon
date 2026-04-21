@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 11400000000000010}
   - component: {fileID: 589597282489055378}
   - component: {fileID: -1042937336077273057}
+  - component: {fileID: 3478703593163344945}
   m_Layer: 10
   m_Name: Enemy_Turret
   m_TagString: Enemy
@@ -210,6 +211,25 @@ MonoBehaviour:
   m_duration: 0.1
   m_scale: 0.02
   m_delay: 0.25
+--- !u!114 &3478703593163344945
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1100000000000000000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac31d2d53b0a70c279386b91bf1affe5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DamageNumberSpawner
+  m_health: {fileID: 11400000000000010}
+  m_damageNumberPrefab: {fileID: 2138278370266732747, guid: dd35f2fab7f565cc48e8ef1d2e00fe3b, type: 3}
+  m_offset: {x: 0, y: 0.5, z: 0}
+  m_horizontalJitter: 0.2
+  m_bigHitThreshold: 20
+  m_normalColor: {r: 1, g: 1, b: 1, a: 1}
+  m_bigHitColor: {r: 1, g: 0.75, b: 0.2, a: 1}
 --- !u!1 &1100000000000000001
 GameObject:
   m_ObjectHideFlags: 0
@@ -436,6 +456,8 @@ MonoBehaviour:
   m_scaleTarget: {fileID: 400000000000000002}
   m_duration: 0.1
   m_popScale: 1.15
+  m_hitColor: {r: 1, g: 1, b: 1, a: 1}
+  m_healColor: {r: 0.4, g: 1, b: 0.4, a: 1}
 --- !u!1 &1100000000000000003
 GameObject:
   m_ObjectHideFlags: 0

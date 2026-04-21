@@ -14,6 +14,10 @@ public class EntityHealth : MonoBehaviour
 
     public Action OnHeal;
     public Action OnTakeDamage;
+    // Fires alongside OnTakeDamage with the post-armor damage amount. Subscribe here
+    // when the amount matters (damage numbers, UI hit counters); use OnTakeDamage when
+    // only the fact of a hit matters (hit flash, CA punch).
+    public Action<int> OnTakeDamageAmount;
     public Action OnDeath;
     public Action<int> OnHealthChanged;
 
@@ -54,12 +58,14 @@ public class EntityHealth : MonoBehaviour
         {
             m_currentHealth = 1;
             OnTakeDamage?.Invoke();
+            OnTakeDamageAmount?.Invoke(mitigated);
             OnHealthChanged?.Invoke(m_currentHealth);
             return;
         }
 
         m_currentHealth -= mitigated;
         OnTakeDamage?.Invoke();
+        OnTakeDamageAmount?.Invoke(mitigated);
         OnHealthChanged?.Invoke(m_currentHealth);
 
         if (m_currentHealth > 0)

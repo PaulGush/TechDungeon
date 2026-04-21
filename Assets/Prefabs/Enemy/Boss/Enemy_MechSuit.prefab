@@ -394,6 +394,7 @@ GameObject:
   - component: {fileID: 1126372842136865695}
   - component: {fileID: 2894561612828567105}
   - component: {fileID: 8017914464383048241}
+  - component: {fileID: 7033181806505878185}
   m_Layer: 10
   m_Name: Enemy_MechSuit
   m_TagString: Enemy
@@ -625,6 +626,25 @@ MonoBehaviour:
   m_deathTimeline: {fileID: 11400000, guid: 97ca9e13438228b19b882947bd4e0b74, type: 2}
   m_bossCameraClipName: Boss Cam
   m_playerCameraClipName: Player Cam
+--- !u!114 &7033181806505878185
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6461043018938325683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac31d2d53b0a70c279386b91bf1affe5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DamageNumberSpawner
+  m_health: {fileID: 2183196438318982530}
+  m_damageNumberPrefab: {fileID: 2138278370266732747, guid: dd35f2fab7f565cc48e8ef1d2e00fe3b, type: 3}
+  m_offset: {x: 0, y: 0.5, z: 0}
+  m_horizontalJitter: 0.2
+  m_bigHitThreshold: 20
+  m_normalColor: {r: 1, g: 1, b: 1, a: 1}
+  m_bigHitColor: {r: 1, g: 0.75, b: 0.2, a: 1}
 --- !u!1 &8073088548248990926
 GameObject:
   m_ObjectHideFlags: 0
