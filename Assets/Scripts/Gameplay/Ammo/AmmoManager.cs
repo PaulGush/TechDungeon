@@ -52,11 +52,25 @@ public class AmmoManager : MonoBehaviour
     {
         if (m_ammoTypes.Count == 0) return;
 
-        int previous = m_currentIndex;
-        m_currentIndex = (m_currentIndex + direction + m_ammoTypes.Count) % m_ammoTypes.Count;
+        int start = m_currentIndex;
+        int idx = start;
+        for (int i = 0; i < m_ammoTypes.Count; i++)
+        {
+            idx = (idx + direction + m_ammoTypes.Count) % m_ammoTypes.Count;
+            if (HasAvailableAmmo(m_ammoTypes[idx])) break;
+        }
 
-        if (m_currentIndex != previous)
-            OnAmmoChanged?.Invoke(CurrentAmmoSettings);
+        if (idx == start) return;
+
+        m_currentIndex = idx;
+        OnAmmoChanged?.Invoke(CurrentAmmoSettings);
+    }
+
+    private bool HasAvailableAmmo(AmmoSettings settings)
+    {
+        if (settings == null) return false;
+        if (settings.Type == AmmoType.Standard) return true;
+        return m_ammoCounts.TryGetValue(settings.Type, out int count) && count > 0;
     }
 
     public bool RollAmmoEfficiency()
