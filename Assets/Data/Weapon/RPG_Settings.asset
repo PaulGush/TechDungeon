@@ -21,6 +21,8 @@ MonoBehaviour:
   MinChargeSeconds: 0.25
   MaxChargeSeconds: 1
   MinChargeDamageMultiplier: 0.5
+  MagazineSize: 1
+  ReloadDuration: 1.2
   KickbackDistance: 0.18
   KickbackDuration: 0.14
   IntrinsicAmmo: {fileID: 11400000, guid: ccccccccddddeeeeffff000011111111, type: 2}

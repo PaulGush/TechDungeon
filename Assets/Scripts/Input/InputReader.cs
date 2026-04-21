@@ -24,6 +24,7 @@ namespace Input
         public UnityAction InventoryReleased = delegate {  };
         public UnityAction Roll = delegate {  };
         public UnityAction Look = delegate {  };
+        public UnityAction Reload = delegate {  };
         
         private InputSystem_Actions m_inputActions;
         
@@ -116,6 +117,14 @@ namespace Input
         public void OnLook(InputAction.CallbackContext context)
         {
             Look?.Invoke();
+        }
+
+        public void OnReload(InputAction.CallbackContext context)
+        {
+            if (context.phase == InputActionPhase.Started)
+            {
+                Reload?.Invoke();
+            }
         }
     }
 }

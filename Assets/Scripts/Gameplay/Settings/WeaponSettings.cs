@@ -42,6 +42,13 @@ public class WeaponSettings : ScriptableObject
     [Tooltip("Damage multiplier applied at minimum charge. Scales linearly to 1.0 at full charge.")]
     [Range(0.1f, 1f)] public float MinChargeDamageMultiplier = 0.5f;
 
+    [Header("Magazine")]
+    [Tooltip("Shots per magazine. Zero or negative disables reload (infinite mag).")]
+    public int MagazineSize = 0;
+
+    [Tooltip("Seconds the reload takes to complete. Ignored when MagazineSize is non-positive.")]
+    public float ReloadDuration = 1.2f;
+
     [Header("Kickback")]
     [Tooltip("How far the weapon is pushed back along its local -Y (toward the player) at the moment of fire. Zero disables.")]
     public float KickbackDistance = 0f;

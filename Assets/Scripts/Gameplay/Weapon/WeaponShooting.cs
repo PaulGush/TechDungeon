@@ -10,6 +10,10 @@ using UnityServiceLocator;
 public class WeaponShooting : MonoBehaviour, IWeapon
 {
     public event Action<AmmoSettings> OnFired;
+    public event Action<int, int> OnMagazineChanged;
+    public event Action<float> OnReloadStarted;
+    public event Action OnReloadCompleted;
+    public event Action OnReloadCancelled;
 
     [Header("References")]
     [SerializeField] private InputReader m_inputReader;
@@ -52,7 +56,17 @@ public class WeaponShooting : MonoBehaviour, IWeapon
     private float m_kickbackDuration;
     private float m_kickbackPeak;
 
+    private AmmoType m_loadedAmmoType = AmmoType.Standard;
+    private int m_magazineCurrent;
+    private bool m_isReloading;
+    private Coroutine m_reloadRoutine;
+
     public Vector2 ShootPointPosition => m_shootPoint.position;
+    public int MagazineCurrent => m_magazineCurrent;
+    public int MagazineMax => m_settings != null ? m_settings.MagazineSize : 0;
+    public bool IsReloading => m_isReloading;
+    public AmmoType LoadedAmmoType => m_loadedAmmoType;
+    public bool UsesMagazine => m_settings != null && m_settings.MagazineSize > 0;
 
     // Non-positive offset applied along the weapon's local -Y to visualize kickback.
     // WeaponHolder reads this each LateUpdate and layers it on top of the clamped/base position.
@@ -98,6 +112,26 @@ public class WeaponShooting : MonoBehaviour, IWeapon
 
         if (m_muzzleFlashObject != null)
             m_muzzleFlashObject.SetActive(false);
+
+        m_magazineCurrent = 0;
+        m_isReloading = false;
+        m_loadedAmmoType = m_ammoManager != null && m_ammoManager.CurrentAmmoSettings != null
+            ? m_ammoManager.CurrentAmmoSettings.Type
+            : AmmoType.Standard;
+
+        if (UsesMagazine)
+        {
+            LoadMagazineFromPool();
+        }
+        OnMagazineChanged?.Invoke(m_magazineCurrent, MagazineMax);
+
+        if (m_inputReader != null)
+        {
+            m_inputReader.Reload += OnReloadInput;
+            m_inputReader.Roll += OnRollInput;
+        }
+        if (m_ammoManager != null)
+            m_ammoManager.OnAmmoChanged += OnAmmoTypeSwitched;
     }
 
     public void Unequip()
@@ -120,6 +154,20 @@ public class WeaponShooting : MonoBehaviour, IWeapon
         }
         if (m_muzzleFlashObject != null)
             m_muzzleFlashObject.SetActive(false);
+
+        CancelReload();
+
+        if (UsesMagazine && m_magazineCurrent > 0 && m_ammoManager != null)
+            m_ammoManager.ReturnToPool(m_loadedAmmoType, m_magazineCurrent);
+        m_magazineCurrent = 0;
+
+        if (m_inputReader != null)
+        {
+            m_inputReader.Reload -= OnReloadInput;
+            m_inputReader.Roll -= OnRollInput;
+        }
+        if (m_ammoManager != null)
+            m_ammoManager.OnAmmoChanged -= OnAmmoTypeSwitched;
     }
 
     private void Update()
@@ -207,21 +255,29 @@ public class WeaponShooting : MonoBehaviour, IWeapon
     {
         if (m_pool == null || IsShootPointObstructed()) return;
 
-        AmmoSettings ammoSettings = null;
-        if (m_ammoManager != null)
+        if (UsesMagazine)
         {
-            AmmoSettings current = m_ammoManager.CurrentAmmoSettings;
-            if (current != null && current.Type != AmmoType.Standard)
+            if (m_isReloading) return;
+            if (m_magazineCurrent <= 0)
             {
-                if (m_ammoManager.TryConsumeAmmo())
-                    ammoSettings = current;
+                StartReload();
+                return;
             }
         }
 
-        // Fall back to the weapon's intrinsic ammo when no player ammo took effect.
-        // Intrinsic ammo is part of the weapon itself, so it is never consumed.
+        bool efficient = m_ammoManager != null && m_ammoManager.RollAmmoEfficiency();
+        AmmoSettings ammoSettings = ResolveAmmoForShot(efficient);
+
+        // Fall back to the weapon's intrinsic ammo when no player ammo is active.
+        // Intrinsic ammo is part of the weapon itself and doesn't use the type-pool model.
         if (ammoSettings == null && m_settings != null && m_settings.IntrinsicAmmo != null)
             ammoSettings = m_settings.IntrinsicAmmo;
+
+        if (UsesMagazine && !efficient)
+        {
+            m_magazineCurrent--;
+            OnMagazineChanged?.Invoke(m_magazineCurrent, MagazineMax);
+        }
 
         int pellets = m_settings != null ? Mathf.Max(1, m_settings.PelletsPerShot) : 1;
         for (int i = 0; i < pellets; i++)
@@ -234,6 +290,37 @@ public class WeaponShooting : MonoBehaviour, IWeapon
             m_cameraShake.Shake(m_shootShakeAmplitude, -m_shootPoint.right);
 
         OnFired?.Invoke(ammoSettings);
+
+        if (UsesMagazine && m_magazineCurrent <= 0)
+            StartReload();
+    }
+
+    private AmmoSettings ResolveAmmoForShot(bool efficient)
+    {
+        if (m_ammoManager == null) return null;
+
+        // Magazine path: the mag tracks which type was loaded, so shots use that until reload.
+        if (UsesMagazine)
+        {
+            return m_loadedAmmoType != AmmoType.Standard
+                ? m_ammoManager.GetSettingsForType(m_loadedAmmoType)
+                : null;
+        }
+
+        // Non-magazine path: draw one round from the live ammo type's pool per shot, matching
+        // the pre-reload behavior. Efficiency mutation lets a shot pass without drawing.
+        AmmoSettings current = m_ammoManager.CurrentAmmoSettings;
+        if (current == null || current.Type == AmmoType.Standard) return null;
+
+        if (efficient) return current;
+
+        if (m_ammoManager.TryDrawFromPool(current.Type, 1) > 0)
+        {
+            if (m_ammoManager.GetAmmoCount(current.Type) <= 0)
+                m_ammoManager.CycleToStandard();
+            return current;
+        }
+        return null;
     }
 
     private void StartKickback()
@@ -335,5 +422,106 @@ public class WeaponShooting : MonoBehaviour, IWeapon
         if (m_muzzleFlashObject != null)
             m_muzzleFlashObject.SetActive(false);
         m_muzzleFlashRoutine = null;
+    }
+
+    private void OnReloadInput()
+    {
+        if (!m_equipped || !UsesMagazine) return;
+        if (m_isReloading) return;
+        if (m_magazineCurrent >= MagazineMax) return;
+        StartReload();
+    }
+
+    private void OnRollInput()
+    {
+        if (m_isReloading)
+            CancelReload();
+    }
+
+    private void OnAmmoTypeSwitched(AmmoSettings newSettings)
+    {
+        if (!m_equipped) return;
+        AmmoType newType = newSettings != null ? newSettings.Type : AmmoType.Standard;
+        if (newType == m_loadedAmmoType) return;
+
+        CancelReload();
+
+        if (UsesMagazine && m_magazineCurrent > 0 && m_ammoManager != null)
+            m_ammoManager.ReturnToPool(m_loadedAmmoType, m_magazineCurrent);
+
+        m_loadedAmmoType = newType;
+        m_magazineCurrent = 0;
+        OnMagazineChanged?.Invoke(m_magazineCurrent, MagazineMax);
+
+        if (UsesMagazine)
+            StartReload();
+    }
+
+    private void StartReload()
+    {
+        if (!UsesMagazine || m_isReloading) return;
+
+        // If the loaded type is depleted (pool empty, mag empty), fall back to standard
+        // so the player isn't stuck trying to reload nothing. Cycling to standard will
+        // re-enter this method via OnAmmoTypeSwitched.
+        if (m_loadedAmmoType != AmmoType.Standard && m_ammoManager != null
+            && m_ammoManager.GetAmmoCount(m_loadedAmmoType) <= 0 && m_magazineCurrent <= 0)
+        {
+            m_ammoManager.CycleToStandard();
+            return;
+        }
+
+        float duration = m_settings != null ? m_settings.ReloadDuration : 0f;
+        m_isReloading = true;
+        OnReloadStarted?.Invoke(duration);
+
+        if (duration <= 0f)
+        {
+            FinishReload();
+            return;
+        }
+
+        m_reloadRoutine = StartCoroutine(ReloadCoroutine(duration));
+    }
+
+    private IEnumerator ReloadCoroutine(float duration)
+    {
+        yield return new WaitForSeconds(duration);
+        FinishReload();
+    }
+
+    private void FinishReload()
+    {
+        m_reloadRoutine = null;
+        m_isReloading = false;
+        LoadMagazineFromPool();
+        OnMagazineChanged?.Invoke(m_magazineCurrent, MagazineMax);
+        OnReloadCompleted?.Invoke();
+    }
+
+    private void CancelReload()
+    {
+        if (m_reloadRoutine != null)
+        {
+            StopCoroutine(m_reloadRoutine);
+            m_reloadRoutine = null;
+        }
+        if (m_isReloading)
+        {
+            m_isReloading = false;
+            OnReloadCancelled?.Invoke();
+        }
+    }
+
+    private void LoadMagazineFromPool()
+    {
+        if (!UsesMagazine) return;
+        int needed = MagazineMax - m_magazineCurrent;
+        if (needed <= 0) return;
+
+        int drawn = m_ammoManager != null
+            ? m_ammoManager.TryDrawFromPool(m_loadedAmmoType, needed)
+            : needed; // No manager — treat as infinite so the weapon stays functional
+        m_magazineCurrent += drawn;
     }
 }

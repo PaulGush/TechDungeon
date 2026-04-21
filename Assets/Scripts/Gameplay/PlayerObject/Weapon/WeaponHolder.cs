@@ -27,6 +27,11 @@ namespace PlayerObject
 
         private RoomManager RoomManager => m_roomManager ??= ServiceLocator.Global.Get<RoomManager>();
 
+        private void Awake()
+        {
+            ServiceLocator.Global.Register(this);
+        }
+
         private void LateUpdate()
         {
             if (m_health.IsDead)
