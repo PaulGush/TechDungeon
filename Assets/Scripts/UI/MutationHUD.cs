@@ -55,6 +55,11 @@ public class MutationHUD : MonoBehaviour
         {
             text.text = mutation.DisplayName;
         }
+
+        TooltipTrigger trigger = entry.GetComponent<TooltipTrigger>();
+        if (trigger == null)
+            trigger = entry.AddComponent<TooltipTrigger>();
+        trigger.Setup(mutation.DisplayName, mutation.Description, mutation.GetEffectString());
     }
 
     public void ClearDisplay()
