@@ -31,7 +31,7 @@ namespace Input
         public Vector2 MoveDirection => m_inputActions.Player.Move.ReadValue<Vector2>();
         public Vector2 LookDirection => m_inputActions.Player.Look.ReadValue<Vector2>();
 
-        public bool IsMoveInputPressed => m_inputActions.Player.Move.IsPressed();
+        public bool IsMoveInputPressed => m_inputActions.Player.Move.ReadValue<Vector2>().sqrMagnitude > 0f;
         public bool IsAttackHeld => m_inputActions != null && m_inputActions.Player.Attack.IsPressed();
         public bool IsPlayerActionsEnabled => m_inputActions != null && m_inputActions.Player.enabled;
         public void EnablePlayerActions()
