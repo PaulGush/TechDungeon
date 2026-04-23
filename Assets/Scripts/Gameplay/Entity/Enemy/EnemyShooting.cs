@@ -16,6 +16,7 @@ public class EnemyShooting : MonoBehaviour
 
     protected ObjectPool m_pool;
     protected float m_lastTimeFired;
+    private int m_lastShotFrame = -1;
 
     public void SetRuntimeSettings(EnemySettings runtimeSettings)
     {
@@ -42,6 +43,13 @@ public class EnemyShooting : MonoBehaviour
     public virtual void Shoot()
     {
         if (m_pool == null) return;
+
+        // Guard against double-firing within a single frame. The 4-direction shoot BlendTree
+        // (turrets) blends two clips when aiming between cardinal thresholds, and each clip's
+        // animation event fires Shoot independently — so an off-axis shot would spawn two
+        // projectiles per trigger and double the turret's effective DPS.
+        if (Time.frameCount == m_lastShotFrame) return;
+        m_lastShotFrame = Time.frameCount;
 
         GameObject projectile = m_pool.GetPooledObject(m_projectilePrefab, m_shootPoint.position, m_shootPoint.rotation);
         projectile.GetComponent<Projectile>().Initialize();
