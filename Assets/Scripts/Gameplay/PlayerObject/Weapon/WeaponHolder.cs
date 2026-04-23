@@ -248,9 +248,16 @@ namespace PlayerObject
             }
 
             string text = m_currentWeapon != null
-                ? "Press E to swap " + m_currentWeapon.name + " for " + m_weaponCandidate.name
-                : "Press E to equip " + m_weaponCandidate.name;
+                ? "Press E to swap " + GetWeaponDisplayName(m_currentWeapon) + " for " + GetWeaponDisplayName(m_weaponCandidate)
+                : "Press E to equip " + GetWeaponDisplayName(m_weaponCandidate);
             m_interactionDisplay?.Show(text, this);
+        }
+
+        private static string GetWeaponDisplayName(GameObject weapon)
+        {
+            WeaponShooting shooting = weapon.GetComponent<WeaponShooting>();
+            string displayName = shooting != null ? shooting.DisplayName : null;
+            return string.IsNullOrWhiteSpace(displayName) ? weapon.name : displayName;
         }
     }
 }
