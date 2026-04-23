@@ -357,14 +357,12 @@ public class WeaponShooting : MonoBehaviour, IWeapon
 
     private void SpawnProjectile(AmmoSettings ammoSettings, float damageMultiplier)
     {
-        GameObject projectile = m_pool.GetPooledObject(m_projectile.gameObject);
-
         Quaternion rotation = m_shootPoint.rotation;
         float spread = m_settings != null ? m_settings.SpreadDegrees : 0f;
         if (spread > 0f)
             rotation *= Quaternion.Euler(0f, 0f, UnityEngine.Random.Range(-spread, spread));
 
-        projectile.transform.SetPositionAndRotation(m_shootPoint.position, rotation);
+        GameObject projectile = m_pool.GetPooledObject(m_projectile.gameObject, m_shootPoint.position, rotation);
 
         Projectile proj = projectile.GetComponent<Projectile>();
         proj.SetProjectilePrefab(m_projectile.gameObject);

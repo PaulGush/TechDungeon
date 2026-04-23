@@ -43,8 +43,7 @@ public class EnemyShooting : MonoBehaviour
     {
         if (m_pool == null) return;
 
-        GameObject projectile = m_pool.GetPooledObject(m_projectilePrefab);
-        projectile.transform.SetPositionAndRotation(m_shootPoint.position, m_shootPoint.rotation);
+        GameObject projectile = m_pool.GetPooledObject(m_projectilePrefab, m_shootPoint.position, m_shootPoint.rotation);
         projectile.GetComponent<Projectile>().Initialize();
         m_lastTimeFired = Time.time;
     }

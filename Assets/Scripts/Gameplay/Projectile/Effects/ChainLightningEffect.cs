@@ -39,8 +39,7 @@ public class ChainLightningEffect : IAmmoEffect
         Vector2 direction = ((Vector2)target.transform.position - ctx.Position).normalized;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
-        GameObject chainObj = ctx.Pool.GetPooledObject(ctx.ProjectilePrefab);
-        chainObj.transform.SetPositionAndRotation(ctx.Position, Quaternion.Euler(0f, 0f, angle));
+        GameObject chainObj = ctx.Pool.GetPooledObject(ctx.ProjectilePrefab, ctx.Position, Quaternion.Euler(0f, 0f, angle));
 
         Projectile chainProj = chainObj.GetComponent<Projectile>();
         chainProj.SetProjectilePrefab(ctx.ProjectilePrefab);
