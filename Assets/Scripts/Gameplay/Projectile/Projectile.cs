@@ -32,7 +32,7 @@ public class Projectile : MonoBehaviour
 
     private ObjectPool m_pool;
     private int m_hitsBeforeDeath;
-    private Coroutine m_returnCoroutine;
+    private float m_returnTime;
     private bool m_destroyed;
     private CameraShake m_cameraShake;
     private Color m_defaultColor = Color.white;
@@ -85,19 +85,16 @@ public class Projectile : MonoBehaviour
         // ammo tint would bake the ammo color in as the "default".
         if (m_spriteRenderer != null)
             m_defaultColor = m_spriteRenderer.color;
+
+        // Pool instances are Instantiate'd by ObjectPool, which has already registered
+        // itself in its own Awake. CameraShake registers similarly; if it hasn't yet the
+        // projectile simply skips shake feedback until it's available.
+        ServiceLocator.Global.TryGet(out m_pool);
+        ServiceLocator.Global.TryGet(out m_cameraShake);
     }
 
     public virtual void Initialize()
     {
-        if (m_pool == null)
-        {
-            ServiceLocator.Global.TryGet(out ObjectPool pool);
-            m_pool = pool;
-        }
-
-        if (m_cameraShake == null)
-            ServiceLocator.Global.TryGet(out m_cameraShake);
-
         m_hitsBeforeDeath = m_settings.HitsBeforeDeath + m_bonusPierce + (m_ammoSettings != null ? m_ammoSettings.BonusPierce : 0);
         m_destroyed = false;
         // Sync the Rigidbody2D to the transform before setting velocity — when teleported
@@ -152,16 +149,21 @@ public class Projectile : MonoBehaviour
             m_trail.AddPosition(spawn);
         }
 
-        m_returnCoroutine = StartCoroutine(m_pool.ReturnAfter(gameObject, m_settings.Lifetime));
+        m_returnTime = Time.time + m_settings.Lifetime;
+    }
+
+    private void Update()
+    {
+        // Lifetime check inline instead of StartCoroutine(ReturnAfter) — the coroutine
+        // allocated a WaitForSeconds + iterator per spawn, which adds up at high fire
+        // rates. An Update check is essentially free and cancels naturally when the
+        // GameObject is disabled.
+        if (Time.time >= m_returnTime && m_pool != null)
+            m_pool.ReturnGameObject(gameObject);
     }
 
     private void OnDisable()
     {
-        if (m_returnCoroutine != null)
-        {
-            StopCoroutine(m_returnCoroutine);
-            m_returnCoroutine = null;
-        }
         m_rigidbody2D.linearVelocity = Vector2.zero;
 
         // Reset modifiers for pool reuse

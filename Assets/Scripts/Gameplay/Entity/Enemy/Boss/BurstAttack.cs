@@ -22,11 +22,8 @@ public class BurstAttack : MonoBehaviour
 
         for (int i = 0; i < projectileCount; i++)
         {
-            float angle = angleStep * i;
-            Quaternion rotation = Quaternion.Euler(0f, 0f, angle);
-
-            GameObject projectile = m_pool.GetPooledObject(m_projectilePrefab, m_origin.position, rotation);
-            projectile.GetComponent<Projectile>().Initialize();
+            Quaternion rotation = Quaternion.Euler(0f, 0f, angleStep * i);
+            ProjectileSpawner.Spawn(m_pool, m_projectilePrefab, m_origin.position, rotation);
         }
     }
 }

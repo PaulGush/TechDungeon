@@ -39,13 +39,11 @@ public class ChainLightningEffect : IAmmoEffect
         Vector2 direction = ((Vector2)target.transform.position - ctx.Position).normalized;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
-        GameObject chainObj = ctx.Pool.GetPooledObject(ctx.ProjectilePrefab, ctx.Position, Quaternion.Euler(0f, 0f, angle));
-
-        Projectile chainProj = chainObj.GetComponent<Projectile>();
-        chainProj.SetProjectilePrefab(ctx.ProjectilePrefab);
-        chainProj.SetMutationModifiers(ctx.BonusDamage, ctx.DamageMultiplier, 0);
-        chainProj.SetAmmoEffect(m_settings, new ChainLightningEffect(m_chainRange, m_chainsRemaining - 1, m_settings));
-        chainProj.Initialize();
+        ProjectileSpawner.Spawn(
+            ctx.Pool, ctx.ProjectilePrefab, ctx.Position, Quaternion.Euler(0f, 0f, angle),
+            bonusDamage: ctx.BonusDamage, damageMultiplier: ctx.DamageMultiplier,
+            ammoSettings: m_settings,
+            ammoEffect: new ChainLightningEffect(m_chainRange, m_chainsRemaining - 1, m_settings));
     }
 
     private Collider2D FindNearestTarget(AmmoEffectContext ctx)

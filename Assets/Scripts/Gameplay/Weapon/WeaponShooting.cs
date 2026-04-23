@@ -362,11 +362,6 @@ public class WeaponShooting : MonoBehaviour, IWeapon
         if (spread > 0f)
             rotation *= Quaternion.Euler(0f, 0f, UnityEngine.Random.Range(-spread, spread));
 
-        GameObject projectile = m_pool.GetPooledObject(m_projectile.gameObject, m_shootPoint.position, rotation);
-
-        Projectile proj = projectile.GetComponent<Projectile>();
-        proj.SetProjectilePrefab(m_projectile.gameObject);
-
         int flatBonus = 0;
         float mult = damageMultiplier;
         int pierce = 0;
@@ -378,12 +373,11 @@ public class WeaponShooting : MonoBehaviour, IWeapon
         }
         if (m_lootable != null)
             mult *= LootableRarity.GetDamageMultiplier(m_lootable.Rarity);
-        proj.SetMutationModifiers(flatBonus, mult, pierce);
 
-        if (ammoSettings != null)
-            proj.SetAmmoModifiers(ammoSettings);
-
-        proj.Initialize();
+        ProjectileSpawner.Spawn(
+            m_pool, m_projectile.gameObject, m_shootPoint.position, rotation,
+            bonusDamage: flatBonus, damageMultiplier: mult, bonusPierce: pierce,
+            ammoSettings: ammoSettings);
     }
 
     private bool IsShootPointObstructed()

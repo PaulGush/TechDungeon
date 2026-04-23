@@ -51,8 +51,7 @@ public class EnemyShooting : MonoBehaviour
         if (Time.frameCount == m_lastShotFrame) return;
         m_lastShotFrame = Time.frameCount;
 
-        GameObject projectile = m_pool.GetPooledObject(m_projectilePrefab, m_shootPoint.position, m_shootPoint.rotation);
-        projectile.GetComponent<Projectile>().Initialize();
+        ProjectileSpawner.Spawn(m_pool, m_projectilePrefab, m_shootPoint.position, m_shootPoint.rotation);
         m_lastTimeFired = Time.time;
     }
 }
