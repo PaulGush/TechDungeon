@@ -63,6 +63,7 @@ public class WeaponShooting : MonoBehaviour, IWeapon
     private Coroutine m_reloadRoutine;
 
     public Vector2 ShootPointPosition => m_shootPoint.position;
+    public string DisplayName => m_settings != null ? m_settings.DisplayName : null;
     public int MagazineCurrent => m_magazineCurrent;
     public int MagazineMax => m_settings != null ? m_settings.MagazineSize : 0;
     public bool IsReloading => m_isReloading;

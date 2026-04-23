@@ -11,6 +11,10 @@ public enum WeaponFireMode
 [CreateAssetMenu(menuName = "Data/Combat/Weapon Settings")]
 public class WeaponSettings : ScriptableObject
 {
+    [Header("Display")]
+    [Tooltip("Shown in the weapon HUD. Prefab-name fallback kicks in only when this is left blank.")]
+    public string DisplayName;
+
     [Header("Fire Mode")]
     public WeaponFireMode FireMode = WeaponFireMode.SemiAuto;
 

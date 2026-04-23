@@ -41,7 +41,9 @@ public class WeaponHUD : MonoBehaviour
             return;
         }
 
-        m_weaponNameText.text = weapon.name.ToUpper();
+        WeaponShooting shooting = weapon.GetComponent<WeaponShooting>();
+        string displayName = shooting != null ? shooting.DisplayName : null;
+        m_weaponNameText.text = (string.IsNullOrWhiteSpace(displayName) ? weapon.name : displayName).ToUpper();
 
         if (m_weaponIcon != null)
         {

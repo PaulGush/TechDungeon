@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4c7e2f8b1d34e9a8f2b6c5d8e9f0a1b, type: 3}
   m_Name: Revolver_Settings
   m_EditorClassIdentifier: Assembly-CSharp::WeaponSettings
+  DisplayName: Python
   FireMode: 0
   Cooldown: 0.55
   SpreadDegrees: 0.5
