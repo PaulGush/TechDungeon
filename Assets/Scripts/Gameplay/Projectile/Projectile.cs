@@ -100,13 +100,27 @@ public class Projectile : MonoBehaviour
 
         m_hitsBeforeDeath = m_settings.HitsBeforeDeath + m_bonusPierce + (m_ammoSettings != null ? m_ammoSettings.BonusPierce : 0);
         m_destroyed = false;
-        m_rigidbody2D.AddForce( transform.right * m_settings.Speed);
+        // Sync the Rigidbody2D to the transform before setting velocity — when teleported
+        // in the pool (transform.SetPositionAndRotation while inactive), the rigidbody's
+        // internal position still holds the previous despawn location. WakeUp() ensures it
+        // isn't still sleeping from the last deactivation.
+        m_rigidbody2D.position = transform.position;
+        m_rigidbody2D.WakeUp();
+        // Interpolate so the transform advances between FixedUpdates instead of snapping
+        // once per physics tick. At high render framerates a render frame often has zero
+        // intervening FixedUpdates (fixedDeltaTime is 20ms; at 300fps a frame is ~3ms), so
+        // with Interpolation.None the transform stayed at the spawn point for multiple
+        // render frames and the TrailRenderer sampled the same position on consecutive
+        // LateUpdates — no trail vertices, no visible trail.
+        m_rigidbody2D.interpolation = RigidbodyInterpolation2D.Interpolate;
+        // Set velocity directly rather than AddForce — AddForce in ForceMode2D.Force integrates
+        // over one FixedUpdate, so if the first FixedUpdate is delayed the projectile has no
+        // velocity when the trail first samples. Magnitude preserves the prior effective speed.
+        m_rigidbody2D.linearVelocity = (Vector2)transform.right * (m_settings.Speed * Time.fixedDeltaTime);
 
-        // Clear after the caller has positioned the projectile so the trail doesn't
-        // draw a streak from the pool's last firing location to the new one. Priority:
-        // explicit TrailColor override (if alpha > 0) > ammo tint > sprite color.
-        // Override wins over ammo so projectiles like the missile can force a trail
-        // color distinct from their intrinsic ammo's ProjectileColor.
+        // Priority for trail tint: explicit TrailColor override (if alpha > 0) > ammo
+        // tint > sprite color. Override wins over ammo so projectiles like the missile
+        // can force a trail color distinct from their intrinsic ammo's ProjectileColor.
         if (m_trail != null)
         {
             Color tint;
@@ -123,6 +137,19 @@ public class Projectile : MonoBehaviour
             tint.a = 0f;
             m_trail.endColor = tint;
             m_trail.Clear();
+            m_trail.emitting = true;
+            // Seed a two-vertex tail proportional to the trail's own lifetime so the trail
+            // starts at roughly half its steady-state length. A single-vertex trail renders
+            // as nothing (the source of the original "delayed trail" bug), and a fixed-size
+            // seed looks right only for short-lifetime trails — a 0.04s stub on a 0.3s trail
+            // is only 13% of steady-state length, which reads as a visible ramp-up. A full-
+            // lifetime seed looks like a static streak extending far behind the shooter.
+            // Half of trail.time is the middle ground: matches long trails without extending
+            // past the shooter, and stays proportional for short trails.
+            Vector3 spawn = transform.position;
+            Vector3 tailBehind = spawn - (Vector3)m_rigidbody2D.linearVelocity * (m_trail.time * 0.5f);
+            m_trail.AddPosition(tailBehind);
+            m_trail.AddPosition(spawn);
         }
 
         m_returnCoroutine = StartCoroutine(m_pool.ReturnAfter(gameObject, m_settings.Lifetime));
@@ -148,7 +175,10 @@ public class Projectile : MonoBehaviour
             m_spriteRenderer.color = m_defaultColor;
 
         if (m_trail != null)
+        {
+            m_trail.emitting = false;
             m_trail.Clear();
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
