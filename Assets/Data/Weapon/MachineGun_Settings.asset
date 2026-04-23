@@ -16,6 +16,8 @@ MonoBehaviour:
   Cooldown: 0.1
   SpreadDegrees: 4
   PelletsPerShot: 1
+  SpreadRampDuration: 1.2
+  MaxSpreadDegrees: 14
   BurstCount: 3
   BurstInterval: 0.06
   MinChargeSeconds: 0.25

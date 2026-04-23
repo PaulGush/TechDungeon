@@ -51,6 +51,7 @@ public class WeaponShooting : MonoBehaviour, IWeapon
     private float m_cooldownEndsAt;
     private Coroutine m_burstRoutine;
     private float m_chargeStartTime = -1f;
+    private float m_sustainedFireStart = -1f;
 
     private float m_kickbackTimeRemaining;
     private float m_kickbackDuration;
@@ -138,6 +139,7 @@ public class WeaponShooting : MonoBehaviour, IWeapon
     {
         m_equipped = false;
         m_chargeStartTime = -1f;
+        m_sustainedFireStart = -1f;
         m_kickbackTimeRemaining = 0f;
         CurrentKickbackOffset = 0f;
 
@@ -177,6 +179,11 @@ public class WeaponShooting : MonoBehaviour, IWeapon
         if (!m_equipped || m_inputReader == null) return;
 
         bool held = m_inputReader.IsAttackHeld;
+        if (held && m_sustainedFireStart < 0f)
+            m_sustainedFireStart = Time.time;
+        else if (!held)
+            m_sustainedFireStart = -1f;
+
         WeaponFireMode mode = m_settings != null ? m_settings.FireMode : WeaponFireMode.SemiAuto;
 
         switch (mode)
@@ -358,7 +365,7 @@ public class WeaponShooting : MonoBehaviour, IWeapon
     private void SpawnProjectile(AmmoSettings ammoSettings, float damageMultiplier)
     {
         Quaternion rotation = m_shootPoint.rotation;
-        float spread = m_settings != null ? m_settings.SpreadDegrees : 0f;
+        float spread = GetCurrentSpread();
         if (spread > 0f)
             rotation *= Quaternion.Euler(0f, 0f, UnityEngine.Random.Range(-spread, spread));
 
@@ -378,6 +385,26 @@ public class WeaponShooting : MonoBehaviour, IWeapon
             m_pool, m_projectile.gameObject, m_shootPoint.position, rotation,
             bonusDamage: flatBonus, damageMultiplier: mult, bonusPierce: pierce,
             ammoSettings: ammoSettings);
+    }
+
+    // Ramps SpreadDegrees up toward MaxSpreadDegrees over SpreadRampDuration seconds of
+    // continuously held attack input. The timer resets on release and on reload start so
+    // short controlled bursts stay accurate while sustained full-auto fire loses precision.
+    // Weapons with a zero ramp duration or no configured max keep the flat SpreadDegrees.
+    private float GetCurrentSpread()
+    {
+        if (m_settings == null) return 0f;
+
+        float baseSpread = m_settings.SpreadDegrees;
+        float maxSpread = m_settings.MaxSpreadDegrees;
+        float rampDuration = m_settings.SpreadRampDuration;
+
+        if (rampDuration <= 0f || maxSpread <= baseSpread || m_sustainedFireStart < 0f)
+            return baseSpread;
+
+        float heldFor = Time.time - m_sustainedFireStart;
+        float t = Mathf.Clamp01(heldFor / rampDuration);
+        return Mathf.Lerp(baseSpread, maxSpread, t);
     }
 
     private bool IsShootPointObstructed()
@@ -462,6 +489,11 @@ public class WeaponShooting : MonoBehaviour, IWeapon
             m_ammoManager.CycleToStandard();
             return;
         }
+
+        // Reset the sustained-fire spread ramp — reloading always breaks a continuous
+        // burst, so post-reload shots should start from base accuracy even if the player
+        // keeps the attack button held through the reload.
+        m_sustainedFireStart = -1f;
 
         float duration = m_settings != null ? m_settings.ReloadDuration : 0f;
         m_isReloading = true;

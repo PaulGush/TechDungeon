@@ -25,6 +25,12 @@ public class WeaponSettings : ScriptableObject
     [Tooltip("Projectiles spawned per shot. Greater than 1 for shotgun-style pellets.")]
     public int PelletsPerShot = 1;
 
+    [Tooltip("Seconds of continuous attack-held input required to ramp spread from SpreadDegrees up to MaxSpreadDegrees. Zero (or MaxSpreadDegrees not greater than SpreadDegrees) disables the ramp; the weapon uses SpreadDegrees as a fixed value. Intended to incentivize short controlled bursts on full-auto weapons.")]
+    public float SpreadRampDuration = 0f;
+
+    [Tooltip("Spread in degrees that sustained fire ramps toward. Only takes effect when SpreadRampDuration > 0 and this value exceeds SpreadDegrees. Spread resets to SpreadDegrees when attack input is released or when a reload begins.")]
+    public float MaxSpreadDegrees = 0f;
+
     [Header("Burst Mode")]
     [Tooltip("Shots fired per burst. Only used when FireMode is Burst.")]
     public int BurstCount = 3;
