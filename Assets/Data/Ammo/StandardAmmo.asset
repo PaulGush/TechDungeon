@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AmmoSettings
   Type: 0
   DisplayName: Standard
-  Icon: {fileID: 0}
+  Icon: {fileID: 21300000, guid: 5cc2e7e7f69c87e13b05d3ba092ec1bd, type: 3}
   ProjectileColor: {r: 1, g: 1, b: 1, a: 1}
   BonusPierce: 0
   ExplosionRadius: 0
@@ -23,3 +23,6 @@ MonoBehaviour:
   ChainRange: 0
   MaxChains: 0
   MaxBounces: 0
+  RicochetRayBackOffset: 2
+  RicochetRayDistance: 4
+  RicochetSurfaceClearance: 0.15

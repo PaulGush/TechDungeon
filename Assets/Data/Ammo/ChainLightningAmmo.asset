@@ -14,10 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AmmoSettings
   Type: 3
   DisplayName: Chain Lightning
-  Icon: {fileID: 0}
+  Icon: {fileID: 21300000, guid: 31619d50047b51143b2bd14f6ab5d61a, type: 3}
   ProjectileColor: {r: 1, g: 1, b: 0, a: 1}
   BonusPierce: 0
   ExplosionRadius: 0
   ExplosionDamage: 0
+  ExplosionEffectPrefab: {fileID: 0}
   ChainRange: 3
   MaxChains: 3
+  MaxBounces: 0
+  RicochetRayBackOffset: 2
+  RicochetRayDistance: 4
+  RicochetSurfaceClearance: 0.15

@@ -14,11 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AmmoSettings
   Type: 4
   DisplayName: Ricochet
-  Icon: {fileID: 0}
-  ProjectileColor: {r: 0, g: 1, b: 0.5, a: 1}
+  Icon: {fileID: 21300000, guid: 31619d50047b51143b2bd14f6ab5d61a, type: 3}
+  ProjectileColor: {r: 0, g: 1, b: 0.27235222, a: 1}
   BonusPierce: 0
   ExplosionRadius: 0
   ExplosionDamage: 0
+  ExplosionEffectPrefab: {fileID: 0}
   ChainRange: 0
   MaxChains: 0
   MaxBounces: 3
+  RicochetRayBackOffset: 2
+  RicochetRayDistance: 4
+  RicochetSurfaceClearance: 0.15
