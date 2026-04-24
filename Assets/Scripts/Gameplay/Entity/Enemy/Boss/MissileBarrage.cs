@@ -379,7 +379,7 @@ public class MissileBarrage : MonoBehaviour
         ApplyChargeTint();
 
         Vector2[] landingSites = PickLandingSites(playerTarget.position, phase);
-        SpawnIndicators(landingSites, phase.MissileTelegraphDuration);
+        SpawnIndicators(landingSites, phase.MissileTelegraphDuration, phase.MissileExplosionRadius);
 
         yield return new WaitForSeconds(phase.MissileTelegraphDuration);
 
@@ -477,9 +477,13 @@ public class MissileBarrage : MonoBehaviour
         return sites;
     }
 
-    private void SpawnIndicators(Vector2[] sites, float duration)
+    private void SpawnIndicators(Vector2[] sites, float duration, float explosionRadius)
     {
         if (m_indicatorPrefab == null) return;
+
+        // SpawnIndicator uses a 1-unit-wide circle sprite (radius 0.5 at scale 1),
+        // so localScale must be 2× the explosion radius to match the blast footprint.
+        float targetScale = Mathf.Max(explosionRadius, 0f) * 2f;
 
         for (int i = 0; i < sites.Length; i++)
         {
@@ -489,7 +493,7 @@ public class MissileBarrage : MonoBehaviour
             indicator.transform.position = sites[i];
 
             if (indicator.TryGetComponent(out SpawnIndicator script))
-                script.Play(duration);
+                script.Play(duration, targetScale);
         }
     }
 

@@ -11,6 +11,10 @@ public class ExplosionEffect : MonoBehaviour
     [Tooltip("Impulse amplitude applied to the camera shake service on detonation. Sits in the same scale as CameraShake — 0.3 is a noticeable punch, 1.0 is a large boss-grade shake.")]
     [SerializeField] private float m_shakeAmplitude = 0.3f;
 
+    [Header("Visual Scaling")]
+    [Tooltip("Multiplier on the explosion radius used to scale the prefab's transform on spawn, so the sprite/light visibly grow with the damage area. The damage collider is compensated so world-space damage still matches the radius. Default is 2 so the authored 1-unit-wide sprite visually fills a diameter of 2R — matching the targeting indicator.")]
+    [SerializeField] private float m_visualScalePerRadiusUnit = 2f;
+
     private ObjectPool m_pool;
     private CameraShake m_cameraShake;
     private float m_radius;
@@ -31,8 +35,15 @@ public class ExplosionEffect : MonoBehaviour
         m_damageLayers = damageLayers;
         m_damaged.Clear();
 
+        float visualScale = Mathf.Max(m_radius * m_visualScalePerRadiusUnit, 0.0001f);
+        transform.localScale = Vector3.one * visualScale;
+
         if (m_damageCollider != null)
-            m_damageCollider.radius = m_radius;
+        {
+            // Transform scale multiplies the collider radius — compensate so the
+            // world-space damage radius stays m_radius regardless of visual scale.
+            m_damageCollider.radius = m_radius / visualScale;
+        }
 
         if (m_cameraShake == null)
             ServiceLocator.Global.TryGet(out m_cameraShake);
