@@ -47,6 +47,10 @@ public class Projectile : MonoBehaviour
     private IAmmoEffect m_ammoEffect;
     private GameObject m_prefab;
 
+    // Runtime crit tint override (alpha > 0 means active). Takes precedence over ammo color and
+    // the authored trail override so the player sees an unambiguous "that was a crit" cue.
+    private Color m_critTint;
+
     public void SetMutationModifiers(int bonusDamage, float damageMultiplier, int bonusPierce)
     {
         m_bonusDamage = bonusDamage;
@@ -72,8 +76,18 @@ public class Projectile : MonoBehaviour
     {
         if (settings == null) return;
 
+        // Crit tint locks the sprite color for this shot — skip the ammo overwrite so it wins.
+        if (m_critTint.a > 0f) return;
+
         if (m_spriteRenderer != null)
             m_spriteRenderer.color = settings.ProjectileColor;
+    }
+
+    public void SetCritTint(Color tint)
+    {
+        m_critTint = tint;
+        if (tint.a > 0f && m_spriteRenderer != null)
+            m_spriteRenderer.color = tint;
     }
 
     public void SetProjectilePrefab(GameObject prefab) => m_prefab = prefab;
@@ -115,13 +129,15 @@ public class Projectile : MonoBehaviour
         // velocity when the trail first samples. Magnitude preserves the prior effective speed.
         m_rigidbody2D.linearVelocity = (Vector2)transform.right * (m_settings.Speed * Time.fixedDeltaTime);
 
-        // Priority for trail tint: explicit TrailColor override (if alpha > 0) > ammo
-        // tint > sprite color. Override wins over ammo so projectiles like the missile
-        // can force a trail color distinct from their intrinsic ammo's ProjectileColor.
+        // Priority for trail tint: crit tint (if active) > explicit TrailColor override (if
+        // alpha > 0) > ammo tint > sprite color. Crit wins over every other source so a crit
+        // shot reads as a crit even when the projectile has a trail color override or ammo.
         if (m_trail != null)
         {
             Color tint;
-            if (m_trailColor.a > 0f)
+            if (m_critTint.a > 0f)
+                tint = m_critTint;
+            else if (m_trailColor.a > 0f)
                 tint = m_trailColor;
             else if (m_ammoSettings != null)
                 tint = m_ammoSettings.ProjectileColor;
@@ -172,6 +188,7 @@ public class Projectile : MonoBehaviour
         m_bonusPierce = 0;
         m_ammoSettings = null;
         m_ammoEffect = null;
+        m_critTint = default;
 
         if (m_spriteRenderer != null)
             m_spriteRenderer.color = m_defaultColor;

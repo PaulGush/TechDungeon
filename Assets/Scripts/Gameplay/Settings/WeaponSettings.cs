@@ -22,6 +22,10 @@ public class WeaponSettings : ScriptableObject
     [Tooltip("Seconds between shots (SemiAuto/FullAuto), between bursts (Burst), or between charge cycles (Charge).")]
     public float Cooldown = 0.25f;
 
+    [Header("Damage")]
+    [Tooltip("Per-weapon multiplier applied on top of the shared projectile's base damage. Lets weapons that share a projectile (e.g. Pistol and Sniper both using the Line projectile) hit with different weight. Stacks multiplicatively with mutation and rarity bonuses. 1 = no change.")]
+    public float DamageMultiplier = 1f;
+
     [Header("Accuracy")]
     [Tooltip("Maximum random deviation applied to each shot's direction in degrees (half-angle).")]
     public float SpreadDegrees = 0f;
@@ -51,6 +55,15 @@ public class WeaponSettings : ScriptableObject
 
     [Tooltip("Damage multiplier applied at minimum charge. Scales linearly to 1.0 at full charge.")]
     [Range(0.1f, 1f)] public float MinChargeDamageMultiplier = 0.5f;
+
+    [Tooltip("Seconds before MaxChargeSeconds that mark the 'sweet spot' — release during this window to land a crit. Zero disables the crit timing.")]
+    public float CritWindowDuration = 0f;
+
+    [Tooltip("Damage multiplier applied when the player releases during the crit window. Replaces the normal charge lerp, so the final damage is roughly base × CritDamageMultiplier.")]
+    public float CritDamageMultiplier = 2f;
+
+    [Tooltip("Color forced onto the projectile's sprite and trail when a crit shot is fired. Takes precedence over ammo and trail-override tints so the player sees an unambiguous 'that was a crit' cue. Set alpha to 0 to keep the normal ammo/trail colors on crit.")]
+    public Color CritProjectileColor = new Color(1f, 0.85f, 0.2f, 1f);
 
     [Header("Magazine")]
     [Tooltip("Shots per magazine. Zero or negative disables reload (infinite mag).")]

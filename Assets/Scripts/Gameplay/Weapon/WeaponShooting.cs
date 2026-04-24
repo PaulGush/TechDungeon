@@ -14,6 +14,7 @@ public class WeaponShooting : MonoBehaviour, IWeapon
     public event Action<float> OnReloadStarted;
     public event Action OnReloadCompleted;
     public event Action OnReloadCancelled;
+    public event Action OnCritWindowEntered;
 
     [Header("References")]
     [SerializeField] private InputReader m_inputReader;
@@ -51,6 +52,7 @@ public class WeaponShooting : MonoBehaviour, IWeapon
     private float m_cooldownEndsAt;
     private Coroutine m_burstRoutine;
     private float m_chargeStartTime = -1f;
+    private bool m_critWindowEntered;
     private float m_sustainedFireStart = -1f;
 
     private float m_kickbackTimeRemaining;
@@ -83,6 +85,19 @@ public class WeaponShooting : MonoBehaviour, IWeapon
     // tilt points consistently toward the sprite's "up" side.
     public float CurrentRecoilDegrees { get; private set; }
 
+    public bool IsCharging => m_chargeStartTime >= 0f;
+
+    public float ChargeProgress
+    {
+        get
+        {
+            if (m_chargeStartTime < 0f || m_settings == null || m_settings.MaxChargeSeconds <= 0f) return 0f;
+            return Mathf.Clamp01((Time.time - m_chargeStartTime) / m_settings.MaxChargeSeconds);
+        }
+    }
+
+    public bool IsInCritWindow => m_chargeStartTime >= 0f && IsHeldForInCritWindow(Time.time - m_chargeStartTime);
+
     private void Start()
     {
         ServiceLocator.Global.TryGet(out ObjectPool pool);
@@ -113,7 +128,7 @@ public class WeaponShooting : MonoBehaviour, IWeapon
         m_weaponHolder = GetComponentInParent<WeaponHolder>().transform;
         m_equipped = true;
         m_cooldownEndsAt = 0f;
-        m_chargeStartTime = -1f;
+        ResetCharge();
 
         if (m_lootable == null)
             m_lootable = GetComponent<Lootable>() ?? GetComponentInParent<Lootable>() ?? GetComponentInChildren<Lootable>();
@@ -148,7 +163,7 @@ public class WeaponShooting : MonoBehaviour, IWeapon
     public void Unequip()
     {
         m_equipped = false;
-        m_chargeStartTime = -1f;
+        ResetCharge();
         m_sustainedFireStart = -1f;
         m_kickbackTimeRemaining = 0f;
         CurrentKickbackOffset = 0f;
@@ -249,10 +264,17 @@ public class WeaponShooting : MonoBehaviour, IWeapon
                 m_chargeStartTime = Time.time;
 
             float charged = Time.time - m_chargeStartTime;
+
+            if (!m_critWindowEntered && IsHeldForInCritWindow(charged))
+            {
+                m_critWindowEntered = true;
+                OnCritWindowEntered?.Invoke();
+            }
+
             if (charged >= m_settings.MaxChargeSeconds)
             {
                 FireShot(1f);
-                m_chargeStartTime = -1f;
+                ResetCharge();
                 m_cooldownEndsAt = Time.time + m_settings.Cooldown;
             }
             return;
@@ -263,15 +285,39 @@ public class WeaponShooting : MonoBehaviour, IWeapon
         float held_for = Time.time - m_chargeStartTime;
         if (held_for >= m_settings.MinChargeSeconds)
         {
-            float t = Mathf.InverseLerp(m_settings.MinChargeSeconds, m_settings.MaxChargeSeconds, held_for);
-            float mult = Mathf.Lerp(m_settings.MinChargeDamageMultiplier, 1f, Mathf.Clamp01(t));
-            FireShot(mult);
+            float mult;
+            bool isCrit = IsHeldForInCritWindow(held_for);
+            if (isCrit)
+            {
+                mult = m_settings.CritDamageMultiplier;
+            }
+            else
+            {
+                float t = Mathf.InverseLerp(m_settings.MinChargeSeconds, m_settings.MaxChargeSeconds, held_for);
+                mult = Mathf.Lerp(m_settings.MinChargeDamageMultiplier, 1f, Mathf.Clamp01(t));
+            }
+            FireShot(mult, isCrit);
             m_cooldownEndsAt = Time.time + m_settings.Cooldown;
         }
-        m_chargeStartTime = -1f;
+        ResetCharge();
     }
 
-    private void FireShot(float damageMultiplier)
+    private bool IsHeldForInCritWindow(float heldFor)
+    {
+        if (m_settings == null) return false;
+        if (m_settings.CritWindowDuration <= 0f || m_settings.CritDamageMultiplier <= 1f) return false;
+
+        float critStart = Mathf.Max(m_settings.MinChargeSeconds, m_settings.MaxChargeSeconds - m_settings.CritWindowDuration);
+        return heldFor >= critStart && heldFor < m_settings.MaxChargeSeconds;
+    }
+
+    private void ResetCharge()
+    {
+        m_chargeStartTime = -1f;
+        m_critWindowEntered = false;
+    }
+
+    private void FireShot(float damageMultiplier, bool isCrit = false)
     {
         if (m_pool == null || IsShootPointObstructed()) return;
 
@@ -301,7 +347,7 @@ public class WeaponShooting : MonoBehaviour, IWeapon
 
         int pellets = m_settings != null ? Mathf.Max(1, m_settings.PelletsPerShot) : 1;
         for (int i = 0; i < pellets; i++)
-            SpawnProjectile(ammoSettings, damageMultiplier);
+            SpawnProjectile(ammoSettings, damageMultiplier, isCrit);
 
         FlashMuzzle(ammoSettings);
         StartKickback();
@@ -408,7 +454,7 @@ public class WeaponShooting : MonoBehaviour, IWeapon
         CurrentRecoilDegrees = m_recoilPeak * t;
     }
 
-    private void SpawnProjectile(AmmoSettings ammoSettings, float damageMultiplier)
+    private void SpawnProjectile(AmmoSettings ammoSettings, float damageMultiplier, bool isCrit)
     {
         Quaternion rotation = m_shootPoint.rotation;
         float spread = GetCurrentSpread();
@@ -418,6 +464,8 @@ public class WeaponShooting : MonoBehaviour, IWeapon
         int flatBonus = 0;
         float mult = damageMultiplier;
         int pierce = 0;
+        if (m_settings != null)
+            mult *= m_settings.DamageMultiplier;
         if (m_mutationManager != null)
         {
             flatBonus = m_mutationManager.GetFlatDamageBonus();
@@ -427,10 +475,12 @@ public class WeaponShooting : MonoBehaviour, IWeapon
         if (m_lootable != null)
             mult *= LootableRarity.GetDamageMultiplier(m_lootable.Rarity);
 
+        Color critTint = isCrit && m_settings != null ? m_settings.CritProjectileColor : default;
+
         ProjectileSpawner.Spawn(
             m_pool, m_projectile.gameObject, m_shootPoint.position, rotation,
             bonusDamage: flatBonus, damageMultiplier: mult, bonusPierce: pierce,
-            ammoSettings: ammoSettings);
+            ammoSettings: ammoSettings, critTint: critTint);
     }
 
     // Ramps SpreadDegrees up toward MaxSpreadDegrees over SpreadRampDuration seconds of

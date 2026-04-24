@@ -15,13 +15,20 @@ public static class ProjectileSpawner
         float damageMultiplier = 1f,
         int bonusPierce = 0,
         AmmoSettings ammoSettings = null,
-        IAmmoEffect ammoEffect = null)
+        IAmmoEffect ammoEffect = null,
+        Color critTint = default)
     {
         GameObject instance = pool.GetPooledObject(prefab, position, rotation);
         Projectile projectile = instance.GetComponent<Projectile>();
 
         projectile.SetProjectilePrefab(prefab);
         projectile.SetMutationModifiers(bonusDamage, damageMultiplier, bonusPierce);
+
+        // Apply crit tint before ammo so ApplyAmmoTint sees the lock and skips overwriting the
+        // sprite color, preserving crit precedence over ammo color on the sprite (Initialize
+        // handles the same precedence for the trail).
+        if (critTint.a > 0f)
+            projectile.SetCritTint(critTint);
 
         if (ammoEffect != null)
             projectile.SetAmmoEffect(ammoSettings, ammoEffect);
