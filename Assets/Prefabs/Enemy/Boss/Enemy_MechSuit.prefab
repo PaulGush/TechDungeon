@@ -775,7 +775,7 @@ MonoBehaviour:
   m_health: {fileID: 2183196438318982530}
   m_renderer: {fileID: 8081815579358575484}
   m_scaleTarget: {fileID: 5177073242483053874}
-  m_duration: 0.1
+  m_duration: 0.05
   m_popScale: 1.15
   m_hitColor: {r: 1, g: 1, b: 1, a: 1}
   m_healColor: {r: 0.4, g: 1, b: 0.4, a: 1}
@@ -962,7 +962,7 @@ MonoBehaviour:
   m_health: {fileID: 2183196438318982530}
   m_renderer: {fileID: 8401865433470844010}
   m_scaleTarget: {fileID: 7086331989687145428}
-  m_duration: 0.1
+  m_duration: 0.05
   m_popScale: 1.15
   m_hitColor: {r: 1, g: 1, b: 1, a: 1}
   m_healColor: {r: 0.4, g: 1, b: 0.4, a: 1}
