@@ -17,18 +17,20 @@ MonoBehaviour:
   ObstacleAvoidanceDistance: 2
   ObstacleLayerMask:
     serializedVersion: 2
-    m_Bits: 2048
+    m_Bits: 6144
   SteeringRayCount: 8
   StuckThreshold: 0.1
   StuckTimeBeforeEscape: 0.5
   SeparationRadius: 1.5
   SeparationWeight: 1.5
+  StrafeDistanceCorrectionStrength: 0.5
+  StrafeDistanceCorrectionClamp: 1
   AlertDuration: 5
   FireRate: 1
   PreferredAttackDistance: 2
   StrafeSpeed: 3
   Phases:
-  - HealthThreshold: 0.65
+  - HealthThreshold: 0.75
     AttackType: 0
     AttackAnimationIndex: 2
     FireRateOverride: 0.75
@@ -37,6 +39,15 @@ MonoBehaviour:
     FlameTickInterval: 0
     BurstProjectileCount: 0
     BurstRadius: 0
+    MissileCount: 5
+    MissileSpreadRadius: 4
+    MissileMinSeparation: 1.5
+    MissileTelegraphDuration: 1.25
+    MissileTravelDuration: 0.85
+    MissileArcHeightRatio: 0.4
+    MissileDamage: 4
+    MissileExplosionRadius: 1.25
+    MissileExplosionEffectPrefab: {fileID: 0}
     SpeedOverride: -1
     StrafeSpeedOverride: -1
     AttackRangeOverride: -1
@@ -45,7 +56,7 @@ MonoBehaviour:
     SummonsMinions: 0
     MinionCount: 0
     MinionPrefab: {fileID: 0}
-  - HealthThreshold: 0.4
+  - HealthThreshold: 0.5
     AttackType: 3
     AttackAnimationIndex: 0
     FireRateOverride: 4
@@ -71,7 +82,7 @@ MonoBehaviour:
     SummonsMinions: 1
     MinionCount: 4
     MinionPrefab: {fileID: 7364831485085966955, guid: 4bf1a82e2dc6a45168567b5f616ff4b1, type: 3}
-  - HealthThreshold: 0.1
+  - HealthThreshold: 0.25
     AttackType: 1
     AttackAnimationIndex: 1
     FireRateOverride: 0.25
@@ -80,6 +91,15 @@ MonoBehaviour:
     FlameTickInterval: 0.5
     BurstProjectileCount: 8
     BurstRadius: 60
+    MissileCount: 5
+    MissileSpreadRadius: 4
+    MissileMinSeparation: 1.5
+    MissileTelegraphDuration: 1.25
+    MissileTravelDuration: 0.85
+    MissileArcHeightRatio: 0.4
+    MissileDamage: 4
+    MissileExplosionRadius: 1.25
+    MissileExplosionEffectPrefab: {fileID: 0}
     SpeedOverride: 2.5
     StrafeSpeedOverride: -1
     AttackRangeOverride: 2
