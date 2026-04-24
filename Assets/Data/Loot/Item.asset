@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c74eeddb96e6c98e0ae7fe898cee7cb4, type: 3}
-  m_Name: Mutation
+  m_Name: Item
   m_EditorClassIdentifier: Assembly-CSharp::ChestSettings
   LootDatabase: {fileID: 11400000, guid: ac36e302e983b0e21a22312cf3bb8d8c, type: 2}
   ItemCategories: 0000000001000000020000000300000004000000

@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 24a0934f081a7106892097d733f7b5f3, type: 3}
-  m_Name: PercentSpeed_Small
-  m_EditorClassIdentifier: Assembly-CSharp::Mutation
-  DisplayName: Swift Feet
-  Description: +15% movement speed
-  Icon: {fileID: 21300000, guid: e9ab91ef65829bc7a8f9ce0297c7f1b9, type: 3}
-  Type: 2
-  Value: 15
+  m_Name: Pierce
+  m_EditorClassIdentifier: Assembly-CSharp::Item
+  DisplayName: Penetrating Rounds
+  Description: +1 projectile pierce
+  Icon: {fileID: 21300000, guid: ec8e1e8ac1e9fad1ca24bf95e1107693, type: 3}
+  Type: 3
+  Value: 1

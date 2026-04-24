@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 24a0934f081a7106892097d733f7b5f3, type: 3}
-  m_Name: FlatDamage_Small
-  m_EditorClassIdentifier: Assembly-CSharp::Mutation
-  DisplayName: Minor Damage Boost
-  Description: +3 damage per projectile
-  Icon: {fileID: 21300000, guid: dfd014f59367b6c9798188b37e7f0e91, type: 3}
-  Type: 0
-  Value: 3
+  m_Name: Armor_Small
+  m_EditorClassIdentifier: Assembly-CSharp::Item
+  DisplayName: Light Plating
+  Description: +2 armor
+  Icon: {fileID: 21300000, guid: 58ccc7c7891fe4cfe95630afa77ca790, type: 3}
+  Type: 5
+  Value: 2

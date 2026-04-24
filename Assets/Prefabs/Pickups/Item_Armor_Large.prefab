@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1089296644616100370
+--- !u!1 &1628121045056546798
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,29 +8,29 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7173116462380645604}
-  - component: {fileID: 1217404223830757429}
-  - component: {fileID: 453439316132818902}
-  - component: {fileID: 7863913114531029369}
-  - component: {fileID: 5275515147056584636}
-  - component: {fileID: 1090909090909090909}
-  - component: {fileID: 1101010101010101010}
-  - component: {fileID: 4000424795072938247}
-  - component: {fileID: 6065282342846600494}
+  - component: {fileID: 5194607575192629485}
+  - component: {fileID: 1575156276653412491}
+  - component: {fileID: 4678832172499759738}
+  - component: {fileID: 3463084354172446045}
+  - component: {fileID: 79931091165269276}
+  - component: {fileID: 1070707070707070707}
+  - component: {fileID: 1080808080808080808}
+  - component: {fileID: 3272191198161548275}
+  - component: {fileID: 1486540984633977100}
   m_Layer: 0
-  m_Name: Mutation_Armor_Small
+  m_Name: Item_Armor_Large
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &7173116462380645604
+--- !u!4 &5194607575192629485
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1089296644616100370}
+  m_GameObject: {fileID: 1628121045056546798}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -39,14 +39,14 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &1217404223830757429
+--- !u!212 &1575156276653412491
 SpriteRenderer:
   serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1089296644616100370}
+  m_GameObject: {fileID: 1628121045056546798}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -98,13 +98,13 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!61 &453439316132818902
+--- !u!61 &4678832172499759738
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1089296644616100370}
+  m_GameObject: {fileID: 1628121045056546798}
   m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
@@ -144,13 +144,13 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.3, y: 0.3}
   m_EdgeRadius: 0
---- !u!114 &7863913114531029369
+--- !u!114 &3463084354172446045
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1089296644616100370}
+  m_GameObject: {fileID: 1628121045056546798}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 18caa8effc97128ada3a178851237a1d, type: 3}
@@ -158,13 +158,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BounceEffect
   m_bounceSpeed: 0.25
   m_bounceVerticalDistance: 0.1
---- !u!114 &5275515147056584636
+--- !u!114 &79931091165269276
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1089296644616100370}
+  m_GameObject: {fileID: 1628121045056546798}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7ff797398f42215b7860037522cd72ef, type: 3}
@@ -173,56 +173,56 @@ MonoBehaviour:
   m_itemType: 2
   _rarity: 0
   _lastRarity: 0
-  m_bounceEffect: {fileID: 7863913114531029369}
-  m_collider: {fileID: 453439316132818902}
---- !u!114 &1090909090909090909
+  m_bounceEffect: {fileID: 3463084354172446045}
+  m_collider: {fileID: 4678832172499759738}
+--- !u!114 &1070707070707070707
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1089296644616100370}
+  m_GameObject: {fileID: 1628121045056546798}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 383517203c68f4e889ef7678e247c17e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Pickup
---- !u!114 &1101010101010101010
+--- !u!114 &1080808080808080808
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1089296644616100370}
+  m_GameObject: {fileID: 1628121045056546798}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9e0af056b6534780acb3fac8fa08bda1, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MutationPickupEffect
-  m_mutation: {fileID: 11400000, guid: 2cf85b5eb7e6f18f7bb2fbe7e33affea, type: 2}
---- !u!114 &4000424795072938247
+  m_EditorClassIdentifier: Assembly-CSharp::ItemPickupEffect
+  m_item: {fileID: 11400000, guid: 1b972f568a60962a9b40651db8bded57, type: 2}
+--- !u!114 &3272191198161548275
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1089296644616100370}
+  m_GameObject: {fileID: 1628121045056546798}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 344b3a26653e498ec84018aebb3bfab7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RarityVisual
-  m_lootable: {fileID: 5275515147056584636}
-  m_renderer: {fileID: 1217404223830757429}
-  m_trail: {fileID: 6065282342846600494}
---- !u!96 &6065282342846600494
+  m_lootable: {fileID: 79931091165269276}
+  m_renderer: {fileID: 1575156276653412491}
+  m_trail: {fileID: 1486540984633977100}
+--- !u!96 &1486540984633977100
 TrailRenderer:
   serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1089296644616100370}
+  m_GameObject: {fileID: 1628121045056546798}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0

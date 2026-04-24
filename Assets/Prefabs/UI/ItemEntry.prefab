@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3655627082773390224}
   - component: {fileID: 1039004681241396781}
   m_Layer: 5
-  m_Name: MutationEntry
+  m_Name: ItemEntry
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -151,7 +151,7 @@ GameObject:
   - component: {fileID: 8631252617604876427}
   - component: {fileID: 4708056195044194910}
   m_Layer: 5
-  m_Name: MutationName
+  m_Name: ItemName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -204,7 +204,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Mutation
+  m_text: Item
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e9edb6b4f23508b378073eb85b86c60d, type: 2}
   m_sharedMaterial: {fileID: 0}

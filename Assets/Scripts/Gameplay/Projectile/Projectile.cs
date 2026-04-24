@@ -37,7 +37,7 @@ public class Projectile : MonoBehaviour
     private CameraShake m_cameraShake;
     private Color m_defaultColor = Color.white;
 
-    // Mutation modifiers
+    // Item modifiers
     private int m_bonusDamage;
     private float m_damageMultiplier = 1f;
     private int m_bonusPierce;
@@ -51,7 +51,7 @@ public class Projectile : MonoBehaviour
     // the authored trail override so the player sees an unambiguous "that was a crit" cue.
     private Color m_critTint;
 
-    public void SetMutationModifiers(int bonusDamage, float damageMultiplier, int bonusPierce)
+    public void SetItemModifiers(int bonusDamage, float damageMultiplier, int bonusPierce)
     {
         m_bonusDamage = bonusDamage;
         m_damageMultiplier = damageMultiplier;

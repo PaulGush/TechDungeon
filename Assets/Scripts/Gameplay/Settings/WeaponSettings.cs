@@ -23,7 +23,7 @@ public class WeaponSettings : ScriptableObject
     public float Cooldown = 0.25f;
 
     [Header("Damage")]
-    [Tooltip("Per-weapon multiplier applied on top of the shared projectile's base damage. Lets weapons that share a projectile (e.g. Pistol and Sniper both using the Line projectile) hit with different weight. Stacks multiplicatively with mutation and rarity bonuses. 1 = no change.")]
+    [Tooltip("Per-weapon multiplier applied on top of the shared projectile's base damage. Lets weapons that share a projectile (e.g. Pistol and Sniper both using the Line projectile) hit with different weight. Stacks multiplicatively with item and rarity bonuses. 1 = no change.")]
     public float DamageMultiplier = 1f;
 
     [Header("Accuracy")]

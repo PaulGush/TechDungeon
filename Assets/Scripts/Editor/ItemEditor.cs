@@ -3,8 +3,8 @@ using UnityEngine;
 
 namespace TechDungeon.Editor
 {
-    [CustomEditor(typeof(Mutation))]
-    public class MutationEditor : UnityEditor.Editor
+    [CustomEditor(typeof(Item))]
+    public class ItemEditor : UnityEditor.Editor
     {
         private const float PreviewSize = 128f;
 
@@ -12,8 +12,8 @@ namespace TechDungeon.Editor
         {
             DrawDefaultInspector();
 
-            Mutation mutation = (Mutation)target;
-            Sprite icon = mutation.Icon;
+            Item item = (Item)target;
+            Sprite icon = item.Icon;
 
             EditorGUILayout.Space(8);
             EditorGUILayout.LabelField("Icon Preview", EditorStyles.boldLabel);

@@ -26,7 +26,7 @@ public class ShopRoom : MonoBehaviour
 
     private void InitializePedestals()
     {
-        List<Lootable>[] pools = { m_settings.WeaponPool, m_settings.MutationPool, m_settings.ConsumablePool };
+        List<Lootable>[] pools = { m_settings.WeaponPool, m_settings.ItemPool, m_settings.ConsumablePool };
 
         for (int i = 0; i < m_pedestals.Count; i++)
         {

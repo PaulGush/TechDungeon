@@ -512,7 +512,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b5eb9dbc3f31c426eb2948305b4a8068, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MutationManager
+  m_EditorClassIdentifier: Assembly-CSharp::ItemManager
   m_health: {fileID: 4176536670723386620}
 --- !u!114 &5226993944516471503
 MonoBehaviour:

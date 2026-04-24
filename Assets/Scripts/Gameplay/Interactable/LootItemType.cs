@@ -2,7 +2,7 @@ public enum LootItemType
 {
     Weapon,
     Ammo,
-    Mutation,
+    Item,
     Consumable,
     Credits
 }

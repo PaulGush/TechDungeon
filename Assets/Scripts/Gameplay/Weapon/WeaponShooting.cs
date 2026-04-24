@@ -39,7 +39,7 @@ public class WeaponShooting : MonoBehaviour, IWeapon
 
     private ObjectPool m_pool;
     private Transform m_weaponHolder;
-    private MutationManager m_mutationManager;
+    private ItemManager m_itemManager;
     private AmmoManager m_ammoManager;
     private CameraShake m_cameraShake;
     private Coroutine m_muzzleFlashRoutine;
@@ -102,7 +102,7 @@ public class WeaponShooting : MonoBehaviour, IWeapon
     {
         ServiceLocator.Global.TryGet(out ObjectPool pool);
         m_pool = pool;
-        ServiceLocator.Global.TryGet(out m_mutationManager);
+        ServiceLocator.Global.TryGet(out m_itemManager);
         ServiceLocator.Global.TryGet(out m_ammoManager);
         ServiceLocator.Global.TryGet(out m_cameraShake);
 
@@ -375,7 +375,7 @@ public class WeaponShooting : MonoBehaviour, IWeapon
         }
 
         // Non-magazine path: draw one round from the live ammo type's pool per shot, matching
-        // the pre-reload behavior. Efficiency mutation lets a shot pass without drawing.
+        // the pre-reload behavior. Efficiency item lets a shot pass without drawing.
         AmmoSettings current = m_ammoManager.CurrentAmmoSettings;
         if (current == null || current.Type == AmmoType.Standard) return null;
 
@@ -466,11 +466,11 @@ public class WeaponShooting : MonoBehaviour, IWeapon
         int pierce = 0;
         if (m_settings != null)
             mult *= m_settings.DamageMultiplier;
-        if (m_mutationManager != null)
+        if (m_itemManager != null)
         {
-            flatBonus = m_mutationManager.GetFlatDamageBonus();
-            mult *= m_mutationManager.GetDamageMultiplier();
-            pierce = m_mutationManager.GetBonusPierce();
+            flatBonus = m_itemManager.GetFlatDamageBonus();
+            mult *= m_itemManager.GetDamageMultiplier();
+            pierce = m_itemManager.GetBonusPierce();
         }
         if (m_lootable != null)
             mult *= LootableRarity.GetDamageMultiplier(m_lootable.Rarity);

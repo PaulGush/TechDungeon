@@ -11,7 +11,7 @@ public class AmmoManager : MonoBehaviour
 
     private readonly Dictionary<AmmoType, int> m_ammoCounts = new();
     private int m_currentIndex;
-    private MutationManager m_mutationManager;
+    private ItemManager m_itemManager;
 
     public AmmoSettings CurrentAmmoSettings => m_ammoTypes.Count > 0 ? m_ammoTypes[m_currentIndex] : null;
     public Action<AmmoSettings> OnAmmoChanged;
@@ -30,7 +30,7 @@ public class AmmoManager : MonoBehaviour
 
     private void Start()
     {
-        ServiceLocator.Global.TryGet(out m_mutationManager);
+        ServiceLocator.Global.TryGet(out m_itemManager);
     }
 
     private void OnEnable()
@@ -75,8 +75,8 @@ public class AmmoManager : MonoBehaviour
 
     public bool RollAmmoEfficiency()
     {
-        if (m_mutationManager == null) return false;
-        float efficiency = m_mutationManager.GetAmmoEfficiency();
+        if (m_itemManager == null) return false;
+        float efficiency = m_itemManager.GetAmmoEfficiency();
         return efficiency > 0f && UnityEngine.Random.value * 100f < efficiency;
     }
 

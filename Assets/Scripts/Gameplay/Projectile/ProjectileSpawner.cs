@@ -22,7 +22,7 @@ public static class ProjectileSpawner
         Projectile projectile = instance.GetComponent<Projectile>();
 
         projectile.SetProjectilePrefab(prefab);
-        projectile.SetMutationModifiers(bonusDamage, damageMultiplier, bonusPierce);
+        projectile.SetItemModifiers(bonusDamage, damageMultiplier, bonusPierce);
 
         // Apply crit tint before ammo so ApplyAmmoTint sees the lock and skips overwriting the
         // sprite color, preserving crit precedence over ammo color on the sprite (Initialize

@@ -5121,7 +5121,7 @@ GameObject:
   - component: {fileID: 1344340208}
   - component: {fileID: 1344340209}
   m_Layer: 5
-  m_Name: MutationHUD
+  m_Name: ItemHUD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5183,9 +5183,9 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6b804841d271e18d2beaa48e4f64431f, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MutationHUD
-  m_mutationListParent: {fileID: 1344340207}
-  m_mutationEntryPrefab: {fileID: 2463766065708754550, guid: 23226295e6291d5989d8dab187e3efc0, type: 3}
+  m_EditorClassIdentifier: Assembly-CSharp::ItemHUD
+  m_itemListParent: {fileID: 1344340207}
+  m_itemEntryPrefab: {fileID: 2463766065708754550, guid: 23226295e6291d5989d8dab187e3efc0, type: 3}
 --- !u!1 &1395610137
 GameObject:
   m_ObjectHideFlags: 0
