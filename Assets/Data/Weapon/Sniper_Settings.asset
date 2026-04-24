@@ -26,4 +26,6 @@ MonoBehaviour:
   ReloadDuration: 1.2
   KickbackDistance: 0.12
   KickbackDuration: 0.15
+  RecoilDegrees: 7
+  RecoilDuration: 0.2
   IntrinsicAmmo: {fileID: 0}
