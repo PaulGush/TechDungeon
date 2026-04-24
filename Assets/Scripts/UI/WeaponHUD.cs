@@ -123,6 +123,7 @@ public class WeaponHUD : MonoBehaviour
 
         if (m_ammoIcon != null)
         {
+            m_ammoIcon.color = settings.ProjectileColor;
             if (settings.Icon != null)
             {
                 m_ammoIcon.sprite = settings.Icon;
