@@ -8,7 +8,6 @@ public class AmmoHUD : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private TextMeshProUGUI m_ammoNameText;
-    [SerializeField] private TextMeshProUGUI m_ammoCountText;
     [SerializeField] private Image m_ammoIcon;
 
     [Tooltip("Placeholder text for the current weapon's magazine, formatted as 'current / max'. Shows 'RELOADING...' during a reload. Leave empty to skip.")]
@@ -26,7 +25,6 @@ public class AmmoHUD : MonoBehaviour
         if (m_ammoManager != null)
         {
             m_ammoManager.OnAmmoChanged += OnAmmoChanged;
-            m_ammoManager.OnAmmoCountChanged += OnAmmoCountChanged;
             UpdateDisplay(m_ammoManager.CurrentAmmoSettings);
         }
 
@@ -40,10 +38,7 @@ public class AmmoHUD : MonoBehaviour
     private void OnDestroy()
     {
         if (m_ammoManager != null)
-        {
             m_ammoManager.OnAmmoChanged -= OnAmmoChanged;
-            m_ammoManager.OnAmmoCountChanged -= OnAmmoCountChanged;
-        }
         if (m_weaponHolder != null)
             m_weaponHolder.OnWeaponChanged -= OnWeaponChanged;
 
@@ -53,12 +48,6 @@ public class AmmoHUD : MonoBehaviour
     private void OnAmmoChanged(AmmoSettings settings)
     {
         UpdateDisplay(settings);
-    }
-
-    private void OnAmmoCountChanged(AmmoType type, int count)
-    {
-        if (m_ammoManager.CurrentAmmoSettings != null && m_ammoManager.CurrentAmmoSettings.Type == type)
-            UpdateCountDisplay(type, count);
     }
 
     private void OnWeaponChanged(GameObject weapon)
@@ -133,12 +122,5 @@ public class AmmoHUD : MonoBehaviour
                 m_ammoIcon.enabled = false;
             }
         }
-
-        UpdateCountDisplay(settings.Type, m_ammoManager.GetAmmoCount(settings.Type));
-    }
-
-    private void UpdateCountDisplay(AmmoType type, int count)
-    {
-        m_ammoCountText.text = type == AmmoType.Standard ? "INF" : count.ToString();
     }
 }
