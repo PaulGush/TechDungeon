@@ -185,12 +185,13 @@ MonoBehaviour:
   m_spriteRenderer: {fileID: 2647580534825030868}
   m_settings: {fileID: 11400000, guid: 6c041c566c8bddecf9f7ed266749378e, type: 2}
   m_trail: {fileID: 5851672756326970287}
+  m_trailColor: {r: 0, g: 0, b: 0, a: 0}
   m_damageLayers:
     serializedVersion: 2
-    m_Bits: 1280
+    m_Bits: 1024
   m_destroyLayers:
     serializedVersion: 2
-    m_Bits: 2048
+    m_Bits: 2304
   m_hitShakeAmplitude: 0.1
   m_hitSparkPrefab: {fileID: 2378049051438829830, guid: 62b6784757a498990bf3654f9186ab3b, type: 3}
 --- !u!95 &176081626738098485
@@ -241,7 +242,7 @@ TrailRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
