@@ -57,6 +57,10 @@ public class WeaponShooting : MonoBehaviour, IWeapon
     private float m_kickbackDuration;
     private float m_kickbackPeak;
 
+    private float m_recoilTimeRemaining;
+    private float m_recoilDuration;
+    private float m_recoilPeak;
+
     private AmmoType m_loadedAmmoType = AmmoType.Standard;
     private int m_magazineCurrent;
     private bool m_isReloading;
@@ -73,6 +77,11 @@ public class WeaponShooting : MonoBehaviour, IWeapon
     // Non-positive offset applied along the weapon's local -Y to visualize kickback.
     // WeaponHolder reads this each LateUpdate and layers it on top of the clamped/base position.
     public float CurrentKickbackOffset { get; private set; }
+
+    // Positive-magnitude rotation (in degrees) layered on top of the weapon's aim rotation to
+    // visualize muzzle climb. WeaponHolder reads this each LateUpdate and picks the sign so the
+    // tilt points consistently toward the sprite's "up" side.
+    public float CurrentRecoilDegrees { get; private set; }
 
     private void Start()
     {
@@ -143,6 +152,8 @@ public class WeaponShooting : MonoBehaviour, IWeapon
         m_sustainedFireStart = -1f;
         m_kickbackTimeRemaining = 0f;
         CurrentKickbackOffset = 0f;
+        m_recoilTimeRemaining = 0f;
+        CurrentRecoilDegrees = 0f;
 
         if (m_burstRoutine != null)
         {
@@ -176,6 +187,7 @@ public class WeaponShooting : MonoBehaviour, IWeapon
     private void Update()
     {
         TickKickback();
+        TickRecoil();
 
         if (!m_equipped || m_inputReader == null) return;
 
@@ -293,6 +305,7 @@ public class WeaponShooting : MonoBehaviour, IWeapon
 
         FlashMuzzle(ammoSettings);
         StartKickback();
+        StartRecoil();
 
         if (m_cameraShake != null && m_shootShakeAmplitude > 0f)
             m_cameraShake.Shake(m_shootShakeAmplitude, -m_shootPoint.right);
@@ -361,6 +374,38 @@ public class WeaponShooting : MonoBehaviour, IWeapon
 
         float t = m_kickbackTimeRemaining / m_kickbackDuration;
         CurrentKickbackOffset = m_kickbackPeak * t;
+    }
+
+    private void StartRecoil()
+    {
+        if (m_settings == null) return;
+        if (m_settings.RecoilDegrees <= 0f || m_settings.RecoilDuration <= 0f) return;
+
+        m_recoilPeak = m_settings.RecoilDegrees;
+        m_recoilDuration = m_settings.RecoilDuration;
+        m_recoilTimeRemaining = m_recoilDuration;
+        CurrentRecoilDegrees = m_recoilPeak;
+    }
+
+    private void TickRecoil()
+    {
+        if (m_recoilTimeRemaining <= 0f)
+        {
+            if (CurrentRecoilDegrees != 0f)
+                CurrentRecoilDegrees = 0f;
+            return;
+        }
+
+        m_recoilTimeRemaining -= Time.deltaTime;
+        if (m_recoilTimeRemaining <= 0f)
+        {
+            m_recoilTimeRemaining = 0f;
+            CurrentRecoilDegrees = 0f;
+            return;
+        }
+
+        float t = m_recoilTimeRemaining / m_recoilDuration;
+        CurrentRecoilDegrees = m_recoilPeak * t;
     }
 
     private void SpawnProjectile(AmmoSettings ammoSettings, float damageMultiplier)

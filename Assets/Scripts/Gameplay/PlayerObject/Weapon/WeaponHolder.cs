@@ -24,6 +24,7 @@ namespace PlayerObject
         private WeaponShooting m_currentWeaponShooting;
         private float m_weaponOriginalLocalY;
         private float m_shootPointLocalOffset;
+        private Quaternion m_baseAimRotation = Quaternion.identity;
 
         private RoomManager RoomManager => m_roomManager ??= ServiceLocator.Global.Get<RoomManager>();
 
@@ -51,18 +52,33 @@ namespace PlayerObject
             Vector2 lookDirection = m_inputReader.LookDirection;
             if (lookDirection.sqrMagnitude > LookInputDeadzoneSqr)
             {
-                transform.rotation = MathUtilities.CalculateAimRotation(lookDirection, WeaponRotationOffset);
-                return;
+                m_baseAimRotation = MathUtilities.CalculateAimRotation(lookDirection, WeaponRotationOffset);
+            }
+            else
+            {
+                Vector2 mousePosition = Mouse.current.position.ReadValue();
+                if (mousePosition != m_previousFrameMousePosition)
+                {
+                    Vector3 diff = m_camera.ScreenToWorldPoint(mousePosition) - transform.position;
+                    diff.Normalize();
+                    m_baseAimRotation = MathUtilities.CalculateAimRotation(diff, WeaponRotationOffset);
+                }
+                m_previousFrameMousePosition = mousePosition;
             }
 
-            Vector2 mousePosition = Mouse.current.position.ReadValue();
-            if (mousePosition != m_previousFrameMousePosition)
+            // Layer recoil on top each frame so the muzzle climb decays back to zero even when the
+            // player isn't moving the mouse or stick. Sign matches the sprite-flip condition in
+            // Weapon.FixedUpdate so the tilt always points toward the sprite's "up" side.
+            float recoilDeg = m_currentWeaponShooting != null ? m_currentWeaponShooting.CurrentRecoilDegrees : 0f;
+            if (recoilDeg > 0f)
             {
-                Vector3 diff = m_camera.ScreenToWorldPoint(mousePosition) - transform.position;
-                diff.Normalize();
-                transform.rotation = MathUtilities.CalculateAimRotation(diff, WeaponRotationOffset);
+                float sign = m_baseAimRotation.eulerAngles.z < 180f ? -1f : 1f;
+                transform.rotation = m_baseAimRotation * Quaternion.Euler(0f, 0f, recoilDeg * sign);
             }
-            m_previousFrameMousePosition = mousePosition;
+            else
+            {
+                transform.rotation = m_baseAimRotation;
+            }
         }
 
         private void ClampWeaponToWalls()

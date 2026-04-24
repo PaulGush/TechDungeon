@@ -66,6 +66,13 @@ public class WeaponSettings : ScriptableObject
     [Tooltip("Seconds for the weapon to return from its peak kickback back to its rest position. Zero disables.")]
     public float KickbackDuration = 0.08f;
 
+    [Header("Recoil")]
+    [Tooltip("Peak aim rotation (in degrees) applied to the weapon the moment it fires, decaying back to zero over RecoilDuration. Visually tips the muzzle away from the aim line so sustained fire reads as 'kicking'. Zero disables.")]
+    public float RecoilDegrees = 0f;
+
+    [Tooltip("Seconds for the recoil rotation to decay from its peak back to zero. Zero disables.")]
+    public float RecoilDuration = 0.1f;
+
     [Header("Intrinsic Ammo")]
     [Tooltip("Ammo effect baked into this weapon — applied to every shot when the player has no override ammo loaded. Unlike player ammo, this is never consumed. Leave empty for weapons that only use whatever ammo the player has equipped.")]
     public AmmoSettings IntrinsicAmmo;
