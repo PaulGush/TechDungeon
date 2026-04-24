@@ -46,7 +46,7 @@ MonoBehaviour:
     MissileTravelDuration: 0.85
     MissileArcHeightRatio: 0.4
     MissileDamage: 4
-    MissileExplosionRadius: 1.25
+    MissileExplosionRadius: 2
     MissileExplosionEffectPrefab: {fileID: 0}
     SpeedOverride: -1
     StrafeSpeedOverride: -1
@@ -71,8 +71,8 @@ MonoBehaviour:
     MissileTelegraphDuration: 1.25
     MissileTravelDuration: 0.85
     MissileArcHeightRatio: 0.4
-    MissileDamage: 4
-    MissileExplosionRadius: 1.25
+    MissileDamage: 20
+    MissileExplosionRadius: 2
     MissileExplosionEffectPrefab: {fileID: 4471930890102010001, guid: 9988e397e5d7ff451b4a138bb5077fcd, type: 3}
     SpeedOverride: -1
     StrafeSpeedOverride: -1
@@ -98,7 +98,7 @@ MonoBehaviour:
     MissileTravelDuration: 0.85
     MissileArcHeightRatio: 0.4
     MissileDamage: 4
-    MissileExplosionRadius: 1.25
+    MissileExplosionRadius: 2
     MissileExplosionEffectPrefab: {fileID: 0}
     SpeedOverride: 2.5
     StrafeSpeedOverride: -1
