@@ -12,12 +12,7 @@ public class WeaponHUD : MonoBehaviour
     [Tooltip("GameObject toggled off when the player is unarmed and back on when they equip a weapon. Leave empty to toggle this HUD's own GameObject.")]
     [SerializeField] private GameObject m_root;
 
-    [Header("Weapon")]
-    [SerializeField] private TextMeshProUGUI m_weaponNameText;
-    [SerializeField] private Image m_weaponIcon;
-
     [Header("Ammo")]
-    [SerializeField] private TextMeshProUGUI m_ammoNameText;
     [SerializeField] private Image m_ammoIcon;
 
     [Tooltip("Formatted 'current / max' while the current weapon has a magazine. Shows 'RELOADING...' during a reload. Leave empty to skip.")]
@@ -65,7 +60,6 @@ public class WeaponHUD : MonoBehaviour
 
         WeaponShooting shooting = weapon != null ? weapon.GetComponent<WeaponShooting>() : null;
         BindShooting(shooting);
-        UpdateWeaponDisplay(weapon, shooting);
     }
 
     private void SetRootActive(bool active)
@@ -123,37 +117,9 @@ public class WeaponHUD : MonoBehaviour
         m_magazineText.text = "RELOADING...";
     }
 
-    private void UpdateWeaponDisplay(GameObject weapon, WeaponShooting shooting)
-    {
-        if (weapon == null) return;
-
-        if (m_weaponNameText != null)
-        {
-            string displayName = shooting != null ? shooting.DisplayName : null;
-            m_weaponNameText.text = (string.IsNullOrWhiteSpace(displayName) ? weapon.name : displayName).ToUpper();
-        }
-
-        if (m_weaponIcon != null)
-        {
-            SpriteRenderer sr = weapon.GetComponentInChildren<SpriteRenderer>();
-            if (sr != null && sr.sprite != null)
-            {
-                m_weaponIcon.sprite = sr.sprite;
-                m_weaponIcon.enabled = true;
-            }
-            else
-            {
-                m_weaponIcon.enabled = false;
-            }
-        }
-    }
-
     private void UpdateAmmoDisplay(AmmoSettings settings)
     {
         if (settings == null) return;
-
-        if (m_ammoNameText != null)
-            m_ammoNameText.text = settings.DisplayName;
 
         if (m_ammoIcon != null)
         {
