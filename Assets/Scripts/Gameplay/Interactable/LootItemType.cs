@@ -4,5 +4,6 @@ public enum LootItemType
     Ammo,
     Item,
     Consumable,
-    Credits
+    Credits,
+    Ability
 }

@@ -125,6 +125,10 @@ public class DeathScreen : MonoBehaviour
         ServiceLocator.Global.Get<ItemManager>().Reset();
         ServiceLocator.Global.Get<AmmoManager>().Reset();
         ServiceLocator.Global.Get<CreditManager>().Reset();
+        if (ServiceLocator.Global.TryGet(out AbilityController abilityController))
+            abilityController.Reset();
+        if (ServiceLocator.Global.TryGet(out PlayerStatusEffects status))
+            status.Clear();
         m_weaponHolder.Reset();
         ServiceLocator.Global.Get<RoomManager>().ResetToStartingRoom();
 

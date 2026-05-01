@@ -13,6 +13,7 @@ namespace PlayerObject
 
         private float m_rollTimer;
         private ItemManager m_itemManager;
+        private PlayerStatusEffects m_status;
 
         private void Awake()
         {
@@ -23,6 +24,7 @@ namespace PlayerObject
         private void Start()
         {
             ServiceLocator.Global.TryGet(out m_itemManager);
+            ServiceLocator.Global.TryGet(out m_status);
         }
 
         private void OnEnable()
@@ -47,6 +49,8 @@ namespace PlayerObject
             float speed = m_settings.Speed;
             if (m_itemManager != null)
                 speed *= m_itemManager.GetSpeedMultiplier();
+            if (m_status != null)
+                speed *= m_status.GetMultiplier(PlayerStatusEffects.BuffKind.SpeedMultiplier);
             Vector2 newPosition = m_rigidbody2D.position + direction * (speed * Time.fixedDeltaTime);
             m_rigidbody2D.MovePosition(newPosition);
         }

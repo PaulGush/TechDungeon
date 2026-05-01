@@ -23,7 +23,10 @@ namespace UnityServiceLocator {
                 Debug.LogError("ServiceLocator.ConfigureAsGlobal: Another ServiceLocator is already configured as global", this);
             } else {
                 _global = this;
-                if (dontDestroyOnLoad) DontDestroyOnLoad(gameObject);
+                // DontDestroyOnLoad is a play-mode-only API. Edit-mode tests that
+                // bootstrap the SL (via Awake registrations) hit this path and would
+                // otherwise throw — guard so the registry is still set up for tests.
+                if (dontDestroyOnLoad && Application.isPlaying) DontDestroyOnLoad(gameObject);
             }
         }
 

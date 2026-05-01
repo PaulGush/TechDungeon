@@ -42,6 +42,7 @@ public class WeaponShooting : MonoBehaviour, IWeapon
     private ItemManager m_itemManager;
     private AmmoManager m_ammoManager;
     private CameraShake m_cameraShake;
+    private PlayerStatusEffects m_status;
     private Coroutine m_muzzleFlashRoutine;
     private SpriteRenderer m_muzzleFlashRenderer;
     private Color m_muzzleFlashDefaultTint = Color.white;
@@ -105,6 +106,7 @@ public class WeaponShooting : MonoBehaviour, IWeapon
         ServiceLocator.Global.TryGet(out m_itemManager);
         ServiceLocator.Global.TryGet(out m_ammoManager);
         ServiceLocator.Global.TryGet(out m_cameraShake);
+        ServiceLocator.Global.TryGet(out m_status);
 
         // Cache the muzzle flash's authored default tints once at Start so they
         // survive ammo-color overrides. Doing this in Equip was fragile because
@@ -472,6 +474,8 @@ public class WeaponShooting : MonoBehaviour, IWeapon
             mult *= m_itemManager.GetDamageMultiplier();
             pierce = m_itemManager.GetBonusPierce();
         }
+        if (m_status != null)
+            mult *= m_status.GetMultiplier(PlayerStatusEffects.BuffKind.DamageMultiplier);
         if (m_lootable != null)
             mult *= LootableRarity.GetDamageMultiplier(m_lootable.Rarity);
 

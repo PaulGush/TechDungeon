@@ -25,6 +25,7 @@ namespace Input
         public UnityAction Roll = delegate {  };
         public UnityAction Look = delegate {  };
         public UnityAction Reload = delegate {  };
+        public UnityAction UseAbility = delegate {  };
         
         private InputSystem_Actions m_inputActions;
         
@@ -124,6 +125,14 @@ namespace Input
             if (context.phase == InputActionPhase.Started)
             {
                 Reload?.Invoke();
+            }
+        }
+
+        public void OnUseAbility(InputAction.CallbackContext context)
+        {
+            if (context.phase == InputActionPhase.Started)
+            {
+                UseAbility?.Invoke();
             }
         }
     }
