@@ -296,7 +296,25 @@ MonoBehaviour:
       m_RotationOrder: 4
     m_MixOutCurve:
       serializedVersion: 2
-      m_Curve: []
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -323,7 +341,25 @@ MonoBehaviour:
     m_BlendOutDuration: -1
     m_MixInCurve:
       serializedVersion: 2
-      m_Curve: []
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -626,6 +662,7 @@ MonoBehaviour:
   m_Name: BossEventClip
   m_EditorClassIdentifier: Assembly-CSharp::BossEventClip
   EventType: 0
+  ShakeAmplitude: 1
 --- !u!114 &2882806721779446753
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -748,8 +785,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfa64a8770cbffb51b4d26bff1196c25, type: 3}
   m_Name: TransformMoveClip
   m_EditorClassIdentifier: Assembly-CSharp::TransformMoveClip
-  StartPosition: {x: -150, y: 300, z: 0}
-  EndPosition: {x: 150, y: 300, z: 0}
+  StartPosition: {x: -150, y: 400, z: 0}
+  EndPosition: {x: 150, y: 400, z: 0}
   UseLocalSpace: 0
 --- !u!114 &6140229505771442576
 MonoBehaviour:
@@ -925,6 +962,7 @@ MonoBehaviour:
   m_Name: BossEventClip(Clone)
   m_EditorClassIdentifier: Assembly-CSharp::BossEventClip
   EventType: 2
+  ShakeAmplitude: 1
 --- !u!114 &6928144873493376554
 MonoBehaviour:
   m_ObjectHideFlags: 1
