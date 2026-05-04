@@ -5,6 +5,8 @@ using UnityServiceLocator;
 
 public class Tooltip : MonoBehaviour
 {
+    private enum AnchorMode { Mouse, UI, World }
+
     [Header("References")]
     [SerializeField] private RectTransform m_panel;
     [SerializeField] private CanvasGroup m_canvasGroup;
@@ -13,12 +15,15 @@ public class Tooltip : MonoBehaviour
     [SerializeField] private TextMeshProUGUI m_effectText;
 
     [Header("Positioning")]
-    [Tooltip("Offset from the cursor in screen pixels. Positive X is to the right of the cursor, positive Y is above it.")]
+    [Tooltip("Offset from the anchor in screen pixels. Positive X is to the right, positive Y is above.")]
     [SerializeField] private Vector2 m_cursorOffset = new Vector2(16f, -16f);
 
     private RectTransform m_parentRect;
     private Canvas m_canvas;
     private bool m_visible;
+    private AnchorMode m_anchorMode;
+    private RectTransform m_uiAnchor;
+    private Transform m_worldAnchor;
 
     private void Awake()
     {
@@ -32,10 +37,28 @@ public class Tooltip : MonoBehaviour
 
     public void Show(string title, string body, string effect)
     {
+        ShowInternal(title, body, effect, AnchorMode.Mouse, null, null);
+    }
+
+    public void Show(string title, string body, string effect, RectTransform uiAnchor)
+    {
+        ShowInternal(title, body, effect, AnchorMode.UI, uiAnchor, null);
+    }
+
+    public void Show(string title, string body, string effect, Transform worldAnchor)
+    {
+        ShowInternal(title, body, effect, AnchorMode.World, null, worldAnchor);
+    }
+
+    private void ShowInternal(string title, string body, string effect, AnchorMode mode, RectTransform uiAnchor, Transform worldAnchor)
+    {
         if (m_titleText != null) m_titleText.text = title;
         if (m_bodyText != null) m_bodyText.text = body;
         if (m_effectText != null) m_effectText.text = effect;
 
+        m_anchorMode = mode;
+        m_uiAnchor = uiAnchor;
+        m_worldAnchor = worldAnchor;
         m_visible = true;
         m_canvasGroup.alpha = 1f;
         m_canvasGroup.blocksRaycasts = false;
@@ -45,15 +68,16 @@ public class Tooltip : MonoBehaviour
     public void Hide()
     {
         m_visible = false;
+        m_anchorMode = AnchorMode.Mouse;
+        m_uiAnchor = null;
+        m_worldAnchor = null;
         m_canvasGroup.alpha = 0f;
         m_canvasGroup.blocksRaycasts = false;
     }
 
     private void HideImmediate()
     {
-        m_visible = false;
-        m_canvasGroup.alpha = 0f;
-        m_canvasGroup.blocksRaycasts = false;
+        Hide();
     }
 
     private void LateUpdate()
@@ -63,9 +87,9 @@ public class Tooltip : MonoBehaviour
 
     private void UpdatePosition()
     {
-        if (Mouse.current == null || m_parentRect == null) return;
+        if (m_parentRect == null) return;
+        if (!TryGetAnchorScreenPoint(out Vector2 screenPos)) return;
 
-        Vector2 screenPos = Mouse.current.position.ReadValue();
         // Camera is null for ScreenSpaceOverlay; required for ScreenSpaceCamera/WorldSpace.
         Camera cam = m_canvas != null && m_canvas.renderMode != RenderMode.ScreenSpaceOverlay
             ? m_canvas.worldCamera
@@ -97,5 +121,29 @@ public class Tooltip : MonoBehaviour
         anchoredPos.y = Mathf.Clamp(anchoredPos.y, parentRect.yMin + panelSize.y, parentRect.yMax);
 
         m_panel.anchoredPosition = anchoredPos;
+    }
+
+    private bool TryGetAnchorScreenPoint(out Vector2 screenPos)
+    {
+        switch (m_anchorMode)
+        {
+            case AnchorMode.UI:
+                if (m_uiAnchor == null) { screenPos = default; return false; }
+                Camera uiCam = m_canvas != null && m_canvas.renderMode != RenderMode.ScreenSpaceOverlay
+                    ? m_canvas.worldCamera
+                    : null;
+                screenPos = RectTransformUtility.WorldToScreenPoint(uiCam, m_uiAnchor.position);
+                return true;
+            case AnchorMode.World:
+                if (m_worldAnchor == null) { screenPos = default; return false; }
+                Camera mainCam = Camera.main;
+                if (mainCam == null) { screenPos = default; return false; }
+                screenPos = mainCam.WorldToScreenPoint(m_worldAnchor.position);
+                return true;
+            default:
+                if (Mouse.current == null) { screenPos = default; return false; }
+                screenPos = Mouse.current.position.ReadValue();
+                return true;
+        }
     }
 }

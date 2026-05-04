@@ -22,6 +22,12 @@ public class ShopPedestal : MonoBehaviour
     private ShopRoom m_shopRoom;
     private CreditManager m_creditManager;
     private PlayerInteractionDisplay m_interactionDisplay;
+    private Tooltip m_tooltip;
+    private string m_tooltipTitle;
+    private string m_tooltipBody;
+    private string m_tooltipEffect;
+    private bool m_hasTooltip;
+    private bool m_tooltipShown;
 
     public void Initialize(Lootable itemPrefab, LootableRarity.Rarity rarity, int price, ShopRoom shopRoom)
     {
@@ -32,6 +38,8 @@ public class ShopPedestal : MonoBehaviour
 
         ServiceLocator.Global.TryGet(out m_creditManager);
         ServiceLocator.Global.TryGet(out m_interactionDisplay);
+        ServiceLocator.Global.TryGet(out m_tooltip);
+        PrepareTooltipContent(itemPrefab);
 
         if (m_itemDisplay != null)
         {
@@ -105,6 +113,7 @@ public class ShopPedestal : MonoBehaviour
             m_priceText.enabled = false;
 
         m_interactionDisplay?.Hide(this);
+        HideTooltip();
         m_inputReader.Interact -= Buy;
         m_inputReader.AltInteract -= Steal;
     }
@@ -114,6 +123,7 @@ public class ShopPedestal : MonoBehaviour
         if (m_isSold || other.gameObject.layer != GameConstants.Layers.PlayerLayer) return;
 
         m_interactionDisplay?.Show(GetInteractText(), this);
+        ShowTooltip();
         m_inputReader.Interact += Buy;
         m_inputReader.AltInteract += Steal;
     }
@@ -123,16 +133,43 @@ public class ShopPedestal : MonoBehaviour
         if (other.gameObject.layer != GameConstants.Layers.PlayerLayer) return;
 
         m_interactionDisplay?.Hide(this);
+        HideTooltip();
         m_inputReader.Interact -= Buy;
         m_inputReader.AltInteract -= Steal;
+    }
+
+    private void PrepareTooltipContent(Lootable itemPrefab)
+    {
+        ItemPickupEffect itemPickup = itemPrefab.GetComponentInChildren<ItemPickupEffect>();
+        if (itemPickup == null || itemPickup.Item == null) return;
+
+        Item item = itemPickup.Item;
+        m_tooltipTitle = item.DisplayName;
+        m_tooltipBody = item.Description;
+        m_tooltipEffect = item.GetEffectString();
+        m_hasTooltip = true;
+    }
+
+    private void ShowTooltip()
+    {
+        if (!m_hasTooltip || m_tooltip == null) return;
+        m_tooltip.Show(m_tooltipTitle, m_tooltipBody, m_tooltipEffect, transform);
+        m_tooltipShown = true;
+    }
+
+    private void HideTooltip()
+    {
+        if (!m_tooltipShown || m_tooltip == null) return;
+        m_tooltip.Hide();
+        m_tooltipShown = false;
     }
 
     private string GetInteractText()
     {
         bool canAfford = m_creditManager != null && m_creditManager.Credits >= m_price;
         return canAfford
-            ? "[E] Acquire  [F] Jack"
-            : "[F] Jack";
+            ? "[Interact] Acquire  [AltInteract] Jack"
+            : "[AltInteract] Jack";
     }
 
     private void OnDestroy()

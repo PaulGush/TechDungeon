@@ -2,6 +2,7 @@ using System.Collections;
 using Gameplay.ObjectPool;
 using PlayerObject;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityServiceLocator;
@@ -71,11 +72,18 @@ public class DeathScreen : MonoBehaviour
             m_buttonGroups[i].interactable = false;
         }
 
+        Coroutine last = null;
         for (int i = 0; i < m_buttonGroups.Length; i++)
         {
-            StartCoroutine(AnimateButton(m_buttonGroups[i], m_buttonRects[i]));
-            yield return new WaitForSecondsRealtime(m_buttonDelay);
+            last = StartCoroutine(AnimateButton(m_buttonGroups[i], m_buttonRects[i]));
+            if (i < m_buttonGroups.Length - 1)
+                yield return new WaitForSecondsRealtime(m_buttonDelay);
         }
+
+        if (last != null) yield return last;
+
+        if (EventSystem.current != null && m_newRunButton != null)
+            EventSystem.current.SetSelectedGameObject(m_newRunButton.gameObject);
     }
 
     private IEnumerator AnimateButton(CanvasGroup group, RectTransform rect)
@@ -131,6 +139,9 @@ public class DeathScreen : MonoBehaviour
             status.Clear();
         m_weaponHolder.Reset();
         ServiceLocator.Global.Get<RoomManager>().ResetToStartingRoom();
+
+        if (EventSystem.current != null)
+            EventSystem.current.SetSelectedGameObject(null);
 
         gameObject.SetActive(false);
     }
