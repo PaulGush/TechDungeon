@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityServiceLocator;
 
 public class MechSuitAnimationController : EnemyAnimationController
 {
@@ -11,10 +12,17 @@ public class MechSuitAnimationController : EnemyAnimationController
     [SerializeField] private Animator m_legsAnimator;
     [SerializeField] private SpriteRenderer m_legsSpriteRenderer;
 
+    [Header("Footstep Rumble")]
+    [Tooltip("Gamepad rumble pulse fired each time the legs animation crosses a half-cycle (≈ once per footfall). Zero disables.")]
+    [SerializeField, Range(0f, 1f)] private float m_footstepRumble = 0.4f;
+
     private bool m_torsoHasRunning;
     private bool m_legsHasRunning;
     private bool m_legsHasDead;
     private bool m_legsVisible;
+    private CameraShake m_cameraShake;
+    private bool m_footstepLastHalf;
+    private bool m_footstepTracking;
 
     protected override void OnEnable()
     {
@@ -72,6 +80,38 @@ public class MechSuitAnimationController : EnemyAnimationController
 
         if (m_legsHasRunning)
             m_legsAnimator.SetBool(Running, isMoving);
+
+        TickFootstepRumble(isMoving);
+    }
+
+    private void TickFootstepRumble(bool isMoving)
+    {
+        if (m_footstepRumble <= 0f || !isMoving)
+        {
+            m_footstepTracking = false;
+            return;
+        }
+
+        if (m_cameraShake == null)
+            ServiceLocator.Global.TryGet(out m_cameraShake);
+        if (m_cameraShake == null) return;
+
+        float normalizedTime = m_legsAnimator.GetCurrentAnimatorStateInfo(BaseLayerIndex).normalizedTime;
+        float fractional = normalizedTime - Mathf.Floor(normalizedTime);
+        bool firstHalf = fractional < 0.5f;
+
+        if (!m_footstepTracking)
+        {
+            m_footstepTracking = true;
+            m_footstepLastHalf = firstHalf;
+            return;
+        }
+
+        if (firstHalf != m_footstepLastHalf)
+        {
+            m_cameraShake.Rumble(m_footstepRumble);
+            m_footstepLastHalf = firstHalf;
+        }
     }
 
     // Mirror the legs sprite horizontally to match the torso aim direction. The legs

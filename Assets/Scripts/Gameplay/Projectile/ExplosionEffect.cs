@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Gameplay.ObjectPool;
+using PlayerObject;
 using UnityEngine;
 using UnityServiceLocator;
 
@@ -11,12 +12,20 @@ public class ExplosionEffect : MonoBehaviour
     [Tooltip("Impulse amplitude applied to the camera shake service on detonation. Sits in the same scale as CameraShake — 0.3 is a noticeable punch, 1.0 is a large boss-grade shake.")]
     [SerializeField] private float m_shakeAmplitude = 0.3f;
 
+    [Header("Rumble")]
+    [Tooltip("Explosion radius (world units) that yields a 1.0× rumble size factor. Bigger explosions scale linearly above; smaller scale below.")]
+    [SerializeField] private float m_rumbleSizeReference = 1.5f;
+
+    [Tooltip("Distance (world units) from the player at or beyond which the rumble fades to zero. Inside this range, rumble scales linearly toward full strength at distance 0.")]
+    [SerializeField] private float m_rumbleFalloffDistance = 12f;
+
     [Header("Visual Scaling")]
     [Tooltip("Multiplier on the explosion radius used to scale the prefab's transform on spawn, so the sprite/light visibly grow with the damage area. The damage collider is compensated so world-space damage still matches the radius. Default is 2 so the authored 1-unit-wide sprite visually fills a diameter of 2R — matching the targeting indicator.")]
     [SerializeField] private float m_visualScalePerRadiusUnit = 2f;
 
     private ObjectPool m_pool;
     private CameraShake m_cameraShake;
+    private PlayerMovementController m_player;
     private float m_radius;
     private int m_baseDamage;
     private LayerMask m_damageLayers;
@@ -47,8 +56,23 @@ public class ExplosionEffect : MonoBehaviour
 
         if (m_cameraShake == null)
             ServiceLocator.Global.TryGet(out m_cameraShake);
+        if (m_player == null)
+            ServiceLocator.Global.TryGet(out m_player);
         if (m_cameraShake != null)
-            m_cameraShake.Shake(m_shakeAmplitude);
+        {
+            float angle = Random.Range(0f, Mathf.PI * 2f);
+            Vector2 dir = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
+            m_cameraShake.Shake(m_shakeAmplitude, dir, ComputeRumbleMultiplier());
+        }
+    }
+
+    private float ComputeRumbleMultiplier()
+    {
+        float sizeFactor = m_rumbleSizeReference > 0f ? m_radius / m_rumbleSizeReference : 1f;
+        if (m_player == null || m_rumbleFalloffDistance <= 0f) return sizeFactor;
+        float distance = Vector2.Distance(transform.position, m_player.transform.position);
+        float distanceFactor = Mathf.Clamp01(1f - distance / m_rumbleFalloffDistance);
+        return sizeFactor * distanceFactor;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
