@@ -25,9 +25,6 @@ public class WeaponShooting : MonoBehaviour, IWeapon
     [SerializeField] private Projectile m_projectile;
 
     [Header("Feedback")]
-    [Tooltip("Impulse amplitude applied to the camera shake service each time the weapon fires. Keep this subtle — shoot shake should be tactile, not disorienting. Zero disables.")]
-    [SerializeField] private float m_shootShakeAmplitude = 0.02f;
-
     [Tooltip("Child object on the weapon that is toggled on for a brief flash each time the weapon fires. Leave empty to skip.")]
     [SerializeField] private GameObject m_muzzleFlashObject;
 
@@ -166,6 +163,7 @@ public class WeaponShooting : MonoBehaviour, IWeapon
     {
         m_equipped = false;
         ResetCharge();
+        m_cameraShake?.ClearSustainedRumble();
         m_sustainedFireStart = -1f;
         m_kickbackTimeRemaining = 0f;
         CurrentKickbackOffset = 0f;
@@ -234,6 +232,13 @@ public class WeaponShooting : MonoBehaviour, IWeapon
 
             case WeaponFireMode.Charge:
                 TickCharge(held);
+                if (m_cameraShake != null && m_settings != null && m_settings.ChargeRumbleScale > 0f)
+                {
+                    if (IsCharging)
+                        m_cameraShake.SetSustainedRumble(ChargeProgress * m_settings.ChargeRumbleScale);
+                    else
+                        m_cameraShake.ClearSustainedRumble();
+                }
                 break;
         }
     }
@@ -355,8 +360,8 @@ public class WeaponShooting : MonoBehaviour, IWeapon
         StartKickback();
         StartRecoil();
 
-        if (m_cameraShake != null && m_shootShakeAmplitude > 0f)
-            m_cameraShake.Shake(m_shootShakeAmplitude, -m_shootPoint.right);
+        if (m_cameraShake != null && m_settings != null && m_settings.ShootShakeAmplitude > 0f)
+            m_cameraShake.Shake(m_settings.ShootShakeAmplitude, -m_shootPoint.right, m_settings.ShootRumbleMultiplier);
 
         OnFired?.Invoke(ammoSettings);
 

@@ -15,6 +15,7 @@ MonoBehaviour:
   DisplayName: Thompson
   FireMode: 1
   Cooldown: 0.1
+  DamageMultiplier: 1
   SpreadDegrees: 4
   PelletsPerShot: 1
   SpreadRampDuration: 1.2
@@ -24,10 +25,16 @@ MonoBehaviour:
   MinChargeSeconds: 0.25
   MaxChargeSeconds: 1
   MinChargeDamageMultiplier: 0.5
+  CritWindowDuration: 0
+  CritDamageMultiplier: 2
+  CritProjectileColor: {r: 1, g: 0.85, b: 0.2, a: 1}
   MagazineSize: 100
   ReloadDuration: 1.2
   KickbackDistance: 0.05
   KickbackDuration: 0.08
   RecoilDegrees: 1.5
   RecoilDuration: 0.12
+  ShootShakeAmplitude: 0.05
+  ShootRumbleMultiplier: 5
+  ChargeRumbleScale: 0
   IntrinsicAmmo: {fileID: 0}

@@ -15,6 +15,7 @@ MonoBehaviour:
   DisplayName: MP5
   FireMode: 1
   Cooldown: 0.07
+  DamageMultiplier: 1
   SpreadDegrees: 6
   PelletsPerShot: 1
   SpreadRampDuration: 0.8
@@ -24,10 +25,16 @@ MonoBehaviour:
   MinChargeSeconds: 0.25
   MaxChargeSeconds: 1
   MinChargeDamageMultiplier: 0.5
+  CritWindowDuration: 0
+  CritDamageMultiplier: 2
+  CritProjectileColor: {r: 1, g: 0.85, b: 0.2, a: 1}
   MagazineSize: 50
   ReloadDuration: 1.2
   KickbackDistance: 0.02
   KickbackDuration: 0.05
   RecoilDegrees: 1
   RecoilDuration: 0.1
+  ShootShakeAmplitude: 0.035
+  ShootRumbleMultiplier: 4
+  ChargeRumbleScale: 0
   IntrinsicAmmo: {fileID: 0}

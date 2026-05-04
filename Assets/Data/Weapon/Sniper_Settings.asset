@@ -34,4 +34,7 @@ MonoBehaviour:
   KickbackDuration: 0.15
   RecoilDegrees: 7
   RecoilDuration: 0.2
+  ShootShakeAmplitude: 0.08
+  ShootRumbleMultiplier: 8
+  ChargeRumbleScale: 0.5
   IntrinsicAmmo: {fileID: 0}

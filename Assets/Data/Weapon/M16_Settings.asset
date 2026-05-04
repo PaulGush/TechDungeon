@@ -15,17 +15,26 @@ MonoBehaviour:
   DisplayName: M16
   FireMode: 2
   Cooldown: 0.45
+  DamageMultiplier: 1
   SpreadDegrees: 2.5
   PelletsPerShot: 1
+  SpreadRampDuration: 0
+  MaxSpreadDegrees: 0
   BurstCount: 3
   BurstInterval: 0.06
   MinChargeSeconds: 0.25
   MaxChargeSeconds: 1
   MinChargeDamageMultiplier: 0.5
+  CritWindowDuration: 0
+  CritDamageMultiplier: 2
+  CritProjectileColor: {r: 1, g: 0.85, b: 0.2, a: 1}
   MagazineSize: 30
   ReloadDuration: 1.2
   KickbackDistance: 0.05
   KickbackDuration: 0.08
   RecoilDegrees: 2.5
   RecoilDuration: 0.1
+  ShootShakeAmplitude: 0.04
+  ShootRumbleMultiplier: 4
+  ChargeRumbleScale: 0
   IntrinsicAmmo: {fileID: 0}

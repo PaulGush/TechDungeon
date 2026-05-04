@@ -86,6 +86,16 @@ public class WeaponSettings : ScriptableObject
     [Tooltip("Seconds for the recoil rotation to decay from its peak back to zero. Zero disables.")]
     public float RecoilDuration = 0.1f;
 
+    [Header("Feedback")]
+    [Tooltip("Camera-shake impulse amplitude per shot. Keep subtle — shoot shake should be tactile, not disorienting. Zero disables.")]
+    public float ShootShakeAmplitude = 0.02f;
+
+    [Tooltip("Multiplier applied on top of shoot shake amplitude when feeding the gamepad rumble. Lets the controller punch harder than the (intentionally subtle) visual shake.")]
+    public float ShootRumbleMultiplier = 4f;
+
+    [Tooltip("Sustained gamepad rumble at full charge (0..1) for charge-mode weapons. Scales linearly with ChargeProgress while the trigger is held. Zero disables.")]
+    [Range(0f, 1f)] public float ChargeRumbleScale = 0f;
+
     [Header("Intrinsic Ammo")]
     [Tooltip("Ammo effect baked into this weapon — applied to every shot when the player has no override ammo loaded. Unlike player ammo, this is never consumed. Leave empty for weapons that only use whatever ammo the player has equipped.")]
     public AmmoSettings IntrinsicAmmo;
