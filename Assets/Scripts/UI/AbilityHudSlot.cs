@@ -1,3 +1,4 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -31,7 +32,33 @@ public class AbilityHudSlot : MonoBehaviour
     [Tooltip("Tint applied to the icon underneath when the ability is on cooldown — the dimmed 'unavailable' state. Stays applied while the bright top sprite radial-fills back to ready.")]
     [SerializeField] private Color m_dimmedIconColor = new Color(0.4f, 0.4f, 0.4f, 1f);
 
+    [Header("Ready Sheen")]
+    [Tooltip("Diagonal sheen overlay. Slid bottom-left → top-right when this slot's cooldown finishes draining. Leave empty to skip the sheen.")]
+    [SerializeField] private RectTransform m_sheenRect;
+
+    [Tooltip("CanvasGroup on the sheen, used for fade in/out across the sweep. Without one the sheen stays at its authored alpha through the whole sweep.")]
+    [SerializeField] private CanvasGroup m_sheenGroup;
+
+    [Tooltip("Sheen anchoredPosition at sweep start. Default sits below-left of a 60x60 slot so the streak enters from the bottom-left corner.")]
+    [SerializeField] private Vector2 m_sheenStartOffset = new Vector2(-60f, -60f);
+
+    [Tooltip("Sheen anchoredPosition at sweep end. Default exits above-right of a 60x60 slot.")]
+    [SerializeField] private Vector2 m_sheenEndOffset = new Vector2(60f, 60f);
+
+    [Min(0.05f)]
+    [Tooltip("Sweep duration in seconds. Runs on unscaled time so it plays through any active hit-stop.")]
+    [SerializeField] private float m_sheenDuration = 0.4f;
+
     private AbilityController m_controller;
+    private Coroutine m_sheenCoroutine;
+    // Set when this slot fires the ability and cleared when the resulting cooldown drains, so we
+    // only sheen the post-cooldown moment (not the implicit "ready" emitted on Equip).
+    private bool m_pendingSheen;
+
+    private void Awake()
+    {
+        HideSheen();
+    }
 
     private void Start()
     {
@@ -44,6 +71,7 @@ public class AbilityHudSlot : MonoBehaviour
 
         m_controller.OnAbilityEquipped += OnAbilityEquipped;
         m_controller.OnAbilityUsed += OnAbilityUsed;
+        m_controller.OnCooldownReady += OnCooldownReady;
         OnAbilityEquipped(m_slotIndex, m_controller.GetAbility(m_slotIndex));
     }
 
@@ -53,14 +81,55 @@ public class AbilityHudSlot : MonoBehaviour
         {
             m_controller.OnAbilityEquipped -= OnAbilityEquipped;
             m_controller.OnAbilityUsed -= OnAbilityUsed;
+            m_controller.OnCooldownReady -= OnCooldownReady;
         }
     }
 
     private void OnAbilityUsed(int slotIndex)
     {
         if (slotIndex != m_slotIndex) return;
+        m_pendingSheen = true;
         if (m_animator != null && !string.IsNullOrEmpty(m_pressTriggerName))
             m_animator.SetTrigger(m_pressTriggerName);
+    }
+
+    private void OnCooldownReady(int slotIndex)
+    {
+        if (slotIndex != m_slotIndex) return;
+        if (!m_pendingSheen) return;
+        m_pendingSheen = false;
+
+        if (m_sheenRect == null) return;
+        if (m_sheenCoroutine != null) StopCoroutine(m_sheenCoroutine);
+        m_sheenCoroutine = StartCoroutine(SheenSweep());
+    }
+
+    private IEnumerator SheenSweep()
+    {
+        m_sheenRect.anchoredPosition = m_sheenStartOffset;
+        if (m_sheenGroup != null) m_sheenGroup.alpha = 0f;
+
+        float t = 0f;
+        while (t < m_sheenDuration)
+        {
+            t += Time.unscaledDeltaTime;
+            float p = Mathf.Clamp01(t / m_sheenDuration);
+
+            m_sheenRect.anchoredPosition = Vector2.LerpUnclamped(m_sheenStartOffset, m_sheenEndOffset, p);
+            if (m_sheenGroup != null)
+                m_sheenGroup.alpha = p < 0.5f ? p * 2f : (1f - p) * 2f;
+
+            yield return null;
+        }
+
+        HideSheen();
+        m_sheenCoroutine = null;
+    }
+
+    private void HideSheen()
+    {
+        if (m_sheenGroup != null) m_sheenGroup.alpha = 0f;
+        if (m_sheenRect != null) m_sheenRect.anchoredPosition = m_sheenStartOffset;
     }
 
     private void Update()
