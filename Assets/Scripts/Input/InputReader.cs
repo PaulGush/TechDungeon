@@ -25,7 +25,7 @@ namespace Input
         public UnityAction Roll = delegate {  };
         public UnityAction Look = delegate {  };
         public UnityAction Reload = delegate {  };
-        public UnityAction UseAbility = delegate {  };
+        public UnityAction<int> UseAbility = delegate {  };
         
         private InputSystem_Actions m_inputActions;
         
@@ -128,12 +128,28 @@ namespace Input
             }
         }
 
-        public void OnUseAbility(InputAction.CallbackContext context)
+        public void OnUseAbility1(InputAction.CallbackContext context)
         {
             if (context.phase == InputActionPhase.Started)
-            {
-                UseAbility?.Invoke();
-            }
+                UseAbility?.Invoke(0);
+        }
+
+        public void OnUseAbility2(InputAction.CallbackContext context)
+        {
+            if (context.phase == InputActionPhase.Started)
+                UseAbility?.Invoke(1);
+        }
+
+        public void OnUseAbility3(InputAction.CallbackContext context)
+        {
+            if (context.phase == InputActionPhase.Started)
+                UseAbility?.Invoke(2);
+        }
+
+        public void OnUseAbility4(InputAction.CallbackContext context)
+        {
+            if (context.phase == InputActionPhase.Started)
+                UseAbility?.Invoke(3);
         }
     }
 }

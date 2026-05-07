@@ -192,9 +192,36 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""UseAbility"",
+                    ""name"": ""UseAbility1"",
                     ""type"": ""Button"",
-                    ""id"": ""d4e5f6a7-b8c9-4d0e-1f2a-3b4c5d6e7f80"",
+                    ""id"": ""d4e5f6a7-b8c9-4d0e-1f2a-3b4c5d6e7f81"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""UseAbility2"",
+                    ""type"": ""Button"",
+                    ""id"": ""d4e5f6a7-b8c9-4d0e-1f2a-3b4c5d6e7f82"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""UseAbility3"",
+                    ""type"": ""Button"",
+                    ""id"": ""d4e5f6a7-b8c9-4d0e-1f2a-3b4c5d6e7f83"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""UseAbility4"",
+                    ""type"": ""Button"",
+                    ""id"": ""d4e5f6a7-b8c9-4d0e-1f2a-3b4c5d6e7f84"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -413,33 +440,22 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""cbac6039-9c09-46a1-b5f2-4e5124ccb5ed"",
-                    ""path"": ""<Keyboard>/2"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""Next"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""e15ca19d-e649-4852-97d5-7fe8ccc44e94"",
-                    ""path"": ""<Gamepad>/dpad/right"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""Next"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""d4e5f6a7-b8c9-4012-def0-345678901abc"",
                     ""path"": ""<Mouse>/scroll/up"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Next"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d4e5f6a7-b8c9-4012-def0-345678901abd"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
                     ""action"": ""Next"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -479,33 +495,22 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""1534dc16-a6aa-499d-9c3a-22b47347b52a"",
-                    ""path"": ""<Keyboard>/1"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""Previous"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""25060bbd-a3a6-476e-8fba-45ae484aad05"",
-                    ""path"": ""<Gamepad>/dpad/left"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""Previous"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""e5f6a7b8-c9d0-4123-ef01-456789012bcd"",
                     ""path"": ""<Mouse>/scroll/down"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Previous"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e5f6a7b8-c9d0-4123-ef01-456789012bce"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
                     ""action"": ""Previous"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -622,23 +627,89 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""e5f6a7b8-c9d0-4e1f-2a3b-4c5d6e7f8091"",
-                    ""path"": ""<Keyboard>/q"",
+                    ""id"": ""a1b2c3d4-e5f6-4789-abcd-0a1b2c3d4e51"",
+                    ""path"": ""<Keyboard>/1"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""UseAbility"",
+                    ""action"": ""UseAbility1"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""f6a7b8c9-d0e1-4f2a-3b4c-5d6e7f8091a2"",
-                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""id"": ""a1b2c3d4-e5f6-4789-abcd-0a1b2c3d4e52"",
+                    ""path"": ""<Gamepad>/dpad/up"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Gamepad"",
-                    ""action"": ""UseAbility"",
+                    ""action"": ""UseAbility1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a1b2c3d4-e5f6-4789-abcd-0a1b2c3d4e53"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""UseAbility2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a1b2c3d4-e5f6-4789-abcd-0a1b2c3d4e54"",
+                    ""path"": ""<Gamepad>/dpad/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""UseAbility2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a1b2c3d4-e5f6-4789-abcd-0a1b2c3d4e55"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""UseAbility3"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a1b2c3d4-e5f6-4789-abcd-0a1b2c3d4e56"",
+                    ""path"": ""<Gamepad>/dpad/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""UseAbility3"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a1b2c3d4-e5f6-4789-abcd-0a1b2c3d4e57"",
+                    ""path"": ""<Keyboard>/4"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""UseAbility4"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a1b2c3d4-e5f6-4789-abcd-0a1b2c3d4e58"",
+                    ""path"": ""<Gamepad>/dpad/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""UseAbility4"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1237,7 +1308,10 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         m_Player_Roll = m_Player.FindAction("Roll", throwIfNotFound: true);
         m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
         m_Player_Reload = m_Player.FindAction("Reload", throwIfNotFound: true);
-        m_Player_UseAbility = m_Player.FindAction("UseAbility", throwIfNotFound: true);
+        m_Player_UseAbility1 = m_Player.FindAction("UseAbility1", throwIfNotFound: true);
+        m_Player_UseAbility2 = m_Player.FindAction("UseAbility2", throwIfNotFound: true);
+        m_Player_UseAbility3 = m_Player.FindAction("UseAbility3", throwIfNotFound: true);
+        m_Player_UseAbility4 = m_Player.FindAction("UseAbility4", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1342,7 +1416,10 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Roll;
     private readonly InputAction m_Player_Look;
     private readonly InputAction m_Player_Reload;
-    private readonly InputAction m_Player_UseAbility;
+    private readonly InputAction m_Player_UseAbility1;
+    private readonly InputAction m_Player_UseAbility2;
+    private readonly InputAction m_Player_UseAbility3;
+    private readonly InputAction m_Player_UseAbility4;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -1399,9 +1476,21 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// </summary>
         public InputAction @Reload => m_Wrapper.m_Player_Reload;
         /// <summary>
-        /// Provides access to the underlying input action "Player/UseAbility".
+        /// Provides access to the underlying input action "Player/UseAbility1".
         /// </summary>
-        public InputAction @UseAbility => m_Wrapper.m_Player_UseAbility;
+        public InputAction @UseAbility1 => m_Wrapper.m_Player_UseAbility1;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/UseAbility2".
+        /// </summary>
+        public InputAction @UseAbility2 => m_Wrapper.m_Player_UseAbility2;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/UseAbility3".
+        /// </summary>
+        public InputAction @UseAbility3 => m_Wrapper.m_Player_UseAbility3;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/UseAbility4".
+        /// </summary>
+        public InputAction @UseAbility4 => m_Wrapper.m_Player_UseAbility4;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -1461,9 +1550,18 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @Reload.started += instance.OnReload;
             @Reload.performed += instance.OnReload;
             @Reload.canceled += instance.OnReload;
-            @UseAbility.started += instance.OnUseAbility;
-            @UseAbility.performed += instance.OnUseAbility;
-            @UseAbility.canceled += instance.OnUseAbility;
+            @UseAbility1.started += instance.OnUseAbility1;
+            @UseAbility1.performed += instance.OnUseAbility1;
+            @UseAbility1.canceled += instance.OnUseAbility1;
+            @UseAbility2.started += instance.OnUseAbility2;
+            @UseAbility2.performed += instance.OnUseAbility2;
+            @UseAbility2.canceled += instance.OnUseAbility2;
+            @UseAbility3.started += instance.OnUseAbility3;
+            @UseAbility3.performed += instance.OnUseAbility3;
+            @UseAbility3.canceled += instance.OnUseAbility3;
+            @UseAbility4.started += instance.OnUseAbility4;
+            @UseAbility4.performed += instance.OnUseAbility4;
+            @UseAbility4.canceled += instance.OnUseAbility4;
         }
 
         /// <summary>
@@ -1508,9 +1606,18 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @Reload.started -= instance.OnReload;
             @Reload.performed -= instance.OnReload;
             @Reload.canceled -= instance.OnReload;
-            @UseAbility.started -= instance.OnUseAbility;
-            @UseAbility.performed -= instance.OnUseAbility;
-            @UseAbility.canceled -= instance.OnUseAbility;
+            @UseAbility1.started -= instance.OnUseAbility1;
+            @UseAbility1.performed -= instance.OnUseAbility1;
+            @UseAbility1.canceled -= instance.OnUseAbility1;
+            @UseAbility2.started -= instance.OnUseAbility2;
+            @UseAbility2.performed -= instance.OnUseAbility2;
+            @UseAbility2.canceled -= instance.OnUseAbility2;
+            @UseAbility3.started -= instance.OnUseAbility3;
+            @UseAbility3.performed -= instance.OnUseAbility3;
+            @UseAbility3.canceled -= instance.OnUseAbility3;
+            @UseAbility4.started -= instance.OnUseAbility4;
+            @UseAbility4.performed -= instance.OnUseAbility4;
+            @UseAbility4.canceled -= instance.OnUseAbility4;
         }
 
         /// <summary>
@@ -1889,12 +1996,33 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnReload(InputAction.CallbackContext context);
         /// <summary>
-        /// Method invoked when associated input action "UseAbility" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "UseAbility1" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnUseAbility(InputAction.CallbackContext context);
+        void OnUseAbility1(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "UseAbility2" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnUseAbility2(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "UseAbility3" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnUseAbility3(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "UseAbility4" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnUseAbility4(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.

@@ -6,24 +6,46 @@ using UnityServiceLocator;
 
 public class AbilityController : MonoBehaviour
 {
+    public const int SlotCount = 4;
+
     [SerializeField] private InputReader m_inputReader;
     [SerializeField] private EntityHealth m_health;
     [SerializeField] private PlayerStatusEffects m_status;
 
-    private ActiveAbility m_current;
-    private float m_cooldownRemaining;
+    private readonly ActiveAbility[] m_slots = new ActiveAbility[SlotCount];
+    private readonly float[] m_cooldownRemaining = new float[SlotCount];
     private bool m_servicesCached;
     private ObjectPool m_pool;
     private CameraShake m_shake;
     private HitStopService m_hitStop;
 
-    public ActiveAbility Current => m_current;
-    public float CooldownRemaining => m_cooldownRemaining;
-    public bool IsReady => m_current != null && m_cooldownRemaining <= 0f;
+    public event Action<int, ActiveAbility> OnAbilityEquipped;
+    public event Action<int> OnAbilityUsed;
+    public event Action<int> OnCooldownReady;
 
-    public event Action<ActiveAbility> OnAbilityEquipped;
-    public event Action OnAbilityUsed;
-    public event Action OnCooldownReady;
+    public ActiveAbility GetAbility(int slotIndex)
+        => InRange(slotIndex) ? m_slots[slotIndex] : null;
+
+    public float GetCooldownRemaining(int slotIndex)
+        => InRange(slotIndex) ? m_cooldownRemaining[slotIndex] : 0f;
+
+    public bool IsReady(int slotIndex)
+        => InRange(slotIndex) && m_slots[slotIndex] != null && m_cooldownRemaining[slotIndex] <= 0f;
+
+    public bool HasAnyAbility()
+    {
+        for (int i = 0; i < SlotCount; i++)
+            if (m_slots[i] != null) return true;
+        return false;
+    }
+
+    // First empty slot, or -1 if all four are occupied. Pickup uses this to choose where to place a new ability.
+    public int FindFirstEmptySlot()
+    {
+        for (int i = 0; i < SlotCount; i++)
+            if (m_slots[i] == null) return i;
+        return -1;
+    }
 
     private void Awake()
     {
@@ -47,38 +69,47 @@ public class AbilityController : MonoBehaviour
         Tick(Time.unscaledDeltaTime);
     }
 
-    // Exposed for edit-mode tests so cooldown progression can be exercised without a play loop.
     public void Tick(float dt)
     {
-        if (m_cooldownRemaining <= 0f) return;
+        for (int i = 0; i < SlotCount; i++)
+        {
+            if (m_cooldownRemaining[i] <= 0f) continue;
 
-        m_cooldownRemaining -= dt;
-        if (m_cooldownRemaining > 0f) return;
+            m_cooldownRemaining[i] -= dt;
+            if (m_cooldownRemaining[i] > 0f) continue;
 
-        m_cooldownRemaining = 0f;
-        OnCooldownReady?.Invoke();
+            m_cooldownRemaining[i] = 0f;
+            OnCooldownReady?.Invoke(i);
+        }
     }
 
-    public void Equip(ActiveAbility ability)
+    public void Equip(int slotIndex, ActiveAbility ability)
     {
-        m_current = ability;
-        m_cooldownRemaining = 0f;
-        OnAbilityEquipped?.Invoke(ability);
+        if (!InRange(slotIndex)) return;
+
+        m_slots[slotIndex] = ability;
+        m_cooldownRemaining[slotIndex] = 0f;
+        OnAbilityEquipped?.Invoke(slotIndex, ability);
         if (ability != null)
-            OnCooldownReady?.Invoke();
+            OnCooldownReady?.Invoke(slotIndex);
     }
 
     public void Reset()
     {
-        m_current = null;
-        m_cooldownRemaining = 0f;
-        OnAbilityEquipped?.Invoke(null);
+        for (int i = 0; i < SlotCount; i++)
+        {
+            m_slots[i] = null;
+            m_cooldownRemaining[i] = 0f;
+            OnAbilityEquipped?.Invoke(i, null);
+        }
     }
 
-    public void TryUse()
+    public void TryUse(int slotIndex)
     {
-        if (!IsReady) return;
-        if (m_current.Effect == null) return;
+        if (!IsReady(slotIndex)) return;
+
+        ActiveAbility ability = m_slots[slotIndex];
+        if (ability.Effect == null) return;
 
         if (!m_servicesCached)
         {
@@ -99,11 +130,13 @@ public class AbilityController : MonoBehaviour
             m_pool,
             m_shake,
             m_hitStop,
-            m_current.TintColor);
+            ability.TintColor);
 
-        m_current.Effect.Execute(in ctx);
+        ability.Effect.Execute(in ctx);
 
-        m_cooldownRemaining = m_current.Cooldown;
-        OnAbilityUsed?.Invoke();
+        m_cooldownRemaining[slotIndex] = ability.Cooldown;
+        OnAbilityUsed?.Invoke(slotIndex);
     }
+
+    private static bool InRange(int slotIndex) => slotIndex >= 0 && slotIndex < SlotCount;
 }

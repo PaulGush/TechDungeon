@@ -41,10 +41,6 @@ namespace Tests.EditMode
             Object.DestroyImmediate(m_pickupGO);
             Object.DestroyImmediate(m_abilityA);
             Object.DestroyImmediate(m_abilityB);
-            // Static SL state isn't cleared by ResetStatics in edit mode (it's gated by
-            // RuntimeInitializeOnLoadMethod which only fires in play mode), so a stale
-            // _global from an earlier test session can wedge later tests. Resetting it
-            // here forces the next SetUp to bootstrap fresh.
             ResetServiceLocatorStatic();
         }
 
@@ -60,23 +56,38 @@ namespace Tests.EditMode
         }
 
         [Test]
-        public void Apply_WithControllerRegistered_EquipsAbility()
+        public void Apply_WithControllerRegistered_EquipsAbilityInFirstSlot()
         {
             bool result = m_pickup.Apply(m_playerGO);
 
             Assert.IsTrue(result);
-            Assert.AreSame(m_abilityA, m_controller.Current);
+            Assert.AreSame(m_abilityA, m_controller.GetAbility(0));
         }
 
         [Test]
-        public void Apply_ReplacesPreviousAbility()
+        public void Apply_FillsLowestEmptySlot()
         {
-            m_controller.Equip(m_abilityB);
+            m_controller.Equip(0, m_abilityB);
 
             bool result = m_pickup.Apply(m_playerGO);
 
             Assert.IsTrue(result);
-            Assert.AreSame(m_abilityA, m_controller.Current);
+            Assert.AreSame(m_abilityB, m_controller.GetAbility(0));
+            Assert.AreSame(m_abilityA, m_controller.GetAbility(1));
+        }
+
+        [Test]
+        public void Apply_WhenAllSlotsFull_ReplacesSlotZero()
+        {
+            for (int i = 0; i < AbilityController.SlotCount; i++)
+                m_controller.Equip(i, m_abilityB);
+
+            bool result = m_pickup.Apply(m_playerGO);
+
+            Assert.IsTrue(result);
+            Assert.AreSame(m_abilityA, m_controller.GetAbility(0));
+            for (int i = 1; i < AbilityController.SlotCount; i++)
+                Assert.AreSame(m_abilityB, m_controller.GetAbility(i));
         }
 
         [Test]

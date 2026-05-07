@@ -5,6 +5,9 @@ namespace Tests.EditMode
 {
     public class ActiveAbilityTests
     {
+        private const int SlotA = 0;
+        private const int SlotB = 1;
+
         private GameObject m_playerGO;
         private AbilityController m_controller;
         private CountingEffect m_countingEffect;
@@ -37,50 +40,52 @@ namespace Tests.EditMode
         }
 
         [Test]
-        public void Equip_SetsCurrent()
+        public void Equip_SetsAbilityInSlot()
         {
+            int equippedSlot = -1;
             ActiveAbility lastEquipped = null;
-            m_controller.OnAbilityEquipped += a => lastEquipped = a;
+            m_controller.OnAbilityEquipped += (slot, a) => { equippedSlot = slot; lastEquipped = a; };
 
-            m_controller.Equip(m_abilityA);
+            m_controller.Equip(SlotA, m_abilityA);
 
-            Assert.AreSame(m_abilityA, m_controller.Current);
+            Assert.AreSame(m_abilityA, m_controller.GetAbility(SlotA));
+            Assert.AreEqual(SlotA, equippedSlot);
             Assert.AreSame(m_abilityA, lastEquipped);
         }
 
         [Test]
         public void Equip_StartsReadyEvenIfPreviousAbilityWasOnCooldown()
         {
-            m_controller.Equip(m_abilityA);
-            m_controller.TryUse();
-            Assert.IsFalse(m_controller.IsReady);
+            m_controller.Equip(SlotA, m_abilityA);
+            m_controller.TryUse(SlotA);
+            Assert.IsFalse(m_controller.IsReady(SlotA));
 
-            m_controller.Equip(m_abilityB);
+            m_controller.Equip(SlotA, m_abilityB);
 
-            Assert.IsTrue(m_controller.IsReady);
-            Assert.AreEqual(0f, m_controller.CooldownRemaining);
+            Assert.IsTrue(m_controller.IsReady(SlotA));
+            Assert.AreEqual(0f, m_controller.GetCooldownRemaining(SlotA));
         }
 
         [Test]
         public void TryUse_WhileReady_ExecutesEffectAndStartsCooldown()
         {
-            m_controller.Equip(m_abilityA);
+            m_controller.Equip(SlotA, m_abilityA);
 
-            m_controller.TryUse();
+            m_controller.TryUse(SlotA);
 
             Assert.AreEqual(1, m_countingEffect.Count);
-            Assert.IsFalse(m_controller.IsReady);
-            Assert.AreEqual(m_abilityA.Cooldown, m_controller.CooldownRemaining);
+            Assert.IsFalse(m_controller.IsReady(SlotA));
+            Assert.AreEqual(m_abilityA.Cooldown, m_controller.GetCooldownRemaining(SlotA));
         }
 
         [Test]
         public void TryUse_WhileOnCooldown_DoesNotExecute()
         {
-            m_controller.Equip(m_abilityA);
-            m_controller.TryUse();
+            m_controller.Equip(SlotA, m_abilityA);
+            m_controller.TryUse(SlotA);
 
-            m_controller.TryUse();
-            m_controller.TryUse();
+            m_controller.TryUse(SlotA);
+            m_controller.TryUse(SlotA);
 
             Assert.AreEqual(1, m_countingEffect.Count);
         }
@@ -88,46 +93,89 @@ namespace Tests.EditMode
         [Test]
         public void TryUse_WithoutEquippedAbility_DoesNothing()
         {
-            m_controller.TryUse();
+            m_controller.TryUse(SlotA);
             Assert.AreEqual(0, m_countingEffect.Count);
+        }
+
+        [Test]
+        public void TryUse_OutOfRangeSlot_DoesNothing()
+        {
+            m_controller.Equip(SlotA, m_abilityA);
+
+            m_controller.TryUse(-1);
+            m_controller.TryUse(AbilityController.SlotCount);
+
+            Assert.AreEqual(0, m_countingEffect.Count);
+        }
+
+        [Test]
+        public void Slots_AreIndependent()
+        {
+            m_controller.Equip(SlotA, m_abilityA);
+            m_controller.Equip(SlotB, m_abilityB);
+
+            m_controller.TryUse(SlotA);
+
+            Assert.IsFalse(m_controller.IsReady(SlotA));
+            Assert.IsTrue(m_controller.IsReady(SlotB));
+            Assert.AreEqual(m_abilityA.Cooldown, m_controller.GetCooldownRemaining(SlotA));
+            Assert.AreEqual(0f, m_controller.GetCooldownRemaining(SlotB));
         }
 
         [Test]
         public void Tick_DrainsCooldownAndFiresOnCooldownReadyExactlyOnce()
         {
-            m_controller.Equip(m_abilityA);
-            m_controller.TryUse();
+            m_controller.Equip(SlotA, m_abilityA);
+            m_controller.TryUse(SlotA);
 
             int readyEvents = 0;
-            m_controller.OnCooldownReady += () => readyEvents++;
+            int lastReadySlot = -1;
+            m_controller.OnCooldownReady += slot => { readyEvents++; lastReadySlot = slot; };
 
-            // Drain across multiple ticks
             m_controller.Tick(1f);
-            Assert.IsFalse(m_controller.IsReady);
+            Assert.IsFalse(m_controller.IsReady(SlotA));
             Assert.AreEqual(0, readyEvents);
 
             m_controller.Tick(1.5f);
 
-            Assert.IsTrue(m_controller.IsReady);
-            Assert.AreEqual(0f, m_controller.CooldownRemaining);
+            Assert.IsTrue(m_controller.IsReady(SlotA));
+            Assert.AreEqual(0f, m_controller.GetCooldownRemaining(SlotA));
             Assert.AreEqual(1, readyEvents);
+            Assert.AreEqual(SlotA, lastReadySlot);
 
-            // Further ticks while ready should not re-fire the event
             m_controller.Tick(1f);
             Assert.AreEqual(1, readyEvents);
         }
 
         [Test]
-        public void Reset_ClearsCurrentAndCooldown()
+        public void Reset_ClearsAllSlotsAndCooldowns()
         {
-            m_controller.Equip(m_abilityA);
-            m_controller.TryUse();
+            m_controller.Equip(SlotA, m_abilityA);
+            m_controller.Equip(SlotB, m_abilityB);
+            m_controller.TryUse(SlotA);
 
             m_controller.Reset();
 
-            Assert.IsNull(m_controller.Current);
-            Assert.IsFalse(m_controller.IsReady);
-            Assert.AreEqual(0f, m_controller.CooldownRemaining);
+            for (int i = 0; i < AbilityController.SlotCount; i++)
+            {
+                Assert.IsNull(m_controller.GetAbility(i));
+                Assert.IsFalse(m_controller.IsReady(i));
+                Assert.AreEqual(0f, m_controller.GetCooldownRemaining(i));
+            }
+        }
+
+        [Test]
+        public void FindFirstEmptySlot_ReturnsLowestUnoccupiedSlot()
+        {
+            Assert.AreEqual(0, m_controller.FindFirstEmptySlot());
+
+            m_controller.Equip(0, m_abilityA);
+            Assert.AreEqual(1, m_controller.FindFirstEmptySlot());
+
+            m_controller.Equip(1, m_abilityB);
+            m_controller.Equip(2, m_abilityA);
+            m_controller.Equip(3, m_abilityB);
+            Assert.AreEqual(-1, m_controller.FindFirstEmptySlot());
         }
 
         // Lightweight stand-in for IAbilityEffect that just counts invocations, so the
