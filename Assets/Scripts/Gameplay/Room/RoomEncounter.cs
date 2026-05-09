@@ -19,6 +19,17 @@ public class RoomEncounter : MonoBehaviour
     private GameObject m_spawnIndicatorPrefab;
     private float m_spawnIndicatorDuration;
 
+    // When true, the boss's death cascades lethal damage onto every surviving minion so the
+    // room clears the moment the boss falls. Sourced from BossRoomSettings; non-boss rooms
+    // never set it, so the branch is dormant for ordinary encounters.
+    private bool m_killMinionsOnBossDeath;
+
+    // Set only while the boss-death cascade is dealing lethal damage to minions. Each minion's
+    // recursive OnEnemyDied frame would otherwise race to advance the wave / call ClearRoom
+    // when its decrement leaves the list empty — this flag defers that to the outer boss frame
+    // so we advance exactly once.
+    private bool m_suppressWaveAdvance;
+
     /// <summary>
     /// The boss enemy spawned into this room, if any. Set whenever an enemy carrying a
     /// <see cref="BossEntity"/> marker is spawned via <see cref="PreSpawnBoss"/> or
@@ -34,6 +45,7 @@ public class RoomEncounter : MonoBehaviour
         m_waves = settings.EnemyWaves;
         m_spawnIndicatorPrefab = spawnIndicatorPrefab;
         m_spawnIndicatorDuration = spawnIndicatorDuration;
+        m_killMinionsOnBossDeath = (settings as BossRoomSettings)?.KillMinionsOnDeath ?? false;
         ServiceLocator.Global.TryGet(out m_pool);
     }
 
@@ -207,7 +219,16 @@ public class RoomEncounter : MonoBehaviour
             creditManager.AddCredits(ec.CreditValue);
         }
 
+        if (enemy == Boss && m_killMinionsOnBossDeath && m_activeEnemies.Count > 0)
+        {
+            CascadeLethalToMinions();
+        }
+
         if (m_activeEnemies.Count > 0) return;
+
+        // Recursive frames triggered by the boss-death cascade defer to the outer boss frame
+        // so we advance the wave / call ClearRoom exactly once.
+        if (m_suppressWaveAdvance) return;
 
         m_currentWaveIndex++;
         if (m_currentWaveIndex < m_waves.Count)
@@ -217,6 +238,28 @@ public class RoomEncounter : MonoBehaviour
         else
         {
             m_roomInstance.ClearRoom();
+        }
+    }
+
+    private void CascadeLethalToMinions()
+    {
+        // Snapshot before we damage — each TakeDamage cascades synchronously into OnEnemyDied,
+        // which mutates m_activeEnemies. Iterating the live list would skip or double-visit.
+        var snapshot = new List<GameObject>(m_activeEnemies);
+        m_suppressWaveAdvance = true;
+        try
+        {
+            foreach (GameObject minion in snapshot)
+            {
+                if (minion == null) continue;
+                EntityHealth health = minion.GetComponent<EntityHealth>();
+                if (health != null && !health.IsDead)
+                    health.TakeDamage(health.CurrentHealth + health.Armor);
+            }
+        }
+        finally
+        {
+            m_suppressWaveAdvance = false;
         }
     }
 
