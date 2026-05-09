@@ -264,8 +264,8 @@ namespace PlayerObject
             }
 
             string text = m_currentWeapon != null
-                ? "Press E to swap " + GetWeaponDisplayName(m_currentWeapon) + " for " + GetWeaponDisplayName(m_weaponCandidate)
-                : "Press E to equip " + GetWeaponDisplayName(m_weaponCandidate);
+                ? "[Interact] swap " + GetWeaponDisplayName(m_currentWeapon) + " for " + GetWeaponDisplayName(m_weaponCandidate)
+                : "[Interact] equip " + GetWeaponDisplayName(m_weaponCandidate);
             m_interactionDisplay?.Show(text, this);
         }
 
