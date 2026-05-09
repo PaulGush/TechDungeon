@@ -2,8 +2,8 @@ using Gameplay.ObjectPool;
 using UnityEngine;
 
 // Centralizes the projectile spawn sequence (pool fetch → optional modifiers → optional
-// ammo → Initialize) so the four call sites (WeaponShooting, EnemyShooting, BurstAttack,
-// ChainLightningEffect) stay consistent and don't drift.
+// ammo → Initialize) so call sites (WeaponShooting, EnemyShooting, BurstAttack,
+// ProjectileBurstAbilityEffect) stay consistent and don't drift.
 public static class ProjectileSpawner
 {
     public static Projectile Spawn(

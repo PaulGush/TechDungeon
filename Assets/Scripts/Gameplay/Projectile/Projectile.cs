@@ -178,6 +178,15 @@ public class Projectile : MonoBehaviour
             m_pool.ReturnGameObject(gameObject);
     }
 
+    private void FixedUpdate()
+    {
+        // Per-physics-step hook for ammo effects that steer the projectile in flight
+        // (e.g. SeekingEffect). Skipped when the projectile is already on its way back
+        // to the pool so a queued FixedUpdate can't apply velocity changes mid-despawn.
+        if (m_destroyed || m_ammoEffect == null) return;
+        m_ammoEffect.OnTick(BuildContext());
+    }
+
     private void OnDisable()
     {
         m_rigidbody2D.linearVelocity = Vector2.zero;

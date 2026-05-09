@@ -10,7 +10,7 @@ namespace TechDungeon.Editor
         {
             "m_Script", "BonusPierce",
             "ExplosionRadius", "ExplosionDamage", "ExplosionEffectPrefab",
-            "ChainRange", "MaxChains",
+            "SeekRange", "TurnRateDegPerSec",
             "MaxBounces"
         };
 
@@ -42,10 +42,10 @@ namespace TechDungeon.Editor
                     EditorGUILayout.PropertyField(serializedObject.FindProperty("ExplosionEffectPrefab"));
                     break;
 
-                case AmmoType.ChainLightning:
-                    EditorGUILayout.LabelField("Chain Lightning", EditorStyles.boldLabel);
-                    EditorGUILayout.PropertyField(serializedObject.FindProperty("ChainRange"));
-                    EditorGUILayout.PropertyField(serializedObject.FindProperty("MaxChains"));
+                case AmmoType.Seeking:
+                    EditorGUILayout.LabelField("Seeking", EditorStyles.boldLabel);
+                    EditorGUILayout.PropertyField(serializedObject.FindProperty("SeekRange"));
+                    EditorGUILayout.PropertyField(serializedObject.FindProperty("TurnRateDegPerSec"));
                     break;
 
                 case AmmoType.Ricochet:

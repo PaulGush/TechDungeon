@@ -16,9 +16,12 @@ public class AmmoSettings : ScriptableObject
     public int ExplosionDamage;
     public GameObject ExplosionEffectPrefab;
 
-    [Header("Chain Lightning")]
-    public float ChainRange;
-    public int MaxChains;
+    [Header("Seeking")]
+    [Tooltip("Radius around the projectile to scan for targets each fixed step.")]
+    public float SeekRange = 6f;
+
+    [Tooltip("Maximum heading change per second, in degrees. Higher = sharper turns.")]
+    public float TurnRateDegPerSec = 360f;
 
     [Header("Ricochet")]
     public int MaxBounces;
@@ -37,7 +40,7 @@ public class AmmoSettings : ScriptableObject
         return Type switch
         {
             AmmoType.Explosive => new ExplosiveEffect(ExplosionRadius, ExplosionDamage, ExplosionEffectPrefab),
-            AmmoType.ChainLightning => new ChainLightningEffect(ChainRange, MaxChains, this),
+            AmmoType.Seeking => new SeekingEffect(SeekRange, TurnRateDegPerSec),
             AmmoType.Ricochet => new RicochetEffect(MaxBounces, RicochetRayBackOffset, RicochetRayDistance, RicochetSurfaceClearance),
             _ => null
         };

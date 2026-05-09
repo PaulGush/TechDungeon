@@ -15,6 +15,8 @@ public class ExplosiveEffect : IAmmoEffect
 
     public void OnHit(AmmoEffectContext ctx) { }
 
+    public void OnTick(AmmoEffectContext ctx) { }
+
     public void OnDestroy(AmmoEffectContext ctx)
     {
         if (m_explosionRadius <= 0f) return;

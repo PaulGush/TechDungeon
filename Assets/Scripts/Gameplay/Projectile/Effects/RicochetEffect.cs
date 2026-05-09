@@ -17,6 +17,8 @@ public class RicochetEffect : IAmmoEffect
 
     public void OnHit(AmmoEffectContext ctx) { }
 
+    public void OnTick(AmmoEffectContext ctx) { }
+
     public void OnDestroy(AmmoEffectContext ctx) { }
 
     public bool TryPreventDestroy(AmmoEffectContext ctx)

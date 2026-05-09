@@ -20,8 +20,8 @@ MonoBehaviour:
   ExplosionRadius: 2.5
   ExplosionDamage: 25
   ExplosionEffectPrefab: {fileID: 4471930890102010001, guid: c8f3d72a9e64b15ab0f891c2d5e7a4b6, type: 3}
-  ChainRange: 0
-  MaxChains: 0
+  SeekRange: 0
+  TurnRateDegPerSec: 0
   MaxBounces: 0
   RicochetRayBackOffset: 2
   RicochetRayDistance: 4
