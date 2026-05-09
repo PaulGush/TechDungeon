@@ -10,6 +10,10 @@ public class Pickup : MonoBehaviour
     private ObjectPool m_pool;
 
     private Lootable m_lootable;
+    // Latches on the first successful Apply so a second OnTriggerEnter2D fired in the same
+    // frame (e.g. from a second collider on the player) can't apply the effect twice — that
+    // was filling two ability slots from a single ability drop.
+    private bool m_collected;
 
     public Action OnPickedUp;
 
@@ -23,10 +27,12 @@ public class Pickup : MonoBehaviour
     {
         ServiceLocator.Global.TryGet(out ObjectPool pool);
         m_pool = pool;
+        m_collected = false;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        if (m_collected) return;
         if (m_lootable.IsSpawning) return;
         if (other.gameObject.layer != GameConstants.Layers.PlayerLayer) return;
         if (m_effect == null) return;
@@ -39,6 +45,7 @@ public class Pickup : MonoBehaviour
 
         if (!m_effect.Apply(other.gameObject)) return;
 
+        m_collected = true;
         OnPickedUp?.Invoke();
 
         if (m_pool == null || !m_pool.ReturnGameObject(gameObject))
