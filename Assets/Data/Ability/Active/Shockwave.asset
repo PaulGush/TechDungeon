@@ -28,7 +28,7 @@ MonoBehaviour:
       data:
         m_radius: 4
         m_damage: 25
-        m_vfxPrefab: {fileID: 0}
+        m_vfxPrefab: {fileID: 4400000000000000001, guid: d8ca4a7b40894ef2aadfa6269a338b1d, type: 3}
         m_shakeAmplitude: 0.45
         m_hitStopSeconds: 0.08
         m_hitStopScale: 0.05

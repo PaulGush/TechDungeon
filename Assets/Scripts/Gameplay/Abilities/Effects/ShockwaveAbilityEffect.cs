@@ -17,12 +17,19 @@ public class ShockwaveAbilityEffect : IAbilityEffect
     {
         Vector3 origin = ctx.PlayerTransform.position;
 
-        // Pooled, self-returning VFX. PooledEffect handles the auto-return + tint reset.
+        // Pooled, self-returning VFX. PooledEffect handles the auto-return + tint reset for
+        // sprite-based effects; ShockwaveVfx is the procedural expanding ring and needs the
+        // blast radius so it draws exactly over the damage area.
         if (m_vfxPrefab != null && ctx.Pool != null)
         {
             GameObject vfx = ctx.Pool.GetPooledObject(m_vfxPrefab, origin, Quaternion.identity);
-            if (vfx != null && vfx.TryGetComponent(out PooledEffect pe))
-                pe.SetTint(ctx.TintColor);
+            if (vfx != null)
+            {
+                if (vfx.TryGetComponent(out PooledEffect pe))
+                    pe.SetTint(ctx.TintColor);
+                if (vfx.TryGetComponent(out ShockwaveVfx wave))
+                    wave.Play(m_radius, ctx.TintColor);
+            }
         }
 
         Collider2D[] hits = Physics2D.OverlapCircleAll(origin, m_radius, GameConstants.Layers.EnemyLayerMask);
