@@ -1,5 +1,6 @@
 using System.Collections;
 using TMPro;
+using UI.InputPrompts;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityServiceLocator;
@@ -20,9 +21,14 @@ public class AbilityHudSlot : MonoBehaviour
     [Tooltip("Image with FillMethod = Radial360. Sweeps back from 0 to 1 as cooldown drains so the ability lights up when ready.")]
     [SerializeField] private Image m_cooldownFill;
 
-    [Tooltip("Optional key prompt label. Leave empty to skip.")]
+    [Header("Prompts")]
+    [Tooltip("Key prompt label (e.g. \"1\" / \"2\"). Shown when active device is keyboard&mouse, hidden on controller. Leave empty to skip.")]
     [SerializeField] private TextMeshProUGUI m_keyPrompt;
 
+    [Tooltip("D-pad direction icon shown when active device is a controller, hidden on keyboard&mouse. Assign the matching D-pad direction sprite per slot. Leave empty to skip.")]
+    [SerializeField] private Image m_dpadPrompt;
+
+    [Header("Animation")]
     [Tooltip("Optional Animator on the slot. Receives a 'Press' trigger each time an ability fires — drives the bulge animation. Leave empty to skip.")]
     [SerializeField] private Animator m_animator;
 
@@ -75,6 +81,17 @@ public class AbilityHudSlot : MonoBehaviour
         OnAbilityEquipped(m_slotIndex, m_controller.GetAbility(m_slotIndex));
     }
 
+    private void OnEnable()
+    {
+        ActiveDeviceTracker.DeviceChanged += OnDeviceChanged;
+        ApplyDevicePrompts(ActiveDeviceTracker.Current);
+    }
+
+    private void OnDisable()
+    {
+        ActiveDeviceTracker.DeviceChanged -= OnDeviceChanged;
+    }
+
     private void OnDestroy()
     {
         if (m_controller != null)
@@ -83,6 +100,15 @@ public class AbilityHudSlot : MonoBehaviour
             m_controller.OnAbilityUsed -= OnAbilityUsed;
             m_controller.OnCooldownReady -= OnCooldownReady;
         }
+    }
+
+    private void OnDeviceChanged(ActiveDevice device) => ApplyDevicePrompts(device);
+
+    private void ApplyDevicePrompts(ActiveDevice device)
+    {
+        bool keyboard = device == ActiveDevice.KeyboardMouse;
+        if (m_keyPrompt != null) m_keyPrompt.gameObject.SetActive(keyboard);
+        if (m_dpadPrompt != null) m_dpadPrompt.gameObject.SetActive(!keyboard);
     }
 
     private void OnAbilityUsed(int slotIndex)
