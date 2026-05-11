@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 015a07f5c32c263aeb7187188d7b7d00, type: 3}
-  m_Name: ActiveAbility_ProjectileBurst
+  m_Name: ProjectileBurst
   m_EditorClassIdentifier: Assembly-CSharp::ActiveAbility
   DisplayName: Projectile Burst
   Description: Fires a radial burst of projectiles in every direction.
-  Icon: {fileID: 21300000, guid: 2815f8bd674caeb9c8602cc8f521580a, type: 3}
+  Icon: {fileID: 21300000, guid: e40e7d360104e5b1780e7f2d2ba548b7, type: 3}
   TintColor: {r: 0.35, g: 0.85, b: 1, a: 1}
   Cooldown: 6
   Effect:

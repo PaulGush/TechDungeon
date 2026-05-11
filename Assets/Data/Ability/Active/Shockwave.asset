@@ -10,22 +10,25 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 015a07f5c32c263aeb7187188d7b7d00, type: 3}
-  m_Name: ActiveAbility_Shield
+  m_Name: Shockwave
   m_EditorClassIdentifier: Assembly-CSharp::ActiveAbility
-  DisplayName: Phase Shield
-  Description: Briefly become invulnerable to all damage.
-  Icon: {fileID: 21300000, guid: 58ccc7c7891fe4cfe95630afa77ca790, type: 3}
-  TintColor: {r: 0.4, g: 1, b: 0.7, a: 1}
-  Cooldown: 12
+  DisplayName: Shockwave
+  Description: Releases a damaging blast around you. Hits everything in range, with
+    screen shake and hit-stop on connection.
+  Icon: {fileID: 21300000, guid: 0d3d865b23c591f22ae9e791d0554f23, type: 3}
+  TintColor: {r: 1, g: 0.55, b: 0.15, a: 1}
+  Cooldown: 8
   Effect:
     rid: 1
   references:
     version: 2
     RefIds:
     - rid: 1
-      type: {class: TempBuffAbilityEffect, ns: , asm: Assembly-CSharp}
+      type: {class: ShockwaveAbilityEffect, ns: , asm: Assembly-CSharp}
       data:
-        m_kind: 2
-        m_magnitude: 1
-        m_durationSeconds: 3
+        m_radius: 4
+        m_damage: 25
         m_vfxPrefab: {fileID: 0}
+        m_shakeAmplitude: 0.45
+        m_hitStopSeconds: 0.08
+        m_hitStopScale: 0.05
