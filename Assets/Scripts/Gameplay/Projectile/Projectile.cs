@@ -8,6 +8,12 @@ public class Projectile : MonoBehaviour
     public event Action OnEntityImpact;
     public event Action OnWallImpact;
 
+    /// <summary>
+    /// True when this projectile damages the player layer — i.e. it's a hostile shot. Lets the
+    /// player's Phase Shield tell incoming fire (snuff it) from the player's own outgoing fire.
+    /// </summary>
+    public bool TargetsPlayer => (m_damageLayers.value & (1 << GameConstants.Layers.PlayerLayer)) != 0;
+
     [Header("References")]
     [SerializeField] private Rigidbody2D m_rigidbody2D;
     [SerializeField] private SpriteRenderer m_spriteRenderer;
