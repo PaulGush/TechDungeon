@@ -118,6 +118,13 @@ namespace PlayerObject
         public System.Action<GameObject> OnWeaponChanged;
         public GameObject CurrentWeapon => m_currentWeapon;
 
+        /// <summary>
+        /// World position of the equipped weapon's shoot point, or null if no weapon is equipped.
+        /// Lets non-shooting systems (e.g. abilities) originate visuals from the muzzle.
+        /// </summary>
+        public Vector2? CurrentShootPoint =>
+            m_currentWeaponShooting != null ? m_currentWeaponShooting.ShootPointPosition : (Vector2?)null;
+
         public void Reset()
         {
             if (m_currentWeapon != null)

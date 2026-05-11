@@ -12,6 +12,10 @@ public readonly struct AbilityContext
     public readonly HitStopService HitStop;
     public readonly Color TintColor;
 
+    // World position abilities should treat as the visual origin — typically the equipped
+    // weapon's shoot point, falling back to the player's own position when nothing is equipped.
+    public readonly Vector3 CastOrigin;
+
     public AbilityContext(
         Transform playerTransform,
         Vector2 aimDirection,
@@ -20,7 +24,8 @@ public readonly struct AbilityContext
         ObjectPool pool,
         CameraShake shake,
         HitStopService hitStop,
-        Color tintColor)
+        Color tintColor,
+        Vector3 castOrigin)
     {
         PlayerTransform = playerTransform;
         AimDirection = aimDirection;
@@ -30,5 +35,6 @@ public readonly struct AbilityContext
         Shake = shake;
         HitStop = hitStop;
         TintColor = tintColor;
+        CastOrigin = castOrigin;
     }
 }

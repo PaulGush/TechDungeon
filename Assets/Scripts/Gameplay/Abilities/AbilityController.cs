@@ -1,6 +1,7 @@
 using System;
 using Gameplay.ObjectPool;
 using Input;
+using PlayerObject;
 using UnityEngine;
 using UnityServiceLocator;
 
@@ -18,6 +19,7 @@ public class AbilityController : MonoBehaviour
     private ObjectPool m_pool;
     private CameraShake m_shake;
     private HitStopService m_hitStop;
+    private WeaponHolder m_weaponHolder;
 
     public event Action<int, ActiveAbility> OnAbilityEquipped;
     public event Action<int> OnAbilityUsed;
@@ -116,11 +118,16 @@ public class AbilityController : MonoBehaviour
             ServiceLocator.Global.TryGet(out m_pool);
             ServiceLocator.Global.TryGet(out m_shake);
             ServiceLocator.Global.TryGet(out m_hitStop);
+            ServiceLocator.Global.TryGet(out m_weaponHolder);
             m_servicesCached = true;
         }
 
         Vector2 aim = m_inputReader != null ? m_inputReader.LookDirection : Vector2.right;
         if (aim.sqrMagnitude < 0.0001f) aim = Vector2.right;
+
+        Vector3 castOrigin = m_weaponHolder != null && m_weaponHolder.CurrentShootPoint.HasValue
+            ? (Vector3)m_weaponHolder.CurrentShootPoint.Value
+            : transform.position;
 
         AbilityContext ctx = new AbilityContext(
             transform,
@@ -130,7 +137,8 @@ public class AbilityController : MonoBehaviour
             m_pool,
             m_shake,
             m_hitStop,
-            ability.TintColor);
+            ability.TintColor,
+            castOrigin);
 
         ability.Effect.Execute(in ctx);
 
