@@ -25,7 +25,8 @@ MonoBehaviour:
     - rid: 1
       type: {class: ProjectileBurstAbilityEffect, ns: , asm: Assembly-CSharp}
       data:
-        m_projectilePrefab: {fileID: 5187812260587514585, guid: 991df1a3ac21a8dfd8f6ff27d42b5f99, type: 3}
-        m_projectileCount: 8
+        m_phantomPrefab: {fileID: 5500000000000000001, guid: d0c857b2c7d74acca9af0b288868ecaf, type: 3}
+        m_phantomCount: 8
+        m_radius: 0.65
         m_bonusDamage: 4
         m_bonusPierce: 0

@@ -66,8 +66,22 @@ public class WeaponShooting : MonoBehaviour, IWeapon
     private bool m_isReloading;
     private Coroutine m_reloadRoutine;
 
+    // Set true while the Projectile Burst ability has stolen the player's weapon for its
+    // phantom-fire show. While set, Update skips the fire path and the main SpriteRenderer
+    // is hidden so the held weapon visually disappears for the duration.
+    private bool m_burstSuppressed;
+    private Coroutine m_burstSuppressRoutine;
+    private SpriteRenderer m_mainRenderer;
+
     public Vector2 ShootPointPosition => m_shootPoint.position;
     public string DisplayName => m_settings != null ? m_settings.DisplayName : null;
+
+    /// <summary>
+    /// Projectile prefab this weapon fires. Exposed so abilities (e.g. Projectile Burst's
+    /// phantom weapons) can spawn the same shot the held weapon would, without routing
+    /// through the weapon's own fire timing or magazine state.
+    /// </summary>
+    public Projectile ProjectilePrefab => m_projectile;
     public int MagazineCurrent => m_magazineCurrent;
     public int MagazineMax => m_settings != null ? m_settings.MagazineSize : 0;
     public bool IsReloading => m_isReloading;
@@ -104,6 +118,10 @@ public class WeaponShooting : MonoBehaviour, IWeapon
         ServiceLocator.Global.TryGet(out m_ammoManager);
         ServiceLocator.Global.TryGet(out m_cameraShake);
         ServiceLocator.Global.TryGet(out m_status);
+
+        // Main visual on the weapon root; toggled off by SuppressForBurst so the held weapon
+        // visually disappears while phantom copies run the Projectile Burst show.
+        m_mainRenderer = GetComponent<SpriteRenderer>();
 
         // Cache the muzzle flash's authored default tints once at Start so they
         // survive ammo-color overrides. Doing this in Equip was fragile because
@@ -176,6 +194,14 @@ public class WeaponShooting : MonoBehaviour, IWeapon
             m_burstRoutine = null;
         }
 
+        if (m_burstSuppressRoutine != null)
+        {
+            StopCoroutine(m_burstSuppressRoutine);
+            m_burstSuppressRoutine = null;
+        }
+        m_burstSuppressed = false;
+        if (m_mainRenderer != null) m_mainRenderer.enabled = true;
+
         if (m_muzzleFlashRoutine != null)
         {
             StopCoroutine(m_muzzleFlashRoutine);
@@ -205,6 +231,10 @@ public class WeaponShooting : MonoBehaviour, IWeapon
         TickRecoil();
 
         if (!m_equipped || m_inputReader == null) return;
+
+        // While the Projectile Burst ability has stolen the held weapon for its phantom show,
+        // ignore fire input — the phantoms do the shooting; reload coroutines still run.
+        if (m_burstSuppressed) return;
 
         bool held = m_inputReader.IsAttackHeld;
         if (held && m_sustainedFireStart < 0f)
@@ -652,5 +682,32 @@ public class WeaponShooting : MonoBehaviour, IWeapon
             ? m_ammoManager.TryDrawFromPool(m_loadedAmmoType, needed)
             : needed; // No manager — treat as infinite so the weapon stays functional
         m_magazineCurrent += drawn;
+    }
+
+    /// <summary>
+    /// Hide the held weapon and stop responding to fire input for <paramref name="seconds"/>
+    /// (unscaled), then automatically restore. Called by the Projectile Burst ability while its
+    /// phantom copies do the shooting. Re-calling while already suppressed extends the window.
+    /// Reload coroutines continue running underneath so a mid-reload cast still finishes
+    /// reloading by the time the weapon reappears.
+    /// </summary>
+    public void SuppressForBurst(float seconds)
+    {
+        if (seconds <= 0f) return;
+        if (m_burstSuppressRoutine != null)
+            StopCoroutine(m_burstSuppressRoutine);
+        m_burstSuppressRoutine = StartCoroutine(BurstSuppressRoutine(seconds));
+    }
+
+    private IEnumerator BurstSuppressRoutine(float seconds)
+    {
+        m_burstSuppressed = true;
+        if (m_mainRenderer != null) m_mainRenderer.enabled = false;
+
+        yield return new WaitForSecondsRealtime(seconds);
+
+        m_burstSuppressed = false;
+        if (m_mainRenderer != null) m_mainRenderer.enabled = true;
+        m_burstSuppressRoutine = null;
     }
 }
