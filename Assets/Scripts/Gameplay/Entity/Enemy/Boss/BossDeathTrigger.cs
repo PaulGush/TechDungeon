@@ -6,7 +6,7 @@ using UnityServiceLocator;
 
 /// <summary>
 /// Thin trigger script for the boss death cutscene. Intercepts the lethal hit,
-/// does synchronous cleanup (halt behaviours, clear minions), then hands off to
+/// does synchronous cleanup (halt behaviours, kill minions), then hands off to
 /// the death timeline which drives all choreography via custom tracks.
 /// <para>
 /// The timeline calls back into this script's public methods via
@@ -58,7 +58,7 @@ public class BossDeathTrigger : MonoBehaviour
         // 1 HP as crossing into the final phase and spawn minions.
         HaltBossBehaviours();
 
-        m_roomManager?.CurrentEncounter?.ClearNonBossEnemies();
+        m_roomManager?.CurrentEncounter?.KillNonBossEnemies();
 
         // Bind and play the death timeline. All choreography (time scale, game state,
         // camera, animation triggers, kill) is driven by the timeline's custom tracks.

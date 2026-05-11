@@ -17,6 +17,7 @@ public class BossPhaseManager : MonoBehaviour
 
     private BossSettings m_runtimeSettings;
     private int m_currentPhaseIndex;
+    private RoomManager m_roomManager;
 
     public BossPhase CurrentPhase =>
         m_settings != null && m_settings.Phases != null && m_settings.Phases.Count > 0
@@ -116,11 +117,12 @@ public class BossPhaseManager : MonoBehaviour
         ObjectPool pool = null;
         ServiceLocator.Global.TryGet(out pool);
 
-        RoomEncounter encounter = GetComponentInParent<RoomEncounter>();
-        if (encounter == null)
-        {
-            encounter = transform.root.GetComponentInChildren<RoomEncounter>();
-        }
+        // Pooled bosses live under the ObjectPool transform, not the room — transform-walks
+        // for RoomEncounter return null. Resolve the active encounter via RoomManager instead
+        // so minions are registered and can be killed when the boss dies.
+        if (m_roomManager == null)
+            ServiceLocator.Global.TryGet(out m_roomManager);
+        RoomEncounter encounter = m_roomManager?.CurrentEncounter;
 
         for (int i = 0; i < phase.MinionCount; i++)
         {

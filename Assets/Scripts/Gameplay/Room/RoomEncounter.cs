@@ -24,10 +24,10 @@ public class RoomEncounter : MonoBehaviour
     // never set it, so the branch is dormant for ordinary encounters.
     private bool m_killMinionsOnBossDeath;
 
-    // Set only while the boss-death cascade is dealing lethal damage to minions. Each minion's
-    // recursive OnEnemyDied frame would otherwise race to advance the wave / call ClearRoom
-    // when its decrement leaves the list empty — this flag defers that to the outer boss frame
-    // so we advance exactly once.
+    // Set while KillNonBossEnemies is dealing lethal damage to minions. Each minion's recursive
+    // OnEnemyDied frame would otherwise race to advance the wave / call ClearRoom when its
+    // decrement leaves the list empty — this flag defers that to the outer caller so we advance
+    // exactly once.
     private bool m_suppressWaveAdvance;
 
     /// <summary>
@@ -219,9 +219,9 @@ public class RoomEncounter : MonoBehaviour
             creditManager.AddCredits(ec.CreditValue);
         }
 
-        if (enemy == Boss && m_killMinionsOnBossDeath && m_activeEnemies.Count > 0)
+        if (enemy == Boss)
         {
-            CascadeLethalToMinions();
+            KillNonBossEnemies();
         }
 
         if (m_activeEnemies.Count > 0) return;
@@ -238,28 +238,6 @@ public class RoomEncounter : MonoBehaviour
         else
         {
             m_roomInstance.ClearRoom();
-        }
-    }
-
-    private void CascadeLethalToMinions()
-    {
-        // Snapshot before we damage — each TakeDamage cascades synchronously into OnEnemyDied,
-        // which mutates m_activeEnemies. Iterating the live list would skip or double-visit.
-        var snapshot = new List<GameObject>(m_activeEnemies);
-        m_suppressWaveAdvance = true;
-        try
-        {
-            foreach (GameObject minion in snapshot)
-            {
-                if (minion == null) continue;
-                EntityHealth health = minion.GetComponent<EntityHealth>();
-                if (health != null && !health.IsDead)
-                    health.TakeDamage(health.CurrentHealth + health.Armor);
-            }
-        }
-        finally
-        {
-            m_suppressWaveAdvance = false;
         }
     }
 
@@ -294,25 +272,33 @@ public class RoomEncounter : MonoBehaviour
     }
 
     /// <summary>
-    /// Removes every active enemy that isn't the boss from the encounter — unsubscribes
-    /// their death callbacks, pulls them out of <see cref="m_activeEnemies"/>, and returns
-    /// them to the pool. Used by BossDeathSequence to wipe surviving minions the moment
-    /// the boss takes its lethal blow, so the death cutscene plays in a clean room.
+    /// Deals lethal damage to every active enemy that isn't the boss, so each minion goes
+    /// through normal death — VFX, drops, credits — instead of vanishing. Used by the boss
+    /// death cutscene to wipe surviving minions the moment the boss takes its lethal blow,
+    /// and by the non-intercepted boss death path. No-op when
+    /// <see cref="BossRoomSettings.KillMinionsOnDeath"/> is false (minions outlive the boss).
     /// </summary>
-    public void ClearNonBossEnemies()
+    public void KillNonBossEnemies()
     {
-        for (int i = m_activeEnemies.Count - 1; i >= 0; i--)
+        if (!m_killMinionsOnBossDeath) return;
+
+        // Snapshot before we damage — each TakeDamage cascades synchronously into OnEnemyDied,
+        // which mutates m_activeEnemies. Iterating the live list would skip or double-visit.
+        var snapshot = new List<GameObject>(m_activeEnemies);
+        m_suppressWaveAdvance = true;
+        try
         {
-            GameObject enemy = m_activeEnemies[i];
-            if (enemy == null || enemy == Boss) continue;
-
-            UnsubscribeEnemy(enemy);
-            m_activeEnemies.RemoveAt(i);
-
-            if (m_pool != null)
-                m_pool.ReturnGameObject(enemy);
-            else
-                Destroy(enemy);
+            foreach (GameObject minion in snapshot)
+            {
+                if (minion == null || minion == Boss) continue;
+                EntityHealth health = minion.GetComponent<EntityHealth>();
+                if (health != null && !health.IsDead)
+                    health.TakeDamage(health.CurrentHealth + health.Armor);
+            }
+        }
+        finally
+        {
+            m_suppressWaveAdvance = false;
         }
     }
 
