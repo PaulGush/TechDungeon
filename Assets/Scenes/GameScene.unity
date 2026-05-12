@@ -1737,6 +1737,13 @@ MonoBehaviour:
   m_root: {fileID: 0}
   m_ammoIcon: {fileID: 139058331}
   m_magazineText: {fileID: 905524416}
+  m_reloadStyle: 1
+  m_iconFillMethod: 1
+  m_reloadEmptyColor: {r: 0.45, g: 0.45, b: 0.45, a: 1}
+  m_barCells: 8
+  m_spinInterval: 0.05
+  m_completePunchScale: 1.3
+  m_completePunchDuration: 0.18
 --- !u!114 &432944669
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6238,8 +6245,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b64c482861e65be5961951a73307065, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ObjectPool.SimplePool
-  m_defaultCapacity: 10
-  m_maxPoolSize: 50
+  m_defaultCapacity: 20
+  m_maxPoolSize: 200
 --- !u!4 &1787953682
 Transform:
   m_ObjectHideFlags: 0
