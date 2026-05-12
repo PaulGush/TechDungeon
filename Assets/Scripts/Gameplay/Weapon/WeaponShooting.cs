@@ -82,6 +82,13 @@ public class WeaponShooting : MonoBehaviour, IWeapon
     /// through the weapon's own fire timing or magazine state.
     /// </summary>
     public Projectile ProjectilePrefab => m_projectile;
+
+    /// <summary>
+    /// The weapon's built-in ammo (e.g. the RPG's explosive missile round), or null. This is
+    /// where weapons like the rocket launcher carry their on-impact behaviour, so external
+    /// shooters (Projectile Burst) need it as the fallback when the player has no special ammo.
+    /// </summary>
+    public AmmoSettings IntrinsicAmmo => m_settings != null ? m_settings.IntrinsicAmmo : null;
     public int MagazineCurrent => m_magazineCurrent;
     public int MagazineMax => m_settings != null ? m_settings.MagazineSize : 0;
     public bool IsReloading => m_isReloading;
@@ -369,12 +376,14 @@ public class WeaponShooting : MonoBehaviour, IWeapon
         }
 
         bool efficient = m_ammoManager != null && m_ammoManager.RollAmmoEfficiency();
-        AmmoSettings ammoSettings = ResolveAmmoForShot(efficient);
+        AmmoSettings loadedAmmo = ResolveAmmoForShot(efficient);   // special ammo the player has loaded, or null
 
-        // Fall back to the weapon's intrinsic ammo when no player ammo is active.
-        // Intrinsic ammo is part of the weapon itself and doesn't use the type-pool model.
-        if (ammoSettings == null && m_settings != null && m_settings.IntrinsicAmmo != null)
-            ammoSettings = m_settings.IntrinsicAmmo;
+        // What the shot reads as for tinting / audio / events: the loaded special ammo if any,
+        // otherwise the weapon's intrinsic round (e.g. the RPG missile). The intrinsic round's
+        // effect is layered onto the projectile by SpawnProjectile regardless, so weapons like
+        // the rocket launcher keep exploding even when the player has ricochet/seeking loaded.
+        AmmoSettings displayAmmo = loadedAmmo != null ? loadedAmmo
+            : (m_settings != null ? m_settings.IntrinsicAmmo : null);
 
         if (UsesMagazine && !efficient)
         {
@@ -384,16 +393,16 @@ public class WeaponShooting : MonoBehaviour, IWeapon
 
         int pellets = m_settings != null ? Mathf.Max(1, m_settings.PelletsPerShot) : 1;
         for (int i = 0; i < pellets; i++)
-            SpawnProjectile(ammoSettings, damageMultiplier, isCrit);
+            SpawnProjectile(loadedAmmo, damageMultiplier, isCrit);
 
-        FlashMuzzle(ammoSettings);
+        FlashMuzzle(displayAmmo);
         StartKickback();
         StartRecoil();
 
         if (m_cameraShake != null && m_settings != null && m_settings.ShootShakeAmplitude > 0f)
             m_cameraShake.Shake(m_settings.ShootShakeAmplitude, -m_shootPoint.right, m_settings.ShootRumbleMultiplier);
 
-        OnFired?.Invoke(ammoSettings);
+        OnFired?.Invoke(displayAmmo);
 
         if (UsesMagazine && m_magazineCurrent <= 0)
             StartReload();
@@ -491,7 +500,7 @@ public class WeaponShooting : MonoBehaviour, IWeapon
         CurrentRecoilDegrees = m_recoilPeak * t;
     }
 
-    private void SpawnProjectile(AmmoSettings ammoSettings, float damageMultiplier, bool isCrit)
+    private void SpawnProjectile(AmmoSettings loadedAmmo, float damageMultiplier, bool isCrit)
     {
         Quaternion rotation = m_shootPoint.rotation;
         float spread = GetCurrentSpread();
@@ -516,10 +525,18 @@ public class WeaponShooting : MonoBehaviour, IWeapon
 
         Color critTint = isCrit && m_settings != null ? m_settings.CritProjectileColor : default;
 
+        // Layer the weapon's intrinsic round behaviour (e.g. the RPG missile's explosion) with
+        // whatever special ammo is loaded, so a rocket with ricochet ammo bounces off walls and
+        // still detonates on enemies / when it runs out of bounces. A fresh effect per pellet —
+        // some effects (ricochet) carry mutable per-shot state.
+        AmmoSettings intrinsicAmmo = m_settings != null ? m_settings.IntrinsicAmmo : null;
+        IAmmoEffect effect = CompositeAmmoEffect.Compose(intrinsicAmmo?.CreateEffect(), loadedAmmo?.CreateEffect());
+        AmmoSettings displayAmmo = loadedAmmo != null ? loadedAmmo : intrinsicAmmo;
+
         ProjectileSpawner.Spawn(
             m_pool, m_projectile.gameObject, m_shootPoint.position, rotation,
             bonusDamage: flatBonus, damageMultiplier: mult, bonusPierce: pierce,
-            ammoSettings: ammoSettings, critTint: critTint);
+            ammoSettings: displayAmmo, ammoEffect: effect, critTint: critTint);
     }
 
     // Ramps SpreadDegrees up toward MaxSpreadDegrees over SpreadRampDuration seconds of

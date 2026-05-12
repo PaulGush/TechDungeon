@@ -13,4 +13,8 @@ public struct AmmoEffectContext
     public GameObject ProjectilePrefab;
     public Rigidbody2D Rigidbody;
     public Transform Transform;
+
+    // The projectile's trail, if it has one. Effects that teleport the projectile (ricochet)
+    // should Clear() this so the trail doesn't draw a streak across the jump.
+    public TrailRenderer Trail;
 }

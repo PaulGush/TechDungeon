@@ -15,14 +15,20 @@ MonoBehaviour:
   DisplayName: M202
   FireMode: 0
   Cooldown: 1.4
+  DamageMultiplier: 1
   SpreadDegrees: 1
   PelletsPerShot: 1
+  SpreadRampDuration: 0
+  MaxSpreadDegrees: 0
   BurstCount: 3
   BurstInterval: 0.06
   MinChargeSeconds: 0.25
   MaxChargeSeconds: 1
   MinChargeDamageMultiplier: 0.5
-  MagazineSize: 1
+  CritWindowDuration: 0
+  CritDamageMultiplier: 2
+  CritProjectileColor: {r: 1, g: 0.85, b: 0.2, a: 1}
+  MagazineSize: 4
   ReloadDuration: 1.2
   KickbackDistance: 0.18
   KickbackDuration: 0.14

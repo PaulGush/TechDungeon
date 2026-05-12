@@ -43,7 +43,8 @@ public class PhantomWeapon : MonoBehaviour
 
     private ObjectPool m_pool;
     private GameObject m_projectilePrefab;
-    private AmmoSettings m_ammo;
+    private AmmoSettings m_intrinsicAmmo;   // the weapon's built-in round (e.g. RPG missile) — always layered in
+    private AmmoSettings m_loadedAmmo;      // the special ammo the player has loaded, or null
     private int m_bonusDamage;
     private int m_bonusPierce;
     private Color m_tint = Color.white;
@@ -80,7 +81,9 @@ public class PhantomWeapon : MonoBehaviour
     /// at <paramref name="localOffset"/> with the given Z rotation and Y flip (mirror of the
     /// held weapon's auto-flip rule), takes on <paramref name="sprite"/> as its visual, and will
     /// fire a single <paramref name="projectilePrefab"/> shot outward when its timeline reaches
-    /// the fire moment.
+    /// the fire moment — layering the weapon's <paramref name="intrinsicAmmo"/> behaviour with
+    /// any <paramref name="loadedAmmo"/> the player has, so e.g. an RPG burst with ricochet ammo
+    /// loaded fires bouncing missiles that still explode.
     /// </summary>
     public void Play(
         Transform parent,
@@ -92,7 +95,8 @@ public class PhantomWeapon : MonoBehaviour
         int sortingLayerId,
         int sortingOrder,
         GameObject projectilePrefab,
-        AmmoSettings ammoSettings,
+        AmmoSettings intrinsicAmmo,
+        AmmoSettings loadedAmmo,
         int bonusDamage,
         int bonusPierce)
     {
@@ -110,7 +114,8 @@ public class PhantomWeapon : MonoBehaviour
 
         m_tint = tint;
         m_projectilePrefab = projectilePrefab;
-        m_ammo = ammoSettings;
+        m_intrinsicAmmo = intrinsicAmmo;
+        m_loadedAmmo = loadedAmmo;
         m_bonusDamage = bonusDamage;
         m_bonusPierce = bonusPierce;
         m_hasFired = false;
@@ -180,10 +185,18 @@ public class PhantomWeapon : MonoBehaviour
         float angle = Mathf.Atan2(worldDir.y, worldDir.x) * Mathf.Rad2Deg;
         Quaternion rot = Quaternion.Euler(0f, 0f, angle);
 
+        // Layer the weapon's intrinsic round behaviour (RPG explosion, ...) with the loaded
+        // special ammo. Fresh effects each shot — some (ricochet) carry per-shot state.
+        IAmmoEffect effect = CompositeAmmoEffect.Compose(
+            m_intrinsicAmmo != null ? m_intrinsicAmmo.CreateEffect() : null,
+            m_loadedAmmo != null ? m_loadedAmmo.CreateEffect() : null);
+        AmmoSettings displayAmmo = m_loadedAmmo != null ? m_loadedAmmo : m_intrinsicAmmo;
+
         ProjectileSpawner.Spawn(
             m_pool, m_projectilePrefab, transform.position, rot,
             bonusDamage: m_bonusDamage,
             bonusPierce: m_bonusPierce,
-            ammoSettings: m_ammo);
+            ammoSettings: displayAmmo,
+            ammoEffect: effect);
     }
 }

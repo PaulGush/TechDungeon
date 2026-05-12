@@ -46,8 +46,21 @@ public class ProjectileBurstAbilityEffect : IAbilityEffect
         float lifetime = templatePhantom != null ? templatePhantom.TotalLifetime : 0.4f;
         weapon.SuppressForBurst(lifetime);
 
+        // Resolve the special ammo the player has loaded (a magazine weapon fires the type it
+        // loaded; otherwise the selected type if it's non-Standard) — without consuming any.
+        // The weapon's intrinsic round (e.g. the RPG missile's explosion) is passed alongside;
+        // PhantomWeapon layers the two so a rocket burst with ricochet ammo bounces off walls
+        // and still detonates on enemies.
         ServiceLocator.Global.TryGet(out AmmoManager ammoManager);
-        AmmoSettings ammo = ammoManager != null ? ammoManager.CurrentAmmoSettings : null;
+        AmmoSettings loadedAmmo = null;
+        if (ammoManager != null)
+        {
+            if (weapon.UsesMagazine && weapon.LoadedAmmoType != AmmoType.Standard)
+                loadedAmmo = ammoManager.GetSettingsForType(weapon.LoadedAmmoType);
+            else if (ammoManager.CurrentAmmoSettings != null && ammoManager.CurrentAmmoSettings.Type != AmmoType.Standard)
+                loadedAmmo = ammoManager.CurrentAmmoSettings;
+        }
+        AmmoSettings intrinsicAmmo = weapon.IntrinsicAmmo;
 
         Sprite sprite = weaponSr.sprite;
         int sortingLayer = weaponSr.sortingLayerID;
@@ -89,7 +102,8 @@ public class ProjectileBurstAbilityEffect : IAbilityEffect
                 sortingLayer,
                 sortingOrder,
                 projectilePrefab,
-                ammo,
+                intrinsicAmmo,
+                loadedAmmo,
                 m_bonusDamage,
                 m_bonusPierce);
         }

@@ -19,7 +19,7 @@ public class Projectile : MonoBehaviour
     [SerializeField] private SpriteRenderer m_spriteRenderer;
     [SerializeField] private ProjectileSettings m_settings;
 
-    [Tooltip("Optional TrailRenderer on the projectile. Cleared on spawn to prevent pool-reuse streaks, and its start/end colors are driven by ammo color > trail override > sprite color.")]
+    [Tooltip("Optional TrailRenderer for the projectile (on a child object). Cleared on spawn to prevent pool-reuse streaks, and its start/end colors are driven by ammo color > trail override > sprite color.")]
     [SerializeField] private TrailRenderer m_trail;
 
     [Tooltip("Optional explicit color for the trail when no ammo is loaded. Leave alpha at zero to fall back to the sprite's color (for bullets whose trail should match their sprite). Set alpha > 0 to force a specific trail color distinct from the sprite tint (e.g. a white missile with an orange trail).")]
@@ -155,6 +155,12 @@ public class Projectile : MonoBehaviour
             m_trail.startColor = tint;
             tint.a = 0f;
             m_trail.endColor = tint;
+            // Pooled reuse can leave the TrailRenderer holding a stale "last sampled position"
+            // from the previous despawn point — toggling the renderer off→on drops that cached
+            // state so the trail can't streak from there before Clear() + the reseed take hold.
+            m_trail.emitting = false;
+            m_trail.enabled = false;
+            m_trail.enabled = true;
             m_trail.Clear();
             m_trail.emitting = true;
             // Seed a two-vertex tail proportional to the trail's own lifetime so the trail
@@ -180,8 +186,14 @@ public class Projectile : MonoBehaviour
         // allocated a WaitForSeconds + iterator per spawn, which adds up at high fire
         // rates. An Update check is essentially free and cancels naturally when the
         // GameObject is disabled.
-        if (Time.time >= m_returnTime && m_pool != null)
-            m_pool.ReturnGameObject(gameObject);
+        if (m_destroyed || Time.time < m_returnTime || m_pool == null) return;
+
+        // Reaching the end of the lifetime counts as a "destruction" for ammo effects, so a
+        // missile that runs out of fuel mid-air still detonates where it died (ExplosiveEffect
+        // and friends spawn their payload from OnDestroy). Non-effect projectiles just despawn.
+        m_destroyed = true;
+        m_ammoEffect?.OnDestroy(BuildContext());
+        m_pool.ReturnGameObject(gameObject);
     }
 
     private void FixedUpdate()
@@ -196,6 +208,12 @@ public class Projectile : MonoBehaviour
     private void OnDisable()
     {
         m_rigidbody2D.linearVelocity = Vector2.zero;
+        // Drop interpolation while pooled so the next spawn's hard teleport (Initialize sets
+        // Rigidbody2D.position) doesn't leave the interpolation buffer holding the previous
+        // despawn point — that stale "previous position" makes the first interpolated render
+        // frame lerp from the old spot, and the TrailRenderer samples it, producing the
+        // intermittent streak/missing-trail on reuse. Initialize re-enables interpolation.
+        m_rigidbody2D.interpolation = RigidbodyInterpolation2D.None;
 
         // Reset modifiers for pool reuse
         m_bonusDamage = 0;
@@ -330,7 +348,8 @@ public class Projectile : MonoBehaviour
             Pool = m_pool,
             ProjectilePrefab = m_prefab,
             Rigidbody = m_rigidbody2D,
-            Transform = transform
+            Transform = transform,
+            Trail = m_trail
         };
     }
 }
