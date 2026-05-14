@@ -76,6 +76,9 @@ public class WeaponShooting : MonoBehaviour, IWeapon
     public Vector2 ShootPointPosition => m_shootPoint.position;
     public string DisplayName => m_settings != null ? m_settings.DisplayName : null;
 
+    /// <summary>The weapon's authored settings (damage multiplier, cooldown, spread, reload, magazine, ...). Used by weapon stat readouts.</summary>
+    public WeaponSettings Settings => m_settings;
+
     /// <summary>
     /// Projectile prefab this weapon fires. Exposed so abilities (e.g. Projectile Burst's
     /// phantom weapons) can spawn the same shot the held weapon would, without routing
@@ -94,6 +97,7 @@ public class WeaponShooting : MonoBehaviour, IWeapon
     public bool IsReloading => m_isReloading;
     public AmmoType LoadedAmmoType => m_loadedAmmoType;
     public bool UsesMagazine => m_settings != null && m_settings.MagazineSize > 0;
+    public WeaponReloadStyle ReloadStyle => m_settings != null ? m_settings.ReloadStyle : WeaponReloadStyle.Full;
 
     // Non-positive offset applied along the weapon's local -Y to visualize kickback.
     // WeaponHolder reads this each LateUpdate and layers it on top of the clamped/base position.
@@ -367,7 +371,19 @@ public class WeaponShooting : MonoBehaviour, IWeapon
 
         if (UsesMagazine)
         {
-            if (m_isReloading) return;
+            if (m_isReloading)
+            {
+                // PerRound reloads (revolver/shotgun): firing interrupts the reload and uses
+                // whatever's already chambered. Full-style reloads still block firing.
+                if (ReloadStyle == WeaponReloadStyle.PerRound && m_magazineCurrent > 0)
+                {
+                    CancelReload();
+                }
+                else
+                {
+                    return;
+                }
+            }
             if (m_magazineCurrent <= 0)
             {
                 StartReload();
@@ -647,22 +663,54 @@ public class WeaponShooting : MonoBehaviour, IWeapon
         // keeps the attack button held through the reload.
         m_sustainedFireStart = -1f;
 
-        float duration = m_settings != null ? m_settings.ReloadDuration : 0f;
-        m_isReloading = true;
-        OnReloadStarted?.Invoke(duration);
+        bool perRound = ReloadStyle == WeaponReloadStyle.PerRound && MagazineMax > 0;
+        float cycleDuration = perRound
+            ? (m_settings != null ? m_settings.PerRoundReloadDuration : 0f)
+            : (m_settings != null ? m_settings.ReloadDuration : 0f);
 
-        if (duration <= 0f)
+        m_isReloading = true;
+        OnReloadStarted?.Invoke(cycleDuration);
+
+        if (cycleDuration <= 0f)
         {
             FinishReload();
             return;
         }
 
-        m_reloadRoutine = StartCoroutine(ReloadCoroutine(duration));
+        m_reloadRoutine = StartCoroutine(perRound
+            ? PerRoundReloadCoroutine(cycleDuration)
+            : ReloadCoroutine(cycleDuration));
     }
 
     private IEnumerator ReloadCoroutine(float duration)
     {
         yield return new WaitForSeconds(duration);
+        FinishReload();
+    }
+
+    private IEnumerator PerRoundReloadCoroutine(float perRoundDuration)
+    {
+        while (m_magazineCurrent < MagazineMax)
+        {
+            yield return new WaitForSeconds(perRoundDuration);
+
+            int drawn = m_ammoManager != null
+                ? m_ammoManager.TryDrawFromPool(m_loadedAmmoType, 1)
+                : 1;
+            if (drawn <= 0)
+            {
+                // Pool empty mid-reload — keep what we've got and stop.
+                FinishReload();
+                yield break;
+            }
+            m_magazineCurrent += drawn;
+            OnMagazineChanged?.Invoke(m_magazineCurrent, MagazineMax);
+
+            // Tell the HUD a fresh per-pip cycle is starting so it can reset its 0..1 progress
+            // bar for the next round. Skip on the last round — we're about to FinishReload.
+            if (m_magazineCurrent < MagazineMax)
+                OnReloadStarted?.Invoke(perRoundDuration);
+        }
         FinishReload();
     }
 

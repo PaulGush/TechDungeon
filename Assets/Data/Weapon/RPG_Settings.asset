@@ -30,6 +30,8 @@ MonoBehaviour:
   CritProjectileColor: {r: 1, g: 0.85, b: 0.2, a: 1}
   MagazineSize: 4
   ReloadDuration: 1.2
+  ReloadStyle: 1
+  PerRoundReloadDuration: 0.5
   KickbackDistance: 0.18
   KickbackDuration: 0.14
   RecoilDegrees: 12

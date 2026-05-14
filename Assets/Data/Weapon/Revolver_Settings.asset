@@ -15,15 +15,23 @@ MonoBehaviour:
   DisplayName: Python
   FireMode: 0
   Cooldown: 0.55
+  DamageMultiplier: 1
   SpreadDegrees: 0.5
   PelletsPerShot: 1
+  SpreadRampDuration: 0
+  MaxSpreadDegrees: 0
   BurstCount: 3
   BurstInterval: 0.06
   MinChargeSeconds: 0.25
   MaxChargeSeconds: 1
   MinChargeDamageMultiplier: 0.5
+  CritWindowDuration: 0
+  CritDamageMultiplier: 2
+  CritProjectileColor: {r: 1, g: 0.85, b: 0.2, a: 1}
   MagazineSize: 6
   ReloadDuration: 1.2
+  ReloadStyle: 1
+  PerRoundReloadDuration: 0.3
   KickbackDistance: 0.1
   KickbackDuration: 0.12
   RecoilDegrees: 6

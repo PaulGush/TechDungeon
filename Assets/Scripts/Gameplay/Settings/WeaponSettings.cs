@@ -8,6 +8,16 @@ public enum WeaponFireMode
     Charge
 }
 
+public enum WeaponReloadStyle
+{
+    /// <summary>Wait the full ReloadDuration, then load the magazine in one go (rifle / SMG style).</summary>
+    Full,
+    /// <summary>Load one round at a time (revolver / shotgun / missile launcher). Each round takes
+    /// ReloadDuration / MagazineSize seconds. Firing mid-reload cancels and keeps whatever rounds
+    /// were already loaded.</summary>
+    PerRound,
+}
+
 [CreateAssetMenu(menuName = "Data/Combat/Weapon Settings")]
 public class WeaponSettings : ScriptableObject
 {
@@ -69,8 +79,14 @@ public class WeaponSettings : ScriptableObject
     [Tooltip("Shots per magazine. Zero or negative disables reload (infinite mag).")]
     public int MagazineSize = 0;
 
-    [Tooltip("Seconds the reload takes to complete. Ignored when MagazineSize is non-positive.")]
+    [Tooltip("Seconds the reload takes to complete in Full style. Ignored for PerRound style and when MagazineSize is non-positive.")]
     public float ReloadDuration = 1.2f;
+
+    [Tooltip("How the reload fills the magazine. Full: wait the full ReloadDuration then load all rounds at once. PerRound: load rounds one at a time so the player can fire partway through a reload (revolver / shotgun / missile launcher).")]
+    public WeaponReloadStyle ReloadStyle = WeaponReloadStyle.Full;
+
+    [Tooltip("Seconds to chamber a single round in PerRound style. Total reload time is roughly this × MagazineSize. Ignored for Full style.")]
+    public float PerRoundReloadDuration = 0.2f;
 
     [Header("Kickback")]
     [Tooltip("How far the weapon is pushed back along its local -Y (toward the player) at the moment of fire. Zero disables.")]
