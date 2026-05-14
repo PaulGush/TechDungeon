@@ -49,9 +49,19 @@ public class AbilityController : MonoBehaviour
         return -1;
     }
 
+    private RoomManager m_roomManager;
+
     private void Awake()
     {
         ServiceLocator.Global.Register(this);
+    }
+
+    private void Start()
+    {
+        // Hook room loads so every ability is up again on each room transition. Done in Start
+        // (not Awake) so RoomManager has had a chance to register itself.
+        if (ServiceLocator.Global.TryGet(out m_roomManager))
+            m_roomManager.OnRoomLoaded += HandleRoomLoaded;
     }
 
     private void OnEnable()
@@ -65,6 +75,14 @@ public class AbilityController : MonoBehaviour
         if (m_inputReader != null)
             m_inputReader.UseAbility -= TryUse;
     }
+
+    private void OnDestroy()
+    {
+        if (m_roomManager != null)
+            m_roomManager.OnRoomLoaded -= HandleRoomLoaded;
+    }
+
+    private void HandleRoomLoaded(RoomSettings _) => ResetCooldowns();
 
     private void Update()
     {
@@ -103,6 +121,23 @@ public class AbilityController : MonoBehaviour
             m_slots[i] = null;
             m_cooldownRemaining[i] = 0f;
             OnAbilityEquipped?.Invoke(i, null);
+        }
+    }
+
+    /// <summary>
+    /// Zero every slot's cooldown without clearing the equipped abilities. Fires
+    /// <see cref="OnCooldownReady"/> for each slot that actually had a cooldown running so HUD
+    /// pips can re-light. Called when the player enters a new room — the design is that every
+    /// ability is up again on each room transition.
+    /// </summary>
+    public void ResetCooldowns()
+    {
+        for (int i = 0; i < SlotCount; i++)
+        {
+            if (m_cooldownRemaining[i] <= 0f) continue;
+            m_cooldownRemaining[i] = 0f;
+            if (m_slots[i] != null)
+                OnCooldownReady?.Invoke(i);
         }
     }
 
