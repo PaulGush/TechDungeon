@@ -14,6 +14,9 @@ public class Projectile : MonoBehaviour
     /// </summary>
     public bool TargetsPlayer => (m_damageLayers.value & (1 << GameConstants.Layers.PlayerLayer)) != 0;
 
+    /// <summary>This projectile's authored base damage (before weapon/item/ammo modifiers). Used by weapon stat readouts.</summary>
+    public int BaseDamage => m_settings != null ? m_settings.Damage : 0;
+
     [Header("References")]
     [SerializeField] private Rigidbody2D m_rigidbody2D;
     [SerializeField] private SpriteRenderer m_spriteRenderer;

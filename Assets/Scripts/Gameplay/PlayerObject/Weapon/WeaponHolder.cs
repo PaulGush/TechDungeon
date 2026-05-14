@@ -11,6 +11,8 @@ namespace PlayerObject
         [SerializeField] private Camera m_camera;
         [SerializeField] private InputReader m_inputReader;
         [SerializeField] private EntityHealth m_health;
+        [Tooltip("Optional. If set, the stats panel is instantiated from this prefab so its look can be configured in the prefab. If null, a procedural panel is built at runtime.")]
+        [SerializeField] private WeaponStatsPanel m_statsPanelPrefab;
 
         private PlayerInteractionDisplay m_interactionDisplay;
 
@@ -31,6 +33,10 @@ namespace PlayerObject
         private void Awake()
         {
             ServiceLocator.Global.Register(this);
+            // The "show pickup details" toggle is game-wide; own the input subscription here (the
+            // holder is always on the player) and just react to the preference changing.
+            m_inputReader.ViewWeaponStats += PickupDetailsPreference.Toggle;
+            PickupDetailsPreference.Changed += RefreshStatsPanel;
         }
 
         private void LateUpdate()
@@ -45,6 +51,9 @@ namespace PlayerObject
         private void OnDestroy()
         {
             m_inputReader.Interact -= Equip;
+            m_inputReader.ViewWeaponStats -= PickupDetailsPreference.Toggle;
+            PickupDetailsPreference.Changed -= RefreshStatsPanel;
+            if (m_statsPanel != null) Destroy(m_statsPanel.gameObject);
         }
 
         private void HandleWeaponPositionAndRotation()
@@ -115,6 +124,8 @@ namespace PlayerObject
         private GameObject m_weaponCandidate;
         private readonly List<GameObject> m_weaponsInRange = new();
 
+        private WeaponStatsPanel m_statsPanel;
+
         public System.Action<GameObject> OnWeaponChanged;
         public GameObject CurrentWeapon => m_currentWeapon;
 
@@ -143,11 +154,15 @@ namespace PlayerObject
             m_weaponsInRange.Clear();
             m_interactionDisplay?.Hide(this);
             m_inputReader.Interact -= Equip;
+            RefreshStatsPanel();
             OnWeaponChanged?.Invoke(null);
         }
 
         private void Equip()
         {
+            if (m_weaponCandidate == null) return;
+            if (m_interactionDisplay != null && m_interactionDisplay.CurrentSource != this) return;
+
             if (m_currentWeapon != null)
             {
                 Unequip();
@@ -157,6 +172,15 @@ namespace PlayerObject
             m_currentWeapon.transform.SetParent(transform);
 
             m_weaponsInRange.Remove(m_currentWeapon);
+
+            // Notify any spawner (e.g. RoomRewardChest) that this weapon is now picked up. With the
+            // interact-prompt rework, "in range" no longer counts — equipping is the collection.
+            Lootable lootable = m_currentWeapon.GetComponent<Lootable>();
+            if (lootable != null && lootable.OnCollected != null)
+            {
+                lootable.OnCollected.Invoke();
+                lootable.OnCollected = null;
+            }
 
             foreach (Component component in m_currentWeapon.GetComponents(typeof(IWeapon)))
             {
@@ -208,13 +232,6 @@ namespace PlayerObject
             if (!m_weaponsInRange.Contains(other.gameObject))
             {
                 m_weaponsInRange.Add(other.gameObject);
-
-                Lootable lootable = other.GetComponent<Lootable>();
-                if (lootable != null && lootable.OnCollected != null)
-                {
-                    lootable.OnCollected.Invoke();
-                    lootable.OnCollected = null;
-                }
             }
 
             if (weapon != null)
@@ -246,6 +263,7 @@ namespace PlayerObject
                     m_weaponCandidate = null;
                     m_interactionDisplay?.Hide(this);
                     m_inputReader.Interact -= Equip;
+                    RefreshStatsPanel();
                 }
                 return;
             }
@@ -273,7 +291,39 @@ namespace PlayerObject
             string text = m_currentWeapon != null
                 ? "[Interact] swap " + GetWeaponDisplayName(m_currentWeapon) + " for " + GetWeaponDisplayName(m_weaponCandidate)
                 : "[Interact] equip " + GetWeaponDisplayName(m_weaponCandidate);
+            // Held weapon → comparison panel; no held weapon → just the candidate's stats.
+            text += m_currentWeapon != null ? "   [Sprint] compare" : "   [Sprint] details";
             m_interactionDisplay?.Show(text, this);
+
+            RefreshStatsPanel();
+        }
+
+        // Show the stats panel (comparing the candidate against the held weapon) iff the player has
+        // the "show details" preference on and there's a weapon candidate in range; otherwise hide it.
+        // Called when the candidate changes or the preference toggles.
+        private void RefreshStatsPanel()
+        {
+            if (PickupDetailsPreference.ShowDetails && m_weaponCandidate != null)
+            {
+                if (m_statsPanel == null)
+                {
+                    if (m_statsPanelPrefab != null)
+                    {
+                        m_statsPanel = Instantiate(m_statsPanelPrefab);
+                        m_statsPanel.gameObject.name = "WeaponStatsPanel";
+                    }
+                    else
+                    {
+                        var go = new GameObject("WeaponStatsPanel", typeof(RectTransform), typeof(Canvas), typeof(WeaponStatsPanel));
+                        m_statsPanel = go.GetComponent<WeaponStatsPanel>();
+                    }
+                }
+                m_statsPanel.Show(m_weaponCandidate.GetComponent<WeaponShooting>(), m_currentWeaponShooting);
+            }
+            else
+            {
+                m_statsPanel?.Hide();
+            }
         }
 
         private static string GetWeaponDisplayName(GameObject weapon)

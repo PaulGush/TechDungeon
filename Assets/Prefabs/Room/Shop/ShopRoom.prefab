@@ -1350,6 +1350,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShopPedestal
   m_inputReader: {fileID: 11400000, guid: c7fc619696fbc354f935b4ae0e11fc0c, type: 2}
+  m_statsPanelPrefab: {fileID: 5345215720357948534, guid: 8c4f2d3a6b9e417f9d2a5b1e3c7d4f6a, type: 3}
   m_itemDisplay: {fileID: 3745473993338966745}
   m_itemSpawnPoint: {fileID: 2280116843780605667}
   m_priceText: {fileID: 171301969350103847}
@@ -1780,6 +1781,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShopPedestal
   m_inputReader: {fileID: 11400000, guid: c7fc619696fbc354f935b4ae0e11fc0c, type: 2}
+  m_statsPanelPrefab: {fileID: 5345215720357948534, guid: 8c4f2d3a6b9e417f9d2a5b1e3c7d4f6a, type: 3}
   m_itemDisplay: {fileID: 7763707191993434674}
   m_itemSpawnPoint: {fileID: 8096115826444454512}
   m_priceText: {fileID: 8148727943925195530}
@@ -3297,6 +3299,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShopPedestal
   m_inputReader: {fileID: 11400000, guid: c7fc619696fbc354f935b4ae0e11fc0c, type: 2}
+  m_statsPanelPrefab: {fileID: 5345215720357948534, guid: 8c4f2d3a6b9e417f9d2a5b1e3c7d4f6a, type: 3}
   m_itemDisplay: {fileID: 3647606807420176611}
   m_itemSpawnPoint: {fileID: 2352303855131935955}
   m_priceText: {fileID: 3051950213554438490}
