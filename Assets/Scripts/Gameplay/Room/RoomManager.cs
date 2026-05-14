@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Input;
+using PlayerObject;
 using Unity.Cinemachine;
 using UnityEngine;
 using UnityServiceLocator;
@@ -100,11 +101,22 @@ public class RoomManager : MonoBehaviour
             m_currentRoom.RewardChest.Initialize(m_currentRoom, m_startingChestSettings, m_player);
         }
 
-        InitializeBulkheadDoors(hasRewardChest);
+        // Starting room locks doors until the player has a weapon — leaving unarmed would softlock
+        // the next room. If they already have one (e.g. after ResetToStartingRoom), doors stay open.
+        WeaponHolder weaponHolder = null;
+        ServiceLocator.Global.TryGet(out weaponHolder);
+        bool needsWeapon = weaponHolder != null && weaponHolder.CurrentWeapon == null;
+        InitializeBulkheadDoors(needsWeapon);
 
-        if (hasRewardChest)
+        if (needsWeapon)
         {
-            m_currentRoom.OnRewardCollected += UnlockBulkheadDoors;
+            void OnWeaponEquipped(GameObject weapon)
+            {
+                if (weapon == null) return;
+                weaponHolder.OnWeaponChanged -= OnWeaponEquipped;
+                UnlockBulkheadDoors();
+            }
+            weaponHolder.OnWeaponChanged += OnWeaponEquipped;
         }
 
         UpdateCameraConfiner();
@@ -154,23 +166,16 @@ public class RoomManager : MonoBehaviour
 
         bool isCombatRoom = settings.RoomType == RoomType.Combat || settings.RoomType == RoomType.Boss;
 
-        // Initialize reward chest if present
-        bool hasRewardChest = false;
         if (m_currentRoom.RewardChest != null && chestSettings != null)
         {
             m_currentRoom.RewardChest.Initialize(m_currentRoom, chestSettings, m_player);
-            hasRewardChest = true;
         }
 
-        bool startLocked = isCombatRoom || hasRewardChest;
-        InitializeBulkheadDoors(startLocked);
+        // Doors gate on combat only. Reward chests no longer force the player to collect before
+        // leaving — uncollected items are surfaced by the on-screen indicator instead.
+        InitializeBulkheadDoors(isCombatRoom);
 
-        // Doors unlock when reward is collected, or on room clear if no reward chest
-        if (hasRewardChest)
-        {
-            m_currentRoom.OnRewardCollected += UnlockBulkheadDoors;
-        }
-        else if (isCombatRoom)
+        if (isCombatRoom)
         {
             m_currentRoom.OnRoomCleared += UnlockBulkheadDoors;
         }
@@ -358,7 +363,6 @@ public class RoomManager : MonoBehaviour
 
         m_currentRoom.OnRoomCleared -= HandleRoomCleared;
         m_currentRoom.OnRoomCleared -= UnlockBulkheadDoors;
-        m_currentRoom.OnRewardCollected -= UnlockBulkheadDoors;
 
         if (m_currentEncounter != null)
         {
