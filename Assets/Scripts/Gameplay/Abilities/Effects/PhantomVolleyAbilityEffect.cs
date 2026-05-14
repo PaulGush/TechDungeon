@@ -1,21 +1,24 @@
 using System;
 using PlayerObject;
 using UnityEngine;
+using UnityEngine.Scripting.APIUpdating;
 using UnityServiceLocator;
 
 /// <summary>
 /// "Death Blossom" style burst: the held weapon vanishes for a beat, a ring of phantom copies
-/// appears around the player and each fires one shot outward, then the phantoms fade and the
-/// real weapon returns. The shot each phantom fires is the held weapon's own projectile, with
-/// whatever ammo type the player has loaded — so the burst inherits the weapon's character.
+/// appears around the player and each fires one volley outward, then the phantoms fade and the
+/// real weapon returns. The volley each phantom fires is the held weapon's own projectile — with
+/// the source weapon's pellet count and authored spread, so a shotgun phantom fires a full pellet
+/// spread per shot — and inherits whatever ammo type the player has loaded.
 /// </summary>
 [Serializable]
-public class ProjectileBurstAbilityEffect : IAbilityEffect
+[MovedFrom(true, sourceClassName: "ProjectileBurstAbilityEffect")]
+public class PhantomVolleyAbilityEffect : IAbilityEffect
 {
     [Tooltip("Pooled prefab carrying a PhantomWeapon component. One instance is spawned per radial slot.")]
     [SerializeField] private GameObject m_phantomPrefab;
 
-    [Tooltip("Number of phantoms (and shots) in the radial burst.")]
+    [Tooltip("Number of phantoms (and volleys) in the radial burst.")]
     [SerializeField, Min(1)] private int m_phantomCount = 8;
 
     [Tooltip("Distance from the player at which the phantoms appear, in world units. Match the weapon's normal hold distance for a clean read.")]
@@ -41,15 +44,36 @@ public class ProjectileBurstAbilityEffect : IAbilityEffect
         SpriteRenderer weaponSr = weaponGO.GetComponent<SpriteRenderer>();
         if (weaponSr == null || weaponSr.sprite == null) return;
 
-        // Pull lifetime from the prefab so the weapon stays hidden exactly long enough.
+        // Read pellet count + authored (un-ramped) spread + burst params off the source weapon's
+        // settings. We use the authored SpreadDegrees rather than the ramped current value since
+        // the player wasn't sustaining fire when the ability cast.
+        int pelletsPerShot = 1;
+        float spreadDegrees = 0f;
+        int burstCount = 1;
+        float burstInterval = 0f;
+        if (weapon.Settings != null)
+        {
+            pelletsPerShot = Mathf.Max(1, weapon.Settings.PelletsPerShot);
+            spreadDegrees = Mathf.Max(0f, weapon.Settings.SpreadDegrees);
+            if (weapon.Settings.FireMode == WeaponFireMode.Burst)
+            {
+                burstCount = Mathf.Max(1, weapon.Settings.BurstCount);
+                burstInterval = Mathf.Max(0f, weapon.Settings.BurstInterval);
+            }
+        }
+
+        // Pull lifetime from the prefab so the weapon stays hidden exactly long enough — extended
+        // to cover the full burst for burst-fire weapons (M16 etc.).
         PhantomWeapon templatePhantom = m_phantomPrefab.GetComponent<PhantomWeapon>();
-        float lifetime = templatePhantom != null ? templatePhantom.TotalLifetime : 0.4f;
+        float lifetime = templatePhantom != null
+            ? templatePhantom.ComputeBurstLifetime(burstCount, burstInterval)
+            : 0.4f;
         weapon.SuppressForBurst(lifetime);
 
         // Resolve the special ammo the player has loaded (a magazine weapon fires the type it
         // loaded; otherwise the selected type if it's non-Standard) — without consuming any.
         // The weapon's intrinsic round (e.g. the RPG missile's explosion) is passed alongside;
-        // PhantomWeapon layers the two so a rocket burst with ricochet ammo bounces off walls
+        // PhantomWeapon layers the two so a rocket volley with ricochet ammo bounces off walls
         // and still detonates on enemies.
         ServiceLocator.Global.TryGet(out AmmoManager ammoManager);
         AmmoSettings loadedAmmo = null;
@@ -105,7 +129,11 @@ public class ProjectileBurstAbilityEffect : IAbilityEffect
                 intrinsicAmmo,
                 loadedAmmo,
                 m_bonusDamage,
-                m_bonusPierce);
+                m_bonusPierce,
+                pelletsPerShot,
+                spreadDegrees,
+                burstCount,
+                burstInterval);
         }
     }
 }

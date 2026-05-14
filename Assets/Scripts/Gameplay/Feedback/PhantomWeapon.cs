@@ -38,8 +38,16 @@ public class PhantomWeapon : MonoBehaviour
     [Tooltip("Colour to flash to at the moment of firing — push channels past 1 for a bright bloom punch. Eases back to the phantom's tint over PostFire.")]
     [SerializeField] private Color m_fireFlash = new Color(2.4f, 2.4f, 2.4f, 1f);
 
-    /// <summary>Total unscaled seconds from <see cref="Play"/> to pool return.</summary>
+    /// <summary>Total unscaled seconds from <see cref="Play"/> to pool return for a single-shot phantom.</summary>
     public float TotalLifetime => m_fadeIn + m_hold + m_postFire + m_fadeOut;
+
+    /// <summary>Total lifetime when the phantom fires a burst. The post-fire window stretches to
+    /// at least the burst duration so all shots actually land before the phantom fades out.</summary>
+    public float ComputeBurstLifetime(int burstCount, float burstInterval)
+    {
+        float burstDuration = burstCount > 1 ? (burstCount - 1) * Mathf.Max(0f, burstInterval) : 0f;
+        return m_fadeIn + m_hold + Mathf.Max(m_postFire, burstDuration) + m_fadeOut;
+    }
 
     private ObjectPool m_pool;
     private GameObject m_projectilePrefab;
@@ -47,8 +55,13 @@ public class PhantomWeapon : MonoBehaviour
     private AmmoSettings m_loadedAmmo;      // the special ammo the player has loaded, or null
     private int m_bonusDamage;
     private int m_bonusPierce;
+    private int m_pelletsPerShot = 1;       // matches the source weapon's PelletsPerShot
+    private float m_spreadDegrees;          // matches the source weapon's authored SpreadDegrees
+    private int m_burstCount = 1;           // 1 = single shot; >1 = burst-fire weapon (e.g. M16)
+    private float m_burstInterval;          // gap between shots in a burst, unscaled seconds
+    private int m_shotsFired;
+    private float m_nextShotTime;
     private Color m_tint = Color.white;
-    private bool m_hasFired;
     private bool m_playStarted;
     private float m_age;
 
@@ -66,7 +79,7 @@ public class PhantomWeapon : MonoBehaviour
         // Reset bookkeeping on every (re)spawn so an Update that fires before Play has had a
         // chance to run can't accidentally read stale age from the previous use.
         m_playStarted = false;
-        m_hasFired = false;
+        m_shotsFired = 0;
         m_age = 0f;
         if (m_renderer != null)
         {
@@ -98,7 +111,11 @@ public class PhantomWeapon : MonoBehaviour
         AmmoSettings intrinsicAmmo,
         AmmoSettings loadedAmmo,
         int bonusDamage,
-        int bonusPierce)
+        int bonusPierce,
+        int pelletsPerShot,
+        float spreadDegrees,
+        int burstCount,
+        float burstInterval)
     {
         transform.SetParent(parent, worldPositionStays: false);
         transform.localPosition = localOffset;
@@ -118,7 +135,12 @@ public class PhantomWeapon : MonoBehaviour
         m_loadedAmmo = loadedAmmo;
         m_bonusDamage = bonusDamage;
         m_bonusPierce = bonusPierce;
-        m_hasFired = false;
+        m_pelletsPerShot = Mathf.Max(1, pelletsPerShot);
+        m_spreadDegrees = Mathf.Max(0f, spreadDegrees);
+        m_burstCount = Mathf.Max(1, burstCount);
+        m_burstInterval = Mathf.Max(0f, burstInterval);
+        m_shotsFired = 0;
+        m_nextShotTime = m_fadeIn + m_hold;
         m_age = 0f;
         m_playStarted = true;
     }
@@ -130,7 +152,10 @@ public class PhantomWeapon : MonoBehaviour
         m_age += Time.unscaledDeltaTime;
 
         float fireMoment = m_fadeIn + m_hold;
-        float postFireEnd = fireMoment + m_postFire;
+        float burstDuration = m_burstCount > 1 ? (m_burstCount - 1) * m_burstInterval : 0f;
+        // Stretch the post-fire window to cover the entire burst so all shots land before fadeOut.
+        float postFireWindow = Mathf.Max(m_postFire, burstDuration);
+        float postFireEnd = fireMoment + postFireWindow;
         float total = postFireEnd + m_fadeOut;
 
         Color c;
@@ -147,8 +172,9 @@ public class PhantomWeapon : MonoBehaviour
         }
         else if (m_age < postFireEnd)
         {
-            // Ease from the bright fire flash back down to the steady tint.
-            float t = (m_age - fireMoment) / Mathf.Max(0.0001f, m_postFire);
+            // Ease from the bright fire flash back down to the steady tint over postFireWindow,
+            // so burst weapons hold the bright punch for the whole burst rather than instantly.
+            float t = (m_age - fireMoment) / Mathf.Max(0.0001f, postFireWindow);
             c = Color.Lerp(m_fireFlash, m_tint, t);
             c.a = m_peakAlpha;
         }
@@ -160,9 +186,12 @@ public class PhantomWeapon : MonoBehaviour
         }
         m_renderer.color = c;
 
-        if (!m_hasFired && m_age >= fireMoment)
+        // Burst-aware firing: keep firing on schedule until all rounds in the burst are out. For
+        // non-burst weapons m_burstCount is 1 and this fires exactly once at fireMoment.
+        while (m_shotsFired < m_burstCount && m_age >= m_nextShotTime)
         {
-            m_hasFired = true;
+            m_shotsFired++;
+            m_nextShotTime += m_burstInterval;
             FireShot();
         }
 
@@ -182,21 +211,30 @@ public class PhantomWeapon : MonoBehaviour
         // angle, so transform.right points outward. Derive the fire rotation from transform.right
         // so any parent rotation (the player transform along the way) is respected automatically.
         Vector2 worldDir = transform.right;
-        float angle = Mathf.Atan2(worldDir.y, worldDir.x) * Mathf.Rad2Deg;
-        Quaternion rot = Quaternion.Euler(0f, 0f, angle);
+        float baseAngle = Mathf.Atan2(worldDir.y, worldDir.x) * Mathf.Rad2Deg;
 
-        // Layer the weapon's intrinsic round behaviour (RPG explosion, ...) with the loaded
-        // special ammo. Fresh effects each shot — some (ricochet) carry per-shot state.
-        IAmmoEffect effect = CompositeAmmoEffect.Compose(
-            m_intrinsicAmmo != null ? m_intrinsicAmmo.CreateEffect() : null,
-            m_loadedAmmo != null ? m_loadedAmmo.CreateEffect() : null);
         AmmoSettings displayAmmo = m_loadedAmmo != null ? m_loadedAmmo : m_intrinsicAmmo;
 
-        ProjectileSpawner.Spawn(
-            m_pool, m_projectilePrefab, transform.position, rot,
-            bonusDamage: m_bonusDamage,
-            bonusPierce: m_bonusPierce,
-            ammoSettings: displayAmmo,
-            ammoEffect: effect);
+        // One projectile per pellet so multi-pellet weapons (shotgun) read as a real shotgun
+        // blast per phantom rather than a single round. Each pellet gets its own random spread
+        // and its own ammo effect — some effects (ricochet) carry per-shot state.
+        for (int i = 0; i < m_pelletsPerShot; i++)
+        {
+            float angle = baseAngle;
+            if (m_spreadDegrees > 0f)
+                angle += UnityEngine.Random.Range(-m_spreadDegrees, m_spreadDegrees);
+            Quaternion rot = Quaternion.Euler(0f, 0f, angle);
+
+            IAmmoEffect effect = CompositeAmmoEffect.Compose(
+                m_intrinsicAmmo != null ? m_intrinsicAmmo.CreateEffect() : null,
+                m_loadedAmmo != null ? m_loadedAmmo.CreateEffect() : null);
+
+            ProjectileSpawner.Spawn(
+                m_pool, m_projectilePrefab, transform.position, rot,
+                bonusDamage: m_bonusDamage,
+                bonusPierce: m_bonusPierce,
+                ammoSettings: displayAmmo,
+                ammoEffect: effect);
+        }
     }
 }
