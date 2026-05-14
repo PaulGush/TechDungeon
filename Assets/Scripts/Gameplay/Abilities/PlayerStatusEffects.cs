@@ -34,6 +34,16 @@ public class PlayerStatusEffects : MonoBehaviour
 
     public bool IsActive(BuffKind kind) => m_slots[(int)kind].Active;
 
+    /// <summary>
+    /// Seconds left on the given buff, or 0 if it isn't active. Subscribers driving expiry-aware
+    /// visuals (e.g. a pulse that speeds up as a shield runs out) can poll this each frame.
+    /// </summary>
+    public float GetTimeRemaining(BuffKind kind)
+    {
+        BuffSlot slot = m_slots[(int)kind];
+        return slot.Active ? slot.TimeRemaining : 0f;
+    }
+
     // Returns 1f when no multiplier buff of the given kind is active, so callers can
     // unconditionally multiply through the modifier pipeline without null-checks.
     public float GetMultiplier(BuffKind kind)

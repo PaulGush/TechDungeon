@@ -29,3 +29,7 @@ MonoBehaviour:
         m_magnitude: 1
         m_durationSeconds: 3
         m_vfxPrefab: {fileID: 0}
+        m_shimmerAmount: 1
+        m_shimmerColor: {r: 0.3, g: 0.7, b: 1.4, a: 1}
+        m_pulseAccelStartT: 0.5
+        m_pulseMaxMultiplier: 4
