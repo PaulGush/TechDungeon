@@ -32,6 +32,11 @@ public class ShockwaveAbilityEffect : IAbilityEffect
             }
         }
 
+        // Shake fires with the wave itself — it's a screen-wide event, the punch should land
+        // whether or not an enemy was in range.
+        if (ctx.Shake != null && m_shakeAmplitude > 0f)
+            ctx.Shake.Shake(m_shakeAmplitude);
+
         Collider2D[] hits = Physics2D.OverlapCircleAll(origin, m_radius, GameConstants.Layers.EnemyLayerMask);
         bool didHit = false;
         for (int i = 0; i < hits.Length; i++)
@@ -41,12 +46,8 @@ public class ShockwaveAbilityEffect : IAbilityEffect
             didHit = true;
         }
 
-        // Punch the screen only on connection — a whiffed shockwave shouldn't freeze the camera.
-        if (!didHit) return;
-
-        if (ctx.HitStop != null && m_hitStopSeconds > 0f)
+        // Hit-stop stays conditional — a whiffed shockwave shouldn't freeze the camera.
+        if (didHit && ctx.HitStop != null && m_hitStopSeconds > 0f)
             ctx.HitStop.Freeze(m_hitStopSeconds, m_hitStopScale);
-        if (ctx.Shake != null && m_shakeAmplitude > 0f)
-            ctx.Shake.Shake(m_shakeAmplitude);
     }
 }
