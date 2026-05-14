@@ -51,6 +51,7 @@ public class Chest : MonoBehaviour, IInteractable
     public void Interact()
     {
         if (m_isOpen || m_isLocked) return;
+        if (m_interactionDisplay != null && m_interactionDisplay.CurrentSource != this) return;
 
         m_animator.SetTrigger(Open);
         m_interactionDisplay?.Hide(this);

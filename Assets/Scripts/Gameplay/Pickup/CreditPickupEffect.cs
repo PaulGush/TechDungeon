@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityServiceLocator;
 
-public class CreditPickupEffect : MonoBehaviour, IPickupEffect
+public class CreditPickupEffect : MonoBehaviour, IPickupEffect, IPickupTooltip
 {
     [SerializeField] private int m_amount = 1;
 
@@ -11,6 +11,14 @@ public class CreditPickupEffect : MonoBehaviour, IPickupEffect
             return false;
 
         creditManager.AddCredits(m_amount);
+        return true;
+    }
+
+    public bool TryGetTooltip(out string title, out string body, out string effect)
+    {
+        title = "Credits";
+        body = "Currency for the shop.";
+        effect = $"+{m_amount} CR";
         return true;
     }
 }

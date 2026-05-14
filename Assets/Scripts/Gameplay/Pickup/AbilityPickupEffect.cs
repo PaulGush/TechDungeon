@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityServiceLocator;
 
-public class AbilityPickupEffect : MonoBehaviour, IPickupEffect
+public class AbilityPickupEffect : MonoBehaviour, IPickupEffect, IPickupTooltip
 {
     [SerializeField] private ActiveAbility m_ability;
 
@@ -16,6 +16,20 @@ public class AbilityPickupEffect : MonoBehaviour, IPickupEffect
         int slot = controller.FindFirstEmptySlot();
         if (slot < 0) slot = 0;
         controller.Equip(slot, m_ability);
+        return true;
+    }
+
+    public bool TryGetTooltip(out string title, out string body, out string effect)
+    {
+        if (m_ability == null)
+        {
+            title = body = effect = null;
+            return false;
+        }
+
+        title = m_ability.DisplayName;
+        body = m_ability.Description;
+        effect = $"Cooldown {m_ability.Cooldown:0.#}s";
         return true;
     }
 }

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -5,7 +6,7 @@ using UnityServiceLocator;
 
 public class Tooltip : MonoBehaviour
 {
-    private enum AnchorMode { Mouse, UI, World }
+    private enum AnchorMode { Mouse, UI, World, Centered }
 
     [Header("References")]
     [SerializeField] private RectTransform m_panel;
@@ -18,12 +19,23 @@ public class Tooltip : MonoBehaviour
     [Tooltip("Offset from the anchor in screen pixels. Positive X is to the right, positive Y is above.")]
     [SerializeField] private Vector2 m_cursorOffset = new Vector2(16f, -16f);
 
+    private struct Entry
+    {
+        public Object Source;
+        public string Title;
+        public string Body;
+        public string Effect;
+        public AnchorMode Mode;
+        public RectTransform UiAnchor;
+        public Transform WorldAnchor;
+    }
+
+    // Source-keyed stack so overlapping callers (e.g. two pickups) don't clobber each other.
+    // Sourceless callers share the null slot.
+    private readonly List<Entry> m_stack = new();
+
     private RectTransform m_parentRect;
     private Canvas m_canvas;
-    private bool m_visible;
-    private AnchorMode m_anchorMode;
-    private RectTransform m_uiAnchor;
-    private Transform m_worldAnchor;
 
     private void Awake()
     {
@@ -36,59 +48,105 @@ public class Tooltip : MonoBehaviour
     }
 
     public void Show(string title, string body, string effect)
-    {
-        ShowInternal(title, body, effect, AnchorMode.Mouse, null, null);
-    }
+        => Push(null, title, body, effect, AnchorMode.Mouse, null, null);
 
     public void Show(string title, string body, string effect, RectTransform uiAnchor)
-    {
-        ShowInternal(title, body, effect, AnchorMode.UI, uiAnchor, null);
-    }
+        => Push(null, title, body, effect, AnchorMode.UI, uiAnchor, null);
 
     public void Show(string title, string body, string effect, Transform worldAnchor)
+        => Push(null, title, body, effect, AnchorMode.World, null, worldAnchor);
+
+    public void Show(string title, string body, string effect, Transform worldAnchor, Object source)
+        => Push(source, title, body, effect, AnchorMode.World, null, worldAnchor);
+
+    // Centered: no positioning is applied at runtime; the panel sits wherever its prefab anchors
+    // place it. Use this when you want the panel to be fixed on screen (e.g. tooltip prefab
+    // anchored to the centre of the canvas) rather than following an in-world target.
+    public void Show(string title, string body, string effect, Object source)
+        => Push(source, title, body, effect, AnchorMode.Centered, null, null);
+
+    public void Hide()
     {
-        ShowInternal(title, body, effect, AnchorMode.World, null, worldAnchor);
+        m_stack.Clear();
+        ApplyTopOrFade();
     }
 
-    private void ShowInternal(string title, string body, string effect, AnchorMode mode, RectTransform uiAnchor, Transform worldAnchor)
+    public void Hide(Object source)
     {
-        if (m_titleText != null) m_titleText.text = title;
-        if (m_bodyText != null) m_bodyText.text = body;
-        if (m_effectText != null) m_effectText.text = effect;
+        int idx = IndexOf(source);
+        if (idx < 0) return;
+        m_stack.RemoveAt(idx);
+        ApplyTopOrFade();
+    }
 
-        m_anchorMode = mode;
-        m_uiAnchor = uiAnchor;
-        m_worldAnchor = worldAnchor;
-        m_visible = true;
+    private void Push(Object source, string title, string body, string effect, AnchorMode mode, RectTransform uiAnchor, Transform worldAnchor)
+    {
+        Entry entry = new Entry
+        {
+            Source = source,
+            Title = title,
+            Body = body,
+            Effect = effect,
+            Mode = mode,
+            UiAnchor = uiAnchor,
+            WorldAnchor = worldAnchor,
+        };
+        int idx = IndexOf(source);
+        if (idx >= 0) m_stack[idx] = entry;
+        else m_stack.Add(entry);
+
+        ApplyTop();
+    }
+
+    private void ApplyTop()
+    {
+        if (m_stack.Count == 0) return;
+        Entry top = m_stack[m_stack.Count - 1];
+        if (m_titleText != null) m_titleText.text = top.Title;
+        if (m_bodyText != null) m_bodyText.text = top.Body;
+        if (m_effectText != null) m_effectText.text = top.Effect;
         m_canvasGroup.alpha = 1f;
         m_canvasGroup.blocksRaycasts = false;
         UpdatePosition();
     }
 
-    public void Hide()
+    private void ApplyTopOrFade()
     {
-        m_visible = false;
-        m_anchorMode = AnchorMode.Mouse;
-        m_uiAnchor = null;
-        m_worldAnchor = null;
-        m_canvasGroup.alpha = 0f;
-        m_canvasGroup.blocksRaycasts = false;
+        if (m_stack.Count > 0)
+        {
+            ApplyTop();
+        }
+        else
+        {
+            m_canvasGroup.alpha = 0f;
+            m_canvasGroup.blocksRaycasts = false;
+        }
     }
 
-    private void HideImmediate()
+    private int IndexOf(Object source)
     {
-        Hide();
+        for (int i = 0; i < m_stack.Count; i++)
+        {
+            if (m_stack[i].Source == source) return i;
+        }
+        return -1;
     }
+
+    private void HideImmediate() => Hide();
 
     private void LateUpdate()
     {
-        if (m_visible) UpdatePosition();
+        if (m_stack.Count > 0) UpdatePosition();
     }
 
     private void UpdatePosition()
     {
         if (m_parentRect == null) return;
-        if (!TryGetAnchorScreenPoint(out Vector2 screenPos)) return;
+        if (m_stack.Count == 0) return;
+        Entry top = m_stack[m_stack.Count - 1];
+        // Centered mode: leave the panel where the prefab anchored it.
+        if (top.Mode == AnchorMode.Centered) return;
+        if (!TryGetAnchorScreenPoint(top, out Vector2 screenPos)) return;
 
         // Camera is null for ScreenSpaceOverlay; required for ScreenSpaceCamera/WorldSpace.
         Camera cam = m_canvas != null && m_canvas.renderMode != RenderMode.ScreenSpaceOverlay
@@ -123,22 +181,22 @@ public class Tooltip : MonoBehaviour
         m_panel.anchoredPosition = anchoredPos;
     }
 
-    private bool TryGetAnchorScreenPoint(out Vector2 screenPos)
+    private bool TryGetAnchorScreenPoint(Entry entry, out Vector2 screenPos)
     {
-        switch (m_anchorMode)
+        switch (entry.Mode)
         {
             case AnchorMode.UI:
-                if (m_uiAnchor == null) { screenPos = default; return false; }
+                if (entry.UiAnchor == null) { screenPos = default; return false; }
                 Camera uiCam = m_canvas != null && m_canvas.renderMode != RenderMode.ScreenSpaceOverlay
                     ? m_canvas.worldCamera
                     : null;
-                screenPos = RectTransformUtility.WorldToScreenPoint(uiCam, m_uiAnchor.position);
+                screenPos = RectTransformUtility.WorldToScreenPoint(uiCam, entry.UiAnchor.position);
                 return true;
             case AnchorMode.World:
-                if (m_worldAnchor == null) { screenPos = default; return false; }
+                if (entry.WorldAnchor == null) { screenPos = default; return false; }
                 Camera mainCam = Camera.main;
                 if (mainCam == null) { screenPos = default; return false; }
-                screenPos = mainCam.WorldToScreenPoint(m_worldAnchor.position);
+                screenPos = mainCam.WorldToScreenPoint(entry.WorldAnchor.position);
                 return true;
             default:
                 if (Mouse.current == null) { screenPos = default; return false; }

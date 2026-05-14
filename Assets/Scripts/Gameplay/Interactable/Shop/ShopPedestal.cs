@@ -14,6 +14,8 @@ public class ShopPedestal : MonoBehaviour
     [SerializeField] private SpriteRenderer m_itemDisplay;
     [SerializeField] private Transform m_itemSpawnPoint;
     [SerializeField] private TextMeshPro m_priceText;
+    [Tooltip("Optional. If set, the comparison stats panel is instantiated from this prefab so its look can be configured in the prefab. If null, a procedural panel is built at runtime.")]
+    [SerializeField] private WeaponStatsPanel m_statsPanelPrefab;
 
     private Lootable m_itemPrefab;
     private LootableRarity.Rarity m_rarity;
@@ -28,6 +30,11 @@ public class ShopPedestal : MonoBehaviour
     private string m_tooltipEffect;
     private bool m_hasTooltip;
     private bool m_tooltipShown;
+
+    // Non-null when this pedestal sells a weapon — drives the comparison stat panel.
+    private WeaponShooting m_weaponTemplate;
+    private WeaponStatsPanel m_statsPanel;
+    private bool m_playerInside;
 
     public void Initialize(Lootable itemPrefab, LootableRarity.Rarity rarity, int price, ShopRoom shopRoom)
     {
@@ -67,6 +74,7 @@ public class ShopPedestal : MonoBehaviour
     private void Buy()
     {
         if (m_isSold || m_itemPrefab == null) return;
+        if (m_interactionDisplay != null && m_interactionDisplay.CurrentSource != this) return;
 
         if (m_creditManager != null && m_creditManager.TrySpend(m_price))
         {
@@ -78,6 +86,7 @@ public class ShopPedestal : MonoBehaviour
     private void Steal()
     {
         if (m_isSold || m_itemPrefab == null) return;
+        if (m_interactionDisplay != null && m_interactionDisplay.CurrentSource != this) return;
 
         SpawnItem();
         MarkSold();
@@ -112,8 +121,11 @@ public class ShopPedestal : MonoBehaviour
         if (m_priceText != null)
             m_priceText.enabled = false;
 
+        m_playerInside = false;
         m_interactionDisplay?.Hide(this);
         HideTooltip();
+        PickupDetailsPreference.Changed -= RefreshWeaponStats;
+        m_statsPanel?.Hide();
         m_inputReader.Interact -= Buy;
         m_inputReader.AltInteract -= Steal;
     }
@@ -122,8 +134,14 @@ public class ShopPedestal : MonoBehaviour
     {
         if (m_isSold || other.gameObject.layer != GameConstants.Layers.PlayerLayer) return;
 
+        m_playerInside = true;
         m_interactionDisplay?.Show(GetInteractText(), this);
         ShowTooltip();
+        if (m_weaponTemplate != null)
+        {
+            PickupDetailsPreference.Changed += RefreshWeaponStats;
+            RefreshWeaponStats();
+        }
         m_inputReader.Interact += Buy;
         m_inputReader.AltInteract += Steal;
     }
@@ -132,49 +150,102 @@ public class ShopPedestal : MonoBehaviour
     {
         if (other.gameObject.layer != GameConstants.Layers.PlayerLayer) return;
 
+        m_playerInside = false;
         m_interactionDisplay?.Hide(this);
         HideTooltip();
+        PickupDetailsPreference.Changed -= RefreshWeaponStats;
+        m_statsPanel?.Hide();
         m_inputReader.Interact -= Buy;
         m_inputReader.AltInteract -= Steal;
     }
 
     private void PrepareTooltipContent(Lootable itemPrefab)
     {
-        ItemPickupEffect itemPickup = itemPrefab.GetComponentInChildren<ItemPickupEffect>();
-        if (itemPickup == null || itemPickup.Item == null) return;
+        m_weaponTemplate = itemPrefab.GetComponentInChildren<WeaponShooting>();
 
-        Item item = itemPickup.Item;
-        m_tooltipTitle = item.DisplayName;
-        m_tooltipBody = item.Description;
-        m_tooltipEffect = item.GetEffectString();
-        m_hasTooltip = true;
+        IPickupTooltip tooltipSource = itemPrefab.GetComponentInChildren<IPickupTooltip>();
+        if (tooltipSource != null && tooltipSource.TryGetTooltip(out m_tooltipTitle, out m_tooltipBody, out m_tooltipEffect))
+        {
+            m_hasTooltip = true;
+            return;
+        }
+
+        // Weapons carry no IPickupTooltip — synthesise a minimal one (the stat panel carries the rest).
+        if (m_weaponTemplate != null)
+        {
+            string name = m_weaponTemplate.DisplayName;
+            m_tooltipTitle = string.IsNullOrWhiteSpace(name) ? itemPrefab.name : name;
+            m_tooltipBody = "Weapon.";
+            m_tooltipEffect = string.Empty;
+            m_hasTooltip = true;
+        }
+    }
+
+    // Show the comparison stat panel iff this pedestal sells a weapon, the player is on it (and it's
+    // unsold), and the "show details" preference is on; otherwise hide it. Called on enter/exit and
+    // when the preference toggles.
+    private void RefreshWeaponStats()
+    {
+        if (m_weaponTemplate != null && m_playerInside && !m_isSold && PickupDetailsPreference.ShowDetails)
+        {
+            if (m_statsPanel == null)
+            {
+                if (m_statsPanelPrefab != null)
+                {
+                    m_statsPanel = Instantiate(m_statsPanelPrefab);
+                    m_statsPanel.gameObject.name = "ShopWeaponStatsPanel";
+                }
+                else
+                {
+                    var go = new GameObject("ShopWeaponStatsPanel", typeof(RectTransform), typeof(Canvas), typeof(WeaponStatsPanel));
+                    m_statsPanel = go.GetComponent<WeaponStatsPanel>();
+                }
+            }
+
+            WeaponShooting held = null;
+            LootableRarity.Rarity heldRarity = LootableRarity.Rarity.Common;
+            if (ServiceLocator.Global.TryGet(out WeaponHolder weaponHolder) && weaponHolder.CurrentWeapon != null)
+            {
+                held = weaponHolder.CurrentWeapon.GetComponent<WeaponShooting>();
+                if (weaponHolder.CurrentWeapon.TryGetComponent(out Lootable l)) heldRarity = l.Rarity;
+            }
+            m_statsPanel.Show(m_weaponTemplate, m_rarity, held, heldRarity);
+        }
+        else
+        {
+            m_statsPanel?.Hide();
+        }
     }
 
     private void ShowTooltip()
     {
         if (!m_hasTooltip || m_tooltip == null) return;
-        m_tooltip.Show(m_tooltipTitle, m_tooltipBody, m_tooltipEffect, transform);
+        m_tooltip.Show(m_tooltipTitle, m_tooltipBody, m_tooltipEffect, transform, this);
         m_tooltipShown = true;
     }
 
     private void HideTooltip()
     {
         if (!m_tooltipShown || m_tooltip == null) return;
-        m_tooltip.Hide();
+        m_tooltip.Hide(this);
         m_tooltipShown = false;
     }
 
     private string GetInteractText()
     {
         bool canAfford = m_creditManager != null && m_creditManager.Credits >= m_price;
-        return canAfford
+        string text = canAfford
             ? "[Interact] Acquire  [AltInteract] Jack"
             : "[AltInteract] Jack";
+        if (m_weaponTemplate != null) text += "   [Sprint] details";
+        return text;
     }
 
     private void OnDestroy()
     {
         m_inputReader.Interact -= Buy;
         m_inputReader.AltInteract -= Steal;
+        PickupDetailsPreference.Changed -= RefreshWeaponStats;
+        if (m_statsPanel != null) Destroy(m_statsPanel.gameObject);
     }
 }

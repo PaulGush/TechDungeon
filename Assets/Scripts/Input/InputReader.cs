@@ -26,7 +26,10 @@ namespace Input
         public UnityAction Look = delegate {  };
         public UnityAction Reload = delegate {  };
         public UnityAction<int> UseAbility = delegate {  };
-        
+        // Fired by the (otherwise-unused) "Sprint" action, rebound to Left Alt. Toggles the
+        // weapon-stats panel when a weapon pickup is in range.
+        public UnityAction ViewWeaponStats = delegate {  };
+
         private InputSystem_Actions m_inputActions;
         
         public Vector2 MoveDirection => m_inputActions.Player.Move.ReadValue<Vector2>();
@@ -89,7 +92,11 @@ namespace Input
         
         public void OnSprint(InputAction.CallbackContext context)
         {
-
+            // "Sprint" is repurposed as the weapon-stats toggle (rebound to Left Alt).
+            if (context.phase == InputActionPhase.Started)
+            {
+                ViewWeaponStats?.Invoke();
+            }
         }
 
         public void OnAltInteract(InputAction.CallbackContext context)
