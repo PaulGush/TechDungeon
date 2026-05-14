@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Weapon
   m_EditorClassIdentifier: Assembly-CSharp::ChestSettings
   LootDatabase: {fileID: 11400000, guid: ac36e302e983b0e21a22312cf3bb8d8c, type: 2}
-  ItemCategories: 0000000001000000020000000300000004000000
+  ItemCategories: 000000000100000002000000030000000400000005000000
   ItemDropCount: 3
   LegendaryDropChance: 5
   EpicDropChance: 10
