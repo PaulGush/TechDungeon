@@ -18,7 +18,7 @@ TagManager:
   - Weapon
   - Enemy
   - Walls
-  - 
+  - Props
   - 
   - 
   - 
@@ -42,8 +42,11 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Player
+  - name: Mob
     uniqueID: 2158135681
+    locked: 0
+  - name: SelfLit
+    uniqueID: 1984372651
     locked: 0
   - name: UI
     uniqueID: 3573116937

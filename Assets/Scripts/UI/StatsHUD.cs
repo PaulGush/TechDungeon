@@ -10,13 +10,13 @@ public class StatsHUD : MonoBehaviour
     [SerializeField] private TextMeshProUGUI m_damageText;
     [SerializeField] private TextMeshProUGUI m_speedText;
 
-    private MutationManager m_mutationManager;
+    private ItemManager m_itemManager;
 
     private void Start()
     {
-        ServiceLocator.Global.TryGet(out m_mutationManager);
-        if (m_mutationManager != null)
-            m_mutationManager.OnMutationAdded += OnMutationAdded;
+        ServiceLocator.Global.TryGet(out m_itemManager);
+        if (m_itemManager != null)
+            m_itemManager.OnItemAdded += OnItemAdded;
 
         m_health.OnHealthChanged += OnHealthChanged;
 
@@ -25,13 +25,13 @@ public class StatsHUD : MonoBehaviour
 
     private void OnDestroy()
     {
-        if (m_mutationManager != null)
-            m_mutationManager.OnMutationAdded -= OnMutationAdded;
+        if (m_itemManager != null)
+            m_itemManager.OnItemAdded -= OnItemAdded;
 
         m_health.OnHealthChanged -= OnHealthChanged;
     }
 
-    private void OnMutationAdded(Mutation mutation) => UpdateDisplay();
+    private void OnItemAdded(Item item) => UpdateDisplay();
     private void OnHealthChanged(int health) => UpdateArmorDisplay();
 
     private void UpdateDisplay()
@@ -49,10 +49,10 @@ public class StatsHUD : MonoBehaviour
 
     private void UpdateDamageDisplay()
     {
-        if (m_damageText != null && m_mutationManager != null)
+        if (m_damageText != null && m_itemManager != null)
         {
-            int flat = m_mutationManager.GetFlatDamageBonus();
-            float mult = m_mutationManager.GetDamageMultiplier();
+            int flat = m_itemManager.GetFlatDamageBonus();
+            float mult = m_itemManager.GetDamageMultiplier();
             m_damageText.text = flat > 0 || mult > 1f
                 ? $"DMG: +{flat} x{mult:F1}"
                 : "DMG: --";
@@ -61,9 +61,9 @@ public class StatsHUD : MonoBehaviour
 
     private void UpdateSpeedDisplay()
     {
-        if (m_speedText != null && m_mutationManager != null)
+        if (m_speedText != null && m_itemManager != null)
         {
-            float mult = m_mutationManager.GetSpeedMultiplier();
+            float mult = m_itemManager.GetSpeedMultiplier();
             m_speedText.text = mult > 1f
                 ? $"SPD: x{mult:F1}"
                 : "SPD: --";

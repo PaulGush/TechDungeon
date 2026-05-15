@@ -41,13 +41,15 @@ public class SpawnIndicator : MonoBehaviour
         }
     }
 
-    public void Play(float duration)
+    public void Play(float duration) => Play(duration, 1f);
+
+    public void Play(float duration, float targetScale)
     {
         m_spriteRenderer.color = m_color;
-        m_animateCoroutine = StartCoroutine(Animate(duration));
+        m_animateCoroutine = StartCoroutine(Animate(duration, targetScale));
     }
 
-    private IEnumerator Animate(float duration)
+    private IEnumerator Animate(float duration, float targetScale)
     {
         float elapsed = 0f;
         transform.localScale = Vector3.zero;
@@ -59,7 +61,8 @@ public class SpawnIndicator : MonoBehaviour
             elapsed += Time.deltaTime;
             float t = elapsed / duration;
 
-            float scale = 1f - (1f - t) * (1f - t);
+            float eased = 1f - (1f - t) * (1f - t);
+            float scale = eased * targetScale;
             transform.localScale = new Vector3(scale, scale, 1f);
 
             baseColor.a = Mathf.Lerp(0.3f, 0.6f, Mathf.PingPong(t * 6f, 1f));

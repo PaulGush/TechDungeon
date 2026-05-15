@@ -7,7 +7,7 @@ public class ShopSettings : ScriptableObject
 {
     [Header("Item Pools")]
     public List<Lootable> WeaponPool;
-    public List<Lootable> MutationPool;
+    public List<Lootable> ItemPool;
     public List<Lootable> ConsumablePool;
 
     [Header("Pricing")]

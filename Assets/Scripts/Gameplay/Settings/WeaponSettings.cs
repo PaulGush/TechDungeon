@@ -1,0 +1,118 @@
+using UnityEngine;
+
+public enum WeaponFireMode
+{
+    SemiAuto,
+    FullAuto,
+    Burst,
+    Charge
+}
+
+public enum WeaponReloadStyle
+{
+    /// <summary>Wait the full ReloadDuration, then load the magazine in one go (rifle / SMG style).</summary>
+    Full,
+    /// <summary>Load one round at a time (revolver / shotgun / missile launcher). Each round takes
+    /// ReloadDuration / MagazineSize seconds. Firing mid-reload cancels and keeps whatever rounds
+    /// were already loaded.</summary>
+    PerRound,
+}
+
+[CreateAssetMenu(menuName = "Data/Combat/Weapon Settings")]
+public class WeaponSettings : ScriptableObject
+{
+    [Header("Display")]
+    [Tooltip("Shown in the weapon HUD. Prefab-name fallback kicks in only when this is left blank.")]
+    public string DisplayName;
+
+    [Header("Fire Mode")]
+    public WeaponFireMode FireMode = WeaponFireMode.SemiAuto;
+
+    [Header("Timing")]
+    [Tooltip("Seconds between shots (SemiAuto/FullAuto), between bursts (Burst), or between charge cycles (Charge).")]
+    public float Cooldown = 0.25f;
+
+    [Header("Damage")]
+    [Tooltip("Per-weapon multiplier applied on top of the shared projectile's base damage. Lets weapons that share a projectile (e.g. Pistol and Sniper both using the Line projectile) hit with different weight. Stacks multiplicatively with item and rarity bonuses. 1 = no change.")]
+    public float DamageMultiplier = 1f;
+
+    [Header("Accuracy")]
+    [Tooltip("Maximum random deviation applied to each shot's direction in degrees (half-angle).")]
+    public float SpreadDegrees = 0f;
+
+    [Tooltip("Projectiles spawned per shot. Greater than 1 for shotgun-style pellets.")]
+    public int PelletsPerShot = 1;
+
+    [Tooltip("Seconds of continuous attack-held input required to ramp spread from SpreadDegrees up to MaxSpreadDegrees. Zero (or MaxSpreadDegrees not greater than SpreadDegrees) disables the ramp; the weapon uses SpreadDegrees as a fixed value. Intended to incentivize short controlled bursts on full-auto weapons.")]
+    public float SpreadRampDuration = 0f;
+
+    [Tooltip("Spread in degrees that sustained fire ramps toward. Only takes effect when SpreadRampDuration > 0 and this value exceeds SpreadDegrees. Spread resets to SpreadDegrees when attack input is released or when a reload begins.")]
+    public float MaxSpreadDegrees = 0f;
+
+    [Header("Burst Mode")]
+    [Tooltip("Shots fired per burst. Only used when FireMode is Burst.")]
+    public int BurstCount = 3;
+
+    [Tooltip("Seconds between shots within a single burst. Only used when FireMode is Burst.")]
+    public float BurstInterval = 0.06f;
+
+    [Header("Charge Mode")]
+    [Tooltip("Seconds held required before the weapon is allowed to fire. Only used when FireMode is Charge.")]
+    public float MinChargeSeconds = 0.25f;
+
+    [Tooltip("Seconds held required to reach full damage. Only used when FireMode is Charge.")]
+    public float MaxChargeSeconds = 1f;
+
+    [Tooltip("Damage multiplier applied at minimum charge. Scales linearly to 1.0 at full charge.")]
+    [Range(0.1f, 1f)] public float MinChargeDamageMultiplier = 0.5f;
+
+    [Tooltip("Seconds before MaxChargeSeconds that mark the 'sweet spot' — release during this window to land a crit. Zero disables the crit timing.")]
+    public float CritWindowDuration = 0f;
+
+    [Tooltip("Damage multiplier applied when the player releases during the crit window. Replaces the normal charge lerp, so the final damage is roughly base × CritDamageMultiplier.")]
+    public float CritDamageMultiplier = 2f;
+
+    [Tooltip("Color forced onto the projectile's sprite and trail when a crit shot is fired. Takes precedence over ammo and trail-override tints so the player sees an unambiguous 'that was a crit' cue. Set alpha to 0 to keep the normal ammo/trail colors on crit.")]
+    public Color CritProjectileColor = new Color(1f, 0.85f, 0.2f, 1f);
+
+    [Header("Magazine")]
+    [Tooltip("Shots per magazine. Zero or negative disables reload (infinite mag).")]
+    public int MagazineSize = 0;
+
+    [Tooltip("Seconds the reload takes to complete in Full style. Ignored for PerRound style and when MagazineSize is non-positive.")]
+    public float ReloadDuration = 1.2f;
+
+    [Tooltip("How the reload fills the magazine. Full: wait the full ReloadDuration then load all rounds at once. PerRound: load rounds one at a time so the player can fire partway through a reload (revolver / shotgun / missile launcher).")]
+    public WeaponReloadStyle ReloadStyle = WeaponReloadStyle.Full;
+
+    [Tooltip("Seconds to chamber a single round in PerRound style. Total reload time is roughly this × MagazineSize. Ignored for Full style.")]
+    public float PerRoundReloadDuration = 0.2f;
+
+    [Header("Kickback")]
+    [Tooltip("How far the weapon is pushed back along its local -Y (toward the player) at the moment of fire. Zero disables.")]
+    public float KickbackDistance = 0f;
+
+    [Tooltip("Seconds for the weapon to return from its peak kickback back to its rest position. Zero disables.")]
+    public float KickbackDuration = 0.08f;
+
+    [Header("Recoil")]
+    [Tooltip("Peak aim rotation (in degrees) applied to the weapon the moment it fires, decaying back to zero over RecoilDuration. Visually tips the muzzle away from the aim line so sustained fire reads as 'kicking'. Zero disables.")]
+    public float RecoilDegrees = 0f;
+
+    [Tooltip("Seconds for the recoil rotation to decay from its peak back to zero. Zero disables.")]
+    public float RecoilDuration = 0.1f;
+
+    [Header("Feedback")]
+    [Tooltip("Camera-shake impulse amplitude per shot. Keep subtle — shoot shake should be tactile, not disorienting. Zero disables.")]
+    public float ShootShakeAmplitude = 0.02f;
+
+    [Tooltip("Multiplier applied on top of shoot shake amplitude when feeding the gamepad rumble. Lets the controller punch harder than the (intentionally subtle) visual shake.")]
+    public float ShootRumbleMultiplier = 4f;
+
+    [Tooltip("Sustained gamepad rumble at full charge (0..1) for charge-mode weapons. Scales linearly with ChargeProgress while the trigger is held. Zero disables.")]
+    [Range(0f, 1f)] public float ChargeRumbleScale = 0f;
+
+    [Header("Intrinsic Ammo")]
+    [Tooltip("Ammo effect baked into this weapon — applied to every shot when the player has no override ammo loaded. Unlike player ammo, this is never consumed. Leave empty for weapons that only use whatever ammo the player has equipped.")]
+    public AmmoSettings IntrinsicAmmo;
+}

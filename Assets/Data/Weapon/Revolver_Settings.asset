@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4c7e2f8b1d34e9a8f2b6c5d8e9f0a1b, type: 3}
+  m_Name: Revolver_Settings
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponSettings
+  DisplayName: Python
+  FireMode: 0
+  Cooldown: 0.55
+  DamageMultiplier: 1
+  SpreadDegrees: 0.5
+  PelletsPerShot: 1
+  SpreadRampDuration: 0
+  MaxSpreadDegrees: 0
+  BurstCount: 3
+  BurstInterval: 0.06
+  MinChargeSeconds: 0.25
+  MaxChargeSeconds: 1
+  MinChargeDamageMultiplier: 0.5
+  CritWindowDuration: 0
+  CritDamageMultiplier: 2
+  CritProjectileColor: {r: 1, g: 0.85, b: 0.2, a: 1}
+  MagazineSize: 6
+  ReloadDuration: 1.2
+  ReloadStyle: 1
+  PerRoundReloadDuration: 0.3
+  KickbackDistance: 0.1
+  KickbackDuration: 0.12
+  RecoilDegrees: 6
+  RecoilDuration: 0.15
+  ShootShakeAmplitude: 0.05
+  ShootRumbleMultiplier: 6
+  ChargeRumbleScale: 0
+  IntrinsicAmmo: {fileID: 0}

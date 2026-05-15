@@ -51,6 +51,7 @@ public class Chest : MonoBehaviour, IInteractable
     public void Interact()
     {
         if (m_isOpen || m_isLocked) return;
+        if (m_interactionDisplay != null && m_interactionDisplay.CurrentSource != this) return;
 
         m_animator.SetTrigger(Open);
         m_interactionDisplay?.Hide(this);
@@ -110,7 +111,7 @@ public class Chest : MonoBehaviour, IInteractable
     {
         if (m_isOpen || m_isLocked || other.gameObject.layer != GameConstants.Layers.PlayerLayer) return;
         m_interactionDisplay ??= ServiceLocator.Global.Get<PlayerInteractionDisplay>();
-        m_interactionDisplay.Show("[E]", this);
+        m_interactionDisplay.Show("[Interact]", this);
         m_inputReader.Interact += Interact;
     }
 

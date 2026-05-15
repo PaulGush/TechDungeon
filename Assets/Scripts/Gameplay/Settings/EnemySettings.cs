@@ -18,6 +18,12 @@ public class EnemySettings : ScriptableObject
     public float SeparationRadius = 1.5f;
     public float SeparationWeight = 1.5f;
 
+    [Header("Strafe")]
+    [Tooltip("How strongly strafing enemies correct back toward their PreferredAttackDistance. Higher values close/open gaps faster.")]
+    public float StrafeDistanceCorrectionStrength = 0.5f;
+    [Tooltip("Maximum absolute distance delta (in units) that contributes to the strafe distance correction.")]
+    public float StrafeDistanceCorrectionClamp = 1f;
+
     [Header("Alert")]
     [Tooltip("Time in seconds before the enemy deactivates if it cannot reach its target. 0 = never deactivate.")]
     public float AlertDuration = 0f;

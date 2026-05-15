@@ -9,6 +9,9 @@ public class FloorManager : MonoBehaviour
     private List<RoomSlot> m_floorSequence;
     private int m_currentRoomIndex;
 
+    // Reused buffer for filtered reward options — avoids allocating per call.
+    private readonly List<RewardType> m_rewardOptionsBuffer = new List<RewardType>();
+
     public int CurrentRoomIndex => m_currentRoomIndex;
     public int TotalRooms => m_floorSequence?.Count ?? 0;
     public bool IsLastRoom => m_currentRoomIndex >= TotalRooms - 1;
@@ -53,17 +56,17 @@ public class FloorManager : MonoBehaviour
         if (options == null || options.Count == 0)
             return RewardType.Credits;
 
-        var filtered = new List<RewardType>();
-        foreach (var option in options)
+        m_rewardOptionsBuffer.Clear();
+        for (int i = 0; i < options.Count; i++)
         {
-            if (!exclude.Contains(option))
-                filtered.Add(option);
+            if (!exclude.Contains(options[i]))
+                m_rewardOptionsBuffer.Add(options[i]);
         }
 
-        if (filtered.Count == 0)
+        if (m_rewardOptionsBuffer.Count == 0)
             return options[Random.Range(0, options.Count)];
 
-        return filtered[Random.Range(0, filtered.Count)];
+        return m_rewardOptionsBuffer[Random.Range(0, m_rewardOptionsBuffer.Count)];
     }
 
     public ChestSettings GetChestSettingsForReward(RewardType rewardType)

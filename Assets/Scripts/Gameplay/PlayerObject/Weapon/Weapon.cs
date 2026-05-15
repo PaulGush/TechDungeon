@@ -21,6 +21,18 @@ namespace PlayerObject
 
         public void SetWeaponHolder(WeaponHolder weaponHolder) => m_weaponHolder = weaponHolder;
 
+        private void Awake()
+        {
+            // Promote the WeaponSettings DisplayName onto the GameObject so instantiated
+            // weapons drop the "(Clone)" suffix and read correctly in the hierarchy, the
+            // weapon HUD, and the interaction prompt without each reader needing to reach
+            // into WeaponShooting.
+            WeaponShooting shooting = GetComponent<WeaponShooting>();
+            string displayName = shooting != null ? shooting.DisplayName : null;
+            if (!string.IsNullOrWhiteSpace(displayName))
+                gameObject.name = displayName;
+        }
+
         public void Equip()
         {
             if (IsSpawning)

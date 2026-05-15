@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Playables;
@@ -11,10 +12,17 @@ public class CinematicPlayer : MonoBehaviour
     [Header("References")]
     [SerializeField] private PlayableDirector m_director;
     [SerializeField] private DialogueBoxUI m_dialogueBox;
+    [SerializeField] private SkipPromptUI m_skipPrompt;
+
+    [Header("Skip")]
+    [SerializeField] private float m_skipHoldDuration = 3f;
 
     private bool m_advanceRequested;
     private bool m_isPlaying;
     private InputAction m_advanceAction;
+    private InputAction m_skipAction;
+    private float m_skipHoldTime;
+    private bool m_skipTriggered;
 
     public bool IsPlaying => m_isPlaying;
     public event Action OnCinematicComplete;
@@ -23,11 +31,19 @@ public class CinematicPlayer : MonoBehaviour
     {
         ServiceLocator.Global.Register(this);
 
+        // Run the timeline in unscaled time so death cinematics (which slow Time.timeScale)
+        // still play at real speed and stay in sync with the dialogue typing — DialogueBoxUI
+        // already drives its typewriter via WaitForSecondsRealtime.
+        m_director.timeUpdateMode = DirectorUpdateMode.UnscaledGameTime;
+
         m_advanceAction = new InputAction("CinematicAdvance", InputActionType.Button);
         m_advanceAction.AddBinding("<Keyboard>/anyKey");
         m_advanceAction.AddBinding("<Mouse>/leftButton");
         m_advanceAction.AddBinding("<Gamepad>/buttonSouth");
         m_advanceAction.AddBinding("<Gamepad>/buttonEast");
+
+        m_skipAction = new InputAction("CinematicSkip", InputActionType.Button);
+        m_skipAction.AddBinding("<Keyboard>/space");
 
         m_director.stopped += OnDirectorStopped;
     }
@@ -36,6 +52,7 @@ public class CinematicPlayer : MonoBehaviour
     {
         m_director.stopped -= OnDirectorStopped;
         m_advanceAction?.Dispose();
+        m_skipAction?.Dispose();
     }
 
     private void Start()
@@ -51,6 +68,11 @@ public class CinematicPlayer : MonoBehaviour
     {
         m_isPlaying = true;
         m_advanceRequested = false;
+        m_skipHoldTime = 0f;
+        m_skipTriggered = false;
+
+        if (m_skipPrompt != null)
+            m_skipPrompt.Hide();
 
         if (m_director.playableAsset is TimelineAsset timeline)
         {
@@ -59,12 +81,19 @@ public class CinematicPlayer : MonoBehaviour
 
         m_advanceAction.performed += OnAdvance;
         m_advanceAction.Enable();
+        m_skipAction.Enable();
     }
 
     private void OnDirectorStopped(PlayableDirector director)
     {
         m_advanceAction.performed -= OnAdvance;
         m_advanceAction.Disable();
+        m_skipAction.Disable();
+
+        m_skipHoldTime = 0f;
+        m_skipTriggered = false;
+        if (m_skipPrompt != null)
+            m_skipPrompt.Hide();
 
         if (m_dialogueBox != null)
             m_dialogueBox.Hide();
@@ -75,7 +104,12 @@ public class CinematicPlayer : MonoBehaviour
 
     private void Update()
     {
-        if (!m_isPlaying || !m_advanceRequested || !IsPausedForInput()) return;
+        if (!m_isPlaying) return;
+
+        TickSkipHold();
+        if (m_skipTriggered) return;
+
+        if (!m_advanceRequested || !IsPausedForInput()) return;
 
         m_advanceRequested = false;
 
@@ -86,6 +120,36 @@ public class CinematicPlayer : MonoBehaviour
         else
         {
             ResumeTimeline();
+        }
+    }
+
+    private void TickSkipHold()
+    {
+        if (m_skipTriggered) return;
+
+        if (m_skipAction.IsPressed())
+        {
+            m_skipHoldTime += Time.unscaledDeltaTime;
+            float progress = Mathf.Clamp01(m_skipHoldTime / m_skipHoldDuration);
+
+            if (m_skipPrompt != null)
+                m_skipPrompt.SetProgress(progress);
+
+            if (m_skipHoldTime >= m_skipHoldDuration)
+            {
+                m_skipTriggered = true;
+                if (m_skipPrompt != null)
+                    m_skipPrompt.Hide();
+                // Resume first so the timeline can actually reach its end and fire `stopped`.
+                ResumeTimeline();
+                m_director.Stop();
+            }
+        }
+        else if (m_skipHoldTime > 0f)
+        {
+            m_skipHoldTime = 0f;
+            if (m_skipPrompt != null)
+                m_skipPrompt.Hide();
         }
     }
 
@@ -121,6 +185,50 @@ public class CinematicPlayer : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Resolves the <see cref="ExposedReference{T}"/> on every <see cref="CinemachineShot"/>
+    /// CinemachineShot clips whose display name matches <paramref name="clipName"/>
+    /// to <paramref name="vcam"/>. Required for runtime-swapped timelines because
+    /// <c>PlayableDirector.playableAsset =</c> doesn't carry exposed references —
+    /// without this call, CinemachineShots resolve to null and the brain has no
+    /// driving vcam, so the camera renders from the bare Camera transform (0,0,0
+    /// in our scene). Call once per vcam before <see cref="Play"/>.
+    /// </summary>
+    public void BindCinemachineShots(TimelineAsset timeline, string clipName, CinemachineCamera vcam)
+    {
+        if (timeline == null || vcam == null) return;
+
+        foreach (TrackAsset track in timeline.GetOutputTracks())
+        {
+            if (track is not CinemachineTrack cmTrack) continue;
+
+            foreach (TimelineClip clip in cmTrack.GetClips())
+            {
+                if (clip.displayName != clipName) continue;
+                if (clip.asset is CinemachineShot shot)
+                    m_director.SetReferenceValue(shot.VirtualCamera.exposedName, vcam);
+            }
+        }
+    }
+
+    /// <summary>
+    /// Binds the first track of type <typeparamref name="T"/> in the timeline to the
+    /// given target object. Used for runtime binding of custom tracks (GameStateTrack,
+    /// CameraBlendTrack, BossEventTrack) whose targets aren't known at edit time.
+    /// </summary>
+    public void BindTrack<T>(TimelineAsset timeline, UnityEngine.Object target) where T : TrackAsset
+    {
+        if (timeline == null || target == null) return;
+
+        foreach (var output in timeline.outputs)
+        {
+            if (output.sourceObject is T)
+            {
+                m_director.SetGenericBinding(output.sourceObject, target);
+            }
+        }
+    }
+
     private bool IsPausedForInput()
     {
         if (!m_director.playableGraph.IsValid()) return false;
@@ -140,6 +248,7 @@ public class CinematicPlayer : MonoBehaviour
 
     private void OnAdvance(InputAction.CallbackContext context)
     {
+        if (m_dialogueBox == null || !m_dialogueBox.IsLineVisible) return;
         m_advanceRequested = true;
     }
 }

@@ -1,0 +1,778 @@
+using System;
+using System.Collections;
+using Gameplay.ObjectPool;
+using Input;
+using PlayerObject;
+using UnityEngine;
+using UnityEngine.Rendering.Universal;
+using UnityServiceLocator;
+
+public class WeaponShooting : MonoBehaviour, IWeapon
+{
+    public event Action<AmmoSettings> OnFired;
+    public event Action<int, int> OnMagazineChanged;
+    public event Action<float> OnReloadStarted;
+    public event Action OnReloadCompleted;
+    public event Action OnReloadCancelled;
+    public event Action OnCritWindowEntered;
+
+    [Header("References")]
+    [SerializeField] private InputReader m_inputReader;
+    [SerializeField] private Transform m_shootPoint;
+    [SerializeField] private WeaponSettings m_settings;
+
+    [Header("Prefabs")]
+    [SerializeField] private Projectile m_projectile;
+
+    [Header("Feedback")]
+    [Tooltip("Child object on the weapon that is toggled on for a brief flash each time the weapon fires. Leave empty to skip.")]
+    [SerializeField] private GameObject m_muzzleFlashObject;
+
+    [Tooltip("Optional Light2D on (or under) the muzzle flash object. Its color is tinted by the ammo color on fire and restored to its authored default otherwise. Auto-resolved from the muzzle flash object if left empty.")]
+    [SerializeField] private Light2D m_muzzleFlashLight;
+
+    [Tooltip("Seconds the muzzle flash object stays active after firing.")]
+    [SerializeField] private float m_muzzleFlashDuration = 0.05f;
+
+    private ObjectPool m_pool;
+    private Transform m_weaponHolder;
+    private ItemManager m_itemManager;
+    private AmmoManager m_ammoManager;
+    private CameraShake m_cameraShake;
+    private PlayerStatusEffects m_status;
+    private Coroutine m_muzzleFlashRoutine;
+    private SpriteRenderer m_muzzleFlashRenderer;
+    private Color m_muzzleFlashDefaultTint = Color.white;
+    private Color m_muzzleFlashDefaultLightColor = Color.white;
+    private Lootable m_lootable;
+
+    private bool m_equipped;
+    private float m_cooldownEndsAt;
+    private Coroutine m_burstRoutine;
+    private float m_chargeStartTime = -1f;
+    private bool m_critWindowEntered;
+    private float m_sustainedFireStart = -1f;
+
+    private float m_kickbackTimeRemaining;
+    private float m_kickbackDuration;
+    private float m_kickbackPeak;
+
+    private float m_recoilTimeRemaining;
+    private float m_recoilDuration;
+    private float m_recoilPeak;
+
+    private AmmoType m_loadedAmmoType = AmmoType.Standard;
+    private int m_magazineCurrent;
+    private bool m_isReloading;
+    private Coroutine m_reloadRoutine;
+
+    // Set true while the Projectile Burst ability has stolen the player's weapon for its
+    // phantom-fire show. While set, Update skips the fire path and the main SpriteRenderer
+    // is hidden so the held weapon visually disappears for the duration.
+    private bool m_burstSuppressed;
+    private Coroutine m_burstSuppressRoutine;
+    private SpriteRenderer m_mainRenderer;
+
+    public Vector2 ShootPointPosition => m_shootPoint.position;
+    public string DisplayName => m_settings != null ? m_settings.DisplayName : null;
+
+    /// <summary>The weapon's authored settings (damage multiplier, cooldown, spread, reload, magazine, ...). Used by weapon stat readouts.</summary>
+    public WeaponSettings Settings => m_settings;
+
+    /// <summary>
+    /// Projectile prefab this weapon fires. Exposed so abilities (e.g. Projectile Burst's
+    /// phantom weapons) can spawn the same shot the held weapon would, without routing
+    /// through the weapon's own fire timing or magazine state.
+    /// </summary>
+    public Projectile ProjectilePrefab => m_projectile;
+
+    /// <summary>
+    /// The weapon's built-in ammo (e.g. the RPG's explosive missile round), or null. This is
+    /// where weapons like the rocket launcher carry their on-impact behaviour, so external
+    /// shooters (Projectile Burst) need it as the fallback when the player has no special ammo.
+    /// </summary>
+    public AmmoSettings IntrinsicAmmo => m_settings != null ? m_settings.IntrinsicAmmo : null;
+    public int MagazineCurrent => m_magazineCurrent;
+    public int MagazineMax => m_settings != null ? m_settings.MagazineSize : 0;
+    public bool IsReloading => m_isReloading;
+    public AmmoType LoadedAmmoType => m_loadedAmmoType;
+    public bool UsesMagazine => m_settings != null && m_settings.MagazineSize > 0;
+    public WeaponReloadStyle ReloadStyle => m_settings != null ? m_settings.ReloadStyle : WeaponReloadStyle.Full;
+
+    // Non-positive offset applied along the weapon's local -Y to visualize kickback.
+    // WeaponHolder reads this each LateUpdate and layers it on top of the clamped/base position.
+    public float CurrentKickbackOffset { get; private set; }
+
+    // Positive-magnitude rotation (in degrees) layered on top of the weapon's aim rotation to
+    // visualize muzzle climb. WeaponHolder reads this each LateUpdate and picks the sign so the
+    // tilt points consistently toward the sprite's "up" side.
+    public float CurrentRecoilDegrees { get; private set; }
+
+    public bool IsCharging => m_chargeStartTime >= 0f;
+
+    public float ChargeProgress
+    {
+        get
+        {
+            if (m_chargeStartTime < 0f || m_settings == null || m_settings.MaxChargeSeconds <= 0f) return 0f;
+            return Mathf.Clamp01((Time.time - m_chargeStartTime) / m_settings.MaxChargeSeconds);
+        }
+    }
+
+    public bool IsInCritWindow => m_chargeStartTime >= 0f && IsHeldForInCritWindow(Time.time - m_chargeStartTime);
+
+    private void Start()
+    {
+        ServiceLocator.Global.TryGet(out ObjectPool pool);
+        m_pool = pool;
+        ServiceLocator.Global.TryGet(out m_itemManager);
+        ServiceLocator.Global.TryGet(out m_ammoManager);
+        ServiceLocator.Global.TryGet(out m_cameraShake);
+        ServiceLocator.Global.TryGet(out m_status);
+
+        // Main visual on the weapon root; toggled off by SuppressForBurst so the held weapon
+        // visually disappears while phantom copies run the Projectile Burst show.
+        m_mainRenderer = GetComponent<SpriteRenderer>();
+
+        // Cache the muzzle flash's authored default tints once at Start so they
+        // survive ammo-color overrides. Doing this in Equip was fragile because
+        // a re-equip after a tinted shot would have captured the ammo color as
+        // the "default".
+        if (m_muzzleFlashObject != null)
+        {
+            m_muzzleFlashRenderer = m_muzzleFlashObject.GetComponentInChildren<SpriteRenderer>(true);
+            if (m_muzzleFlashRenderer != null)
+                m_muzzleFlashDefaultTint = m_muzzleFlashRenderer.color;
+
+            if (m_muzzleFlashLight == null)
+                m_muzzleFlashLight = m_muzzleFlashObject.GetComponentInChildren<Light2D>(true);
+            if (m_muzzleFlashLight != null)
+                m_muzzleFlashDefaultLightColor = m_muzzleFlashLight.color;
+        }
+    }
+
+    public void Equip()
+    {
+        m_weaponHolder = GetComponentInParent<WeaponHolder>().transform;
+        m_equipped = true;
+        m_cooldownEndsAt = 0f;
+        ResetCharge();
+
+        if (m_lootable == null)
+            m_lootable = GetComponent<Lootable>() ?? GetComponentInParent<Lootable>() ?? GetComponentInChildren<Lootable>();
+
+        if (m_settings == null)
+            Debug.LogWarning($"WeaponShooting on '{name}' has no WeaponSettings assigned — falling back to unthrottled semi-auto.", this);
+
+        if (m_muzzleFlashObject != null)
+            m_muzzleFlashObject.SetActive(false);
+
+        m_magazineCurrent = 0;
+        m_isReloading = false;
+        m_loadedAmmoType = m_ammoManager != null && m_ammoManager.CurrentAmmoSettings != null
+            ? m_ammoManager.CurrentAmmoSettings.Type
+            : AmmoType.Standard;
+
+        if (UsesMagazine)
+        {
+            LoadMagazineFromPool();
+        }
+        OnMagazineChanged?.Invoke(m_magazineCurrent, MagazineMax);
+
+        if (m_inputReader != null)
+        {
+            m_inputReader.Reload += OnReloadInput;
+            m_inputReader.Roll += OnRollInput;
+        }
+        if (m_ammoManager != null)
+            m_ammoManager.OnAmmoChanged += OnAmmoTypeSwitched;
+    }
+
+    public void Unequip()
+    {
+        m_equipped = false;
+        ResetCharge();
+        m_cameraShake?.ClearSustainedRumble();
+        m_sustainedFireStart = -1f;
+        m_kickbackTimeRemaining = 0f;
+        CurrentKickbackOffset = 0f;
+        m_recoilTimeRemaining = 0f;
+        CurrentRecoilDegrees = 0f;
+
+        if (m_burstRoutine != null)
+        {
+            StopCoroutine(m_burstRoutine);
+            m_burstRoutine = null;
+        }
+
+        if (m_burstSuppressRoutine != null)
+        {
+            StopCoroutine(m_burstSuppressRoutine);
+            m_burstSuppressRoutine = null;
+        }
+        m_burstSuppressed = false;
+        if (m_mainRenderer != null) m_mainRenderer.enabled = true;
+
+        if (m_muzzleFlashRoutine != null)
+        {
+            StopCoroutine(m_muzzleFlashRoutine);
+            m_muzzleFlashRoutine = null;
+        }
+        if (m_muzzleFlashObject != null)
+            m_muzzleFlashObject.SetActive(false);
+
+        CancelReload();
+
+        if (UsesMagazine && m_magazineCurrent > 0 && m_ammoManager != null)
+            m_ammoManager.ReturnToPool(m_loadedAmmoType, m_magazineCurrent);
+        m_magazineCurrent = 0;
+
+        if (m_inputReader != null)
+        {
+            m_inputReader.Reload -= OnReloadInput;
+            m_inputReader.Roll -= OnRollInput;
+        }
+        if (m_ammoManager != null)
+            m_ammoManager.OnAmmoChanged -= OnAmmoTypeSwitched;
+    }
+
+    private void Update()
+    {
+        TickKickback();
+        TickRecoil();
+
+        if (!m_equipped || m_inputReader == null) return;
+
+        // While the Projectile Burst ability has stolen the held weapon for its phantom show,
+        // ignore fire input — the phantoms do the shooting; reload coroutines still run.
+        if (m_burstSuppressed) return;
+
+        bool held = m_inputReader.IsAttackHeld;
+        if (held && m_sustainedFireStart < 0f)
+            m_sustainedFireStart = Time.time;
+        else if (!held)
+            m_sustainedFireStart = -1f;
+
+        WeaponFireMode mode = m_settings != null ? m_settings.FireMode : WeaponFireMode.SemiAuto;
+
+        switch (mode)
+        {
+            case WeaponFireMode.SemiAuto:
+            case WeaponFireMode.FullAuto:
+                if (held && Time.time >= m_cooldownEndsAt)
+                {
+                    FireShot(1f);
+                    m_cooldownEndsAt = Time.time + (m_settings != null ? m_settings.Cooldown : 0f);
+                }
+                break;
+
+            case WeaponFireMode.Burst:
+                if (held && m_burstRoutine == null && Time.time >= m_cooldownEndsAt)
+                    m_burstRoutine = StartCoroutine(FireBurstRoutine());
+                break;
+
+            case WeaponFireMode.Charge:
+                TickCharge(held);
+                if (m_cameraShake != null && m_settings != null && m_settings.ChargeRumbleScale > 0f)
+                {
+                    if (IsCharging)
+                        m_cameraShake.SetSustainedRumble(ChargeProgress * m_settings.ChargeRumbleScale);
+                    else
+                        m_cameraShake.ClearSustainedRumble();
+                }
+                break;
+        }
+    }
+
+    private IEnumerator FireBurstRoutine()
+    {
+        int shots = m_settings != null ? Mathf.Max(1, m_settings.BurstCount) : 1;
+        float interval = m_settings != null ? m_settings.BurstInterval : 0f;
+
+        for (int i = 0; i < shots; i++)
+        {
+            FireShot(1f);
+            if (i < shots - 1)
+                yield return new WaitForSeconds(interval);
+        }
+
+        m_cooldownEndsAt = Time.time + (m_settings != null ? m_settings.Cooldown : 0f);
+        m_burstRoutine = null;
+    }
+
+    private void TickCharge(bool held)
+    {
+        if (m_settings == null) return;
+
+        if (held)
+        {
+            if (Time.time < m_cooldownEndsAt) return;
+
+            if (m_chargeStartTime < 0f)
+                m_chargeStartTime = Time.time;
+
+            float charged = Time.time - m_chargeStartTime;
+
+            if (!m_critWindowEntered && IsHeldForInCritWindow(charged))
+            {
+                m_critWindowEntered = true;
+                OnCritWindowEntered?.Invoke();
+            }
+
+            if (charged >= m_settings.MaxChargeSeconds)
+            {
+                FireShot(1f);
+                ResetCharge();
+                m_cooldownEndsAt = Time.time + m_settings.Cooldown;
+            }
+            return;
+        }
+
+        if (m_chargeStartTime < 0f) return;
+
+        float held_for = Time.time - m_chargeStartTime;
+        if (held_for >= m_settings.MinChargeSeconds)
+        {
+            float mult;
+            bool isCrit = IsHeldForInCritWindow(held_for);
+            if (isCrit)
+            {
+                mult = m_settings.CritDamageMultiplier;
+            }
+            else
+            {
+                float t = Mathf.InverseLerp(m_settings.MinChargeSeconds, m_settings.MaxChargeSeconds, held_for);
+                mult = Mathf.Lerp(m_settings.MinChargeDamageMultiplier, 1f, Mathf.Clamp01(t));
+            }
+            FireShot(mult, isCrit);
+            m_cooldownEndsAt = Time.time + m_settings.Cooldown;
+        }
+        ResetCharge();
+    }
+
+    private bool IsHeldForInCritWindow(float heldFor)
+    {
+        if (m_settings == null) return false;
+        if (m_settings.CritWindowDuration <= 0f || m_settings.CritDamageMultiplier <= 1f) return false;
+
+        float critStart = Mathf.Max(m_settings.MinChargeSeconds, m_settings.MaxChargeSeconds - m_settings.CritWindowDuration);
+        return heldFor >= critStart && heldFor < m_settings.MaxChargeSeconds;
+    }
+
+    private void ResetCharge()
+    {
+        m_chargeStartTime = -1f;
+        m_critWindowEntered = false;
+    }
+
+    private void FireShot(float damageMultiplier, bool isCrit = false)
+    {
+        if (m_pool == null || IsShootPointObstructed()) return;
+
+        if (UsesMagazine)
+        {
+            if (m_isReloading)
+            {
+                // PerRound reloads (revolver/shotgun): firing interrupts the reload and uses
+                // whatever's already chambered. Full-style reloads still block firing.
+                if (ReloadStyle == WeaponReloadStyle.PerRound && m_magazineCurrent > 0)
+                {
+                    CancelReload();
+                }
+                else
+                {
+                    return;
+                }
+            }
+            if (m_magazineCurrent <= 0)
+            {
+                StartReload();
+                return;
+            }
+        }
+
+        bool efficient = m_ammoManager != null && m_ammoManager.RollAmmoEfficiency();
+        AmmoSettings loadedAmmo = ResolveAmmoForShot(efficient);   // special ammo the player has loaded, or null
+
+        // What the shot reads as for tinting / audio / events: the loaded special ammo if any,
+        // otherwise the weapon's intrinsic round (e.g. the RPG missile). The intrinsic round's
+        // effect is layered onto the projectile by SpawnProjectile regardless, so weapons like
+        // the rocket launcher keep exploding even when the player has ricochet/seeking loaded.
+        AmmoSettings displayAmmo = loadedAmmo != null ? loadedAmmo
+            : (m_settings != null ? m_settings.IntrinsicAmmo : null);
+
+        if (UsesMagazine && !efficient)
+        {
+            m_magazineCurrent--;
+            OnMagazineChanged?.Invoke(m_magazineCurrent, MagazineMax);
+        }
+
+        int pellets = m_settings != null ? Mathf.Max(1, m_settings.PelletsPerShot) : 1;
+        for (int i = 0; i < pellets; i++)
+            SpawnProjectile(loadedAmmo, damageMultiplier, isCrit);
+
+        FlashMuzzle(displayAmmo);
+        StartKickback();
+        StartRecoil();
+
+        if (m_cameraShake != null && m_settings != null && m_settings.ShootShakeAmplitude > 0f)
+            m_cameraShake.Shake(m_settings.ShootShakeAmplitude, -m_shootPoint.right, m_settings.ShootRumbleMultiplier);
+
+        OnFired?.Invoke(displayAmmo);
+
+        if (UsesMagazine && m_magazineCurrent <= 0)
+            StartReload();
+    }
+
+    private AmmoSettings ResolveAmmoForShot(bool efficient)
+    {
+        if (m_ammoManager == null) return null;
+
+        // Magazine path: the mag tracks which type was loaded, so shots use that until reload.
+        if (UsesMagazine)
+        {
+            return m_loadedAmmoType != AmmoType.Standard
+                ? m_ammoManager.GetSettingsForType(m_loadedAmmoType)
+                : null;
+        }
+
+        // Non-magazine path: draw one round from the live ammo type's pool per shot, matching
+        // the pre-reload behavior. Efficiency item lets a shot pass without drawing.
+        AmmoSettings current = m_ammoManager.CurrentAmmoSettings;
+        if (current == null || current.Type == AmmoType.Standard) return null;
+
+        if (efficient) return current;
+
+        if (m_ammoManager.TryDrawFromPool(current.Type, 1) > 0)
+        {
+            if (m_ammoManager.GetAmmoCount(current.Type) <= 0)
+                m_ammoManager.CycleToStandard();
+            return current;
+        }
+        return null;
+    }
+
+    private void StartKickback()
+    {
+        if (m_settings == null) return;
+        if (m_settings.KickbackDistance <= 0f || m_settings.KickbackDuration <= 0f) return;
+
+        m_kickbackPeak = -m_settings.KickbackDistance;
+        m_kickbackDuration = m_settings.KickbackDuration;
+        m_kickbackTimeRemaining = m_kickbackDuration;
+        CurrentKickbackOffset = m_kickbackPeak;
+    }
+
+    private void TickKickback()
+    {
+        if (m_kickbackTimeRemaining <= 0f)
+        {
+            if (CurrentKickbackOffset != 0f)
+                CurrentKickbackOffset = 0f;
+            return;
+        }
+
+        m_kickbackTimeRemaining -= Time.deltaTime;
+        if (m_kickbackTimeRemaining <= 0f)
+        {
+            m_kickbackTimeRemaining = 0f;
+            CurrentKickbackOffset = 0f;
+            return;
+        }
+
+        float t = m_kickbackTimeRemaining / m_kickbackDuration;
+        CurrentKickbackOffset = m_kickbackPeak * t;
+    }
+
+    private void StartRecoil()
+    {
+        if (m_settings == null) return;
+        if (m_settings.RecoilDegrees <= 0f || m_settings.RecoilDuration <= 0f) return;
+
+        m_recoilPeak = m_settings.RecoilDegrees;
+        m_recoilDuration = m_settings.RecoilDuration;
+        m_recoilTimeRemaining = m_recoilDuration;
+        CurrentRecoilDegrees = m_recoilPeak;
+    }
+
+    private void TickRecoil()
+    {
+        if (m_recoilTimeRemaining <= 0f)
+        {
+            if (CurrentRecoilDegrees != 0f)
+                CurrentRecoilDegrees = 0f;
+            return;
+        }
+
+        m_recoilTimeRemaining -= Time.deltaTime;
+        if (m_recoilTimeRemaining <= 0f)
+        {
+            m_recoilTimeRemaining = 0f;
+            CurrentRecoilDegrees = 0f;
+            return;
+        }
+
+        float t = m_recoilTimeRemaining / m_recoilDuration;
+        CurrentRecoilDegrees = m_recoilPeak * t;
+    }
+
+    private void SpawnProjectile(AmmoSettings loadedAmmo, float damageMultiplier, bool isCrit)
+    {
+        Quaternion rotation = m_shootPoint.rotation;
+        float spread = GetCurrentSpread();
+        if (spread > 0f)
+            rotation *= Quaternion.Euler(0f, 0f, UnityEngine.Random.Range(-spread, spread));
+
+        int flatBonus = 0;
+        float mult = damageMultiplier;
+        int pierce = 0;
+        if (m_settings != null)
+            mult *= m_settings.DamageMultiplier;
+        if (m_itemManager != null)
+        {
+            flatBonus = m_itemManager.GetFlatDamageBonus();
+            mult *= m_itemManager.GetDamageMultiplier();
+            pierce = m_itemManager.GetBonusPierce();
+        }
+        if (m_status != null)
+            mult *= m_status.GetMultiplier(PlayerStatusEffects.BuffKind.DamageMultiplier);
+        if (m_lootable != null)
+            mult *= LootableRarity.GetDamageMultiplier(m_lootable.Rarity);
+
+        Color critTint = isCrit && m_settings != null ? m_settings.CritProjectileColor : default;
+
+        // Layer the weapon's intrinsic round behaviour (e.g. the RPG missile's explosion) with
+        // whatever special ammo is loaded, so a rocket with ricochet ammo bounces off walls and
+        // still detonates on enemies / when it runs out of bounces. A fresh effect per pellet —
+        // some effects (ricochet) carry mutable per-shot state.
+        AmmoSettings intrinsicAmmo = m_settings != null ? m_settings.IntrinsicAmmo : null;
+        IAmmoEffect effect = CompositeAmmoEffect.Compose(intrinsicAmmo?.CreateEffect(), loadedAmmo?.CreateEffect());
+        AmmoSettings displayAmmo = loadedAmmo != null ? loadedAmmo : intrinsicAmmo;
+
+        ProjectileSpawner.Spawn(
+            m_pool, m_projectile.gameObject, m_shootPoint.position, rotation,
+            bonusDamage: flatBonus, damageMultiplier: mult, bonusPierce: pierce,
+            ammoSettings: displayAmmo, ammoEffect: effect, critTint: critTint);
+    }
+
+    // Ramps SpreadDegrees up toward MaxSpreadDegrees over SpreadRampDuration seconds of
+    // continuously held attack input. The timer resets on release and on reload start so
+    // short controlled bursts stay accurate while sustained full-auto fire loses precision.
+    // Weapons with a zero ramp duration or no configured max keep the flat SpreadDegrees.
+    private float GetCurrentSpread()
+    {
+        if (m_settings == null) return 0f;
+
+        float baseSpread = m_settings.SpreadDegrees;
+        float maxSpread = m_settings.MaxSpreadDegrees;
+        float rampDuration = m_settings.SpreadRampDuration;
+
+        if (rampDuration <= 0f || maxSpread <= baseSpread || m_sustainedFireStart < 0f)
+            return baseSpread;
+
+        float heldFor = Time.time - m_sustainedFireStart;
+        float t = Mathf.Clamp01(heldFor / rampDuration);
+        return Mathf.Lerp(baseSpread, maxSpread, t);
+    }
+
+    private bool IsShootPointObstructed()
+    {
+        if (m_weaponHolder == null) return false;
+
+        Vector2 origin = m_weaponHolder.position;
+        Vector2 target = m_shootPoint.position;
+        Vector2 direction = target - origin;
+
+        return Physics2D.Raycast(origin, direction, direction.magnitude, GameConstants.Layers.WallsLayerMask);
+    }
+
+    private void FlashMuzzle(AmmoSettings ammoSettings)
+    {
+        if (m_muzzleFlashObject == null || m_muzzleFlashDuration <= 0f) return;
+
+        if (m_muzzleFlashRoutine != null)
+            StopCoroutine(m_muzzleFlashRoutine);
+
+        if (m_muzzleFlashRenderer != null)
+            m_muzzleFlashRenderer.color = ammoSettings != null ? ammoSettings.ProjectileColor : m_muzzleFlashDefaultTint;
+
+        if (m_muzzleFlashLight != null)
+            m_muzzleFlashLight.color = ammoSettings != null ? ammoSettings.ProjectileColor : m_muzzleFlashDefaultLightColor;
+
+        m_muzzleFlashObject.SetActive(true);
+        m_muzzleFlashRoutine = StartCoroutine(HideMuzzleFlashAfterDelay());
+    }
+
+    private IEnumerator HideMuzzleFlashAfterDelay()
+    {
+        yield return new WaitForSeconds(m_muzzleFlashDuration);
+        if (m_muzzleFlashObject != null)
+            m_muzzleFlashObject.SetActive(false);
+        m_muzzleFlashRoutine = null;
+    }
+
+    private void OnReloadInput()
+    {
+        if (!m_equipped || !UsesMagazine) return;
+        if (m_isReloading) return;
+        if (m_magazineCurrent >= MagazineMax) return;
+        StartReload();
+    }
+
+    private void OnRollInput()
+    {
+        if (m_isReloading)
+            CancelReload();
+    }
+
+    private void OnAmmoTypeSwitched(AmmoSettings newSettings)
+    {
+        if (!m_equipped) return;
+        AmmoType newType = newSettings != null ? newSettings.Type : AmmoType.Standard;
+        if (newType == m_loadedAmmoType) return;
+
+        CancelReload();
+
+        if (UsesMagazine && m_magazineCurrent > 0 && m_ammoManager != null)
+            m_ammoManager.ReturnToPool(m_loadedAmmoType, m_magazineCurrent);
+
+        m_loadedAmmoType = newType;
+        m_magazineCurrent = 0;
+        OnMagazineChanged?.Invoke(m_magazineCurrent, MagazineMax);
+
+        if (UsesMagazine)
+            StartReload();
+    }
+
+    private void StartReload()
+    {
+        if (!UsesMagazine || m_isReloading) return;
+
+        // If the loaded type is depleted (pool empty, mag empty), fall back to standard
+        // so the player isn't stuck trying to reload nothing. Cycling to standard will
+        // re-enter this method via OnAmmoTypeSwitched.
+        if (m_loadedAmmoType != AmmoType.Standard && m_ammoManager != null
+            && m_ammoManager.GetAmmoCount(m_loadedAmmoType) <= 0 && m_magazineCurrent <= 0)
+        {
+            m_ammoManager.CycleToStandard();
+            return;
+        }
+
+        // Reset the sustained-fire spread ramp — reloading always breaks a continuous
+        // burst, so post-reload shots should start from base accuracy even if the player
+        // keeps the attack button held through the reload.
+        m_sustainedFireStart = -1f;
+
+        bool perRound = ReloadStyle == WeaponReloadStyle.PerRound && MagazineMax > 0;
+        float cycleDuration = perRound
+            ? (m_settings != null ? m_settings.PerRoundReloadDuration : 0f)
+            : (m_settings != null ? m_settings.ReloadDuration : 0f);
+
+        m_isReloading = true;
+        OnReloadStarted?.Invoke(cycleDuration);
+
+        if (cycleDuration <= 0f)
+        {
+            FinishReload();
+            return;
+        }
+
+        m_reloadRoutine = StartCoroutine(perRound
+            ? PerRoundReloadCoroutine(cycleDuration)
+            : ReloadCoroutine(cycleDuration));
+    }
+
+    private IEnumerator ReloadCoroutine(float duration)
+    {
+        yield return new WaitForSeconds(duration);
+        FinishReload();
+    }
+
+    private IEnumerator PerRoundReloadCoroutine(float perRoundDuration)
+    {
+        while (m_magazineCurrent < MagazineMax)
+        {
+            yield return new WaitForSeconds(perRoundDuration);
+
+            int drawn = m_ammoManager != null
+                ? m_ammoManager.TryDrawFromPool(m_loadedAmmoType, 1)
+                : 1;
+            if (drawn <= 0)
+            {
+                // Pool empty mid-reload — keep what we've got and stop.
+                FinishReload();
+                yield break;
+            }
+            m_magazineCurrent += drawn;
+            OnMagazineChanged?.Invoke(m_magazineCurrent, MagazineMax);
+
+            // Tell the HUD a fresh per-pip cycle is starting so it can reset its 0..1 progress
+            // bar for the next round. Skip on the last round — we're about to FinishReload.
+            if (m_magazineCurrent < MagazineMax)
+                OnReloadStarted?.Invoke(perRoundDuration);
+        }
+        FinishReload();
+    }
+
+    private void FinishReload()
+    {
+        m_reloadRoutine = null;
+        m_isReloading = false;
+        LoadMagazineFromPool();
+        OnMagazineChanged?.Invoke(m_magazineCurrent, MagazineMax);
+        OnReloadCompleted?.Invoke();
+    }
+
+    private void CancelReload()
+    {
+        if (m_reloadRoutine != null)
+        {
+            StopCoroutine(m_reloadRoutine);
+            m_reloadRoutine = null;
+        }
+        if (m_isReloading)
+        {
+            m_isReloading = false;
+            OnReloadCancelled?.Invoke();
+        }
+    }
+
+    private void LoadMagazineFromPool()
+    {
+        if (!UsesMagazine) return;
+        int needed = MagazineMax - m_magazineCurrent;
+        if (needed <= 0) return;
+
+        int drawn = m_ammoManager != null
+            ? m_ammoManager.TryDrawFromPool(m_loadedAmmoType, needed)
+            : needed; // No manager — treat as infinite so the weapon stays functional
+        m_magazineCurrent += drawn;
+    }
+
+    /// <summary>
+    /// Hide the held weapon and stop responding to fire input for <paramref name="seconds"/>
+    /// (unscaled), then automatically restore. Called by the Projectile Burst ability while its
+    /// phantom copies do the shooting. Re-calling while already suppressed extends the window.
+    /// Reload coroutines continue running underneath so a mid-reload cast still finishes
+    /// reloading by the time the weapon reappears.
+    /// </summary>
+    public void SuppressForBurst(float seconds)
+    {
+        if (seconds <= 0f) return;
+        if (m_burstSuppressRoutine != null)
+            StopCoroutine(m_burstSuppressRoutine);
+        m_burstSuppressRoutine = StartCoroutine(BurstSuppressRoutine(seconds));
+    }
+
+    private IEnumerator BurstSuppressRoutine(float seconds)
+    {
+        m_burstSuppressed = true;
+        if (m_mainRenderer != null) m_mainRenderer.enabled = false;
+
+        yield return new WaitForSecondsRealtime(seconds);
+
+        m_burstSuppressed = false;
+        if (m_mainRenderer != null) m_mainRenderer.enabled = true;
+        m_burstSuppressRoutine = null;
+    }
+}

@@ -125,6 +125,8 @@ public class Lootable : MonoBehaviour
         IsSpawning = false;
     }
 
+    public LootableRarity.Rarity Rarity => _rarity;
+
     protected LootableRarity.Rarity m_rarity
     {
         get => _rarity;

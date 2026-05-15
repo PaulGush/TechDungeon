@@ -7,8 +7,14 @@ namespace Gameplay.ObjectPool
 {
     public class ObjectPool : MonoBehaviour
     {
-        private Dictionary<int, IObjectPool<GameObject>> m_pools = new Dictionary<int, IObjectPool<GameObject>>();
-        private Dictionary<int, IObjectPool<GameObject>> m_activeObjects = new Dictionary<int, IObjectPool<GameObject>>();
+        [SerializeField, Min(1), Tooltip("Initial pool capacity allocated the first time a prefab is requested.")]
+        private int m_defaultCapacity = 10;
+
+        [SerializeField, Min(1), Tooltip("Upper bound for retained instances; instances beyond this are destroyed on release.")]
+        private int m_maxPoolSize = 50;
+
+        private readonly Dictionary<int, IObjectPool<GameObject>> m_pools = new Dictionary<int, IObjectPool<GameObject>>();
+        private readonly Dictionary<int, IObjectPool<GameObject>> m_activeObjects = new Dictionary<int, IObjectPool<GameObject>>();
 
         void Awake()
         {
@@ -16,6 +22,27 @@ namespace Gameplay.ObjectPool
         }
 
         public GameObject GetPooledObject(GameObject template)
+        {
+            GameObject instance = FetchInactive(template);
+            instance.SetActive(true);
+            return instance;
+        }
+
+        // Variant that positions the instance BEFORE activating it. Required for pooled
+        // objects that carry a TrailRenderer (e.g. Ball_Projectile) — if the GameObject
+        // reactivates at its last-despawn location (typical for stationary shooters like
+        // turrets), the trail's internal "last sample position" is captured there and
+        // Clear() is not reliable at purging it, causing intermittent missing/streaked
+        // trails on the next shot.
+        public GameObject GetPooledObject(GameObject template, Vector3 position, Quaternion rotation)
+        {
+            GameObject instance = FetchInactive(template);
+            instance.transform.SetPositionAndRotation(position, rotation);
+            instance.SetActive(true);
+            return instance;
+        }
+
+        private GameObject FetchInactive(GameObject template)
         {
             int id = template.GetInstanceID();
             if (!m_pools.TryGetValue(id, out var pool))
@@ -27,12 +54,12 @@ namespace Gameplay.ObjectPool
                         newGameObject.SetActive(false);
                         return newGameObject;
                     },
-                    actionOnGet: OnGet,
+                    actionOnGet: null,
                     actionOnRelease: OnRelease,
                     actionOnDestroy: OnDestroyItem,
                     collectionCheck: true,
-                    defaultCapacity: 10,
-                    maxSize: 50
+                    defaultCapacity: m_defaultCapacity,
+                    maxSize: m_maxPoolSize
                 );
                 m_pools[id] = pool;
             }
@@ -42,17 +69,13 @@ namespace Gameplay.ObjectPool
             return instance;
         }
 
-        // Called when an item is taken from the pool.
-        private void OnGet(GameObject gameObject)
-        {
-            if (gameObject == null) return;
-            gameObject.SetActive(true);
-        }
-
         // Called when an item is returned to the pool.
+        // Don't teleport to origin before SetActive(false) — on objects with a TrailRenderer
+        // (e.g. Ball_Projectile) the move-while-active pushes a stale "last emitted position"
+        // into the renderer that Clear() doesn't always reset, producing intermittent
+        // missing trails on re-use.
         private void OnRelease(GameObject gameObject)
         {
-            gameObject.transform.position = Vector3.zero;
             gameObject.SetActive(false);
         }
 

@@ -1,6 +1,6 @@
-using System.Collections;
 using Input;
 using UnityEngine;
+using UnityServiceLocator;
 
 namespace PlayerObject
 {
@@ -11,17 +11,16 @@ namespace PlayerObject
         private static readonly int MoveSpeed = Animator.StringToHash("MoveSpeed");
         private static readonly int Death = Animator.StringToHash("Death");
         private static readonly int Roll = Animator.StringToHash("Roll");
-        private static readonly WaitForSeconds FlashWait = new WaitForSeconds(0.2f);
-        
+
         [Header("References")]
         [SerializeField] private Animator m_animator;
-        [SerializeField] private SpriteRenderer m_spriteRenderer;
         [SerializeField] private InputReader m_inputReader;
         [SerializeField] private EntityHealth m_health;
-        
-        [Header("Settings")]
-        [SerializeField] private Color m_healColor = Color.green;
-        [SerializeField] private Color m_damageColor = Color.red;
+
+        [Tooltip("Impulse amplitude applied to the camera shake service when the player takes damage. Zero disables.")]
+        [SerializeField] private float m_damageShakeAmplitude = 0.4f;
+
+        private CameraShake m_cameraShake;
 
         private void OnEnable()
         {
@@ -29,7 +28,6 @@ namespace PlayerObject
             m_inputReader.Roll += OnRoll;
 
             m_health.OnTakeDamage += OnHurt;
-            m_health.OnHeal += OnHeal;
             m_health.OnDeath += OnDeath;
         }
 
@@ -37,17 +35,16 @@ namespace PlayerObject
         {
             m_inputReader.Move -= OnMove;
             m_inputReader.Roll -= OnRoll;
-            
+
             m_health.OnTakeDamage -= OnHurt;
-            m_health.OnHeal -= OnHeal;
-            m_health.OnDeath -= OnDeath; 
+            m_health.OnDeath -= OnDeath;
         }
 
         private void OnMove(Vector2 direction)
         {
             if (!m_inputReader.IsMoveInputPressed)
                 return;
-                
+
             m_animator.SetFloat(Horizontal, direction.x);
             m_animator.SetFloat(Vertical, direction.y);
         }
@@ -56,20 +53,16 @@ namespace PlayerObject
         {
             if (!m_inputReader.IsMoveInputPressed)
                 return;
-            
+
             m_animator.SetTrigger(Roll);
         }
 
         private void OnHurt()
         {
-            StopAllCoroutines();
-            StartCoroutine(ChangeColorForSeconds(m_damageColor));
-        }
-
-        private void OnHeal()
-        {
-            StopAllCoroutines();
-            StartCoroutine(ChangeColorForSeconds(m_healColor));
+            if (m_cameraShake == null)
+                ServiceLocator.Global.TryGet(out m_cameraShake);
+            if (m_cameraShake != null && m_damageShakeAmplitude > 0f)
+                m_cameraShake.Shake(m_damageShakeAmplitude);
         }
 
         private void OnDeath()
@@ -80,18 +73,9 @@ namespace PlayerObject
 
         public void ResetAnimator()
         {
-            StopAllCoroutines();
-            m_spriteRenderer.color = Color.white;
             m_animator.ResetTrigger(Death);
             m_animator.Rebind();
             m_animator.Update(0f);
-        }
-
-        private IEnumerator ChangeColorForSeconds(Color color)
-        {
-            m_spriteRenderer.color = color;
-            yield return FlashWait;
-            m_spriteRenderer.color = Color.white;
         }
 
         private void Update()

@@ -11,7 +11,7 @@ public class AmmoManager : MonoBehaviour
 
     private readonly Dictionary<AmmoType, int> m_ammoCounts = new();
     private int m_currentIndex;
-    private MutationManager m_mutationManager;
+    private ItemManager m_itemManager;
 
     public AmmoSettings CurrentAmmoSettings => m_ammoTypes.Count > 0 ? m_ammoTypes[m_currentIndex] : null;
     public Action<AmmoSettings> OnAmmoChanged;
@@ -30,7 +30,7 @@ public class AmmoManager : MonoBehaviour
 
     private void Start()
     {
-        ServiceLocator.Global.TryGet(out m_mutationManager);
+        ServiceLocator.Global.TryGet(out m_itemManager);
     }
 
     private void OnEnable()
@@ -52,38 +52,67 @@ public class AmmoManager : MonoBehaviour
     {
         if (m_ammoTypes.Count == 0) return;
 
-        int previous = m_currentIndex;
-        m_currentIndex = (m_currentIndex + direction + m_ammoTypes.Count) % m_ammoTypes.Count;
+        int start = m_currentIndex;
+        int idx = start;
+        for (int i = 0; i < m_ammoTypes.Count; i++)
+        {
+            idx = (idx + direction + m_ammoTypes.Count) % m_ammoTypes.Count;
+            if (HasAvailableAmmo(m_ammoTypes[idx])) break;
+        }
 
-        if (m_currentIndex != previous)
-            OnAmmoChanged?.Invoke(CurrentAmmoSettings);
+        if (idx == start) return;
+
+        m_currentIndex = idx;
+        OnAmmoChanged?.Invoke(CurrentAmmoSettings);
     }
 
-    public bool TryConsumeAmmo()
+    private bool HasAvailableAmmo(AmmoSettings settings)
     {
-        AmmoSettings current = CurrentAmmoSettings;
-        if (current == null || current.Type == AmmoType.Standard) return true;
-
-        if (m_mutationManager != null)
-        {
-            float efficiency = m_mutationManager.GetAmmoEfficiency();
-            if (efficiency > 0f && UnityEngine.Random.value * 100f < efficiency)
-                return true;
-        }
-
-        if (m_ammoCounts.TryGetValue(current.Type, out int count) && count > 0)
-        {
-            m_ammoCounts[current.Type] = count - 1;
-            OnAmmoCountChanged?.Invoke(current.Type, count - 1);
-
-            if (count - 1 <= 0)
-                CycleToStandard();
-
-            return true;
-        }
-
-        return false;
+        if (settings == null) return false;
+        if (settings.Type == AmmoType.Standard) return true;
+        return m_ammoCounts.TryGetValue(settings.Type, out int count) && count > 0;
     }
+
+    public bool RollAmmoEfficiency()
+    {
+        if (m_itemManager == null) return false;
+        float efficiency = m_itemManager.GetAmmoEfficiency();
+        return efficiency > 0f && UnityEngine.Random.value * 100f < efficiency;
+    }
+
+    public int TryDrawFromPool(AmmoType type, int maxAmount)
+    {
+        if (maxAmount <= 0) return 0;
+        if (type == AmmoType.Standard) return maxAmount;
+
+        if (!m_ammoCounts.TryGetValue(type, out int count) || count <= 0) return 0;
+
+        int drawn = Mathf.Min(maxAmount, count);
+        m_ammoCounts[type] = count - drawn;
+        OnAmmoCountChanged?.Invoke(type, count - drawn);
+        return drawn;
+    }
+
+    public void ReturnToPool(AmmoType type, int amount)
+    {
+        if (amount <= 0 || type == AmmoType.Standard) return;
+
+        if (!m_ammoCounts.ContainsKey(type))
+            m_ammoCounts[type] = 0;
+
+        m_ammoCounts[type] += amount;
+        OnAmmoCountChanged?.Invoke(type, m_ammoCounts[type]);
+    }
+
+    public AmmoSettings GetSettingsForType(AmmoType type)
+    {
+        for (int i = 0; i < m_ammoTypes.Count; i++)
+        {
+            if (m_ammoTypes[i].Type == type) return m_ammoTypes[i];
+        }
+        return null;
+    }
+
 
     public void AddAmmo(AmmoType type, int amount)
     {
@@ -117,7 +146,7 @@ public class AmmoManager : MonoBehaviour
         return m_ammoCounts.TryGetValue(type, out int count) ? count : 0;
     }
 
-    private void CycleToStandard()
+    public void CycleToStandard()
     {
         for (int i = 0; i < m_ammoTypes.Count; i++)
         {

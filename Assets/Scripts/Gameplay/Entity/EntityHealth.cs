@@ -14,8 +14,21 @@ public class EntityHealth : MonoBehaviour
 
     public Action OnHeal;
     public Action OnTakeDamage;
+    // Fires alongside OnTakeDamage with the post-armor damage amount. Subscribe here
+    // when the amount matters (damage numbers, UI hit counters); use OnTakeDamage when
+    // only the fact of a hit matters (hit flash, CA punch).
+    public Action<int> OnTakeDamageAmount;
     public Action OnDeath;
     public Action<int> OnHealthChanged;
+
+    /// <summary>
+    /// Optional hook fired when an incoming hit would otherwise reduce health to zero.
+    /// Return true to absorb the lethal damage and clamp the entity at 1 HP — death is
+    /// suppressed and OnDeath does not fire. Used by BossDeathSequence to hold the boss
+    /// alive while a death cutscene plays, then null itself out and call <see cref="Kill"/>
+    /// to finish the kill cleanly afterwards.
+    /// </summary>
+    public Func<int, bool> DeathInterceptor;
 
     private int m_baseMaxHealth;
     private int m_baseArmor;
@@ -37,13 +50,35 @@ public class EntityHealth : MonoBehaviour
         if (IsGodMode) return;
 
         int mitigated = Mathf.Max(damage - m_armor, 0);
+
+        if (m_currentHealth > 0
+            && m_currentHealth - mitigated <= 0
+            && DeathInterceptor != null
+            && DeathInterceptor(mitigated))
+        {
+            m_currentHealth = 1;
+            OnTakeDamage?.Invoke();
+            OnTakeDamageAmount?.Invoke(mitigated);
+            OnHealthChanged?.Invoke(m_currentHealth);
+            return;
+        }
+
         m_currentHealth -= mitigated;
         OnTakeDamage?.Invoke();
+        OnTakeDamageAmount?.Invoke(mitigated);
         OnHealthChanged?.Invoke(m_currentHealth);
 
         if (m_currentHealth > 0)
             return;
 
+        m_currentHealth = 0;
+        OnHealthChanged?.Invoke(m_currentHealth);
+        OnDeath?.Invoke();
+    }
+
+    public void Kill()
+    {
+        if (m_currentHealth <= 0) return;
         m_currentHealth = 0;
         OnHealthChanged?.Invoke(m_currentHealth);
         OnDeath?.Invoke();

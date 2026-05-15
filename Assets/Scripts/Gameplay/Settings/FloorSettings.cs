@@ -5,12 +5,21 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Data/Room/Floor Settings")]
 public class FloorSettings : ScriptableObject
 {
+    // Shops must be at least this many rooms apart to keep them from spawning back-to-back.
+    private const int MinShopInterval = 2;
+
     [Header("Floor Structure")]
     [Tooltip("Total number of rooms in this floor, including the boss.")]
     public int TotalRoomCount = 10;
 
-    [Tooltip("Place a shop room every N rooms. Set to 0 to disable shops.")]
+    [Tooltip("Place a shop room every N rooms. Set to 0 to disable shops; otherwise must be >= 2 so shops are never adjacent.")]
     public int ShopInterval = 4;
+
+    private void OnValidate()
+    {
+        if (ShopInterval > 0 && ShopInterval < MinShopInterval)
+            ShopInterval = MinShopInterval;
+    }
 
     [Header("Room Pools")]
     public List<RoomSettings> CombatRoomPool;

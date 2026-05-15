@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1bb3a438bdc174c7ca04c598e0b0e1dc, type: 3}
+  m_Name: RPG_Missile_Ammo
+  m_EditorClassIdentifier: Assembly-CSharp::AmmoSettings
+  Type: 2
+  DisplayName: RPG Missile
+  Icon: {fileID: 21300000, guid: 43e6e4d7934db57faa97c7a2e109fb69, type: 3}
+  ProjectileColor: {r: 1, g: 1, b: 1, a: 1}
+  BonusPierce: 0
+  ExplosionRadius: 2.5
+  ExplosionDamage: 25
+  ExplosionEffectPrefab: {fileID: 4471930890102010001, guid: c8f3d72a9e64b15ab0f891c2d5e7a4b6, type: 3}
+  SeekRange: 0
+  TurnRateDegPerSec: 0
+  MaxBounces: 0
+  RicochetRayBackOffset: 2
+  RicochetRayDistance: 4
+  RicochetSurfaceClearance: 0.15

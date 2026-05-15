@@ -19,6 +19,25 @@ public class RoomEncounter : MonoBehaviour
     private GameObject m_spawnIndicatorPrefab;
     private float m_spawnIndicatorDuration;
 
+    // When true, the boss's death cascades lethal damage onto every surviving minion so the
+    // room clears the moment the boss falls. Sourced from BossRoomSettings; non-boss rooms
+    // never set it, so the branch is dormant for ordinary encounters.
+    private bool m_killMinionsOnBossDeath;
+
+    // Set while KillNonBossEnemies is dealing lethal damage to minions. Each minion's recursive
+    // OnEnemyDied frame would otherwise race to advance the wave / call ClearRoom when its
+    // decrement leaves the list empty — this flag defers that to the outer caller so we advance
+    // exactly once.
+    private bool m_suppressWaveAdvance;
+
+    /// <summary>
+    /// The boss enemy spawned into this room, if any. Set whenever an enemy carrying a
+    /// <see cref="BossEntity"/> marker is spawned via <see cref="PreSpawnBoss"/> or
+    /// <see cref="SpawnWave"/>. Consumed by RoomManager to wire the boss vcam tracking
+    /// target without coupling to a specific prefab.
+    /// </summary>
+    public GameObject Boss { get; private set; }
+
     public void Initialize(RoomInstance roomInstance, RoomSettings settings,
         GameObject spawnIndicatorPrefab = null, float spawnIndicatorDuration = 0.8f)
     {
@@ -26,6 +45,7 @@ public class RoomEncounter : MonoBehaviour
         m_waves = settings.EnemyWaves;
         m_spawnIndicatorPrefab = spawnIndicatorPrefab;
         m_spawnIndicatorDuration = spawnIndicatorDuration;
+        m_killMinionsOnBossDeath = (settings as BossRoomSettings)?.KillMinionsOnDeath ?? false;
         ServiceLocator.Global.TryGet(out m_pool);
     }
 
@@ -71,6 +91,9 @@ public class RoomEncounter : MonoBehaviour
         }
 
         m_activeEnemies.Add(boss);
+
+        if (boss.GetComponent<BossEntity>() != null)
+            Boss = boss;
 
         EntityHealth health = boss.GetComponent<EntityHealth>();
         if (health != null)
@@ -171,6 +194,9 @@ public class RoomEncounter : MonoBehaviour
 
             m_activeEnemies.Add(enemy);
 
+            if (enemy.GetComponent<BossEntity>() != null)
+                Boss = enemy;
+
             EntityHealth health = enemy.GetComponent<EntityHealth>();
             if (health != null)
             {
@@ -193,7 +219,16 @@ public class RoomEncounter : MonoBehaviour
             creditManager.AddCredits(ec.CreditValue);
         }
 
+        if (enemy == Boss)
+        {
+            KillNonBossEnemies();
+        }
+
         if (m_activeEnemies.Count > 0) return;
+
+        // Recursive frames triggered by the boss-death cascade defer to the outer boss frame
+        // so we advance the wave / call ClearRoom exactly once.
+        if (m_suppressWaveAdvance) return;
 
         m_currentWaveIndex++;
         if (m_currentWaveIndex < m_waves.Count)
@@ -236,6 +271,37 @@ public class RoomEncounter : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Deals lethal damage to every active enemy that isn't the boss, so each minion goes
+    /// through normal death — VFX, drops, credits — instead of vanishing. Used by the boss
+    /// death cutscene to wipe surviving minions the moment the boss takes its lethal blow,
+    /// and by the non-intercepted boss death path. No-op when
+    /// <see cref="BossRoomSettings.KillMinionsOnDeath"/> is false (minions outlive the boss).
+    /// </summary>
+    public void KillNonBossEnemies()
+    {
+        if (!m_killMinionsOnBossDeath) return;
+
+        // Snapshot before we damage — each TakeDamage cascades synchronously into OnEnemyDied,
+        // which mutates m_activeEnemies. Iterating the live list would skip or double-visit.
+        var snapshot = new List<GameObject>(m_activeEnemies);
+        m_suppressWaveAdvance = true;
+        try
+        {
+            foreach (GameObject minion in snapshot)
+            {
+                if (minion == null || minion == Boss) continue;
+                EntityHealth health = minion.GetComponent<EntityHealth>();
+                if (health != null && !health.IsDead)
+                    health.TakeDamage(health.CurrentHealth + health.Armor);
+            }
+        }
+        finally
+        {
+            m_suppressWaveAdvance = false;
+        }
+    }
+
     public void RegisterEnemy(GameObject enemy)
     {
         m_activeEnemies.Add(enemy);
@@ -271,5 +337,6 @@ public class RoomEncounter : MonoBehaviour
 
         m_activeEnemies.Clear();
         m_deathCallbacks.Clear();
+        Boss = null;
     }
 }

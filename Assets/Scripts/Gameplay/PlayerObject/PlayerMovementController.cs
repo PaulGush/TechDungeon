@@ -12,16 +12,19 @@ namespace PlayerObject
         [SerializeField] private PlayerSettings m_settings;
 
         private float m_rollTimer;
-        private MutationManager m_mutationManager;
+        private ItemManager m_itemManager;
+        private PlayerStatusEffects m_status;
 
         private void Awake()
         {
             ServiceLocator.Global.Register(this);
+            Physics2D.IgnoreLayerCollision(GameConstants.Layers.PlayerLayer, GameConstants.Layers.EnemyLayer, true);
         }
 
         private void Start()
         {
-            ServiceLocator.Global.TryGet(out m_mutationManager);
+            ServiceLocator.Global.TryGet(out m_itemManager);
+            ServiceLocator.Global.TryGet(out m_status);
         }
 
         private void OnEnable()
@@ -44,8 +47,10 @@ namespace PlayerObject
 
             Vector2 direction = m_inputReader.MoveDirection;
             float speed = m_settings.Speed;
-            if (m_mutationManager != null)
-                speed *= m_mutationManager.GetSpeedMultiplier();
+            if (m_itemManager != null)
+                speed *= m_itemManager.GetSpeedMultiplier();
+            if (m_status != null)
+                speed *= m_status.GetMultiplier(PlayerStatusEffects.BuffKind.SpeedMultiplier);
             Vector2 newPosition = m_rigidbody2D.position + direction * (speed * Time.fixedDeltaTime);
             m_rigidbody2D.MovePosition(newPosition);
         }

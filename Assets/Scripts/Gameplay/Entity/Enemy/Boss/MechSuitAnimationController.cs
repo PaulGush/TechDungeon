@@ -1,20 +1,28 @@
 using UnityEngine;
+using UnityServiceLocator;
 
 public class MechSuitAnimationController : EnemyAnimationController
 {
+    private const int BaseLayerIndex = 0;
+    private static readonly int AttackTagHash = Animator.StringToHash("Attack");
     private static readonly int Running = Animator.StringToHash("Running");
-    private static readonly int LegsRotation = Animator.StringToHash("LegsRotation");
     private static readonly int LegsDead = Animator.StringToHash("LegsDead");
 
     [Header("Boss - Legs")]
     [SerializeField] private Animator m_legsAnimator;
     [SerializeField] private SpriteRenderer m_legsSpriteRenderer;
 
+    [Header("Footstep Rumble")]
+    [Tooltip("Gamepad rumble pulse fired each time the legs animation crosses a half-cycle (≈ once per footfall). Zero disables.")]
+    [SerializeField, Range(0f, 1f)] private float m_footstepRumble = 0.4f;
+
     private bool m_torsoHasRunning;
-    private bool m_legsHasRotation;
     private bool m_legsHasRunning;
     private bool m_legsHasDead;
     private bool m_legsVisible;
+    private CameraShake m_cameraShake;
+    private bool m_footstepLastHalf;
+    private bool m_footstepTracking;
 
     protected override void OnEnable()
     {
@@ -39,20 +47,17 @@ public class MechSuitAnimationController : EnemyAnimationController
             if (param.nameHash == Running) m_torsoHasRunning = true;
         }
 
-        m_legsHasRotation = false;
         m_legsHasRunning = false;
         m_legsHasDead = false;
 
         if (m_legsAnimator == null) return;
 
-        int rotationHash = LegsRotation;
         int deadHash = LegsDead;
 
         foreach (AnimatorControllerParameter param in m_legsAnimator.parameters)
         {
             int hash = param.nameHash;
-            if (hash == rotationHash) m_legsHasRotation = true;
-            else if (hash == Running) m_legsHasRunning = true;
+            if (hash == Running) m_legsHasRunning = true;
             else if (hash == deadHash) m_legsHasDead = true;
         }
     }
@@ -61,29 +66,88 @@ public class MechSuitAnimationController : EnemyAnimationController
     {
         base.Update();
 
-        // Check if torso is in attack state to toggle legs visibility
-        bool isAttacking = m_animator.GetCurrentAnimatorStateInfo(0).IsTag("Attack");
-        SetLegsVisible(isAttacking);
+        SetLegsVisible(IsTorsoAttackingOrTransitioningToAttack());
 
-        // Drive running state from movement on both torso and legs
         EnemyMovement movement = m_enemyController.Movement;
-        bool isMoving = movement != null && (movement.CanMove || movement.Strafe);
+        bool isMoving = movement != null && movement.IsMoving;
 
         if (m_torsoHasRunning)
             m_animator.SetBool(Running, isMoving);
+
+        UpdateLegsFlip();
 
         if (m_legsAnimator == null) return;
 
         if (m_legsHasRunning)
             m_legsAnimator.SetBool(Running, isMoving);
 
-        // Sync rotation to legs
-        if (m_legsHasRotation && m_targeting.CurrentTarget != null)
+        TickFootstepRumble(isMoving);
+    }
+
+    private void TickFootstepRumble(bool isMoving)
+    {
+        if (m_footstepRumble <= 0f || !isMoving)
         {
-            Vector3 diff = (m_targeting.CurrentTarget.position - m_enemyController.transform.position).normalized;
-            float angle = Mathf.Repeat(-Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg, 360f);
-            m_legsAnimator.SetFloat(LegsRotation, angle);
+            m_footstepTracking = false;
+            return;
         }
+
+        if (m_cameraShake == null)
+            ServiceLocator.Global.TryGet(out m_cameraShake);
+        if (m_cameraShake == null) return;
+
+        float normalizedTime = m_legsAnimator.GetCurrentAnimatorStateInfo(BaseLayerIndex).normalizedTime;
+        float fractional = normalizedTime - Mathf.Floor(normalizedTime);
+        bool firstHalf = fractional < 0.5f;
+
+        if (!m_footstepTracking)
+        {
+            m_footstepTracking = true;
+            m_footstepLastHalf = firstHalf;
+            return;
+        }
+
+        if (firstHalf != m_footstepLastHalf)
+        {
+            m_cameraShake.Rumble(m_footstepRumble);
+            m_footstepLastHalf = firstHalf;
+        }
+    }
+
+    // Mirror the legs sprite horizontally to match the torso aim direction. The legs
+    // animator only has Idle/Run states with no directional blend tree, so flipX is the
+    // only axis of orientation they have.
+    private void UpdateLegsFlip()
+    {
+        if (m_legsSpriteRenderer == null || m_targeting == null) return;
+
+        Transform target = m_targeting.CurrentTarget;
+        if (target == null) return;
+
+        float dx = target.position.x - m_enemyController.transform.position.x;
+        if (dx == 0f) return;
+
+        m_legsSpriteRenderer.flipX = dx < 0f;
+    }
+
+    /// <summary>
+    /// Returns true if the torso is currently playing an Attack-tagged state OR crossfading
+    /// into one. Checking both the current and next state prevents a one-frame leg flicker
+    /// during transitions, where <see cref="Animator.GetCurrentAnimatorStateInfo"/> reports
+    /// the outgoing (non-Attack) state for the duration of the blend.
+    /// </summary>
+    private bool IsTorsoAttackingOrTransitioningToAttack()
+    {
+        AnimatorStateInfo current = m_animator.GetCurrentAnimatorStateInfo(BaseLayerIndex);
+        if (current.tagHash == AttackTagHash) return true;
+
+        if (m_animator.IsInTransition(BaseLayerIndex))
+        {
+            AnimatorStateInfo next = m_animator.GetNextAnimatorStateInfo(BaseLayerIndex);
+            if (next.tagHash == AttackTagHash) return true;
+        }
+
+        return false;
     }
 
     protected override void OnDeath()

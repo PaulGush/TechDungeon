@@ -2,6 +2,7 @@ using System.Collections;
 using Gameplay.ObjectPool;
 using PlayerObject;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityServiceLocator;
@@ -27,9 +28,12 @@ public class DeathScreen : MonoBehaviour
 
     private CanvasGroup[] m_buttonGroups;
     private RectTransform[] m_buttonRects;
+    private float m_originalFixedDeltaTime;
 
     private void Awake()
     {
+        m_originalFixedDeltaTime = Time.fixedDeltaTime;
+
         m_buttonGroups = new[]
         {
             GetOrAddCanvasGroup(m_newRunButton),
@@ -48,6 +52,12 @@ public class DeathScreen : MonoBehaviour
         gameObject.SetActive(false);
     }
 
+    private void OnDestroy()
+    {
+        if (m_newRunButton != null) m_newRunButton.onClick.RemoveListener(OnNewRun);
+        if (m_mainMenuButton != null) m_mainMenuButton.onClick.RemoveListener(OnMainMenu);
+    }
+
     public void Show()
     {
         gameObject.SetActive(true);
@@ -62,11 +72,18 @@ public class DeathScreen : MonoBehaviour
             m_buttonGroups[i].interactable = false;
         }
 
+        Coroutine last = null;
         for (int i = 0; i < m_buttonGroups.Length; i++)
         {
-            StartCoroutine(AnimateButton(m_buttonGroups[i], m_buttonRects[i]));
-            yield return new WaitForSecondsRealtime(m_buttonDelay);
+            last = StartCoroutine(AnimateButton(m_buttonGroups[i], m_buttonRects[i]));
+            if (i < m_buttonGroups.Length - 1)
+                yield return new WaitForSecondsRealtime(m_buttonDelay);
         }
+
+        if (last != null) yield return last;
+
+        if (EventSystem.current != null && m_newRunButton != null)
+            EventSystem.current.SetSelectedGameObject(m_newRunButton.gameObject);
     }
 
     private IEnumerator AnimateButton(CanvasGroup group, RectTransform rect)
@@ -102,7 +119,7 @@ public class DeathScreen : MonoBehaviour
     private void OnMainMenu()
     {
         Time.timeScale = 1f;
-        Time.fixedDeltaTime = 0.02f;
+        Time.fixedDeltaTime = m_originalFixedDeltaTime;
         ServiceLocator.Global.Get<ObjectPool>().ClearAll();
         SceneManager.LoadScene(m_mainMenuScene);
     }
@@ -113,11 +130,18 @@ public class DeathScreen : MonoBehaviour
         m_playerAnimator.ResetAnimator();
 
         ServiceLocator.Global.Get<ObjectPool>().ClearAll();
-        ServiceLocator.Global.Get<MutationManager>().Reset();
+        ServiceLocator.Global.Get<ItemManager>().Reset();
         ServiceLocator.Global.Get<AmmoManager>().Reset();
         ServiceLocator.Global.Get<CreditManager>().Reset();
+        if (ServiceLocator.Global.TryGet(out AbilityController abilityController))
+            abilityController.Reset();
+        if (ServiceLocator.Global.TryGet(out PlayerStatusEffects status))
+            status.Clear();
         m_weaponHolder.Reset();
         ServiceLocator.Global.Get<RoomManager>().ResetToStartingRoom();
+
+        if (EventSystem.current != null)
+            EventSystem.current.SetSelectedGameObject(null);
 
         gameObject.SetActive(false);
     }

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Gameplay.ObjectPool;
+using PlayerObject;
 using UnityEngine;
 using UnityServiceLocator;
 
@@ -45,9 +46,8 @@ public class EnemyEncounterSpawner : MonoBehaviour
     {
         ServiceLocator.Global.TryGet(out m_pool);
 
-        var playerObj = GameObject.FindGameObjectWithTag("Player");
-        if (playerObj != null)
-            m_player = playerObj.transform;
+        if (ServiceLocator.Global.TryGet(out PlayerMovementController player))
+            m_player = player.transform;
     }
 
     private void FixedUpdate()

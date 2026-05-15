@@ -24,13 +24,20 @@ namespace Input
         public UnityAction InventoryReleased = delegate {  };
         public UnityAction Roll = delegate {  };
         public UnityAction Look = delegate {  };
-        
+        public UnityAction Reload = delegate {  };
+        public UnityAction<int> UseAbility = delegate {  };
+        // Fired by the (otherwise-unused) "Sprint" action, rebound to Left Alt. Toggles the
+        // weapon-stats panel when a weapon pickup is in range.
+        public UnityAction ViewWeaponStats = delegate {  };
+
         private InputSystem_Actions m_inputActions;
         
         public Vector2 MoveDirection => m_inputActions.Player.Move.ReadValue<Vector2>();
         public Vector2 LookDirection => m_inputActions.Player.Look.ReadValue<Vector2>();
-        
-        public bool IsMoveInputPressed => m_inputActions.Player.Move.IsPressed();
+
+        public bool IsMoveInputPressed => m_inputActions.Player.Move.ReadValue<Vector2>().sqrMagnitude > 0f;
+        public bool IsAttackHeld => m_inputActions != null && m_inputActions.Player.Attack.IsPressed();
+        public bool IsPlayerActionsEnabled => m_inputActions != null && m_inputActions.Player.enabled;
         public void EnablePlayerActions()
         {
             if (m_inputActions == null)
@@ -85,7 +92,11 @@ namespace Input
         
         public void OnSprint(InputAction.CallbackContext context)
         {
-
+            // "Sprint" is repurposed as the weapon-stats toggle (rebound to Left Alt).
+            if (context.phase == InputActionPhase.Started)
+            {
+                ViewWeaponStats?.Invoke();
+            }
         }
 
         public void OnAltInteract(InputAction.CallbackContext context)
@@ -114,6 +125,38 @@ namespace Input
         public void OnLook(InputAction.CallbackContext context)
         {
             Look?.Invoke();
+        }
+
+        public void OnReload(InputAction.CallbackContext context)
+        {
+            if (context.phase == InputActionPhase.Started)
+            {
+                Reload?.Invoke();
+            }
+        }
+
+        public void OnUseAbility1(InputAction.CallbackContext context)
+        {
+            if (context.phase == InputActionPhase.Started)
+                UseAbility?.Invoke(0);
+        }
+
+        public void OnUseAbility2(InputAction.CallbackContext context)
+        {
+            if (context.phase == InputActionPhase.Started)
+                UseAbility?.Invoke(1);
+        }
+
+        public void OnUseAbility3(InputAction.CallbackContext context)
+        {
+            if (context.phase == InputActionPhase.Started)
+                UseAbility?.Invoke(2);
+        }
+
+        public void OnUseAbility4(InputAction.CallbackContext context)
+        {
+            if (context.phase == InputActionPhase.Started)
+                UseAbility?.Invoke(3);
         }
     }
 }

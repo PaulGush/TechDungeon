@@ -17,6 +17,22 @@ public class DialogueMixerBehaviour : PlayableBehaviour
         m_dialogueBox = playerData as DialogueBoxUI;
         if (m_dialogueBox == null) return;
 
+        // While paused waiting for input, force full opacity — clip blend-out may have
+        // already started dropping the weight before typing finished.
+        if (m_pausedForInput)
+        {
+            var rootPlayable = playable.GetGraph().GetRootPlayable(0);
+            if (rootPlayable.GetSpeed() > 0f)
+            {
+                m_pausedForInput = false;
+            }
+            else
+            {
+                m_dialogueBox.SetAlpha(1f);
+                return;
+            }
+        }
+
         int inputCount = playable.GetInputCount();
         DialogueBehaviour activeBehaviour = null;
         ScriptPlayable<DialogueBehaviour> activePlayable = default;
@@ -37,9 +53,10 @@ public class DialogueMixerBehaviour : PlayableBehaviour
         }
 
         // Typing finished within the current clip — pause here while it's still active
-        if (m_waitForInputPending && !m_pausedForInput && !m_dialogueBox.IsTyping)
+        if (m_waitForInputPending && !m_dialogueBox.IsTyping)
         {
             m_dialogueBox.CompleteLine();
+            m_dialogueBox.SetAlpha(1f);
             var rootPlayable = playable.GetGraph().GetRootPlayable(0);
             rootPlayable.SetSpeed(0);
             m_pausedForInput = true;

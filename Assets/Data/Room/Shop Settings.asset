@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ShopSettings
   WeaponPool:
   - {fileID: 2536621532265573277, guid: c6a35086649851c14b1e1585a631ce77, type: 3}
-  MutationPool:
+  ItemPool:
   - {fileID: 6637486031254150006, guid: b40c518e2175cb339af08b77a3c9aee7, type: 3}
   - {fileID: 79931091165269276, guid: 9c451cb080ab597c095345db91d9a5ab, type: 3}
   - {fileID: 5275515147056584636, guid: c905decee594eb2bd977e7e5719a5f41, type: 3}

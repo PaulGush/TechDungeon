@@ -266,7 +266,7 @@ MonoBehaviour:
     m_PreExtrapolationMode: 0
     m_PostExtrapolationTime: 0
     m_PreExtrapolationTime: 0
-    m_DisplayName: vcam_Player
+    m_DisplayName: Player Cam
   - m_Version: 1
     m_Start: 0
     m_ClipIn: 0
@@ -335,7 +335,7 @@ MonoBehaviour:
     m_PreExtrapolationMode: 0
     m_PostExtrapolationTime: 0
     m_PreExtrapolationTime: 0
-    m_DisplayName: vcam_Boss
+    m_DisplayName: Boss Cam
   m_Markers:
     m_Objects: []
   TrackPriority: 0
@@ -708,8 +708,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfa64a8770cbffb51b4d26bff1196c25, type: 3}
   m_Name: TransformMoveClip
   m_EditorClassIdentifier: Assembly-CSharp::TransformMoveClip
-  StartPosition: {x: -150, y: 225, z: 0}
-  EndPosition: {x: 150, y: 225, z: 0}
+  StartPosition: {x: -150, y: 400, z: 0}
+  EndPosition: {x: 150, y: 400, z: 0}
   UseLocalSpace: 0
 --- !u!114 &6140229505771442576
 MonoBehaviour:
