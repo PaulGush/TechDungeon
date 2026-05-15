@@ -2,10 +2,11 @@ using System.Collections;
 using TMPro;
 using UI.InputPrompts;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using UnityServiceLocator;
 
-public class AbilityHudSlot : MonoBehaviour
+public class AbilityHudSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [Header("Slot")]
     [Tooltip("Which slot this HUD element represents (0-3). Matches the input slot — 0=Key 1/DPad Up, 1=Key 2/DPad Right, 2=Key 3/DPad Down, 3=Key 4/DPad Left.")]
@@ -55,11 +56,23 @@ public class AbilityHudSlot : MonoBehaviour
     [Tooltip("Sweep duration in seconds. Runs on unscaled time so it plays through any active hit-stop.")]
     [SerializeField] private float m_sheenDuration = 0.4f;
 
+    [Header("Tooltip")]
+    [Tooltip("RectTransform the hover tooltip centers itself above. Assign the ability bar root (or an empty marker at the top-center of the slot grid) so the tooltip floats over the whole bar instead of the individual slot. Leave empty to anchor to this slot.")]
+    [SerializeField] private RectTransform m_tooltipAnchor;
+
     private AbilityController m_controller;
     private Coroutine m_sheenCoroutine;
     // Set when this slot fires the ability and cleared when the resulting cooldown drains, so we
     // only sheen the post-cooldown moment (not the implicit "ready" emitted on Equip).
     private bool m_pendingSheen;
+
+    private Tooltip m_tooltip;
+    private RectTransform m_rect;
+    private string m_tooltipTitle;
+    private string m_tooltipBody;
+    private string m_tooltipEffect;
+    private bool m_hasTooltip;
+    private bool m_tooltipShown;
 
     private void Awake()
     {
@@ -90,6 +103,7 @@ public class AbilityHudSlot : MonoBehaviour
     private void OnDisable()
     {
         ActiveDeviceTracker.DeviceChanged -= OnDeviceChanged;
+        HideTooltip();
     }
 
     private void OnDestroy()
@@ -100,6 +114,39 @@ public class AbilityHudSlot : MonoBehaviour
             m_controller.OnAbilityUsed -= OnAbilityUsed;
             m_controller.OnCooldownReady -= OnCooldownReady;
         }
+        HideTooltip();
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (!m_hasTooltip) return;
+        if (m_tooltip == null) ServiceLocator.Global.TryGet(out m_tooltip);
+        if (m_tooltip == null) return;
+        if (m_rect == null) m_rect = transform as RectTransform;
+        m_tooltip.ShowAbove(m_tooltipTitle, m_tooltipBody, m_tooltipEffect, ResolveTooltipAnchor(), this);
+        m_tooltipShown = true;
+    }
+
+    // Priority: explicit slot override → parent bar's anchor (auto-finds the "TooltipAnchor" marker)
+    // → this slot's own rect.
+    private RectTransform ResolveTooltipAnchor()
+    {
+        if (m_tooltipAnchor != null) return m_tooltipAnchor;
+        AbilityHudBar bar = GetComponentInParent<AbilityHudBar>();
+        if (bar != null && bar.TooltipAnchor != null) return bar.TooltipAnchor;
+        return m_rect;
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        HideTooltip();
+    }
+
+    private void HideTooltip()
+    {
+        if (!m_tooltipShown || m_tooltip == null) return;
+        m_tooltip.Hide(this);
+        m_tooltipShown = false;
     }
 
     private void OnDeviceChanged(ActiveDevice device) => ApplyDevicePrompts(device);
@@ -178,7 +225,20 @@ public class AbilityHudSlot : MonoBehaviour
 
         SetRootActive(ability != null);
 
-        if (ability == null) return;
+        if (ability == null)
+        {
+            m_hasTooltip = false;
+            HideTooltip();
+            return;
+        }
+
+        // Mirrors AbilityPickupEffect.TryGetTooltip so hover and pickup tooltips stay identical.
+        m_tooltipTitle = ability.DisplayName;
+        m_tooltipBody = ability.Description;
+        m_tooltipEffect = $"Cooldown {ability.Cooldown:0.#}s";
+        m_hasTooltip = true;
+        if (m_tooltipShown && m_tooltip != null)
+            m_tooltip.ShowAbove(m_tooltipTitle, m_tooltipBody, m_tooltipEffect, ResolveTooltipAnchor(), this);
 
         if (m_iconImage != null)
         {

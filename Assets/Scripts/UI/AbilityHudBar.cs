@@ -10,6 +10,43 @@ public class AbilityHudBar : MonoBehaviour
     [Tooltip("Slots in slot-index order (0..3). Full RectTransform state (anchors, pivot, anchoredPosition, sizeDelta) is captured on Awake before the layout group ever runs, then restored when a controller becomes active.")]
     [SerializeField] private RectTransform[] m_slots;
 
+    [Tooltip("RectTransform hover tooltips center themselves above. If left empty, a child named \"TooltipAnchor\" is used; otherwise the bar's own rect.")]
+    [SerializeField] private RectTransform m_tooltipAnchor;
+
+    [Tooltip("Canvas units above the bottom of the bar where the tooltip anchor sits. Applied each Awake to the resolved anchor's RectTransform — tweak to nudge tooltips up/down without saving the scene.")]
+    [SerializeField] private float m_tooltipAnchorYOffset = 120f;
+
+    private RectTransform m_resolvedTooltipAnchor;
+
+    // Resolved once, in priority order: explicit serialized field, a child named "TooltipAnchor"
+    // (the conventional marker), or this bar's own rect as the final fallback.
+    public RectTransform TooltipAnchor
+    {
+        get
+        {
+            if (m_tooltipAnchor != null) return m_tooltipAnchor;
+            if (m_resolvedTooltipAnchor == null)
+            {
+                Transform t = transform.Find("TooltipAnchor");
+                m_resolvedTooltipAnchor = t as RectTransform ?? transform as RectTransform;
+            }
+            return m_resolvedTooltipAnchor;
+        }
+    }
+
+    private void ApplyTooltipAnchorPosition()
+    {
+        RectTransform a = TooltipAnchor;
+        if (a == null || a == transform) return;
+        // Stick to bottom-center of the bar with a configurable Y offset, so the tooltip sits a
+        // fixed distance above the slot row regardless of the bar's overall height.
+        a.anchorMin = new Vector2(0.5f, 0f);
+        a.anchorMax = new Vector2(0.5f, 0f);
+        a.pivot = new Vector2(0.5f, 1f);
+        a.anchoredPosition = new Vector2(0f, m_tooltipAnchorYOffset);
+        a.sizeDelta = Vector2.zero;
+    }
+
     private struct RectSnapshot
     {
         public Vector2 anchorMin;
@@ -37,6 +74,8 @@ public class AbilityHudBar : MonoBehaviour
                 sizeDelta = m_slots[i].sizeDelta,
             };
         }
+
+        ApplyTooltipAnchorPosition();
     }
 
     private void OnEnable()

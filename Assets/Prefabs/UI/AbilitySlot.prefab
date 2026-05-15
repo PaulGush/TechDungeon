@@ -59,7 +59,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
   m_Color: {r: 0.6431373, g: 0.6431373, b: 0.6431373, a: 1}
-  m_RaycastTarget: 0
+  m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -637,9 +637,6 @@ MonoBehaviour:
   m_cooldownFill: {fileID: 5366512870752875921}
   m_keyPrompt: {fileID: 3571077333115008936}
   m_dpadPrompt: {fileID: 9005050974208117995}
-  m_swapPositionByDevice: 0
-  m_keyboardPosition: {x: 0, y: 0}
-  m_controllerPosition: {x: 0, y: 0}
   m_animator: {fileID: 1000000000000000001}
   m_pressTriggerName: Press
   m_dimmedIconColor: {r: 0.4, g: 0.4, b: 0.4, a: 1}
