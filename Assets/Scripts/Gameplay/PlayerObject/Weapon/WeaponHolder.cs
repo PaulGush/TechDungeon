@@ -288,14 +288,22 @@ namespace PlayerObject
                 m_inputReader.Interact += Equip;
             }
 
+            m_interactionDisplay?.Show(BuildInteractText(), this);
+
+            RefreshStatsPanel();
+        }
+
+        // Suffix flips: "details"/"compare" when the panel is closed, "hide" when it's open, so the
+        // prompt always describes what the button will do next.
+        private string BuildInteractText()
+        {
             string text = m_currentWeapon != null
                 ? "[Interact] swap " + GetWeaponDisplayName(m_currentWeapon) + " for " + GetWeaponDisplayName(m_weaponCandidate)
                 : "[Interact] equip " + GetWeaponDisplayName(m_weaponCandidate);
-            // Held weapon → comparison panel; no held weapon → just the candidate's stats.
-            text += m_currentWeapon != null ? "   [Sprint] compare" : "   [Sprint] details";
-            m_interactionDisplay?.Show(text, this);
-
-            RefreshStatsPanel();
+            string suffix = PickupDetailsPreference.ShowDetails
+                ? "hide"
+                : (m_currentWeapon != null ? "compare" : "details");
+            return text + "   [Sprint] " + suffix;
         }
 
         // Show the stats panel (comparing the candidate against the held weapon) iff the player has
@@ -323,6 +331,12 @@ namespace PlayerObject
             else
             {
                 m_statsPanel?.Hide();
+            }
+
+            // Refresh the prompt suffix too — toggling the preference flips "details/compare" ↔ "hide".
+            if (m_weaponCandidate != null)
+            {
+                m_interactionDisplay?.Show(BuildInteractText(), this);
             }
         }
 

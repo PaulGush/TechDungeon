@@ -215,6 +215,12 @@ public class ShopPedestal : MonoBehaviour
         {
             m_statsPanel?.Hide();
         }
+
+        // Refresh the prompt suffix too — toggling the preference flips "details" ↔ "hide".
+        if (m_playerInside && !m_isSold)
+        {
+            m_interactionDisplay?.Show(GetInteractText(), this);
+        }
     }
 
     private void ShowTooltip()
@@ -237,7 +243,10 @@ public class ShopPedestal : MonoBehaviour
         string text = canAfford
             ? "[Interact] Acquire  [AltInteract] Jack"
             : "[AltInteract] Jack";
-        if (m_weaponTemplate != null) text += "   [Sprint] details";
+        if (m_weaponTemplate != null)
+        {
+            text += PickupDetailsPreference.ShowDetails ? "   [Sprint] hide" : "   [Sprint] details";
+        }
         return text;
     }
 
